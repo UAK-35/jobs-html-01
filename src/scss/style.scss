@@ -3,11 +3,104 @@
 @charset "UTF-8";
 
 // Import all of Bootstrap's CSS
-//@import "../../node_modules/bootstrap/scss/bootstrap";
-//@import "bootstrap/scss/bootstrap";
-@use "bootstrap/scss/bootstrap" as *;
+//@use "bootstrap/scss/bootstrap" as *;
+
+// 1. Include functions first (so you can manipulate colors, SVGs, calc, etc)
+@import "bootstrap/scss/functions";
+//@use "bootstrap/scss/functions" as *;
+
+// 2. Include any default variable overrides here
+
+// 3. Include remainder of required Bootstrap stylesheets (including any separate color mode stylesheets)
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/variables-dark";
+//@use "bootstrap/scss/variables" as *;
+//@use "bootstrap/scss/variables-dark" as *;
+
+// 4. Include any default map overrides here
+
+// 5. Include remainder of required parts
+@import "bootstrap/scss/maps";
+@import "bootstrap/scss/mixins";
+@import "bootstrap/scss/root";
+//@use "bootstrap/scss/maps" as *;
+//@use "bootstrap/scss/mixins" as *;
+//@use "bootstrap/scss/root" as *;
+
+// 6. Optionally include any other parts as needed
+@import "bootstrap/scss/utilities";
+@import "bootstrap/scss/reboot";
+@import "bootstrap/scss/type";
+@import "bootstrap/scss/images";
+@import "bootstrap/scss/containers";
+@import "bootstrap/scss/grid";
+@import "bootstrap/scss/helpers";
+//@use "bootstrap/scss/utilities" as *;
+
+//$j-text-colors: map-merge-multiple($blues, $indigos, $purples, $pinks, $reds, $oranges, $yellows, $greens, $teals, $cyans);
+//$utilities: map-merge(
+//    $utilities,
+//    (
+//      "color": map-merge(
+//          map-get($utilities, "color"),
+//          (
+//            values: map-merge(
+//                map-get(map-get($utilities, "color"), "values"),
+//                  (
+//                    $j-text-colors
+//                  ),
+//            ),
+//          ),
+//      ),
+//    )
+//);
+
+// 7. Optionally include utilities API last to generate classes based on the Sass map in `_utilities.scss`
+@import "bootstrap/scss/utilities/api";
+//@use "bootstrap/scss/utilities/api" as *;
+
+
 
 // Add additional custom code here
-.btn-primary {
-  background-color: red;
+
+@import "./font1";
+
+* {
+  //font-family: Arial, serif;
+  font-family: Montserrat, serif;
+}
+
+.w-39pct {
+  width: 39%;
+}
+.w-43pct {
+  width: 43%;
+}
+.w-49pct {
+  width: 49%;
+}
+.w-51pct {
+  width: 51%;
+}
+.w-55pct {
+  width: 55%;
+}
+.h-100px {
+  height: 100px;
+}
+
+.text-light-green-1 {
+  color: #75C81B;
+}
+
+.body-wrapper {
+  width: 100%;
+  max-width: 1440px;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 1rem 5%;
+  background-color: antiquewhite;
+
+  display: flex;
+  flex-direction: column;
 }

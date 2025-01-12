@@ -24,13 +24,240 @@
   </head>
 
   <body>
-    <!-- Add your site or application content here -->
-    <div class="container py-4 px-3 mx-auto">
-      <h1>Hello, Bootstrap and Webpack!</h1>
-      <p>Hello world! This is HTML5 Boilerplate.</p>
-      <button class="btn btn-primary">Primary button</button>
-    </div>
 
-    <script src="./main.js"></script>
+  <div class="body-wrapper">
+
+    <!-- Header -->
+    <header class="d-flex flex-row justify-content-between align-items-start h-100px bg-light mb-3">
+      <div class="logo">MyJobDone</div>
+      <div class="phone">02034355542</div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero d-flex flex-row justify-content-between align-items-start bg-light mb-3">
+      <div class="hero-content">
+        <h1><span class="text-black">Get your Job Done with </span><span class="highlight text-light-green-1">Local Tradesman</span></h1>
+        <ul class="features">
+          <li>Nr.1 Price in London</li>
+          <li>Pay only then the Job is Done</li>
+          <li>3 Years Warranty</li>
+        </ul>
+        <button class="cta-button" onclick="calculateJob()">Calculate My Job</button>
+      </div>
+      <div class="hero-image">
+        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Speech_Bubble-HuRq2wTdQBSEr54a57Hap3AJZDvNdE.png" alt="Tradesman Services Illustration">
+      </div>
+    </section>
+
+    <!-- Job Selection Section -->
+    <section class="job-selection d-flex flex-column justify-content-start align-items-center bg-light mb-3">
+      <h2 class="section-title">Select your Job</h2>
+      <div class="job-grid d-flex flex-row justify-content-start align-items-start flex-wrap" id="jobGrid">
+        <div class="job-card">
+          <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Untitled-1%201-lUNU6IoumQjzx4p2ZmALNvm4w5vG6x.svg" alt="" class="job-icon">
+          <h3 class="job-title">Wall Job</h3>
+          <p class="job-description">Painting, Skimming, Rendering, Tiling etc...</p>
+          <a href="#" class="calculate-btn">
+            Calculate
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+            </svg>
+          </a>
+        </div>
+        <div class="job-card">
+          <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Untitled-1%201-lUNU6IoumQjzx4p2ZmALNvm4w5vG6x.svg" alt="" class="job-icon">
+          <h3 class="job-title">Wall Job</h3>
+          <p class="job-description">Painting, Skimming, Rendering, Tiling etc...</p>
+          <a href="#" class="calculate-btn">
+            Calculate
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+            </svg>
+          </a>
+        </div>
+        <div class="job-card">
+          <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Untitled-1%201-lUNU6IoumQjzx4p2ZmALNvm4w5vG6x.svg" alt="" class="job-icon">
+          <h3 class="job-title">Wall Job</h3>
+          <p class="job-description">Painting, Skimming, Rendering, Tiling etc...</p>
+          <a href="#" class="calculate-btn">
+            Calculate
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+            </svg>
+          </a>
+        </div>
+        <div class="job-card">
+          <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Untitled-1%201-lUNU6IoumQjzx4p2ZmALNvm4w5vG6x.svg" alt="" class="job-icon">
+          <h3 class="job-title">Wall Job</h3>
+          <p class="job-description">Painting, Skimming, Rendering, Tiling etc...</p>
+          <a href="#" class="calculate-btn">
+            Calculate
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+            </svg>
+          </a>
+        </div>
+        <div class="job-card">
+          <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Untitled-1%201-lUNU6IoumQjzx4p2ZmALNvm4w5vG6x.svg" alt="" class="job-icon">
+          <h3 class="job-title">Wall Job</h3>
+          <p class="job-description">Painting, Skimming, Rendering, Tiling etc...</p>
+          <a href="#" class="calculate-btn">
+            Calculate
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+            </svg>
+          </a>
+        </div>
+        <div class="job-card">
+          <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Untitled-1%201-lUNU6IoumQjzx4p2ZmALNvm4w5vG6x.svg" alt="" class="job-icon">
+          <h3 class="job-title">Wall Job</h3>
+          <p class="job-description">Painting, Skimming, Rendering, Tiling etc...</p>
+          <a href="#" class="calculate-btn">
+            Calculate
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+            </svg>
+          </a>
+        </div>
+        <div class="job-card">
+          <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Untitled-1%201-lUNU6IoumQjzx4p2ZmALNvm4w5vG6x.svg" alt="" class="job-icon">
+          <h3 class="job-title">Wall Job</h3>
+          <p class="job-description">Painting, Skimming, Rendering, Tiling etc...</p>
+          <a href="#" class="calculate-btn">
+            Calculate
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quote Calculator Section -->
+    <section class="quote-calculator d-flex flex-row justify-content-between align-items-start bg-light mb-3">
+      <div class="quote-content">
+        <h2 class="quote-title">Calculate your Quote</h2>
+        <p class="quote-subtitle">Easily understand the labor costs for your project with our straightforward calculation process.</p>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-number">01</div>
+            <div class="step-content">
+              <h3>Select Job Service</h3>
+              <p>Choose from our range of professional services</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-number">02</div>
+            <div class="step-content">
+              <h3>Enter Project Details</h3>
+              <p>Provide dimensions, materials, and specific requirements</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-number">03</div>
+            <div class="step-content">
+              <h3>Get Your Estimate</h3>
+              <p>Receive an instant quote for your project</p>
+            </div>
+          </div>
+        </div>
+
+        <button class="cta-button">Calculate My Job</button>
+      </div>
+      <div class="quote-image">
+        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Group%201000001790-k7aMGcikujtAtWzW9GWYn9LGyu4VXs.png" alt="Quote Calculator Illustration">
+      </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services d-flex flex-column justify-content-start align-items-center bg-light mb-3">
+      <div class="container">
+        <div class="services-header">
+          <div class="header-content">
+            <h2 class="section-title">
+              Comprehensive Home<br>
+              Renovation Services<br>
+              for You
+            </h2>
+            <p class="section-description">
+              Whether you're looking to update a single room or undertake a full home renovation, our team is here to help. We offer a wide range of services to meet all your renovation
+            </p>
+            <button class="see-more-btn">See More</button>
+          </div>
+        </div>
+        <div class="service-grid d-flex flex-row justify-content-between align-items-start flex-wrap">
+          <div class="service-card w-25">
+            <div class="icon-wrapper">
+            </div>
+            <h3>Kitchen Refurbishment</h3>
+            <p>Reimagine your kitchen with modern designs, quality materials, and functional layouts. From sleek cabinetry to energy-efficient appliances, we'll transform your kitchen into the heart of your home.</p>
+          </div>
+          <div class="service-card w-25">
+            <div class="icon-wrapper">
+            </div>
+            <h3>Bathroom Remodeling</h3>
+            <p>Create a relaxing oasis with our bespoke bathroom remodeling services. Whether you desire a spa-like retreat or a contemporary look, we bring elegance and practicality to every detail.</p>
+          </div>
+          <div class="service-card w-25">
+            <div class="icon-wrapper">
+            </div>
+            <h3>House Refurbishment</h3>
+            <p>Give your entire home a fresh, cohesive update with our comprehensive refurbishment services. From concept to completion, we enhance every corner of your living space to reflect your unique style.</p>
+          </div>
+          <div class="service-card w-25">
+            <div class="icon-wrapper">
+            </div>
+            <h3>Home Extensions</h3>
+            <p>Expand your living space with expertly designed and beautifully crafted home extensions that blend seamlessly with your existing property, adding value, comfort, functionality, and style to your home.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Approach Section -->
+    <section class="approach d-flex flex-row justify-content-between align-items-start bg-light mb-3">
+        <div class="approach-images w-43pct">
+          <img class="w-100" src="https://www.figma.com/file/DkehcjnQfcXpvTBRy0R6D6/image/a53f25ee9fe0e1da1fec3c3c42dfd8d245f8543d" alt="ALT" />
+          <img class="w-55pct" src="https://www.figma.com/file/DkehcjnQfcXpvTBRy0R6D6/image/a53f25ee9fe0e1da1fec3c3c42dfd8d245f8543d" alt="ALT" />
+          <img class="w-39pct" src="https://www.figma.com/file/DkehcjnQfcXpvTBRy0R6D6/image/a53f25ee9fe0e1da1fec3c3c42dfd8d245f8543d" alt="ALT" />
+        </div>
+        <div class="approach-content w-51pct d-flex flex-column justify-content-start align-items-center">
+          <div class="approach-header">
+            <h1>Our comprehensive approach ensures that every aspect of your renovation</h1>
+            <p>Our comprehensive approach ensures that every aspect of your renovation project is meticulously planned and executed</p>
+          </div>
+          <div class="approach-grid w-100 d-flex flex-row justify-content-start align-items-start flex-wrap">
+            <div class="approach-card w-49pct">
+              <div class="icon-wrapper">
+              </div>
+              <h3>Initial Consultation</h3>
+              <p>Our experts listen to your vision and provide professional advice to help shape your project</p>
+            </div>
+            <div class="approach-card w-49pct">
+              <div class="icon-wrapper">
+              </div>
+              <h3>Initial Consultation</h3>
+              <p>Our experts listen to your vision and provide professional advice to help shape your project</p>
+            </div>
+            <div class="approach-card w-49pct">
+              <div class="icon-wrapper">
+              </div>
+              <h3>Initial Consultation</h3>
+              <p>Our experts listen to your vision and provide professional advice to help shape your project</p>
+            </div>
+            <div class="approach-card w-49pct">
+              <div class="icon-wrapper">
+              </div>
+              <h3>Initial Consultation</h3>
+              <p>Our experts listen to your vision and provide professional advice to help shape your project</p>
+            </div>
+          </div>
+        </div>
+    </section>
+
+  </div>
+
+  <script src="./main.js"></script>
   </body>
 </html>
