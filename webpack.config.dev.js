@@ -7,7 +7,9 @@ module.exports = merge(common, {
   devServer: {
     liveReload: true,
     hot: true,
-    open: true,
+    open: false,
     static: ['./'],
+    host: 'localhost',
+    port: 5001
   },
 });
