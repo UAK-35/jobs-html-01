@@ -1,0 +1,13 @@
+/** @format */
+
+@charset "UTF-8";
+
+// Import all of Bootstrap's CSS
+//@import "../../node_modules/bootstrap/scss/bootstrap";
+//@import "bootstrap/scss/bootstrap";
+@use "bootstrap/scss/bootstrap" as *;
+
+// Add additional custom code here
+.btn-primary {
+  background-color: red;
+}

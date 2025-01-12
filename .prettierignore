@@ -1,0 +1,56 @@
+# Ignore IDE directories
+.idea/
+.run/
+
+# Ignore build output directories
+.nuxt/
+dist/
+
+# Ignore node modules
+node_modules/
+
+# Ignore specific configuration files
+*.config.js
+
+# Ignore environment variables files
+.env*
+
+# Ignore lock files
+yarn.lock
+package-lock.json
+
+# Ignore logs
+*.log
+
+# Ignore compiled files
+*.min.js
+*.min.css
+
+
+# Ignore specific file types
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.svg
+
+# Ignore other generated files
+coverage/
+
+# Ignore custom folders/files
+db/
+logs/
+public/
+public2/
+test/
+views/
+*audit.json
+12-es2015.f0395d93a85e8a23b358.js
+api.*
+*.sql
+*.ps1
+*.sh
+*.txt
+tsconfig.json
+emailTest.js
+.prettierrc

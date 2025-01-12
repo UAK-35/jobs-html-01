@@ -1,0 +1,12 @@
+# @format
+
+{
+  "semi": true,
+  "singleQuote": false,
+  "tabWidth": 2,
+  "trailingComma": "es5",
+  "printWidth": 210,
+  "bracketSpacing": true,
+  "insertPragma": true,
+  "endOfLine": "lf"
+}
