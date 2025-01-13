@@ -15,115 +15,117 @@
     <meta property="og:image" content="" />
     <meta property="og:image:alt" content="" />
 
-    <link rel="icon" href="./assets/images/favicon.ico" sizes="any" />
-    <link rel="icon" href="./assets/images/icon.svg" type="image/svg+xml" />
-    <link rel="apple-touch-icon" href="./assets/images/icon.png" />
+    <link rel="icon" href="./assets/images/favicon/favicon.ico" sizes="any" />
+    <link rel="icon" href="./assets/images/favicon/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="./assets/images/favicon/icon.png" />
 
-    <link rel="manifest" href="site.webmanifest" />
+    <link rel="manifest" href="./site.webmanifest" />
     <meta name="theme-color" content="#fafafa" />
   </head>
 
   <body>
 
-  <div class="body-wrapper">
+  <div class="body-wrapper outer-container has-padding w-100 min-vh-100 my-0 mx-auto d-flex flex-column text-custom-black-1">
 
     <!-- Header -->
-    <header class="d-flex flex-row justify-content-between align-items-start h-100px bg-light mb-3">
-      <div class="logo">MyJobDone</div>
-      <div class="phone">02034355542</div>
+    <header class="d-flex flex-column justify-content-between align-items-center h-100px bg-dev mb-3 flex-md-row justify-content-md-between align-content-md-start">
+      <div class="logo-icon-wrapper fix-w-115px fix-h-35px overflow-hidden d-flex flex-row justify-content-center align-items-center">
+        <img class="logo-icon object-fit-contain w-100 h-100" src="./assets/images/icons/Logo1.svg" alt="">
+      </div>
+      <h3 class="phone">02034355542</h3>
     </header>
 
     <!-- Hero Section -->
-    <section class="hero d-flex flex-row justify-content-between align-items-start bg-light mb-3">
+    <section class="hero d-flex flex-column-reverse flex-lg-row justify-content-between align-items-start bg-dev mb-3">
       <div class="hero-content">
-        <h1><span class="text-black">Get your Job Done with </span><span class="highlight text-light-green-1">Local Tradesman</span></h1>
+        <h1 class="display-2 fw-bolder"><span class="text-black">Get your Job Done with </span><span class="highlight text-light-green-1">Local Tradesman</span></h1>
         <ul class="features">
-          <li>Nr.1 Price in London</li>
-          <li>Pay only then the Job is Done</li>
-          <li>3 Years Warranty</li>
+          <li><h3>Nr.1 Price in London</h3></li>
+          <li><h3>Pay only then the Job is Done</h3></li>
+          <li><h3>3 Years Warranty</h3></li>
         </ul>
-        <button class="cta-button" onclick="calculateJob()">Calculate My Job</button>
+        <button class="cta-button btn btn-light-green-1 p-3" data-bs-toggle="modal" data-bs-target="#calculateJobModalDialog">Calculate My Job</button>
       </div>
-      <div class="hero-image">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Speech_Bubble-HuRq2wTdQBSEr54a57Hap3AJZDvNdE.png" alt="Tradesman Services Illustration">
+      <div class="hero-image w-100 overflow-hidden">
+        <img class="object-fit-cover w-100 h-100" src="./assets/images/pics/localTradesmen.png" alt="Tradesman Services Illustration">
       </div>
     </section>
 
     <!-- Job Selection Section -->
-    <section class="job-selection d-flex flex-column justify-content-start align-items-center bg-light mb-3">
-      <h2 class="section-title">Select your Job</h2>
-      <div class="job-grid d-flex flex-row justify-content-start align-items-start flex-wrap" id="jobGrid">
-        <div class="job-card">
-          <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Untitled-1%201-lUNU6IoumQjzx4p2ZmALNvm4w5vG6x.svg" alt="" class="job-icon">
-          <h3 class="job-title">Wall Job</h3>
-          <p class="job-description">Painting, Skimming, Rendering, Tiling etc...</p>
-          <a href="#" class="calculate-btn">
+    <section class="job-selection d-flex flex-column justify-content-center align-items-start bg-dev mb-3 gap-4">
+      <h2 class="section-title display-4 fw-bold">Select your Job</h2>
+      <div class="job-grid d-flex flex-row justify-content-start align-items-start flex-wrap gap-4" id="jobGrid">
+        <div class="job-card w-31pct p-5 bg-light-green-2 rounded rounded-4 d-flex flex-column justify-content-start align-items-start gap-3 border-0 border-danger">
+          <img src="./assets/images/icons/Hammer.svg" alt="" class="job-icon">
+          <h3 class="job-title fw-bold">Wall Job</h3>
+          <h5 class="job-description fw-medium">Painting, Skimming, Rendering, Tiling etc...</h5>
+          <a href="#" class="calculate-btn btn btn-light-green-1" data-bs-toggle="modal" data-bs-target="#calculateJobModalDialog">
             Calculate
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
             </svg>
           </a>
         </div>
-        <div class="job-card">
-          <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Untitled-1%201-lUNU6IoumQjzx4p2ZmALNvm4w5vG6x.svg" alt="" class="job-icon">
-          <h3 class="job-title">Wall Job</h3>
-          <p class="job-description">Painting, Skimming, Rendering, Tiling etc...</p>
-          <a href="#" class="calculate-btn">
+        <div class="job-card w-31pct p-5 bg-light-green-2 rounded rounded-4 d-flex flex-column justify-content-start align-items-start gap-3 border-0 border-danger">
+          <img src="./assets/images/icons/Hammer.svg" alt="" class="job-icon">
+          <h3 class="job-title fw-bold">Wall Job</h3>
+          <h5 class="job-description fw-medium">Painting, Skimming, Rendering, Tiling etc...</h5>
+          <a href="#" class="calculate-btn btn btn-light-green-1" data-bs-toggle="modal" data-bs-target="#calculateJobModalDialog">
             Calculate
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
             </svg>
           </a>
         </div>
-        <div class="job-card">
-          <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Untitled-1%201-lUNU6IoumQjzx4p2ZmALNvm4w5vG6x.svg" alt="" class="job-icon">
-          <h3 class="job-title">Wall Job</h3>
-          <p class="job-description">Painting, Skimming, Rendering, Tiling etc...</p>
-          <a href="#" class="calculate-btn">
+        <div class="job-card w-31pct p-5 bg-light-green-2 rounded rounded-4 d-flex flex-column justify-content-start align-items-start gap-3 border-0 border-danger">
+          <img src="./assets/images/icons/Hammer.svg" alt="" class="job-icon">
+          <h3 class="job-title fw-bold">Wall Job</h3>
+          <h5 class="job-description fw-medium">Painting, Skimming, Rendering, Tiling etc...</h5>
+          <a href="#" class="calculate-btn btn btn-light-green-1" data-bs-toggle="modal" data-bs-target="#calculateJobModalDialog">
             Calculate
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
             </svg>
           </a>
         </div>
-        <div class="job-card">
-          <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Untitled-1%201-lUNU6IoumQjzx4p2ZmALNvm4w5vG6x.svg" alt="" class="job-icon">
-          <h3 class="job-title">Wall Job</h3>
-          <p class="job-description">Painting, Skimming, Rendering, Tiling etc...</p>
-          <a href="#" class="calculate-btn">
+        <div class="job-card w-31pct p-5 bg-light-green-2 rounded rounded-4 d-flex flex-column justify-content-start align-items-start gap-3 border-0 border-danger">
+          <img src="./assets/images/icons/Hammer.svg" alt="" class="job-icon">
+          <h3 class="job-title fw-bold">Wall Job</h3>
+          <h5 class="job-description fw-medium">Painting, Skimming, Rendering, Tiling etc...</h5>
+          <a href="#" class="calculate-btn btn btn-light-green-1" data-bs-toggle="modal" data-bs-target="#calculateJobModalDialog">
             Calculate
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
             </svg>
           </a>
         </div>
-        <div class="job-card">
-          <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Untitled-1%201-lUNU6IoumQjzx4p2ZmALNvm4w5vG6x.svg" alt="" class="job-icon">
-          <h3 class="job-title">Wall Job</h3>
-          <p class="job-description">Painting, Skimming, Rendering, Tiling etc...</p>
-          <a href="#" class="calculate-btn">
+        <div class="job-card w-31pct p-5 bg-light-green-2 rounded rounded-4 d-flex flex-column justify-content-start align-items-start gap-3 border-0 border-danger">
+          <img src="./assets/images/icons/Hammer.svg" alt="" class="job-icon">
+          <h3 class="job-title fw-bold">Wall Job</h3>
+          <h5 class="job-description fw-medium">Painting, Skimming, Rendering, Tiling etc...</h5>
+          <a href="#" class="calculate-btn btn btn-light-green-1" data-bs-toggle="modal" data-bs-target="#calculateJobModalDialog">
             Calculate
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
             </svg>
           </a>
         </div>
-        <div class="job-card">
-          <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Untitled-1%201-lUNU6IoumQjzx4p2ZmALNvm4w5vG6x.svg" alt="" class="job-icon">
-          <h3 class="job-title">Wall Job</h3>
-          <p class="job-description">Painting, Skimming, Rendering, Tiling etc...</p>
-          <a href="#" class="calculate-btn">
+        <div class="job-card w-31pct p-5 bg-light-green-2 rounded rounded-4 d-flex flex-column justify-content-start align-items-start gap-3 border-0 border-danger">
+          <img src="./assets/images/icons/Hammer.svg" alt="" class="job-icon">
+          <h3 class="job-title fw-bold">Wall Job</h3>
+          <h5 class="job-description fw-medium">Painting, Skimming, Rendering, Tiling etc...</h5>
+          <a href="#" class="calculate-btn btn btn-light-green-1" data-bs-toggle="modal" data-bs-target="#calculateJobModalDialog">
             Calculate
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
             </svg>
           </a>
         </div>
-        <div class="job-card">
-          <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Untitled-1%201-lUNU6IoumQjzx4p2ZmALNvm4w5vG6x.svg" alt="" class="job-icon">
-          <h3 class="job-title">Wall Job</h3>
-          <p class="job-description">Painting, Skimming, Rendering, Tiling etc...</p>
-          <a href="#" class="calculate-btn">
+        <div class="job-card w-31pct p-5 bg-light-green-2 rounded rounded-4 d-flex flex-column justify-content-start align-items-start gap-3 border-0 border-danger">
+          <img src="./assets/images/icons/Hammer.svg" alt="" class="job-icon">
+          <h3 class="job-title fw-bold">Wall Job</h3>
+          <h5 class="job-description fw-medium">Painting, Skimming, Rendering, Tiling etc...</h5>
+          <a href="#" class="calculate-btn btn btn-light-green-1" data-bs-toggle="modal" data-bs-target="#calculateJobModalDialog">
             Calculate
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
@@ -134,128 +136,538 @@
     </section>
 
     <!-- Quote Calculator Section -->
-    <section class="quote-calculator d-flex flex-row justify-content-between align-items-start bg-light mb-3">
-      <div class="quote-content">
-        <h2 class="quote-title">Calculate your Quote</h2>
-        <p class="quote-subtitle">Easily understand the labor costs for your project with our straightforward calculation process.</p>
-
-        <div class="steps">
+    <section class="quote-calculator d-flex flex-column-reverse flex-lg-row justify-content-between align-items-start bg-dev mb-3">
+      <div class="quote-content d-flex flex-column justify-content-start align-items-start gap-3">
+        <h2 class="quote-title display-4 fw-bold">Calculate your Quote</h2>
+        <h4 class="quote-subtitle fw-normal">Easily understand the labor costs for your project with our straightforward calculation process.</h4>
+        <!--<div class="steps">
           <div class="step">
-            <div class="step-number">01</div>
+            <div class="step-number ring1 is-circular">01</div>
             <div class="step-content">
               <h3>Select Job Service</h3>
-              <p>Choose from our range of professional services</p>
+              <p>Choose the refurbishment service you need, from kitchen upgrades to full house extensions.</p>
             </div>
           </div>
           <div class="step">
-            <div class="step-number">02</div>
+            <div class="step-number ring1 is-circular">02</div>
             <div class="step-content">
               <h3>Enter Project Details</h3>
-              <p>Provide dimensions, materials, and specific requirements</p>
+              <p>Provide essential information like dimensions, materials, and specific requirements.</p>
             </div>
           </div>
           <div class="step">
-            <div class="step-number">03</div>
+            <div class="step-number ring1 is-circular">03</div>
             <div class="step-content">
               <h3>Get Your Estimate</h3>
-              <p>Receive an instant quote for your project</p>
+              <p>Instantly receive a transparent quote and connect with our experts to finalize your project.</p>
+            </div>
+          </div>
+        </div>-->
+        <div class="steps">
+          <div class="step d-flex flex-row justify-content-start align-items-start gap-4">
+            <div class="step-number ring1 is-circular fix-size-60px text-light d-flex justify-content-center align-items-center">
+              <h3 class="my-auto">01</h3>
+            </div>
+            <div class="step-content d-flex flex-column">
+              <h3>Select Your Service</h3>
+              <p>Choose the refurbishment service you need, from kitchen upgrades to full house extensions.</p>
+            </div>
+          </div>
+          <div class="step d-flex flex-row justify-content-start align-items-start gap-4">
+            <div class="step-number ring1 is-circular fix-size-60px text-light d-flex justify-content-center align-items-center">
+              <h3 class="my-auto">02</h3>
+            </div>
+            <div class="step-content d-flex flex-column">
+              <h3>Enter Project Details</h3>
+              <p>Provide essential information like dimensions, materials, and specific requirements.</p>
+            </div>
+          </div>
+          <div class="step d-flex flex-row justify-content-start align-items-start gap-4">
+            <div class="step-number ring1 is-circular fix-size-60px text-light d-flex justify-content-center align-items-center">
+              <h3 class="my-auto">03</h3>
+            </div>
+            <div class="step-content d-flex flex-column">
+              <h3>Get Your Estimate</h3>
+              <p>Instantly receive a transparent quote and connect with our experts to finalize your project.</p>
             </div>
           </div>
         </div>
-
-        <button class="cta-button">Calculate My Job</button>
+        <button class="cta-button btn btn-light-green-1 p-3" data-bs-toggle="modal" data-bs-target="#calculateJobModalDialog">Calculate My Job</button>
       </div>
-      <div class="quote-image">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Group%201000001790-k7aMGcikujtAtWzW9GWYn9LGyu4VXs.png" alt="Quote Calculator Illustration">
+      <div class="quote-image w-100 overflow-hidden">
+        <img class="object-fit-cover w-100 h-100" src="./assets/images/pics/quoteCalculate.png" alt="Quote Calculator Illustration">
       </div>
     </section>
 
     <!-- Services Section -->
-    <section class="services d-flex flex-column justify-content-start align-items-center bg-light mb-3">
-      <div class="container">
-        <div class="services-header">
-          <div class="header-content">
-            <h2 class="section-title">
-              Comprehensive Home<br>
-              Renovation Services<br>
-              for You
-            </h2>
-            <p class="section-description">
-              Whether you're looking to update a single room or undertake a full home renovation, our team is here to help. We offer a wide range of services to meet all your renovation
-            </p>
-            <button class="see-more-btn">See More</button>
-          </div>
+    <section class="services d-flex flex-column justify-content-start align-items-center bg-dev mb-3">
+      <div class="header-content d-flex flex-row justify-content-between align-items-start mb-5">
+        <h2 class="section-title display-4 fw-bold w-63pct">Comprehensive Home Renovation Services for You</h2>
+        <div class="w-35pct">
+          <p class="section-description">
+            Whether you're looking to update a single room or undertake a full home renovation, our team is here to help. We offer a wide range of services to meet all your renovation
+          </p>
+          <button class="see-more-btn btn btn-light-green-1 p-3">See More</button>
         </div>
-        <div class="service-grid d-flex flex-row justify-content-between align-items-start flex-wrap">
-          <div class="service-card w-25">
-            <div class="icon-wrapper">
-            </div>
-            <h3>Kitchen Refurbishment</h3>
-            <p>Reimagine your kitchen with modern designs, quality materials, and functional layouts. From sleek cabinetry to energy-efficient appliances, we'll transform your kitchen into the heart of your home.</p>
+      </div>
+      <div class="service-grid d-flex flex-column flex-lg-row justify-content-between align-items-start flex-wrap gap-3 gap-sm-4 gap-md-5">
+        <div class="service-card w-100 w-lg-45pct w-lx-25 p-5 bg-light-green-2 rounded rounded-4 d-flex flex-column justify-content-start align-items-center gap-3">
+          <div class="services-icon-wrapper fix-size-100px overflow-hidden d-flex flex-row justify-content-center align-items-center bg-light-green-1 is-circular">
+            <img class="service-icon object-fit-contain w-70pct h-70pct" src="./assets/images/icons/KitchenRefurbishment.svg" alt="">
           </div>
-          <div class="service-card w-25">
-            <div class="icon-wrapper">
-            </div>
-            <h3>Bathroom Remodeling</h3>
-            <p>Create a relaxing oasis with our bespoke bathroom remodeling services. Whether you desire a spa-like retreat or a contemporary look, we bring elegance and practicality to every detail.</p>
+          <h3>Kitchen Refurbishment</h3>
+          <p>Reimagine your kitchen with modern designs, quality materials, and functional layouts. From sleek cabinetry to energy-efficient appliances, we'll transform your kitchen into the heart of your home.</p>
+        </div>
+        <div class="service-card w-100 w-lg-45pct w-lx-25 p-5 bg-light-green-1 text-light rounded rounded-4 d-flex flex-column justify-content-start align-items-center gap-3">
+          <div class="services-icon-wrapper fix-size-100px overflow-hidden d-flex flex-row justify-content-center align-items-center bg-light is-circular">
+            <img class="service-icon object-fit-contain w-70pct h-70pct" src="./assets/images/icons/BathroomRemodeling.svg" alt="">
           </div>
-          <div class="service-card w-25">
-            <div class="icon-wrapper">
-            </div>
-            <h3>House Refurbishment</h3>
-            <p>Give your entire home a fresh, cohesive update with our comprehensive refurbishment services. From concept to completion, we enhance every corner of your living space to reflect your unique style.</p>
+          <h3>Bathroom Remodeling</h3>
+          <p>Create a relaxing oasis with our bespoke bathroom remodeling services. Whether you desire a spa-like retreat or a contemporary look, we bring elegance and practicality to every detail.</p>
+        </div>
+        <div class="service-card w-100 w-lg-45pct w-lx-25 p-5 bg-light-green-2 rounded rounded-4 d-flex flex-column justify-content-start align-items-center gap-3">
+          <div class="services-icon-wrapper fix-size-100px overflow-hidden d-flex flex-row justify-content-center align-items-center bg-light-green-1 is-circular">
+            <img class="service-icon object-fit-contain w-70pct h-70pct" src="./assets/images/icons/HouseRefurbishment.svg" alt="">
           </div>
-          <div class="service-card w-25">
-            <div class="icon-wrapper">
-            </div>
-            <h3>Home Extensions</h3>
-            <p>Expand your living space with expertly designed and beautifully crafted home extensions that blend seamlessly with your existing property, adding value, comfort, functionality, and style to your home.</p>
+          <h3>House Refurbishment</h3>
+          <p>Give your entire home a fresh, cohesive update with our comprehensive refurbishment services. From concept to completion, we enhance every corner of your living space to reflect your unique style.</p>
+        </div>
+        <div class="service-card w-100 w-lg-45pct w-lx-25 p-5 bg-light-green-2 rounded rounded-4 d-flex flex-column justify-content-start align-items-center gap-3">
+          <div class="services-icon-wrapper fix-size-100px overflow-hidden d-flex flex-row justify-content-center align-items-center bg-light-green-1 is-circular">
+            <img class="service-icon object-fit-contain w-70pct h-70pct" src="./assets/images/icons/HomeExtensions.svg" alt="">
           </div>
+          <h3>Home Extensions</h3>
+          <p>Expand your living space with expertly designed and beautifully crafted home extensions that blend seamlessly with your existing property, adding value, comfort, functionality, and style to your home.</p>
         </div>
       </div>
     </section>
 
     <!-- Approach Section -->
-    <section class="approach d-flex flex-row justify-content-between align-items-start bg-light mb-3">
-        <div class="approach-images w-43pct">
-          <img class="w-100" src="https://www.figma.com/file/DkehcjnQfcXpvTBRy0R6D6/image/a53f25ee9fe0e1da1fec3c3c42dfd8d245f8543d" alt="ALT" />
-          <img class="w-55pct" src="https://www.figma.com/file/DkehcjnQfcXpvTBRy0R6D6/image/a53f25ee9fe0e1da1fec3c3c42dfd8d245f8543d" alt="ALT" />
-          <img class="w-39pct" src="https://www.figma.com/file/DkehcjnQfcXpvTBRy0R6D6/image/a53f25ee9fe0e1da1fec3c3c42dfd8d245f8543d" alt="ALT" />
-        </div>
-        <div class="approach-content w-51pct d-flex flex-column justify-content-start align-items-center">
-          <div class="approach-header">
-            <h1>Our comprehensive approach ensures that every aspect of your renovation</h1>
-            <p>Our comprehensive approach ensures that every aspect of your renovation project is meticulously planned and executed</p>
+    <section class="approach d-flex flex-column justify-content-between align-items-start flex-xl-row justify-content-xl-between align-items-lg-stretch bg-dev mb-3">
+        <div class="approach-images w-100 h-100 w-xl-53pct d-flex flex-column flex-md-row justify-content-between align-items-start flex-wrap gap-2 border-0 border-danger">
+          <div class="w-100 h-66pct rounded rounded-4 overflow-hidden">
+            <img class="w-100 h-100 object-fit-contain" src="./assets/images/pics/approach-1.png" alt="ALT" />
           </div>
-          <div class="approach-grid w-100 d-flex flex-row justify-content-start align-items-start flex-wrap">
-            <div class="approach-card w-49pct">
-              <div class="icon-wrapper">
+          <div class="w-55pct h-30pct rounded rounded-4 overflow-hidden">
+            <img class="w-100 h-100 object-fit-contain" src="./assets/images/pics/approach-2.png" alt="ALT" />
+          </div>
+          <div class="w-39pct h-30pct rounded rounded-4 overflow-hidden">
+            <img class="w-100 h-100 object-fit-contain" src="./assets/images/pics/approach-3.png" alt="ALT" />
+          </div>
+        </div>
+        <div class="approach-content w-100 w-xl-43pct d-flex flex-column justify-content-start align-items-center">
+          <div class="approach-header section-header">
+            <h2 class="section-title display-6 fw-bold">Our comprehensive approach ensures that every aspect of your renovation</h2>
+            <h5 class="fw-normal">Our comprehensive approach ensures that every aspect of your renovation project is meticulously planned and executed</h5>
+          </div>
+          <div class="approach-grid w-100 d-flex flex-column flex-xl-row justify-content-between align-items-start flex-wrap gap-4 gap-sm-3 gap-md-1">
+            <div class="approach-card w-100 w-xl-47pct d-flex flex-row justify-content-start align-items-start gap-2">
+              <div class="approach-icon-wrapper fix-size-58px overflow-hidden d-flex flex-row justify-content-center align-items-center bg-light-green-1 is-circular">
+                <img class="approach-icon object-fit-contain w-70pct h-70pct" src="./assets/images/icons/ApproachArrow.svg" alt="">
               </div>
-              <h3>Initial Consultation</h3>
-              <p>Our experts listen to your vision and provide professional advice to help shape your project</p>
+              <div class="step-content d-flex flex-column">
+                <h3>Initial Consultation</h3>
+                <p>Our experts listen to your vision and provide professional advice to help shape your project</p>
+              </div>
             </div>
-            <div class="approach-card w-49pct">
-              <div class="icon-wrapper">
+            <div class="approach-card w-100 w-xl-47pct d-flex flex-row justify-content-start align-items-start gap-2">
+              <div class="approach-icon-wrapper fix-size-58px overflow-hidden d-flex flex-row justify-content-center align-items-center bg-light-green-1 is-circular">
+                <img class="approach-icon object-fit-contain w-70pct h-70pct" src="./assets/images/icons/ApproachArrow.svg" alt="">
               </div>
-              <h3>Initial Consultation</h3>
-              <p>Our experts listen to your vision and provide professional advice to help shape your project</p>
+              <div class="step-content d-flex flex-column">
+                <h3>Initial Consultation</h3>
+                <p>Our experts listen to your vision and provide professional advice to help shape your project</p>
+              </div>
             </div>
-            <div class="approach-card w-49pct">
-              <div class="icon-wrapper">
+            <div class="approach-card w-100 w-xl-47pct d-flex flex-row justify-content-start align-items-start gap-2">
+              <div class="approach-icon-wrapper fix-size-58px overflow-hidden d-flex flex-row justify-content-center align-items-center bg-light-green-1 is-circular">
+                <img class="approach-icon object-fit-contain w-70pct h-70pct" src="./assets/images/icons/ApproachArrow.svg" alt="">
               </div>
-              <h3>Initial Consultation</h3>
-              <p>Our experts listen to your vision and provide professional advice to help shape your project</p>
+              <div class="step-content d-flex flex-column">
+                <h3>Initial Consultation</h3>
+                <p>Our experts listen to your vision and provide professional advice to help shape your project</p>
+              </div>
             </div>
-            <div class="approach-card w-49pct">
-              <div class="icon-wrapper">
+            <div class="approach-card w-100 w-xl-47pct d-flex flex-row justify-content-start align-items-start gap-2">
+              <div class="approach-icon-wrapper fix-size-58px overflow-hidden d-flex flex-row justify-content-center align-items-center bg-light-green-1 is-circular">
+                <img class="approach-icon object-fit-contain w-70pct h-70pct" src="./assets/images/icons/ApproachArrow.svg" alt="">
               </div>
-              <h3>Initial Consultation</h3>
-              <p>Our experts listen to your vision and provide professional advice to help shape your project</p>
+              <div class="step-content d-flex flex-column">
+                <h3>Initial Consultation</h3>
+                <p>Our experts listen to your vision and provide professional advice to help shape your project</p>
+              </div>
             </div>
           </div>
         </div>
     </section>
 
+    <!-- stories-location Section -->
+    <section class="stories-location d-flex flex-column justify-content-start align-items-center bg-dev mb-3">
+      <!--<div class="container-fluid">
+        <div class="row vh-100 align-items-stretch">
+          <div class="col-sm-4 bg-info">first column</div>
+          <div class="col-sm-8 bg-warning">second column</div>
+        </div>
+      </div>-->
+      <div class="stories-header section-header">
+        <div class="header-content">
+          <h2 class="stories-title display-4 fw-bold">Client Stories and Locations</h2>
+        </div>
+      </div>
+      <div class="stories-map-area w-100 h-900px mt-auto d-flex flex-row justify-content-center align-items-center position-relative">
+        <div class="stories-map-wrapper w-100 h-100 overflow-hidden">
+          <img class="object-fit-cover w-100 h-100" src="./assets/images/pics/GREATER-LONDON.png" alt="ALT" />
+        </div>
+        <div class="stories-icon-wrapper fix-size-60px overflow-hidden d-flex flex-row justify-content-center align-items-center position-absolute top-45pct start-30pct">
+          <button type="button" class="btn btn-secondary"
+                  data-bs-toggle="popover" data-bs-placement="right"
+                  data-bs-custom-class="custom-popover"
+                  data-bs-title="Custom popover"
+                  data-bs-content1="This popover is themed via CSS variables."
+                  data-bs-content2='<div class="popover fs-6" role="tooltip"><div class="popover-body">Providing your birthday helps make sure you get the right Facebook experience for your age. If you want to change who sees this, go to the About section of your profile. For more details, please visit our <a href="#"> Data Policy</a>.</div></div>'
+                  data-has-html-content="true" data-html-content-container-id="popover-content-container"
+          >
+            <img class="stories-icon object-fit-contain w-100 h-100" src="./assets/images/icons/Pin.svg" alt="">
+          </button>
+        </div>
+        <div id="popover-content-container" style="display: none;">
+          <div data-name="popover-content">
+            <div class="input-group">
+              <input type="text" class="form-control form-control-sm" placeholder="Search" name="search">
+              <div class="input-group-btn">
+                <button class="btn btn-danger" type="submit">
+                  <i class="bi bi-search fa fa-search"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="stories-location d-flex flex-column justify-content-start align-items-center gap-4 bg-dev mb-3">
+      <div class="header-content d-flex flex-column justify-content-start align-items-center">
+        <h2 class="faq-title display-4 fw-bold">FAQ</h2>
+        <h3 class="faq-subtitle fw-normal">We understand that home renovation projects</h3>
+      </div>
+      <div class="accordion accordion-flush" id="faqAccordion">
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="faq1">
+              <h3 class="fw-semibold">What services do you offer?</h3>
+            </button>
+          </h2>
+          <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              <h4 class="mb-1 fw-normal">We specialize in house refurbishments, including bathroom fitting, kitchen remodeling, tiling, flooring, painting, plastering, plumbing, and electrical work.</h4>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="faq2">
+              <h3 class="fw-semibold">What services do you offer?</h3>
+            </button>
+          </h2>
+          <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              <h4 class="mb-1 fw-normal">We specialize in house refurbishments, including bathroom fitting, kitchen remodeling, tiling, flooring, painting, plastering, plumbing, and electrical work.</h4>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="faq3">
+              <h3 class="fw-semibold">What services do you offer?</h3>
+            </button>
+          </h2>
+          <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              <h4 class="mb-1 fw-normal">We specialize in house refurbishments, including bathroom fitting, kitchen remodeling, tiling, flooring, painting, plastering, plumbing, and electrical work.</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--<div class="faq-list w-100 mt-auto d-flex flex-column justify-content-start align-items-start flex-wrap gap-3 gap-sm-1">
+        <div class="faq-card">
+          <div class="question-wrapper">
+            <h3 class="fw-semibold">What services do you offer?</h3>
+          </div>
+          <div class="answer-wrapper">
+            <h4 class="mb-1 fw-normal">We specialize in house refurbishments, including bathroom fitting, kitchen remodeling, tiling, flooring, painting, plastering, plumbing, and electrical work.</h4>
+          </div>
+        </div>
+        <hr class="w-100 mt-0 mb-4" />
+        <div class="faq-card">
+          <div class="question-wrapper">
+            <h3>What services do you offer?</h3>
+          </div>
+          <div class="answer-wrapper">
+            <p class="mb-1">We specialize in house refurbishments, including bathroom fitting, kitchen remodeling, tiling, flooring, painting, plastering, plumbing, and electrical work.</p>
+          </div>
+        </div>
+        <hr class="w-100 mt-0 mb-4" />
+        <div class="faq-card">
+          <div class="question-wrapper">
+            <h3>What services do you offer?</h3>
+          </div>
+          <div class="answer-wrapper">
+            <p class="mb-1">We specialize in house refurbishments, including bathroom fitting, kitchen remodeling, tiling, flooring, painting, plastering, plumbing, and electrical work.</p>
+          </div>
+        </div>
+        <hr class="w-100 mt-0 mb-4" />
+        <div class="faq-card">
+          <div class="question-wrapper">
+            <h3>What services do you offer?</h3>
+          </div>
+          <div class="answer-wrapper">
+            <p class="mb-1">We specialize in house refurbishments, including bathroom fitting, kitchen remodeling, tiling, flooring, painting, plastering, plumbing, and electrical work.</p>
+          </div>
+        </div>
+        <hr class="w-100 mt-0 mb-4" />
+      </div>-->
+    </section>
+
+  </div>
+
+  <!-- Partners Section -->
+  <div class="partners container-fluid outer-container">
+    <div class="d-flex flex-column justify-content-start align-items-center bg-dev mb-3">
+      <div class="faq section-header mb-4">
+        <div class="header-content d-flex flex-column justify-content-start align-items-center">
+          <h1 class="section-title text-center">Tradesmen are Fully Qualified</h1>
+        </div>
+      </div>
+      <div class="partners-list outer-container has-padding w-100 mt-auto d-flex flex-column flex-sm-row justify-content-between align-items-center flex-wrap flex-lg-nowrap gap-3">
+        <div class="partner-card border-0 border-secondary">
+          <div class="partner-logo-wrapper w-200px h-50px overflow-hidden">
+            <img class="object-fit-cover w-100 h-100" src="./assets/images/pics/partner-1.png" alt="ALT" />
+          </div>
+        </div>
+        <div class="partner-card border-0 border-secondary">
+          <div class="partner-logo-wrapper w-70px h-50px overflow-hidden">
+            <img class="object-fit-cover w-100 h-100" src="./assets/images/pics/partner-2.png" alt="ALT" />
+          </div>
+        </div>
+        <div class="partner-card border-0 border-secondary">
+          <div class="partner-logo-wrapper w-63px h-50px overflow-hidden">
+            <img class="object-fit-cover w-100 h-100" src="./assets/images/pics/partner-3.png" alt="ALT" />
+          </div>
+        </div>
+        <div class="partner-card border-0 border-secondary">
+          <div class="partner-logo-wrapper w-78px h-50px overflow-hidden">
+            <img class="object-fit-cover w-100 h-100" src="./assets/images/pics/partner-4.png" alt="ALT" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer Section -->
+  <div class="footer container-fluid outer-container has-padding bg-light-green-1">
+    <div class="d-none d-lg-flex flex-row justify-content-between align-items-start py-5 mb-3 text-light">
+      <div class="footer-col w-31pct px-4 border-0 border-warning" id="footer-col-1">
+        <div class="footer-col-header h-50px">
+          <div class="logo-icon-wrapper fix-w-130px fix-h-40px overflow-hidden d-flex flex-row justify-content-center align-items-center">
+            <img class="logo-icon object-fit-contain w-100 h-100" src="./assets/images/icons/Logo1.svg" alt="">
+          </div>
+        </div>
+        <p class="text-start">At MyjobDone, we transform houses into dream homes with expert craftsmanship and personalized solutions. From kitchen upgrades to home extensions, we create spaces you’ll love for years.</p>
+      </div>
+      <div class="footer-col w-19pct border-0 border-warning" id="footer-col-2">
+        <div class="footer-col-header h-50px"><h2 class="fw-bolder">Social Media</h2></div>
+        <ul class="list-group">
+          <li class="list-group-item bg-transparent border-0 text-light">
+            <div class="d-flex flex-row justify-content-start align-items-center gap-2">
+              <!--<div class="contact-logo fix-w-24px ratio-1x1 overflow-hidden border border-black">
+                <img src="" alt="ALT" />
+              </div>-->
+              <span class="contact-text">Facebook</span>
+            </div>
+          </li>
+          <li class="list-group-item bg-transparent border-0 text-light">
+            <div class="d-flex flex-row justify-content-start align-items-center gap-2">
+              <!--<div class="contact-logo fix-w-24px ratio-1x1 overflow-hidden border border-black">
+                <img src="" alt="ALT" />
+              </div>-->
+              <span class="contact-text">Twitter</span>
+            </div>
+          </li>
+          <li class="list-group-item bg-transparent border-0 text-light">
+            <div class="d-flex flex-row justify-content-start align-items-center gap-2">
+              <!--<div class="contact-logo fix-w-24px ratio-1x1 overflow-hidden border border-black">
+                <img src="" alt="ALT" />
+              </div>-->
+              <span class="contact-text">Instagram</span>
+            </div>
+          </li>
+          <li class="list-group-item bg-transparent border-0 text-light">
+            <div class="d-flex flex-row justify-content-start align-items-center gap-2">
+              <!--<div class="contact-logo fix-w-24px ratio-1x1 overflow-hidden border border-black">
+                <img src="" alt="ALT" />
+              </div>-->
+              <span class="contact-text">LinkedIn</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="footer-col w-29pct border-0 border-warning" id="footer-col-3">
+        <div class="footer-col-header h-50px"><h2 class="fw-bolder">Contact Details</h2></div>
+        <ul class="list-group">
+          <li class="list-group-item bg-transparent border-0 text-light">
+            <div class="d-flex flex-row justify-content-start align-items-start-center gap-2">
+              <div class="contact-icon-wrapper fix-size-24px overflow-hidden d-flex flex-row justify-content-center align-items-center">
+                <img class="contact-icon object-fit-contain w-100 h-100" src="./assets/images/icons/PhoneCall.svg" alt="">
+              </div>
+              <span class="contact-text">+44 7711 123456</span>
+            </div>
+          </li>
+          <li class="list-group-item bg-transparent border-0 text-light">
+            <div class="d-flex flex-row justify-content-start align-items-start gap-2">
+              <div class="contact-icon-wrapper fix-size-24px overflow-hidden d-flex flex-row justify-content-center align-items-center">
+                <img class="contact-icon object-fit-contain w-100 h-100" src="./assets/images/icons/Email.svg" alt="">
+              </div>
+              <span class="contact-text">info&#64;homerefurbishment.co.uk</span>
+            </div>
+          </li>
+          <li class="list-group-item bg-transparent border-0 text-light">
+            <div class="d-flex flex-row justify-content-start align-items-start gap-2">
+              <div class="contact-icon-wrapper fix-size-24px overflow-hidden d-flex flex-row justify-content-center align-items-center">
+                <img class="contact-icon object-fit-contain w-100 h-100" src="./assets/images/icons/Location.svg" alt="">
+              </div>
+              <span class="contact-text">123 Refurbishment Lane, London, SW1A 1AA, United Kingdom</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="footer-col w-15pct border-0 border-warning" id="footer-col-4">
+        <div class="footer-col-header h-50px"><h2 class="fw-bolder">Legal</h2></div>
+        <ul class="list-group">
+          <li class="list-group-item bg-transparent border-0 text-light">
+            <span>Terms of Service</span>
+          </li>
+          <li class="list-group-item bg-transparent border-0 text-light">
+            <span>Privacy Policy</span>
+          </li>
+          <li class="list-group-item bg-transparent border-0 text-light">
+            <span>Cookie Policy</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="d-flex d-lg-none flex-column justify-content-start align-items-center py-5 mb-3 text-light">
+      <div class="footer-col mb-3 w-100 px-4 border-0 border-warning" id="footer-col-1a">
+        <div class="footer-col-header h-50px text-center text-sm-start"><div class="logo">MyJobDone</div></div>
+        <p class="text-start">At MyjobDone, we transform houses into dream homes with expert craftsmanship and personalized solutions. From kitchen upgrades to home extensions, we create spaces you’ll love for years.</p>
+      </div>
+      <div class="w-100 d-flex flex-column flex-sm-row justify-content-center align-items-start flex-wrap gap-5 gap-sm-3">
+        <div class="footer-col w-100 w-sm-46pct border-0 border-warning text-center text-sm-start" id="footer-col-2a">
+          <div class="footer-col-header h-50px"><h2 class="fw-bold">Social Media</h2></div>
+          <ul class="list-group align-items-center align-items-sm-start">
+            <li class="list-group-item bg-transparent border-0 text-light w-50 w-sm-100">
+              <div class="d-flex flex-row justify-content-start align-items-center gap-2">
+                <!--<div class="contact-logo w-24px ratio-1x1 overflow-hidden border border-black">
+                  <img src="" alt="ALT" />
+                </div>-->
+                <span class="contact-text">Facebook</span>
+              </div>
+            </li>
+            <li class="list-group-item bg-transparent border-0 text-light w-50 w-sm-100">
+              <div class="d-flex flex-row justify-content-start align-items-center gap-2">
+                <!--<div class="contact-logo w-24px ratio-1x1 overflow-hidden border border-black">
+                  <img src="" alt="ALT" />
+                </div>-->
+                <span class="contact-text">Twitter</span>
+              </div>
+            </li>
+            <li class="list-group-item bg-transparent border-0 text-light w-50 w-sm-100">
+              <div class="d-flex flex-row justify-content-start align-items-center gap-2">
+                <!--<div class="contact-logo w-24px ratio-1x1 overflow-hidden border border-black">
+                  <img src="" alt="ALT" />
+                </div>-->
+                <span class="contact-text">Instagram</span>
+              </div>
+            </li>
+            <li class="list-group-item bg-transparent border-0 text-light w-50 w-sm-100">
+              <div class="d-flex flex-row justify-content-start align-items-center gap-2">
+                <!--<div class="contact-logo w-24px ratio-1x1 overflow-hidden border border-black">
+                  <img src="" alt="ALT" />
+                </div>-->
+                <span class="contact-text">LinkedIn</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="footer-col w-100 w-sm-46pct border-0 border-warning text-center text-sm-start" id="footer-col-3a">
+          <div class="footer-col-header h-50px"><h2 class="fw-bold">Contact Details</h2></div>
+          <ul class="list-group align-items-start text-start">
+            <li class="list-group-item bg-transparent border-0 text-light w-85 w-sm-100">
+              <div class="d-flex flex-row justify-content-start align-items-start-center gap-2">
+                <div class="contact-logo fix-w-24px ratio-1x1 overflow-hidden border border-black">
+                  <img src="" alt="ALT" />
+                </div>
+                <span class="contact-text">+44 7711 123456</span>
+              </div>
+            </li>
+            <li class="list-group-item bg-transparent border-0 text-light w-85 w-sm-100">
+              <div class="d-flex flex-row justify-content-start align-items-start gap-2">
+                <div class="contact-logo fix-w-24px ratio-1x1 overflow-hidden border border-black">
+                  <img src="" alt="ALT" />
+                </div>
+                <span class="contact-text">info&#64;homerefurbishment.co.uk</span>
+              </div>
+            </li>
+            <li class="list-group-item bg-transparent border-0 text-light w-85 w-sm-100">
+              <div class="d-flex flex-row justify-content-start align-items-start gap-2">
+                <div class="contact-logo fix-w-24px ratio-1x1 overflow-hidden border border-black">
+                  <img src="" alt="ALT" />
+                </div>
+                <span class="contact-text">123 Refurbishment Lane, London, SW1A 1AA, United Kingdom</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="footer-col w-100 w-sm-40pct border-0 border-warning text-center text-sm-start" id="footer-col-4a">
+          <div class="footer-col-header h-50px"><h2 class="fw-bold">Legal</h2></div>
+          <ul class="list-group align-items-center align-items-sm-star">
+            <li class="list-group-item bg-transparent border-0 text-light w-50 w-sm-100">
+              <span>Terms of Service</span>
+            </li>
+            <li class="list-group-item bg-transparent border-0 text-light w-50 w-sm-100">
+              <span>Privacy Policy</span>
+            </li>
+            <li class="list-group-item bg-transparent border-0 text-light w-50 w-sm-100">
+              <span>Cookie Policy</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="w-100 d-flex flex-row justify-content-center align-items-center">
+      <span class="text-light">&copy; 2025 MyJobDone. All rights reserved.</span>
+    </div>
+  </div>
+
+  <!-- Modal -->
+<!--  <div class="modal fade" id="calculateJobModalDialog" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="calculateModalLabel" aria-hidden="true">-->
+  <div class="modal fade" id="calculateJobModalDialog" tabindex="-1" aria-labelledby="calculateModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="calculateModalLabel">Calculate Job</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Calculating...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Calculate</button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <script src="./main.js"></script>

@@ -108,7 +108,7 @@
     "emitDeclarationOnly": false,
     "emitBOM": true
   },
-  "include": ["src/ts/**/*.ts"],
+  "include": ["src/ts/**/*.ts", "src/index.d.ts"],
   "exclude": [
     "node_modules/**",
     "dist",

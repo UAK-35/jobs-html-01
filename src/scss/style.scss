@@ -10,6 +10,9 @@
 //@use "bootstrap/scss/functions" as *;
 
 // 2. Include any default variable overrides here
+$light-green-1: #5BC43A;
+$light-green-2: #E7F6E2;
+$custom-black-1: #101722;
 
 // 3. Include remainder of required Bootstrap stylesheets (including any separate color mode stylesheets)
 @import "bootstrap/scss/variables";
@@ -18,6 +21,12 @@
 //@use "bootstrap/scss/variables-dark" as *;
 
 // 4. Include any default map overrides here
+$custom-colors: (
+  "light-green-1": $light-green-1,
+  "light-green-2": $light-green-2,
+  "custom-black-1": $custom-black-1,
+);
+$theme-colors: map-merge($theme-colors, $custom-colors);
 
 // 5. Include remainder of required parts
 @import "bootstrap/scss/maps";
@@ -31,11 +40,26 @@
 @import "bootstrap/scss/utilities";
 @import "bootstrap/scss/reboot";
 @import "bootstrap/scss/type";
+@import "bootstrap/scss/close";
+@import "bootstrap/scss/modal";
+@import "bootstrap/scss/buttons";
+@import "bootstrap/scss/list-group";
 @import "bootstrap/scss/images";
 @import "bootstrap/scss/containers";
 @import "bootstrap/scss/grid";
+@import "bootstrap/scss/transitions";
+@import "bootstrap/scss/accordion";
 @import "bootstrap/scss/helpers";
 //@use "bootstrap/scss/utilities" as *;
+
+// 7. Optionally include utilities API last to generate classes based on the Sass map in `_utilities.scss`
+@import "bootstrap/scss/utilities/api";
+//@use "bootstrap/scss/utilities/api" as *;
+
+
+
+// Add additional custom code here
+
 
 //$j-text-colors: map-merge-multiple($blues, $indigos, $purples, $pinks, $reds, $oranges, $yellows, $greens, $teals, $cyans);
 //$utilities: map-merge(
@@ -55,52 +79,250 @@
 //    )
 //);
 
-// 7. Optionally include utilities API last to generate classes based on the Sass map in `_utilities.scss`
-@import "bootstrap/scss/utilities/api";
-//@use "bootstrap/scss/utilities/api" as *;
+$widths: (
+  25: 25%,
+  50: 50%,
+  75: 75%,
+  100: 100%,
+  auto: auto
+);
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @each $size, $length in $widths {
+    @include media-breakpoint-up($breakpoint) {
+      .w-#{$breakpoint}-#{$size} {width: $length !important;}
+    }
+  }
+}
+
+$startPct: 1;
+$endPct: 100;
+//$arrayPct: "";
+@for $i from $startPct through $endPct {
+  //$array: append($arrayPct, $i, comma);
+  //$array: set-nth($array, 1, $arrayPct);
+
+  $width: percentage(divide($i, 100));
+
+  .w-#{$i}pct {
+    width: $width !important;
+  }
+  .h-#{$i}pct {
+    height: $width !important;
+  }
+
+  .start-#{$i}pct {
+    left: $width !important;
+  }
+  .end-#{$i}pct {
+    right: $width !important;
+  }
+  .top-#{$i}pct {
+    top: $width !important;
+  }
+  .bottom-#{$i}pct {
+    bottom: $width !important;
+  }
+
+  @each $breakpoint in map-keys($grid-breakpoints) {
+    @include media-breakpoint-up($breakpoint) {
+      .w-#{$breakpoint}-#{$i}pct {
+        width: $width !important;
+      }
+      .h-#{$breakpoint}-#{$i}pct {
+        height: $width !important;
+      }
+    }
+  }
+};
+
+$startSiz: 1;
+$endSiz: 1000;
+@for $i from $startSiz through $endSiz {
+  $sizVal: $i + px;
+
+  .w-#{$i}px {
+    width: $sizVal !important;
+  }
+  .min-w-#{$i}px {
+    min-width: $sizVal !important;
+  }
+  .max-w-#{$i}px {
+    max-width: $sizVal !important;
+  }
+  .fix-w-#{$i}px {
+    min-width: $sizVal !important;
+    max-width: $sizVal !important;
+  }
+
+  .h-#{$i}px {
+    height: $sizVal !important;
+  }
+  .min-h-#{$i}px {
+    min-height: $sizVal !important;
+  }
+  .max-h-#{$i}px {
+    max-height: $sizVal !important;
+  }
+  .fix-h-#{$i}px {
+    min-height: $sizVal !important;
+    max-height: $sizVal !important;
+  }
+
+  .fix-size-#{$i}px {
+    min-height: $sizVal !important;
+    max-height: $sizVal !important;
+    min-width: $sizVal !important;
+    max-width: $sizVal !important;
+  }
+
+  @each $breakpoint in map-keys($grid-breakpoints) {
+    @include media-breakpoint-up($breakpoint) {
+      .w-#{$breakpoint}-#{$i}px {
+        width: $sizVal !important;
+      }
+      .min-w-#{$breakpoint}-#{$i}px {
+        min-width: $sizVal !important;
+      }
+      .max-w-#{$breakpoint}-#{$i}px {
+        max-width: $sizVal !important;
+      }
+      .fix-w-#{$breakpoint}-#{$i}px {
+        min-width: $sizVal !important;
+        max-width: $sizVal !important;
+      }
+
+      .h-#{$breakpoint}-#{$i}px {
+        height: $sizVal !important;
+      }
+      .min-h-#{$breakpoint}-#{$i}px {
+        min-height: $sizVal !important;
+      }
+      .max-h-#{$breakpoint}-#{$i}px {
+        max-height: $sizVal !important;
+      }
+      .fix-h-#{$breakpoint}-#{$i}px {
+        min-height: $sizVal !important;
+        max-height: $sizVal !important;
+      }
+
+      .fix-size-#{$breakpoint}-#{$i}px {
+        min-height: $sizVal !important;
+        max-height: $sizVal !important;
+        min-width: $sizVal !important;
+        max-width: $sizVal !important;
+      }
+    }
+  }
+};
+
+//@each $breakpoint in map-keys($grid-breakpoints) {
+//  @include media-breakpoint-up($breakpoint) {
+//    .py-#{$breakpoint}-auto {
+//      padding-inline: 'auto' !important;
+//    }
+//  }
+//}
+
+:root {
+  --bs-body-font-family: 'Montserrat', sans-serif;
+  //--color-light-green-1: $light-green-1;
+}
+
+//.btn-cta-primary {
+//  --bs-btn-font-weight: 600;
+//  --bs-btn-color: var(--bs-white);
+//  --bs-btn-bg: var(--color-light-green-1);
+//  --bs-btn-border-color: var(--color-light-green-1);
+//  --bs-btn-border-radius: .5rem;
+//  --bs-btn-hover-color: var(--bs-white);
+//  --bs-btn-hover-bg: #{shade-color($color-light-green-1, 10%)};
+//  --bs-btn-hover-border-color: #{shade-color($color-light-green-1, 10%)};
+//  --bs-btn-focus-shadow-rgb: var(--color-light-green-1-rgb);
+//  --bs-btn-active-color: var(--bs-btn-hover-color);
+//  --bs-btn-active-bg: #{shade-color($color-light-green-1, 20%)};
+//  --bs-btn-active-border-color: #{shade-color($color-light-green-1, 20%)};
+//}
 
 
-
-// Add additional custom code here
 
 @import "./font1";
 
-* {
-  //font-family: Arial, serif;
-  font-family: Montserrat, serif;
+.bg-dev {
+  //background-color: #F8F9FA !important;
 }
-
-.w-39pct {
-  width: 39%;
+.outer-container {
+  max-width: 1440px;
+  //border: 4px solid red;
 }
-.w-43pct {
-  width: 43%;
+.outer-container.has-padding {
+  padding: 1rem 5%;
+  //padding: 2rem 7rem;
 }
-.w-49pct {
-  width: 49%;
-}
-.w-51pct {
-  width: 51%;
-}
-.w-55pct {
-  width: 55%;
-}
-.h-100px {
-  height: 100px;
-}
-
-.text-light-green-1 {
-  color: #75C81B;
+@media (min-width: 768px) {
+  .outer-container.has-padding {
+    //padding: 1rem 5%;
+    padding: 2rem 5rem;
+  }
 }
 
 .body-wrapper {
-  width: 100%;
-  max-width: 1440px;
-  min-height: 100vh;
-  margin: 0 auto;
-  padding: 1rem 5%;
-  background-color: antiquewhite;
+  //background-color: antiquewhite;
+  background-color: white;
+}
+.body-wrapper > section, .body-wrapper > header {
+  padding: 2rem 2rem;
+  background-color: white;
+}
+@media (min-width: 768px) {
+  .body-wrapper > section, .body-wrapper > header {
+    padding: 2rem 5rem;
+    background-color: white;
+  }
+}
 
-  display: flex;
-  flex-direction: column;
+
+.is-circular {
+  text-align: center;
+  border-radius: 50%;
+}
+
+.btn-light-green-1 {
+  color: white;
+}
+
+.custom-popover {
+  //--bs-popover-max-width: 200px;
+  //--bs-popover-border-color: $light-green-1;
+  //--bs-popover-body-color: $light-green-1;
+  //--bs-popover-header-bg: $light-green-2;
+  //--bs-popover-header-color: var(--bs-white);
+  //--bs-popover-body-padding-x: 1rem;
+  //--bs-popover-body-padding-y: .5rem;
+  background-color: $light-green-1;
+}
+
+.ring1 {
+  //background-color: transparent;
+  //border: 0;
+  //box-shadow: 0 0 20px 5px rgba(0, 255, 20, 0.69), inset 0 0 0px 7px rgb(0, 255, 20);
+  background-color: $light-green-1;
+  box-shadow: 0 0 20px 5px rgba(0, 255, 20, 0.69), inset 0 0 0px 7px $light-green-1;
+}
+
+.glowbtn {
+  background-color: #00ff14;
+  border: 0;
+  box-shadow: 0 0 20px 5px rgba(0, 255, 20, 0.69);
+}
+
+.border-ring {
+  background: transparent;
+  border: 8px solid #00ff14;
+  box-shadow: 0 0 20px 5px rgba(0, 255, 20, 0.69);
+}
+
+.inner-glow {
+  background: transparent;
+  border: 8px solid #00ff14;
+  box-shadow: 0 0 20px 5px rgba(0, 255, 20, 0.69), inset 0 0 20px 7px rgba(0, 255, 20, 0.69);
 }

@@ -5,6 +5,10 @@ node_modules
 dist
 .cache
 
+# JetBrains related
+/.idea/deployment.xml
+/.idea/webServers.xml
+
 # SASS related
 .sass-cache/
 *.css.map
@@ -15,5 +19,5 @@ dist
 .idea
 *.txt
 *.zip
-assets/fonts/**/*.html
-assets/fonts/**/*.css
+/src/assets/fonts/**/*.html
+/src/assets/fonts/**/*.css

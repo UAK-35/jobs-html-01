@@ -22,6 +22,7 @@ module.exports = {
     filename: 'main.js',
     path: path.resolve(__dirname, 'dist'),
     // assetModuleFilename: "assets/[hash][ext][query]",
+    assetModuleFilename: 'assets/[name][ext][query]',
     clean: true
   },
   resolve: {
@@ -117,13 +118,23 @@ module.exports = {
         //   ]
         // }
       },
+      // {
+      //   test: /\.(png|svg|jpg|jpeg|gif|ico)$/i,
+      //   type: 'asset/resource',
+      // },
       {
-        test: /\.(png|svg|jpg|jpeg|gif|ico)$/i,
+        test: /\.(svg)$/i,
         type: 'asset/resource',
-        // options: {
-        //   name: '[name].[ext]',
-        //   outputPath: 'images'
-        // }
+        generator: {
+          filename: './assets/images/icons/[name][ext]'
+        }
+      },
+      {
+        test: /\.(png|jpg|jpeg|gif)$/i,
+        type: 'asset/resource',
+        generator: {
+          filename: './assets/images/pics/[name][ext]'
+        }
       },
       // {
       //   test: /\.png$/,
@@ -132,11 +143,24 @@ module.exports = {
       {
         test: /\.(woff|woff2|eot|ttf|otf)$/i,
         type: 'asset/resource',
-        // options: {
-        //   name: '[name].[ext]',
-        //   outputPath: 'fonts'
-        // }
+        generator: {
+          // filename: './images/[name].[hash][ext]'
+          filename: './assets/fonts/[name][ext]'
+        }
       },
+      // {
+      //   test: /\.html$/i,
+      //   use: [
+      //     {
+      //       loader: 'html-loader',
+      //       options: {
+      //         sources: true,
+      //         minimize: true,
+      //         esModule: true,
+      //       },
+      //     },
+      //   ],
+      // },
     ]
   }
 }
