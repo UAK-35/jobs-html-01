@@ -3,6 +3,9 @@
 // Import our custom CSS
 import "../scss/style.scss";
 
+// import smtp from "smtp.js";
+// import emailjs from "emailjs-com";
+import emailjs from "@emailjs/browser";
 import "@popperjs/core";
 import "bootstrap";
 import { Popover } from "bootstrap";
@@ -16,7 +19,13 @@ import img6 from "../assets/images/pics/partner-3.png";
 import img7 from "../assets/images/pics/partner-4.png";
 import img8 from "../assets/images/pics/localTradesmen.png";
 import img9 from "../assets/images/pics/quoteCalculate.png";
-import img10 from "../assets/images/pics/GREATER-LONDON.png";
+import img10 from "../assets/images/pics/GREATER-LONDON.jpg";
+import img11 from "../assets/images/pics/Logo2.png";
+import img12 from "../assets/images/pics/rvw-xtra-1.png";
+// @ts-ignore
+import img13 from "../assets/images/pics/rvw-DPFW9030.JPG";
+// @ts-ignore
+import img14 from "../assets/images/pics/rvw-OSVJE1220.JPG";
 
 import ico1 from "../assets/images/icons/Email.svg";
 import ico2 from "../assets/images/icons/Location.svg";
@@ -30,6 +39,19 @@ import ico9 from "../assets/images/icons/Logo1.svg";
 import ico10 from "../assets/images/icons/Hammer.svg";
 import ico11 from "../assets/images/icons/Pin.svg";
 
+function onReady(callback: () => void) {
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", callback);
+  } else {
+    callback();
+  }
+}
+
+emailjs.init({
+  publicKey: "iOXXeJ531GOeQqGwS",
+  blockHeadless: true, // Do not allow headless browsers
+});
+
 const img = document.createElement("img");
 img.src = img1;
 img.src = img2;
@@ -41,6 +63,10 @@ img.src = img7;
 img.src = img8;
 img.src = img9;
 img.src = img10;
+img.src = img11;
+img.src = img12;
+img.src = img13;
+img.src = img14;
 
 img.src = ico1;
 img.src = ico2;
@@ -60,15 +86,138 @@ const popoverTriggerList = Array.from(document.querySelectorAll('[data-bs-toggle
 const popoverList = [...popoverTriggerList].map((popoverTriggerEl) => {
   const popoverHtmlElem = popoverTriggerEl as HTMLElement;
   if (popoverHtmlElem.dataset["hasHtmlContent"] === "true" && popoverHtmlElem.dataset["htmlContentContainerId"] != null) {
-    const popoverHtmlContainerElem = document.querySelector("#" + popoverHtmlElem.dataset["htmlContentContainerId"]) as HTMLElement;
+    const popoverShowInsideContainerElem = document.querySelector(`#${popoverHtmlElem.dataset["showInsideContainerId"]}`) as HTMLElement;
+    const popoverHtmlContainerElem = document.querySelector(`#${popoverHtmlElem.dataset["htmlContentContainerId"]}`) as HTMLElement;
     const temp = document.createElement("div");
     temp.innerHTML = popoverHtmlContainerElem.innerHTML;
     return new Popover(popoverTriggerEl, {
       html: true,
+      // container: document.querySelector("#stories-map-container") as HTMLElement,
+      container: document.querySelector(`#${popoverShowInsideContainerElem.id}`) as HTMLElement,
+      // offset: "10,30",
       content: temp,
     });
   }
   return new Popover(popoverTriggerEl);
+});
+
+const calculateForm = document.querySelector("#calculateForm") as HTMLFormElement;
+calculateForm.addEventListener("submit", (e: any) => {
+  e.preventDefault();
+  const formElem = e.target as HTMLFormElement;
+  // elemArray.forEach((element) => {
+  //   console.log(element.name);
+  //   console.log(element.id);
+  //   console.log(element.tagName);
+  //   console.log(element.value);
+  // });
+  // alert(formElem.length);
+  // const formData = new FormData(formElem);
+  // console.log("formData", formData);
+  // alert(JSON.stringify(formData.values()));
+  // alert(JSON.stringify(Object.fromEntries(formData.entries())));
+  // const data = new URLSearchParams(formData);
+  // const dataToSend = new URLSearchParams();
+  // alert(JSON.stringify(formData.entries()));
+  // for (const pair of formData.entries()) {
+  //   // alert(JSON.stringify(pair));
+  //   dataToSend.append(pair[0], "pair[1]");
+  // }
+
+  const dataToSend: FormDataRecord = {};
+  const formElements = formElem.elements;
+  for (const elementKey in formElements) {
+    const element = formElements[elementKey] as HTMLFormElement;
+    if (element.tagName != null && !(element.tagName === "BUTTON")) {
+      console.group("form-element");
+      console.log("   name", element.name);
+      console.log("     id", element.id);
+      console.log("tagName", element.tagName);
+      console.log("  value", element.value);
+      console.groupEnd();
+      const key = element.id != null ? element.id : element.name;
+      // dataToSend.append(key, element.value);
+      dataToSend[key] = element.value;
+    }
+  }
+
+  // console.log(dataToSend);
+  // alert(JSON.stringify(dataToSend));
+
+  // // const serviceId = "service_h1d9kwr";
+  // // const serviceId = "service_20r3f2f";
+  // const serviceId = "service_d42o4ap";
+  // const templateId = "template_g1qnhik";
+  // const templateParams = {
+  //   from_name: dataToSend["name"],
+  //   to_name: "Jobs Admin",
+  //   message: "New calculation request received",
+  //   reply_to: "uak@delve-it.com",
+  //   from_email: dataToSend["email"],
+  // };
+  // emailjs.send(serviceId, templateId, templateParams).then(
+  //   function (response) {
+  //     console.log("SUCCESS!", response.status, response.text);
+  //     alert("Mail sent successfully");
+  //   },
+  //   function (err) {
+  //     console.log("FAILED...", err);
+  //     alert("Mail send failed");
+  //   }
+  // );
+
+  // @ts-ignore
+  Email.send({
+    Host: "mail.privateemail.com",
+    Username: "uak@delve-it.com",
+    Password: "b6T5kD@1#TMl!^0u2uM7J8%$GY",
+    // Host: "smtp.elasticemail.com",
+    // Port: 2525,
+    // Username: "uak@delve-it.com",
+    // Password: "513C467A5420F9B948B2D8D584225F08A367",
+    // To: "uak282006@gmail.com",
+    // From: dataToSend["email"],
+    From: "uak282006@gmail.com",
+    To: dataToSend["email"],
+    Subject: "Test Email",
+    Body: "This is a test email sent using SMTP.js",
+    // Body: `
+    //       Name: ${document.getElementById("name").value}<br>
+    //       Email: ${document.getElementById("email").value}<br>
+    //       Message: ${document.getElementById("message").value}
+    //     `,
+  }).then((message: any) => {
+    console.log("ERROR/MSG", message);
+    alert(message); // Alert message on successful email delivery
+  });
+  // .error((err: any) => {
+  //   console.error("error", err);
+  //   alert(JSON.stringify(err));
+  // })
+
+  // const client = new SMTPClient({
+  //   user: "user",
+  //   password: "password",
+  //   host: "smtp.your-email.com",
+  //   ssl: true,
+  // });
+
+  // fetch('url', {
+  //   method: 'post',
+  //   body: dataToSend,
+  // }).then(
+  //   (response) => {},
+  //   (error) => {}
+  // )
+  // .then( response => response.json() )
+  //     .then( response => {
+  //       console.log(response)
+  //     } );
+
+  // $.post('http://www.somewhere.com/path/to/post',
+  //   function(data, status, xhr){
+  //     // do something here with response;
+  //   });
 });
 // });
 
@@ -111,3 +260,17 @@ const popoverList = [...popoverTriggerList].map((popoverTriggerEl) => {
 //   const element = await printUsers();
 //   document.body.appendChild(element);
 // })();
+
+// IIFE
+(function () {
+  onReady(() => {
+    const allHiddenElements = Array.from(document.querySelectorAll(".hidden-initially"));
+    allHiddenElements.forEach((element, index) => {
+      const htmlElement = element as HTMLDivElement;
+      htmlElement.style.display = "block";
+    });
+    const spinnerElement = document.querySelector("#loadingSpinner") as HTMLDivElement;
+    spinnerElement.remove();
+    // spinnerElement.style.display = "none";
+  });
+})();

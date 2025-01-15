@@ -21,33 +21,13 @@
 
     <link rel="manifest" href="./site.webmanifest" />
     <meta name="theme-color" content="#fafafa" />
-    <style>
-      .spinner1 {
-        width: 56px;
-        height: 56px;
-        border-radius: 50%;
-        background: conic-gradient(#0000 10%, #44a949);
-        -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 9px), #000 0);
-        animation: spinner-zp9dbg 1s infinite linear;
-      }
-
-      @keyframes spinner-zp9dbg {
-        to {
-          transform: rotate(1turn);
-        }
-      }
-    </style>
 
     <script type="text/javascript" src="https://smtpjs.com/v3/smtp.js"></script>
   </head>
 
   <body>
-    <div id="loadingSpinner" style="width: 100%; min-height: 100vh; display: flex; flex-direction: row; justify-content: center; align-items: center;">
-      <div class="spinner1 spinner1-grow" role="status">
-        <!--<span class="sr-only">Loading...</span>-->
-      </div>
-    </div>
-    <div style="display: none" class="body-wrapper hidden-initially w-100 min1-vh-100 m-0 p-0 d-flex flex-column justify-content-start align-items-center gap-5">
+
+    <div class="body-wrapper w-100 min1-vh-100 m-0 p-0 d-flex flex-column justify-content-start align-items-center gap-5">
 
       <!--Top Part-->
       <div class="top-wrapper external-outer-container w-100 h1-100px my-0 mx-auto d-flex flex-column gap-1 gap-sm-5 text-custom-black-1 bg-light bg-dev border-0 border-danger">
@@ -62,7 +42,7 @@
 
         <!-- Hero Section -->
         <section class="hero-section section external1-outer-container w-100 border-0 border-danger d-flex flex-column flex-lg-row justify-content-between align-items-start gap-5 gap-lg-0 bg-dev">
-          <div class="hero-content w-100 wpct-lg-49 d-flex flex-column justify-content-start align-items-start gap-4">
+          <div class="hero-content w-100 w-lg-49pct d-flex flex-column justify-content-start align-items-start gap-4">
             <h1 class="display-3 fw-bolder"><span class="text-black">Get your Job<br /> Done with </span><br /><span class="highlight text-light-green-1">Local Tradesman</span></h1>
             <ul class="features text-secondary">
               <li><h3>Nr.1 Price in London</h3></li>
@@ -71,7 +51,7 @@
             </ul>
             <button class="cta-button btn btn-light-green-1 btn-large" data-bs-toggle="modal" data-bs-target="#calculateJobModalDialog">Calculate My Job</button>
           </div>
-          <div class="hero-image w-100 wpct-lg-45 overflow-hidden">
+          <div class="hero-image w-100 w-lg-45pct overflow-hidden">
             <img class="object-fit-cover w-100 h-100" src="./assets/images/pics/localTradesmen.png" alt="Tradesman Services Illustration">
           </div>
         </section>
@@ -178,97 +158,12 @@
               </a>
             </div>&ndash;&gt;
             </div>-->
-          <div class="job-grid w-100 d-flex flex-row justify-content-between justify-content-xl-start align-items-stretch flex-wrap column-gap-3 column-gap-xl-4 row-gap-5 px-0 pad-x-md-1rem" id="jobGrid">
-            <div class="job-card wpct-47 wpct-lg-31 max-w-lg-270px max-w-xxl-300px p-4 p-md-5 bg-light-green-2 rounded rounded-4 d-flex flex-column justify-content-start align-items-start gap-3 border-0 border-danger">
-              <img src="./assets/images/icons/Hammer.svg" alt="" class="job-icon">
-              <h4 class="job-title fw-bold d-sm-none">Wall Job</h4>
-              <h6 class="job-description fw-medium d-sm-none">Painting, Skimming, Rendering, Tiling etc...</h6>
-              <h4 class="job-title fw-bold d-none d-sm-inline">Wall Job</h4>
-              <h5 class="job-description fw-medium d-none d-sm-inline">Painting, Skimming, Rendering, Tiling etc...</h5>
-              <a href="#" class="calculate-btn btn btn-light-green-1 mt-auto" data-bs-toggle="modal" data-bs-target="#calculateJobModalDialog">
-                Calculate
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                </svg>
-              </a>
+          <div class="job-grid w-100 d-flex flex-row justify-content-between align-items-start flex-wrap gap-2 px-0 pad-x-md-2rem" id="jobGrid">
+            <div class="job-card wpct-47 wpct-lg-31 p-4 p-md-5 bg-light-green-2 rounded rounded-4 d-flex flex-column justify-content-start align-items-start gap-3 border-0 border-danger">
+              &nbsp;
             </div>
-            <div class="job-card wpct-47 wpct-lg-31 max-w-lg-270px max-w-xxl-300px p-4 p-md-5 bg-light-green-2 rounded rounded-4 d-flex flex-column justify-content-start align-items-start gap-3 border-0 border-danger">
-              <img src="./assets/images/icons/Hammer.svg" alt="" class="job-icon">
-              <h4 class="job-title fw-bold d-sm-none">Floor Job</h4>
-              <h6 class="job-description fw-medium d-sm-none">Tiling, Laminate, Hardwood, Vinyl etc...</h6>
-              <h4 class="job-title fw-bold d-none d-sm-inline">Floor Job</h4>
-              <h5 class="job-description fw-medium d-none d-sm-inline">Tiling, Laminate, Hardwood, Vinyl etc...</h5>
-              <a href="#" class="calculate-btn btn btn-light-green-1 mt-auto" data-bs-toggle="modal" data-bs-target="#calculateJobModalDialog">
-                Calculate
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                </svg>
-              </a>
-            </div>
-            <div class="job-card wpct-47 wpct-lg-31 max-w-lg-270px max-w-xxl-300px p-4 p-md-5 bg-light-green-2 rounded rounded-4 d-flex flex-column justify-content-start align-items-start gap-3 border-0 border-danger">
-              <img src="./assets/images/icons/Hammer.svg" alt="" class="job-icon">
-              <h4 class="job-title fw-bold d-sm-none">Ceiling Job</h4>
-              <h6 class="job-description fw-medium d-sm-none">Painting, Skimming, Suspended ceiling etc..</h6>
-              <h4 class="job-title fw-bold d-none d-sm-inline">Ceiling Job</h4>
-              <h5 class="job-description fw-medium d-none d-sm-inline">Painting, Skimming, Suspended ceiling etc..</h5>
-              <a href="#" class="calculate-btn btn btn-light-green-1 mt-auto" data-bs-toggle="modal" data-bs-target="#calculateJobModalDialog">
-                Calculate
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                </svg>
-              </a>
-            </div>
-            <div class="job-card wpct-47 wpct-lg-31 max-w-lg-270px max-w-xxl-300px p-4 p-md-5 bg-light-green-2 rounded rounded-4 d-flex flex-column justify-content-start align-items-start gap-3 border-0 border-danger">
-              <img src="./assets/images/icons/Hammer.svg" alt="" class="job-icon">
-              <h4 class="job-title fw-bold d-sm-none">Bathroom Job</h4>
-              <h6 class="job-description fw-medium d-sm-none">Tiling, Bathtub, Shower, Basin, Toilet  etc...</h6>
-              <h4 class="job-title fw-bold d-none d-sm-inline">Bathroom Job</h4>
-              <h5 class="job-description fw-medium d-none d-sm-inline">Tiling, Bathtub, Shower, Basin, Toilet  etc...</h5>
-              <a href="#" class="calculate-btn btn btn-light-green-1 mt-auto" data-bs-toggle="modal" data-bs-target="#calculateJobModalDialog">
-                Calculate
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                </svg>
-              </a>
-            </div>
-            <div class="job-card wpct-47 wpct-lg-31 max-w-lg-270px max-w-xxl-300px p-4 p-md-5 bg-light-green-2 rounded rounded-4 d-flex flex-column justify-content-start align-items-start gap-3 border-0 border-danger">
-              <img src="./assets/images/icons/Hammer.svg" alt="" class="job-icon">
-              <h4 class="job-title fw-bold d-sm-none">Kitchen Job</h4>
-              <h6 class="job-description fw-medium d-sm-none">Wall and Floor Units, Worktop, Appliances etc...</h6>
-              <h4 class="job-title fw-bold d-none d-sm-inline">Kitchen Job</h4>
-              <h5 class="job-description fw-medium d-none d-sm-inline">Wall and Floor Units, Worktop, Appliances etc...</h5>
-              <a href="#" class="calculate-btn btn btn-light-green-1 mt-auto" data-bs-toggle="modal" data-bs-target="#calculateJobModalDialog">
-                Calculate
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                </svg>
-              </a>
-            </div>
-            <div class="job-card wpct-47 wpct-lg-31 max-w-lg-270px max-w-xxl-300px p-4 p-md-5 bg-light-green-2 rounded rounded-4 d-flex flex-column justify-content-start align-items-start gap-3 border-0 border-danger">
-              <img src="./assets/images/icons/Hammer.svg" alt="" class="job-icon">
-              <h4 class="job-title fw-bold d-sm-none">Extension Job</h4>
-              <h6 class="job-description fw-medium d-sm-none">Walls, Foundation, Roof shell etc...</h6>
-              <h4 class="job-title fw-bold d-none d-sm-inline">Extension Job</h4>
-              <h5 class="job-description fw-medium d-none d-sm-inline">Walls, Foundation, Roof shell etc...</h5>
-              <a href="#" class="calculate-btn btn btn-light-green-1 mt-auto" data-bs-toggle="modal" data-bs-target="#calculateJobModalDialog">
-                Calculate
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                </svg>
-              </a>
-            </div>
-            <div class="job-card wpct-47 wpct-lg-31 max-w-lg-270px max-w-xxl-300px p-4 p-md-5 bg-light-green-2 rounded rounded-4 d-flex flex-column justify-content-start align-items-start gap-3 border-0 border-danger">
-              <img src="./assets/images/icons/Hammer.svg" alt="" class="job-icon">
-              <h4 class="job-title fw-bold d-sm-none">Loft Conver. Job</h4>
-              <h6 class="job-description fw-medium d-sm-none">Loft Dormer etc...</h6>
-              <h4 class="job-title fw-bold d-none d-sm-inline">Loft Conver. Job</h4>
-              <h5 class="job-description fw-medium d-none d-sm-inline">Loft Dormer etc...</h5>
-              <a href="#" class="calculate-btn btn btn-light-green-1 mt-auto" data-bs-toggle="modal" data-bs-target="#calculateJobModalDialog">
-                Calculate
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                </svg>
-              </a>
+            <div class="job-card wpct-47 wpct-lg-31 p-4 p-md-5 bg-light-green-2 rounded rounded-4 d-flex flex-column justify-content-start align-items-start gap-3 border-0 border-danger">
+              &nbsp;
             </div>
           </div>
 
@@ -506,39 +401,39 @@
         <!-- Services Section -->
         <section class="services-section section d-flex flex-column justify-content-start align-items-center gap-4 bg-dev">
           <div class="header-content d-flex flex-column justify-content-start align-items-center mb-5 flex-lg-row justify-content-lg-between align-items-lg-start">
-            <h2 class="section-title display-4 fw-bold w-100 wpct-lg-49">Comprehensive Home Renovation Services for You</h2>
-            <div class="w-100 wpct-lg-42">
+            <h2 class="section-title display-4 fw-bold w-100 w-lg-49pct">Comprehensive Home Renovation Services for You</h2>
+            <div class="w-100 w-lg-42pct">
               <p class="section-description text-secondary fw-semibold lh-lg">
                 Whether you're looking to update a single room or undertake a full home renovation, our team is here to help. We offer a wide range of services to meet all your renovation
               </p>
               <button class="see-more-btn btn btn-light-green-1 btn-medium">See More</button>
             </div>
           </div>
-          <div class="service-grid d-flex flex-row justify-content-between align-items-start align-items-lg-stretch flex-wrap gap-2 gap-sm-3 gap-md-4 flex-lg-row">
-            <div class="service-card w-100 wpct-md-47 wpct-lg-23 w-lx-25 p-4 bg-light-green-2 overflow-hidden rounded rounded-4 d-flex flex-column justify-content-start align-items-center gap-3">
+          <div class="service-grid d-flex flex-column justify-content-between align-items-start flex-wrap gap-2 gap-sm-3 gap-md-4 flex-lg-row">
+            <div class="service-card w-100 w-lg-23pct w-lx-25 p-4 bg-light-green-2 overflow-hidden rounded rounded-4 d-flex flex-column justify-content-start align-items-center gap-3">
               <div class="services-icon-wrapper fix-size-70px overflow-hidden d-flex flex-row justify-content-center align-items-center bg-light-green-1 is-circular">
-                <img class="service-icon object-fit-contain wpct-60 hpct-60" src="./assets/images/icons/KitchenRefurbishment.svg" alt="">
+                <img class="service-icon object-fit-contain w-60pct h-60pct" src="./assets/images/icons/KitchenRefurbishment.svg" alt="">
               </div>
               <h5 class="fw-bold">Kitchen Refurbishment</h5>
               <p class="fs-8 text-center">Reimagine your kitchen with modern designs, quality materials, and functional layouts. From sleek cabinetry to energy-efficient appliances, we'll transform your kitchen into the heart of your home.</p>
             </div>
-            <div class="service-card w-100 wpct-md-47 wpct-lg-23 w-lx-25 p-4 bg-light-green-2 overflow-hidden rounded rounded-4 d-flex flex-column justify-content-start align-items-center gap-3">
+            <div class="service-card w-100 w-lg-23pct w-lx-25 p-4 bg-light-green-2 overflow-hidden rounded rounded-4 d-flex flex-column justify-content-start align-items-center gap-3">
               <div class="services-icon-wrapper fix-size-70px overflow-hidden d-flex flex-row justify-content-center align-items-center bg-light-green-1 is-circular">
-                <img class="service-icon object-fit-contain wpct-60 hpct-60" src="./assets/images/icons/BathroomRemodeling.svg" alt="">
+                <img class="service-icon object-fit-contain w-60pct h-60pct" src="./assets/images/icons/BathroomRemodeling.svg" alt="">
               </div>
               <h5 class="fw-bold">Bathroom Remodeling</h5>
               <p class="fs-8 text-center">Create a relaxing oasis with our bespoke bathroom remodeling services. Whether you desire a spa-like retreat or a contemporary look, we bring elegance and practicality to every detail.</p>
             </div>
-            <div class="service-card w-100 wpct-md-47 wpct-lg-23 w-lx-25 p-4 bg-light-green-2 overflow-hidden rounded rounded-4 d-flex flex-column justify-content-start align-items-center gap-3">
+            <div class="service-card w-100 w-lg-23pct w-lx-25 p-4 bg-light-green-2 overflow-hidden rounded rounded-4 d-flex flex-column justify-content-start align-items-center gap-3">
               <div class="services-icon-wrapper fix-size-70px overflow-hidden d-flex flex-row justify-content-center align-items-center bg-light-green-1 is-circular">
-                <img class="service-icon object-fit-contain wpct-60 hpct-60" src="./assets/images/icons/HouseRefurbishment.svg" alt="">
+                <img class="service-icon object-fit-contain w-60pct h-60pct" src="./assets/images/icons/HouseRefurbishment.svg" alt="">
               </div>
               <h5 class="fw-bold">House Refurbishment</h5>
               <p class="fs-8 text-center">Give your entire home a fresh, cohesive update with our comprehensive refurbishment services. From concept to completion, we enhance every corner of your living space to reflect your unique style.</p>
             </div>
-            <div class="service-card w-100 wpct-md-47 wpct-lg-23 w-lx-25 p-4 bg-light-green-2 overflow-hidden rounded rounded-4 d-flex flex-column justify-content-start align-items-center gap-3">
+            <div class="service-card w-100 w-lg-23pct w-lx-25 p-4 bg-light-green-2 overflow-hidden rounded rounded-4 d-flex flex-column justify-content-start align-items-center gap-3">
               <div class="services-icon-wrapper fix-size-70px overflow-hidden d-flex flex-row justify-content-center align-items-center bg-light-green-1 is-circular">
-                <img class="service-icon object-fit-contain wpct-60 hpct-60" src="./assets/images/icons/HomeExtensions.svg" alt="">
+                <img class="service-icon object-fit-contain w-60pct h-60pct" src="./assets/images/icons/HomeExtensions.svg" alt="">
               </div>
               <h5 class="fw-bold">Home Extensions</h5>
               <p class="fs-8 text-center">Expand your living space with expertly designed and beautifully crafted home extensions that blend seamlessly with your existing property, adding value, comfort, functionality, and style to your home.</p>
@@ -548,29 +443,29 @@
 
         <!-- Approach Section -->
         <section class="approach-section section d-flex flex-column justify-content-between align-items-start gap-1 gap-sm-7 flex-xl-row justify-content-xl-between align-items-lg-stretch bg-dev mb-3">
-          <div class="approach-images w-100 wpct-xl-45 h-100 d-flex flex-row justify-content-between align-items-start flex-wrap gap-2 border-0 border-danger">
-            <div class="w-100 hpct-66 rounded rounded-4 overflow-hidden">
+          <div class="approach-images w-100 w-xl-45pct h-100 d-flex flex-row justify-content-between align-items-start flex-wrap gap-2 border-0 border-danger">
+            <div class="w-100 h-66pct rounded rounded-4 overflow-hidden">
               <img class="w-100 h-100 object-fit-contain" src="./assets/images/pics/approach-1.png" alt="ALT" />
             </div>
-            <div class="wpct-55 hpct-30 rounded rounded-4 overflow-hidden">
+            <div class="w-55pct h-30pct rounded rounded-4 overflow-hidden">
               <img class="w-100 h-100 object-fit-contain" src="./assets/images/pics/approach-2.png" alt="ALT" />
             </div>
-            <div class="wpct-39 hpct-30 rounded rounded-4 overflow-hidden">
+            <div class="w-39pct h-30pct rounded rounded-4 overflow-hidden">
               <img class="w-100 h-100 object-fit-contain" src="./assets/images/pics/approach-3.png" alt="ALT" />
             </div>
           </div>
-          <div class="approach-content w-100 wpct-xl-53 d-flex flex-column justify-content-start align-items-center gap-1 gap-sm-4 py-4">
+          <div class="approach-content w-100 w-xl-53pct d-flex flex-column justify-content-start align-items-center gap-1 gap-sm-4 py-4">
             <div class="approach-header section-header d-flex flex-column gap-1 gap-sm-4">
               <h2 class="section-title display-6 fw-bold">Our comprehensive approach ensures that every aspect of your renovation</h2>
               <h5 class="fw-normal fs-6 lh-lg">Our comprehensive approach ensures that every aspect of your renovation project is meticulously planned and executed</h5>
             </div>
             <div class="approach-grid w-100 d-flex flex-column flex-xl-row justify-content-between align-items-start flex-wrap gap-4 gap-sm-3">
-              <div class="approach-card w-100 wpct-xl-47 d-flex flex-row justify-content-start align-items-start gap-3">
+              <div class="approach-card w-100 w-xl-47pct d-flex flex-row justify-content-start align-items-start gap-3">
                 <div class="approach-icon-wrapper d-sm-none fix-size-48px overflow-hidden d-flex flex-row justify-content-center align-items-center bg-light-green-1 is-circular">
-                  <img class="approach-icon object-fit-contain wpct-50 hpct-50" src="./assets/images/icons/ApproachArrow.svg" alt="">
+                  <img class="approach-icon object-fit-contain w-50pct h-50pct" src="./assets/images/icons/ApproachArrow.svg" alt="">
                 </div>
                 <div class="approach-icon-wrapper d-none d-sm-flex fix-size-50px overflow-hidden flex-row justify-content-center align-items-center bg-light-green-1 is-circular">
-                  <img class="approach-icon object-fit-contain wpct-50 hpct-50" src="./assets/images/icons/ApproachArrow.svg" alt="">
+                  <img class="approach-icon object-fit-contain w-50pct h-50pct" src="./assets/images/icons/ApproachArrow.svg" alt="">
                 </div>
                 <div class="step-content d-flex flex-column gap-2">
                   <span class="spacer-1 w-100 fix-h-4px">&nbsp;</span>
@@ -578,12 +473,12 @@
                   <p class="fs-8 text-secondary fw-semibold">Our experts listen to your vision and provide professional advice to help shape your project</p>
                 </div>
               </div>
-              <div class="approach-card w-100 wpct-xl-47 d-flex flex-row justify-content-start align-items-start gap-3">
+              <div class="approach-card w-100 w-xl-47pct d-flex flex-row justify-content-start align-items-start gap-3">
                 <div class="approach-icon-wrapper d-sm-none fix-size-48px overflow-hidden d-flex flex-row justify-content-center align-items-center bg-light-green-1 is-circular">
-                  <img class="approach-icon object-fit-contain wpct-50 hpct-50" src="./assets/images/icons/ApproachArrow.svg" alt="">
+                  <img class="approach-icon object-fit-contain w-50pct h-50pct" src="./assets/images/icons/ApproachArrow.svg" alt="">
                 </div>
                 <div class="approach-icon-wrapper d-none d-sm-flex fix-size-50px overflow-hidden flex-row justify-content-center align-items-center bg-light-green-1 is-circular">
-                  <img class="approach-icon object-fit-contain wpct-50 hpct-50" src="./assets/images/icons/ApproachArrow.svg" alt="">
+                  <img class="approach-icon object-fit-contain w-50pct h-50pct" src="./assets/images/icons/ApproachArrow.svg" alt="">
                 </div>
                 <div class="step-content d-flex flex-column gap-2">
                   <span class="spacer-1 w-100 fix-h-4px">&nbsp;</span>
@@ -591,12 +486,12 @@
                   <p class="fs-8 text-secondary fw-semibold">Our experts listen to your vision and provide professional advice to help shape your project</p>
                 </div>
               </div>
-              <div class="approach-card w-100 wpct-xl-47 d-flex flex-row justify-content-start align-items-start gap-3">
+              <div class="approach-card w-100 w-xl-47pct d-flex flex-row justify-content-start align-items-start gap-3">
                 <div class="approach-icon-wrapper d-sm-none fix-size-48px overflow-hidden d-flex flex-row justify-content-center align-items-center bg-light-green-1 is-circular">
-                  <img class="approach-icon object-fit-contain wpct-50 hpct-50" src="./assets/images/icons/ApproachArrow.svg" alt="">
+                  <img class="approach-icon object-fit-contain w-50pct h-50pct" src="./assets/images/icons/ApproachArrow.svg" alt="">
                 </div>
                 <div class="approach-icon-wrapper d-none d-sm-flex fix-size-50px overflow-hidden flex-row justify-content-center align-items-center bg-light-green-1 is-circular">
-                  <img class="approach-icon object-fit-contain wpct-50 hpct-50" src="./assets/images/icons/ApproachArrow.svg" alt="">
+                  <img class="approach-icon object-fit-contain w-50pct h-50pct" src="./assets/images/icons/ApproachArrow.svg" alt="">
                 </div>
                 <div class="step-content d-flex flex-column gap-2">
                   <span class="spacer-1 w-100 fix-h-4px">&nbsp;</span>
@@ -604,12 +499,12 @@
                   <p class="fs-8 text-secondary fw-semibold">Our experts listen to your vision and provide professional advice to help shape your project</p>
                 </div>
               </div>
-              <div class="approach-card w-100 wpct-xl-47 d-flex flex-row justify-content-start align-items-start gap-3">
+              <div class="approach-card w-100 w-xl-47pct d-flex flex-row justify-content-start align-items-start gap-3">
                 <div class="approach-icon-wrapper d-sm-none fix-size-48px overflow-hidden d-flex flex-row justify-content-center align-items-center bg-light-green-1 is-circular">
-                  <img class="approach-icon object-fit-contain wpct-50 hpct-50" src="./assets/images/icons/ApproachArrow.svg" alt="">
+                  <img class="approach-icon object-fit-contain w-50pct h-50pct" src="./assets/images/icons/ApproachArrow.svg" alt="">
                 </div>
                 <div class="approach-icon-wrapper d-none d-sm-flex fix-size-50px overflow-hidden flex-row justify-content-center align-items-center bg-light-green-1 is-circular">
-                  <img class="approach-icon object-fit-contain wpct-50 hpct-50" src="./assets/images/icons/ApproachArrow.svg" alt="">
+                  <img class="approach-icon object-fit-contain w-50pct h-50pct" src="./assets/images/icons/ApproachArrow.svg" alt="">
                 </div>
                 <div class="step-content d-flex flex-column gap-2">
                   <span class="spacer-1 w-100 fix-h-4px">&nbsp;</span>
@@ -960,7 +855,7 @@
         <!-- Footer Section -->
         <div class="footer-section section external1-outer-container bg-light-green-1 pt-4 text-light">
           <div class="d-none d-lg-flex flex-row justify-content-between align-items-start py-5 mb-3">
-            <div class="footer-col wpct-25 px-4 border-0 border-warning" id="footer-col-1">
+            <div class="footer-col w-25pct px-4 border-0 border-warning" id="footer-col-1">
               <div class="footer-col-header h-50px mb-4">
                 <div class="logo-icon-wrapper fix-w-185px fix-h-56p overflow-hidden d-flex flex-row justify-content-center align-items-center">
                   <img class="logo-icon object-fit-contain w-100 h-100" src="./assets/images/pics/Logo2.png" alt="">
@@ -968,7 +863,7 @@
               </div>
               <p class="text-start fs-7 lh-lg">At MyjobDone, we transform houses into dream homes with expert craftsmanship and personalized solutions. From kitchen upgrades to home extensions, we create spaces you’ll love for years.</p>
             </div>
-            <div class="footer-col wpct-19 border-0 border-warning" id="footer-col-2">
+            <div class="footer-col w-19pct border-0 border-warning" id="footer-col-2">
               <div class="footer-col-header h-50px mb-4"><h2 class="fw-bolder">Social Media</h2></div>
               <ul class="list-group">
                 <li class="list-group-item bg-transparent border-0">
@@ -1005,7 +900,7 @@
                 </li>
               </ul>
             </div>
-            <div class="footer-col wpct-29 border-0 border-warning" id="footer-col-3">
+            <div class="footer-col w-29pct border-0 border-warning" id="footer-col-3">
               <div class="footer-col-header h-50px mb-4"><h2 class="fw-bolder">Contact Details</h2></div>
               <ul class="list-group">
                 <li class="list-group-item bg-transparent border-0">
@@ -1034,7 +929,7 @@
                 </li>
               </ul>
             </div>
-            <div class="footer-col wpct-15 border-0 border-warning" id="footer-col-4">
+            <div class="footer-col w-15pct border-0 border-warning" id="footer-col-4">
               <div class="footer-col-header h-50px mb-4"><h2 class="fw-bolder">Legal</h2></div>
               <ul class="list-group">
                 <li class="list-group-item bg-transparent border-0">
@@ -1152,7 +1047,7 @@
               </div>
               <p class="text-start fs-7 lh-lg">At MyjobDone, we transform houses into dream homes with expert craftsmanship and personalized solutions. From kitchen upgrades to home extensions, we create spaces you’ll love for years.</p>
             </div>
-            <div class="footer-col w-100 wpct-sm-46 border-0 border-warning text1-center text-sm-start" id="footer-col-2a">
+            <div class="footer-col w-100 w-sm-46pct border-0 border-warning text1-center text-sm-start" id="footer-col-2a">
               <div class="footer-col-header h-50px mb-4"><h2 class="fw-bold">Social Media</h2></div>
               <ul class="list-group align-items-start">
                 <li class="list-group-item bg-transparent border-0 w-50 w-sm-100">
@@ -1189,7 +1084,7 @@
                 </li>
               </ul>
             </div>
-            <div class="footer-col w-100 wpct-sm-46 border-0 border-warning text1-center text-sm-start" id="footer-col-3a">
+            <div class="footer-col w-100 w-sm-46pct border-0 border-warning text1-center text-sm-start" id="footer-col-3a">
               <div class="footer-col-header h-50px mb-4"><h2 class="fw-bold">Contact Details</h2></div>
               <ul class="list-group align-items-start text-start">
                 <li class="list-group-item bg-transparent border-0 w-85 w-sm-100">
@@ -1218,7 +1113,7 @@
                 </li>
               </ul>
             </div>
-            <div class="footer-col w-100 wpct-sm-40 border-0 border-warning text1-center text-sm-start" id="footer-col-4a">
+            <div class="footer-col w-100 w-sm-40pct border-0 border-warning text1-center text-sm-start" id="footer-col-4a">
               <div class="footer-col-header h-50px mb-4"><h2 class="fw-bold">Legal</h2></div>
               <ul class="list-group align-items-start">
                 <li class="list-group-item bg-transparent border-0 w-50 w-sm-100">
@@ -1244,7 +1139,7 @@
 
     <!-- Modal -->
   <!--  <div class="modal fade" id="calculateJobModalDialog" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="calculateModalLabel" aria-hidden="true">-->
-    <div style="display: none;" class="modal fade hidden-initially" id="calculateJobModalDialog1" tabindex="-1" aria-labelledby="calculateModalLabel" aria-hidden="true">
+    <div class="modal fade" id="calculateJobModalDialog1" tabindex="-1" aria-labelledby="calculateModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
           <div class="modal-header">
@@ -1262,7 +1157,7 @@
       </div>
     </div>
 
-    <div style="display: none;" class="modal fade hidden-initially" id="calculateJobModalDialog" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal fade" id="calculateJobModalDialog" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-scrollable">
         <form id="calculateForm" class="modal-content" action="" method="POST" novalidate>
           <div class="modal-header bg-secondary fs-6" id="staticBackdropLabel"><h1>Calculate Job</h1>

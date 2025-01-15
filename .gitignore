@@ -18,6 +18,11 @@ dist
 # Custom rules
 .idea
 *.txt
+!/src/robots.txt
+test.*
 *.zip
 /src/assets/fonts/**/*.html
 /src/assets/fonts/**/*.css
+*.xcf
+/Logo
+/Pictures Job

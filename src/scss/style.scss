@@ -1,6 +1,5 @@
-/** @format */
-
 @charset "UTF-8";
+@use "sass:math";
 
 // Import all of Bootstrap's CSS
 //@use "bootstrap/scss/bootstrap" as *;
@@ -10,9 +9,7 @@
 //@use "bootstrap/scss/functions" as *;
 
 // 2. Include any default variable overrides here
-$light-green-1: #5BC43A;
-$light-green-2: #E7F6E2;
-$custom-black-1: #101722;
+$enable-important-utilities: true;
 
 // 3. Include remainder of required Bootstrap stylesheets (including any separate color mode stylesheets)
 @import "bootstrap/scss/variables";
@@ -21,6 +18,73 @@ $custom-black-1: #101722;
 //@use "bootstrap/scss/variables-dark" as *;
 
 // 4. Include any default map overrides here
+
+@function create_kv_map($key, $val) {
+  $map: (
+    $key: $val,
+  );
+  @return $map;
+}
+
+$startPctW: 1;
+$endPctW: 100;
+$widths-map: ();
+@for $i from $startPctW through $endPctW {
+  $width: percentage(math.div($i, 100));
+  //$map: ();
+  //$map: map-merge($map, ($i: create_kv_map($width)) );
+  $widths-map: map-merge($widths-map, ($i: $width));
+}
+
+$utilities: (
+  "wpct": (
+    property: width,
+    class: wpct,
+    responsive: true,
+    //values: (
+    //  31: 31%,
+    //  47: 47%,
+    //)
+    values: $widths-map,
+  ),
+  "hpct": (
+    property: height,
+    class: hpct,
+    responsive: true,
+    values: $widths-map,
+  )
+);
+
+
+$light-green-1: #5BC43A;
+$light-green-2: #E7F6E2;
+$custom-black-1: #101722;
+$font-size-low-base-1: 0.85rem !default;
+$font-size-low-base-2: 0.75rem !default;
+
+$spacers: (
+  0: 0,
+  1: $spacer * .25,
+  2: $spacer * .5,
+  3: $spacer,
+  4: $spacer * 1.5,
+  5: $spacer * 3,
+  6: $spacer * 4,
+  7: $spacer * 5,
+  8: $spacer * 6,
+);
+$font-sizes: (
+  1: $h1-font-size,
+  2: $h2-font-size,
+  3: $h3-font-size,
+  4: $h4-font-size,
+  5: $h5-font-size,
+  6: $h6-font-size,
+  7: $font-size-low-base-1,
+  8: $font-size-low-base-2,
+);
+
+
 $custom-colors: (
   "light-green-1": $light-green-1,
   "light-green-2": $light-green-2,
@@ -40,16 +104,19 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 @import "bootstrap/scss/utilities";
 @import "bootstrap/scss/reboot";
 @import "bootstrap/scss/type";
+@import "bootstrap/scss/containers";
+@import "bootstrap/scss/grid";
+@import "bootstrap/scss/transitions";
+@import "bootstrap/scss/helpers";
+@import "bootstrap/scss/images";
+@import "bootstrap/scss/spinners";
+
 @import "bootstrap/scss/close";
 @import "bootstrap/scss/modal";
 @import "bootstrap/scss/buttons";
 @import "bootstrap/scss/list-group";
-@import "bootstrap/scss/images";
-@import "bootstrap/scss/containers";
-@import "bootstrap/scss/grid";
-@import "bootstrap/scss/transitions";
 @import "bootstrap/scss/accordion";
-@import "bootstrap/scss/helpers";
+@import "bootstrap/scss/forms";
 //@use "bootstrap/scss/utilities" as *;
 
 // 7. Optionally include utilities API last to generate classes based on the Sass map in `_utilities.scss`
@@ -60,6 +127,51 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 
 // Add additional custom code here
 
+
+@function str-replace($string, $search, $replace: '') {
+  $index: str-index($string, $search);
+
+  @if $index {
+    @return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+  }
+
+  @return $string;
+}
+
+@function reverseList($list, $separator:comma) {
+  $reversedList: null;
+
+  @for $i from length($list) to 0 {
+    $reversedList: append($reversedList, nth($list, $i), $separator);
+  }
+
+  @return $reversedList;
+}
+
+@function mapReverse ($map) {
+  $result: null;
+  @if type-of($map) == "map" {
+    $keys: map-keys($map);
+    $map-reversed: ();
+
+    @for $i from length($keys) through 1 {
+      $map-reversed: map-merge(
+          $map-reversed,
+          (nth($keys, $i): map-get($map, nth($keys, $i)))
+      );
+    }
+
+    @if type-of($map-reversed) == "map" {
+      $result: $map-reversed;
+    } @else {
+      @warn 'There was an error reversing the order of "#{$map}"';
+    }
+  } @else {
+    @warn '"#{$map}" is not a valid map';
+  }
+
+  @return $result;
+}
 
 //$j-text-colors: map-merge-multiple($blues, $indigos, $purples, $pinks, $reds, $oranges, $yellows, $greens, $teals, $cyans);
 //$utilities: map-merge(
@@ -94,85 +206,91 @@ $widths: (
   }
 }
 
+// display-n classes
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @each $size, $length in $display-font-sizes {
+    @include media-breakpoint-up($breakpoint) {
+      .display-#{$breakpoint}-#{$size} {font-size: $length !important;}
+    }
+  }
+}
+
 $startPct: 1;
 $endPct: 100;
-//$arrayPct: "";
 @for $i from $startPct through $endPct {
-  //$array: append($arrayPct, $i, comma);
-  //$array: set-nth($array, 1, $arrayPct);
+  $width: percentage(math.div($i, 100));
 
-  $width: percentage(divide($i, 100));
-
-  .w-#{$i}pct {
-    width: $width !important;
-  }
-  .h-#{$i}pct {
-    height: $width !important;
-  }
+  //$breakpoints: mapReverse($grid-breakpoints);
+  //@each $breakpoint in map-keys($breakpoints) {
+  //  @include media-breakpoint-up($breakpoint) {
+  //    .w-#{$breakpoint}-#{$i}pct {
+  //      width: $width;
+  //    }
+  //    .h-#{$breakpoint}-#{$i}pct {
+  //      height: $width;
+  //    }
+  //  }
+  //}
+  //
+  //.w-#{$i}pct {
+  //  width: $width;
+  //}
+  //.h-#{$i}pct {
+  //  height: $width;
+  //}
 
   .start-#{$i}pct {
-    left: $width !important;
+    left: $width;
   }
   .end-#{$i}pct {
-    right: $width !important;
+    right: $width;
   }
   .top-#{$i}pct {
-    top: $width !important;
+    top: $width;
   }
   .bottom-#{$i}pct {
-    bottom: $width !important;
-  }
-
-  @each $breakpoint in map-keys($grid-breakpoints) {
-    @include media-breakpoint-up($breakpoint) {
-      .w-#{$breakpoint}-#{$i}pct {
-        width: $width !important;
-      }
-      .h-#{$breakpoint}-#{$i}pct {
-        height: $width !important;
-      }
-    }
+    bottom: $width;
   }
 };
 
 $startSiz: 1;
-$endSiz: 1000;
+$endSiz: 1500;
 @for $i from $startSiz through $endSiz {
   $sizVal: $i + px;
 
   .w-#{$i}px {
-    width: $sizVal !important;
+    width: $sizVal;
   }
   .min-w-#{$i}px {
-    min-width: $sizVal !important;
+    min-width: $sizVal;
   }
   .max-w-#{$i}px {
-    max-width: $sizVal !important;
+    max-width: $sizVal;
   }
   .fix-w-#{$i}px {
-    min-width: $sizVal !important;
-    max-width: $sizVal !important;
+    min-width: $sizVal;
+    max-width: $sizVal;
   }
 
   .h-#{$i}px {
-    height: $sizVal !important;
+    height: $sizVal;
   }
   .min-h-#{$i}px {
-    min-height: $sizVal !important;
+    min-height: $sizVal;
   }
   .max-h-#{$i}px {
-    max-height: $sizVal !important;
+    max-height: $sizVal;
   }
   .fix-h-#{$i}px {
-    min-height: $sizVal !important;
-    max-height: $sizVal !important;
+    min-height: $sizVal;
+    max-height: $sizVal;
   }
 
   .fix-size-#{$i}px {
-    min-height: $sizVal !important;
-    max-height: $sizVal !important;
-    min-width: $sizVal !important;
-    max-width: $sizVal !important;
+    min-height: $sizVal;
+    max-height: $sizVal;
+    min-width: $sizVal;
+    max-width: $sizVal;
   }
 
   @each $breakpoint in map-keys($grid-breakpoints) {
@@ -215,6 +333,63 @@ $endSiz: 1000;
   }
 };
 
+$startRem: 0;
+$endRem: 10;
+$remParts: 8;
+$last-j: 0;
+@for $i from $startRem through $endRem {
+  @for $j from 1 through $remParts {
+    @if ($i < $endRem or $i == $endRem and $j == $remParts - ($remParts - 1)) {
+      $val: math.div($last-j, $remParts);
+      //@debug $i, $j, $last-j, $val;
+      $remVal: $val + rem;
+      @if $i == 0 and $j == 1 {
+        $remVal: 0;
+      }
+
+      .pad-#{str-replace(#{$val}, '.', '\\.')}rem {
+        padding: $remVal;
+      }
+      .pad-y-#{str-replace(#{$val}, '.', '\\.')}rem {
+        //padding-block: $remVal;
+        padding-top: $remVal;
+        padding-bottom: $remVal;
+      }
+      .pad-x-#{str-replace(#{$val}, '.', '\\.')}rem {
+        //padding-inline: $remVal;
+        padding-left: $remVal;
+        padding-right: $remVal;
+      }
+      .pad-b-#{str-replace(#{$val}, '.', '\\.')}rem {
+        padding-bottom: $remVal;
+      }
+
+      @each $breakpoint in map-keys($grid-breakpoints) {
+        @include media-breakpoint-up($breakpoint) {
+          .pad-#{$breakpoint}-#{str-replace(#{$val}, '.', '\\.')}rem {
+            padding: $remVal !important;
+          }
+          .pad-y-#{$breakpoint}-#{str-replace(#{$val}, '.', '\\.')}rem {
+            //padding-block: $remVal !important;
+            padding-top: $remVal !important;
+            padding-bottom: $remVal !important;
+          }
+          .pad-x-#{$breakpoint}-#{str-replace(#{$val}, '.', '\\.')}rem {
+            //padding-inline: $remVal !important;
+            padding-left: $remVal !important;
+            padding-right: $remVal !important;
+          }
+          .pad-b-#{$breakpoint}-#{str-replace(#{$val}, '.', '\\.')}rem {
+            padding-bottom: $remVal !important;
+          }
+
+        }
+      }
+    }
+    $last-j: $last-j + 1;
+  }
+}
+
 //@each $breakpoint in map-keys($grid-breakpoints) {
 //  @include media-breakpoint-up($breakpoint) {
 //    .py-#{$breakpoint}-auto {
@@ -253,32 +428,86 @@ $endSiz: 1000;
 .outer-container {
   max-width: 1440px;
   //border: 4px solid red;
+  //@extend .invisible;
+
+  @extend .pad-x-1rem;
+  @extend .pad-x-sm-1\.5rem;
+  @extend .pad-x-md-2\.125rem;
 }
-.outer-container.has-padding {
-  padding: 1rem 5%;
-  //padding: 2rem 7rem;
-}
-@media (min-width: 768px) {
-  .outer-container.has-padding {
-    //padding: 1rem 5%;
-    padding: 2rem 5rem;
-  }
+.outer-container.content-wrapper {
+  @extend .pt-3;
+  //@extend .pad-b-2rem;
+  //@extend .pad-b-sm-3rem;
+  //@extend .pad-b-lg-4rem;
 }
 
-.body-wrapper {
+.external-outer-container {
+  @extend .container-fluid;
+  //@extend .outer-container;
+  //@extend .mx-0;
+  //@extend .pad-x-md-3rem;
+  @extend .pad-x-1rem;
+  @extend .pad-x-sm-1\.5rem;
+  @extend .pad-x-md-5\.875rem;
+  max-width: 100% !important;
+  margin-inline: 0 !important;
+}
+.external-outer-container > .header-section, .external-outer-container > .hero-section {
+}
+//.external-outer-container.partners-list {
+//  @extend .pad-b-2rem;
+//  @extend .pad-b-sm-3rem;
+//  @extend .pad-b-lg-4rem;
+//}
+.external-outer-container.footer-section {
+  //@extend .pad-y-2rem;
+  //@extend .pad-y-sm-3rem;
+  //@extend .pad-y-lg-4rem;
+}
+.footer-section {
+  @extend .container-fluid;
+  //@extend .outer-container;
+  //@extend .mx-0;
+  //@extend .pad-x-md-3rem;
+  //@extend .pad-y-2rem;
+  //@extend .pad-y-sm-3rem;
+  //@extend .pad-y-lg-4rem;
+  @extend .pad-x-1rem;
+  @extend .pad-x-sm-1\.5rem;
+  @extend .pad-x-md-5rem;
+  max-width: 100% !important;
+  margin-inline: 0 !important;
+}
+.footer-section .list-group-item {
+  @extend .ps-0;
+  color: inherit !important;
+}
+
+//.outer-container.has-padding {
+//  padding: 1rem 5%;
+//  //padding: 2rem 7rem;
+//}
+//@media (min-width: 768px) {
+//  .outer-container.has-padding {
+//    //padding: 1rem 5%;
+//    padding: 2rem 5rem;
+//  }
+//}
+
+.content-wrapper {
   //background-color: antiquewhite;
   background-color: white;
 }
-.body-wrapper > section, .body-wrapper > header {
-  padding: 2rem 2rem;
-  background-color: white;
-}
-@media (min-width: 768px) {
-  .body-wrapper > section, .body-wrapper > header {
-    padding: 2rem 5rem;
-    background-color: white;
-  }
-}
+//.content-wrapper > section, .content-wrapper > header {
+//  padding: 2rem 2rem;
+//  background-color: white;
+//}
+//@media (min-width: 768px) {
+//  .content-wrapper > section, .content-wrapper > header {
+//    padding: 2rem 5rem;
+//    background-color: white;
+//  }
+//}
 
 
 .is-circular {
@@ -287,7 +516,35 @@ $endSiz: 1000;
 }
 
 .btn-light-green-1 {
+  @extend .rounded;
+  //@extend .rounded-3;
+  border-radius: 0.5rem !important;
   color: white;
+  padding-inline: 1.75rem !important;
+}
+.btn-light-green-1.btn-large {
+  @extend .btn-light-green-1;
+  border-radius: 0.75rem !important;
+  padding-block: 1.25rem !important;
+  padding-inline: 3rem !important;
+}
+.btn-light-green-1.btn-medium {
+  @extend .btn-light-green-1;
+  border-radius: 0.75rem !important;
+  padding-block: 1.25rem !important;
+  padding-inline: 2rem !important;
+}
+
+.service-card:hover {
+  @extend .bg-light-green-1;
+  @extend .text-light;
+}
+.service-card:hover > .services-icon-wrapper {
+  @extend .bg-light;
+}
+.service-card:hover > .services-icon-wrapper > .service-icon {
+  //filter: invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%);
+  filter: invert(64%) sepia(57%) saturate(549%) hue-rotate(61deg) brightness(93%) contrast(88%);
 }
 
 .custom-popover {
@@ -298,31 +555,84 @@ $endSiz: 1000;
   //--bs-popover-header-color: var(--bs-white);
   //--bs-popover-body-padding-x: 1rem;
   //--bs-popover-body-padding-y: .5rem;
-  background-color: $light-green-1;
+
+  //background-color: $light-green-1;
+  //background-color: $light;
+  transform: none !important;
+  top: 2.8rem !important;
+  left: 1.8rem !important;
+  z-index: 1 !important;
 }
+@include media-breakpoint-down(lg) {
+  .custom-popover {
+    //left: -3.75rem !important;
+    left: 2rem !important;
+    top: 33rem !important;;
+  }
+}
+@include media-breakpoint-down(md) {
+  .custom-popover {
+    top: 27rem !important;;
+  }
+}
+@include media-breakpoint-down(sm) {
+  .custom-popover {
+    top: 20rem !important;;
+  }
+}
+.custom-popover > .popover-header {
+  display: none;
+}
+//.custom-popover > .popover-arrow {
+//  display: none;
+//}
 
 .ring1 {
   //background-color: transparent;
   //border: 0;
   //box-shadow: 0 0 20px 5px rgba(0, 255, 20, 0.69), inset 0 0 0px 7px rgb(0, 255, 20);
   background-color: $light-green-1;
-  box-shadow: 0 0 20px 5px rgba(0, 255, 20, 0.69), inset 0 0 0px 7px $light-green-1;
+  //box-shadow: 0 0 20px 5px rgba(0, 255, 20, 0.69), inset 0 0 0px 7px $light-green-1;
+  box-shadow: 0 0 0 8px $light-green-2;
 }
 
-.glowbtn {
-  background-color: #00ff14;
-  border: 0;
-  box-shadow: 0 0 20px 5px rgba(0, 255, 20, 0.69);
+.accordion {
+  --bs-accordion-active-bg: #ffffff;
+  --bs-accordion-active-color: #000000;
+  --bs-accordion-btn-focus-box-shadow: none;
+}
+.accordion-item-style-1 {
+  @extend .mb-3;
+}
+.accordion-item-style-1:last-child {
+  @extend .mb-0;
+}
+.accordion-button::after {
+  //background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='%23333' xmlns='http://www.w3.org/2000/svg'%3e%3cpath fill-rule='evenodd' d='M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z' clip-rule='evenodd'/%3e%3c/svg%3e");
+  //transform: scale(.7) !important;
+  background-image: url("../assets/images/icons/PlusSign.svg");
+  transform: scale(1.75);
+}
+.accordion-button:not(.collapsed)::after {
+  //background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='%23333' xmlns='http://www.w3.org/2000/svg'%3e%3cpath fill-rule='evenodd' d='M0 8a1 1 0 0 1 1-1h14a1 1 0 1 1 0 2H1a1 1 0 0 1-1-1z' clip-rule='evenodd'/%3e%3c/svg%3e");
+  background-image: url("../assets/images/icons/MinusSign.svg");
+  transform: scale(1.75);
 }
 
-.border-ring {
-  background: transparent;
-  border: 8px solid #00ff14;
-  box-shadow: 0 0 20px 5px rgba(0, 255, 20, 0.69);
-}
-
-.inner-glow {
-  background: transparent;
-  border: 8px solid #00ff14;
-  box-shadow: 0 0 20px 5px rgba(0, 255, 20, 0.69), inset 0 0 20px 7px rgba(0, 255, 20, 0.69);
-}
+//.glowbtn {
+//  background-color: #00ff14;
+//  border: 0;
+//  box-shadow: 0 0 20px 5px rgba(0, 255, 20, 0.69);
+//}
+//
+//.border-ring {
+//  background: transparent;
+//  border: 8px solid #00ff14;
+//  box-shadow: 0 0 20px 5px rgba(0, 255, 20, 0.69);
+//}
+//
+//.inner-glow {
+//  background: transparent;
+//  border: 8px solid #00ff14;
+//  box-shadow: 0 0 20px 5px rgba(0, 255, 20, 0.69), inset 0 0 20px 7px rgba(0, 255, 20, 0.69);
+//}
