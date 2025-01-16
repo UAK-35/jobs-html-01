@@ -38,21 +38,55 @@
       }
     </style>
 
+    <script type="text/javascript">
+      // function onReady(callback) {
+      //   if (document.readyState === "loading") {
+      //     document.addEventListener("DOMContentLoaded", callback);
+      //   } else {
+      //     callback();
+      //   }
+      // }
+      //
+      // function spinnerLoad() {
+      //   // const allHiddenElementsF = Array.from(document.querySelectorAll(".hidden-initially-flex"));
+      //   // allHiddenElementsF.forEach((element, index) => {
+      //   //   // element.style.display = "flex";
+      //   //   element.style.removeProperty('display');
+      //   // });
+      //   // const allHiddenElementsB = Array.from(document.querySelectorAll(".hidden-initially-block"));
+      //   // allHiddenElementsB.forEach((element, index) => {
+      //   //   // element.style.display = "block";
+      //   //   element.style.removeProperty('display');
+      //   // });
+      //   setTimeout(() => {
+      //     const spinnerElement = document.querySelector("#loadingSpinner");
+      //     spinnerElement.remove();
+      //   }, 1000);
+      // }
+      //
+      // onReady(spinnerLoad);
+    </script>
+
     <script type="text/javascript" src="https://smtpjs.com/v3/smtp.js"></script>
   </head>
 
   <body>
-    <div id="loadingSpinner" style="width: 100%; min-height: 100vh; display: flex; flex-direction: row; justify-content: center; align-items: center;">
+    <!--<div id="loadingSpinner" style="width: 100%; min-height: 100vh; display: flex; flex-direction: row; justify-content: center; align-items: center;">-->
+    <div id="loadingSpinner" style="position: absolute; top: 0; bottom: 0; left: 0; right: 0; width: 100%; min-height: 100vh; display: flex; flex-direction: row; justify-content: center; align-items: center;">
       <div class="spinner1 spinner1-grow" role="status">
       </div>
     </div>
-    <div style="display: none" class="body-wrapper hidden-initially w-100 min1-vh-100 m-0 p-0 d-flex flex-column justify-content-start align-items-center gap-5">
+    <!--<script>
+      onReady(spinnerLoad);
+    </script>-->
+
+    <div style="display: none" class="body-wrapper hidden-initially-flex w-100 min1-vh-100 m-0 p-0 d-flex flex-column justify-content-start align-items-center gap-5">
 
       <!--Top Part-->
-      <div class="top-wrapper external-outer-container w-100 h1-100px my-0 mx-auto d-flex flex-column gap-1 gap-sm-5 text-custom-black-1 bg-light bg-dev border-0 border-danger">
+      <div class="top-wrapper external1-outer-container outer1-container w-100 h1-100px my-0 mx-auto d-flex flex-column gap-1 gap-sm-3 text-custom-black-1 bg-light bg-dev border-0 border-danger">
 
         <!-- Header Section -->
-        <header class="header-section section external1-outer-container d-flex flex-column justify-content-between align-items-center h-130px bg-dev mb1-3 flex-md-row justify-content-md-between align-content-md-start">
+        <header class="header-section section external1-outer-container outer-container w-100 mx-auto d-flex flex-column justify-content-between align-items-center h-100px bg-dev mb1-3 flex-md-row justify-content-md-between align-content-md-start">
           <div class="logo-icon-wrapper fix-w-185px fix-h-56px overflow-hidden d-flex flex-row justify-content-center align-items-center">
             <img class="logo-icon object-fit-contain w-100 h-100" src="./assets/images/icons/Logo1.svg" alt="">
           </div>
@@ -60,13 +94,13 @@
         </header>
 
         <!-- Hero Section -->
-        <section class="hero-section section external1-outer-container w-100 border-0 border-danger d-flex flex-column flex-lg-row justify-content-between align-items-start gap-5 gap-lg-0 bg-dev">
+        <section class="hero-section section external1-outer-container outer-container w-100 mx-auto border-0 border-danger d-flex flex-column flex-lg-row justify-content-between align-items-start gap-5 gap-lg-0 bg-dev">
           <div class="hero-content w-100 wpct-lg-49 d-flex flex-column justify-content-start align-items-start gap-4">
-            <h1 class="display-3 fw-bolder"><span class="text-black">Get your Job<br /> Done with </span><br /><span class="highlight text-light-green-1">Local Tradesman</span></h1>
-            <ul class="features text-secondary">
-              <li><h3>Nr.1 Price in London</h3></li>
-              <li><h3>Pay only then the Job is Done</h3></li>
-              <li><h3>3 Years Warranty</h3></li>
+            <h1 class="display-1 fw-bolder"><span class="text-black">Get your Job<br /> Done with </span><br /><span class="highlight text-light-green-1">Local Tradesman</span></h1>
+            <ul class="features text-custom-black-1 fnt-1 fw-medium">
+              <li><span>Nr.1 Price in London</span></li>
+              <li><span>Pay only then the Job is Done</span></li>
+              <li><span>3 Years Warranty</span></li>
             </ul>
             <button class="cta-button btn btn-light-green-1 btn-large" data-bs-toggle="modal" data-bs-target="#calculateJobModalDialog">Calculate My Job</button>
           </div>
@@ -78,17 +112,110 @@
       </div>
 
       <!--Content Part-->
-      <div class="content-wrapper outer-container w-100 min1-vh-100 my-0 mx-auto d-flex flex-column gap-5 gap-sm-8 text-custom-black-1">
+      <div class="content-wrapper outer-container w-100 min1-vh-100 my-0 mx-auto d-flex flex-column gap-5 gap-sm-9 text-custom-black-1">
 
         <!-- Job Selection Section -->
-        <section class="job-selection-section section d-flex flex-column justify-content-center align-items-start bg-dev gap-4">
-          <h2 class="section-title display-4 fw-bold">Select your Job</h2>
+        <section class="job-selection-section section d-flex flex-column justify-content-start justify1-content-center align-items-start bg-dev row-gap-2">
+          <h2 class="section-title display-2 fw-bold">Select your Job</h2>
+          <div class="job-grid w-100 d-flex flex-row justify-content-between justify-content-xl-start align1-items-stretch flex-wrap column-gap-3 column-gap-xl-4 row-gap-4 px-0 pad1-x-md-1rem" id="jobGrid">
+            <div class="job-card wpct-47 wpct-lg-31 max-w-lg-265px max-w-xxl-294px ratio-90pct">
+              <img src="./assets/images/icons/Hammer.svg" alt="" class="job-icon">
+              <h4 class="job-title d-sm-none">Wall Job</h4>
+              <h6 class="job-description d-sm-none">Painting, Skimming, Rendering, Tiling etc...</h6>
+              <h4 class="job-title fnt-1 d-none d-sm-inline">Wall Job</h4>
+              <h5 class="job-description fnt-4 d-none d-sm-inline">Painting, Skimming, Rendering, Tiling etc...</h5>
+              <a href="#" class="calculate-btn" data-bs-toggle="modal" data-bs-target="#calculateJobModalDialog">
+                <span>Calculate</span>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                </svg>
+              </a>
+            </div>
+            <div class="job-card wpct-47 wpct-lg-31 max-w-lg-265px max-w-xxl-294px">
+              <img src="./assets/images/icons/Hammer.svg" alt="" class="job-icon">
+              <h4 class="job-title d-sm-none">Floor Job</h4>
+              <h6 class="job-description d-sm-none">Tiling, Laminate, Hardwood, Vinyl etc...</h6>
+              <h4 class="job-title fnt-1 d-none d-sm-inline">Floor Job</h4>
+              <h5 class="job-description fnt-4 d-none d-sm-inline">Tiling, Laminate, Hardwood, Vinyl etc...</h5>
+              <a href="#" class="calculate-btn" data-bs-toggle="modal" data-bs-target="#calculateJobModalDialog">
+                <span>Calculate</span>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                </svg>
+              </a>
+            </div>
+            <div class="job-card wpct-47 wpct-lg-31 max-w-lg-265px max-w-xxl-294px">
+              <img src="./assets/images/icons/Hammer.svg" alt="" class="job-icon">
+              <h4 class="job-title d-sm-none">Ceiling Job</h4>
+              <h6 class="job-description d-sm-none">Painting, Skimming, Suspended ceiling etc..</h6>
+              <h4 class="job-title fnt-1 d-none d-sm-inline">Ceiling Job</h4>
+              <h5 class="job-description fnt-4 d-none d-sm-inline">Painting, Skimming, Suspended ceiling etc..</h5>
+              <a href="#" class="calculate-btn" data-bs-toggle="modal" data-bs-target="#calculateJobModalDialog">
+                <span>Calculate</span>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                </svg>
+              </a>
+            </div>
+            <div class="job-card wpct-47 wpct-lg-31 max-w-lg-265px max-w-xxl-294px">
+              <img src="./assets/images/icons/Hammer.svg" alt="" class="job-icon">
+              <h4 class="job-title d-sm-none">Bathroom Job</h4>
+              <h6 class="job-description d-sm-none">Tiling, Bathtub, Shower, Basin, Toilet  etc...</h6>
+              <h4 class="job-title fnt-1 d-none d-sm-inline">Bathroom Job</h4>
+              <h5 class="job-description fnt-4 d-none d-sm-inline">Tiling, Bathtub, Shower, Basin, Toilet  etc...</h5>
+              <a href="#" class="calculate-btn" data-bs-toggle="modal" data-bs-target="#calculateJobModalDialog">
+                <span>Calculate</span>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                </svg>
+              </a>
+            </div>
+            <div class="job-card wpct-47 wpct-lg-31 max-w-lg-265px max-w-xxl-294px">
+              <img src="./assets/images/icons/Hammer.svg" alt="" class="job-icon">
+              <h4 class="job-title d-sm-none">Kitchen Job</h4>
+              <h6 class="job-description d-sm-none">Wall and Floor Units, Worktop, Appliances etc...</h6>
+              <h4 class="job-title fnt-1 d-none d-sm-inline">Kitchen Job</h4>
+              <h5 class="job-description fnt-4 d-none d-sm-inline">Wall and Floor Units, Worktop, Appliances etc...</h5>
+              <a href="#" class="calculate-btn" data-bs-toggle="modal" data-bs-target="#calculateJobModalDialog">
+                <span>Calculate</span>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                </svg>
+              </a>
+            </div>
+            <div class="job-card wpct-47 wpct-lg-31 max-w-lg-265px max-w-xxl-294px">
+              <img src="./assets/images/icons/Hammer.svg" alt="" class="job-icon">
+              <h4 class="job-title d-sm-none">Extension Job</h4>
+              <h6 class="job-description d-sm-none">Walls, Foundation, Roof shell etc...</h6>
+              <h4 class="job-title fnt-1 d-none d-sm-inline">Extension Job</h4>
+              <h5 class="job-description fnt-4 d-none d-sm-inline">Walls, Foundation, Roof shell etc...</h5>
+              <a href="#" class="calculate-btn" data-bs-toggle="modal" data-bs-target="#calculateJobModalDialog">
+                <span>Calculate</span>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                </svg>
+              </a>
+            </div>
+            <div class="job-card wpct-47 wpct-lg-31 max-w-lg-265px max-w-xxl-294px">
+              <img src="./assets/images/icons/Hammer.svg" alt="" class="job-icon">
+              <h4 class="job-title d-sm-none">Loft Conver. Job</h4>
+              <h6 class="job-description d-sm-none">Loft Dormer etc...</h6>
+              <h4 class="job-title fnt-1 d-none d-sm-inline">Loft Conver. Job</h4>
+              <h5 class="job-description fnt-4 d-none d-sm-inline">Loft Dormer etc...</h5>
+              <a href="#" class="calculate-btn" data-bs-toggle="modal" data-bs-target="#calculateJobModalDialog">
+                <span>Calculate</span>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                </svg>
+              </a>
+            </div>
+          </div>
         </section>
 
         <!-- Quote Calculator Section -->
         <section class="quote-calculator-section section d-flex flex-column-reverse flex-lg-row justify-content-between align-items-start gap-5 bg-dev">
-          <div class="quote-content d-flex flex-column justify-content-start align-items-start gap-3">
-            <h2 class="quote-title display-4 fw-bold">Calculate your Quote</h2>
+          <div class="quote-content w-100 wpct-lg-53 d-flex flex-column justify-content-start align-items-start gap-3">
+            <h2 class="quote-title display-2 fw-bold">Calculate your Quote</h2>
             <h4 class="quote-subtitle fw-normal">Easily understand the labor costs for your project with our straightforward calculation process.</h4>
             <div class="steps">
               <div class="step d-flex flex-row justify-content-start align-items-start gap-4">
@@ -124,7 +251,7 @@
             </div>
             <button class="cta-button btn btn-light-green-1 btn-large" data-bs-toggle="modal" data-bs-target="#calculateJobModalDialog">Calculate My Job</button>
           </div>
-          <div class="quote-image w-100 overflow-hidden">
+          <div class="quote-image w-100 wpct-lg-45 overflow-hidden">
             <img class="object-fit-cover w-100 h-100" src="./assets/images/pics/quoteCalculate.png" alt="Quote Calculator Illustration">
           </div>
         </section>
@@ -132,7 +259,7 @@
         <!-- Services Section -->
         <section class="services-section section d-flex flex-column justify-content-start align-items-center gap-4 bg-dev">
           <div class="header-content d-flex flex-column justify-content-start align-items-center mb-5 flex-lg-row justify-content-lg-between align-items-lg-start">
-            <h2 class="section-title display-4 fw-bold w-100 wpct-lg-49">Comprehensive Home Renovation Services for You</h2>
+            <h2 class="section-title display-2 fw-bold w-100 wpct-lg-49">Comprehensive Home Renovation Services for You</h2>
             <div class="w-100 wpct-lg-42">
               <p class="section-description text-secondary fw-semibold lh-lg">
                 Whether you're looking to update a single room or undertake a full home renovation, our team is here to help. We offer a wide range of services to meet all your renovation
@@ -187,7 +314,7 @@
           </div>
           <div class="approach-content w-100 wpct-xl-53 d-flex flex-column justify-content-start align-items-center gap-1 gap-sm-4 py-4">
             <div class="approach-header section-header d-flex flex-column gap-1 gap-sm-4">
-              <h2 class="section-title display-6 fw-bold">Our comprehensive approach ensures that every aspect of your renovation</h2>
+              <h2 class="section-title display-4 fw-bold">Our comprehensive approach ensures that every aspect of your renovation</h2>
               <h5 class="fw-normal fs-6 lh-lg">Our comprehensive approach ensures that every aspect of your renovation project is meticulously planned and executed</h5>
             </div>
             <div class="approach-grid w-100 d-flex flex-column flex-xl-row justify-content-between align-items-start flex-wrap gap-4 gap-sm-3">
@@ -200,7 +327,7 @@
                 </div>
                 <div class="step-content d-flex flex-column gap-2">
                   <span class="spacer-1 w-100 fix-h-4px">&nbsp;</span>
-                  <h4 class="fw-bold">Initial Consultation</h4>
+                  <h4 class="approach-step-title">Initial Consultation</h4>
                   <p class="fs-8 text-secondary fw-semibold">Our experts listen to your vision and provide professional advice to help shape your project</p>
                 </div>
               </div>
@@ -213,7 +340,7 @@
                 </div>
                 <div class="step-content d-flex flex-column gap-2">
                   <span class="spacer-1 w-100 fix-h-4px">&nbsp;</span>
-                  <h4 class="fw-bold">Initial Consultation</h4>
+                  <h4 class="approach-step-title">Initial Consultation</h4>
                   <p class="fs-8 text-secondary fw-semibold">Our experts listen to your vision and provide professional advice to help shape your project</p>
                 </div>
               </div>
@@ -226,7 +353,7 @@
                 </div>
                 <div class="step-content d-flex flex-column gap-2">
                   <span class="spacer-1 w-100 fix-h-4px">&nbsp;</span>
-                  <h4 class="fw-bold">Initial Consultation</h4>
+                  <h4 class="approach-step-title">Initial Consultation</h4>
                   <p class="fs-8 text-secondary fw-semibold">Our experts listen to your vision and provide professional advice to help shape your project</p>
                 </div>
               </div>
@@ -239,7 +366,7 @@
                 </div>
                 <div class="step-content d-flex flex-column gap-2">
                   <span class="spacer-1 w-100 fix-h-4px">&nbsp;</span>
-                  <h4 class="fw-bold">Initial Consultation</h4>
+                  <h4 class="approach-step-title">Initial Consultation</h4>
                   <p class="fs-8 text-secondary fw-semibold">Our experts listen to your vision and provide professional advice to help shape your project</p>
                 </div>
               </div>
@@ -248,14 +375,14 @@
         </section>
 
         <!-- stories-location Section -->
-        <section class="stories-location-section section d-flex flex-column justify-content-start align-items-center bg-dev">
+        <section class="stories-location-section section external-outer-container d-flex flex-column justify-content-start align-items-center bg-dev">
           <div class="stories-header section-header">
             <div class="header-content">
-              <h2 class="stories-title display-5 display-md-4 fw-bold">Client Stories and Locations</h2>
+              <h2 class="stories-title display-5 display-md-2 fw-bold">Client Stories and Locations</h2>
             </div>
           </div>
           <div class="stories-map-area w-100 max-w-1152px max-h-900px mt-auto d-flex flex-row justify-content-center align-items-center position-relative">
-            <div id="stories-map-container" class="stories-map-wrapper w-100 h-100 overflow-hidden">
+            <div id="stories-map-container" class="stories-map-wrapper wpct1-70 w-100 h-100 overflow-hidden">
               <img class="object-fit-contain w-100 h-100" src="./assets/images/pics/GREATER-LONDON.jpg" alt="ALT" />
             </div>
 
@@ -406,22 +533,22 @@
         </section>
 
         <!-- FAQ Section -->
-        <section class="faq-section section d-flex flex-column justify-content-start align-items-center gap-4 bg-dev">
+        <section class="faq-section section external-outer-container d-flex flex-column justify-content-start align-items-center gap-4 bg-dev">
           <div class="header-content d-flex flex-column justify-content-start align-items-center">
-            <h2 class="faq-title display-4 fw-bold">FAQ</h2>
-            <h3 class="faq-subtitle fw-medium">We understand that home renovation projects</h3>
+            <h2 class="faq-title display-2 fw-bold">FAQ</h2>
+            <h3 class="faq-subtitle fnt-1 fw-medium">We understand that home renovation projects</h3>
           </div>
           <div class="accordion accordion-flush w-100" id="faqAccordion">
             <div class="accordion-item accordion-item-style-1 rounded1-3">
               <h2 class="accordion-header">
                 <button class="accordion-button collapsed1 rounded1-3" type="button" data-bs-toggle="collapse"
                         data-bs-target="#faq1" aria-expanded="true" aria-controls="faq1">
-                  <h3 class="fw-bold">What services do you offer?</h3>
+                  <h3 class="fnt-1 fw-bold">What services do you offer?</h3>
                 </button>
               </h2>
               <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
                 <div class="accordion-body pt-0 pb-2">
-                  <p class="mb-1 fs-5 lh-lg fw-medium">We specialize in house refurbishments, including bathroom fitting, kitchen remodeling, tiling, flooring, painting, plastering, plumbing, and electrical work.</p>
+                  <p class="mb-1 fnt-3 lh-lg fw-medium">We specialize in house refurbishments, including bathroom fitting, kitchen remodeling, tiling, flooring, painting, plastering, plumbing, and electrical work.</p>
                 </div>
               </div>
             </div>
@@ -429,12 +556,12 @@
               <h2 class="accordion-header">
                 <button class="accordion-button collapsed1 rounded1-3" type="button" data-bs-toggle="collapse"
                         data-bs-target="#faq2" aria-expanded="true" aria-controls="faq2">
-                  <h3 class="fw-bold">What services do you offer?</h3>
+                  <h3 class="fnt-1 fw-bold">What services do you offer?</h3>
                 </button>
               </h2>
               <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
                 <div class="accordion-body pt-0 pb-2">
-                  <p class="mb-1 fs-5 lh-lg fw-medium">We specialize in house refurbishments, including bathroom fitting, kitchen remodeling, tiling, flooring, painting, plastering, plumbing, and electrical work.</p>
+                  <p class="mb-1 fnt-3 lh-lg fw-medium">We specialize in house refurbishments, including bathroom fitting, kitchen remodeling, tiling, flooring, painting, plastering, plumbing, and electrical work.</p>
                 </div>
               </div>
             </div>
@@ -442,12 +569,12 @@
               <h2 class="accordion-header">
                 <button class="accordion-button collapsed1 rounded1-3" type="button" data-bs-toggle="collapse"
                         data-bs-target="#faq3" aria-expanded="true" aria-controls="faq3">
-                  <h3 class="fw-bold">What services do you offer?</h3>
+                  <h3 class="fnt-1 fw-bold">What services do you offer?</h3>
                 </button>
               </h2>
               <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
                 <div class="accordion-body pt-0 pb-2">
-                  <p class="mb-1 fs-5 lh-lg fw-medium">We specialize in house refurbishments, including bathroom fitting, kitchen remodeling, tiling, flooring, painting, plastering, plumbing, and electrical work.</p>
+                  <p class="mb-1 fnt-3 lh-lg fw-medium">We specialize in house refurbishments, including bathroom fitting, kitchen remodeling, tiling, flooring, painting, plastering, plumbing, and electrical work.</p>
                 </div>
               </div>
             </div>
@@ -460,10 +587,10 @@
           <div class="d-flex flex-column justify-content-start align-items-center bg-dev mb-3">
             <div class="faq section-header mb-4">
               <div class="header-content d-flex flex-column justify-content-start align-items-center">
-                <h2 class="section-title text-center">Tradesmen are Fully Qualified</h2>
+                <h2 class="section-title display-4 fw-medium text-center">Tradesmen are Fully Qualified</h2>
               </div>
             </div>
-            <div class="partners-list outer-container w-100 mt-auto d-flex flex-column flex-sm-row justify-content-between align-items-center flex-wrap flex-lg-nowrap gap-3">
+            <div class="partners-list outer1-container external-outer-container w-100 mt-auto d-flex flex-column flex-sm-row justify-content-between align-items-center flex-wrap flex-lg-nowrap gap-3">
               <div class="partner-card border-0 border-secondary">
                 <div class="partner-logo-wrapper w-300px h-75px overflow-hidden">
                   <img class="object-fit-cover w-100 h-100" src="./assets/images/pics/partner-1.png" alt="ALT" />
@@ -505,7 +632,7 @@
               <p class="text-start fs-7 lh-lg">At MyjobDone, we transform houses into dream homes with expert craftsmanship and personalized solutions. From kitchen upgrades to home extensions, we create spaces you’ll love for years.</p>
             </div>
             <div class="footer-col wpct-19 border-0 border-warning" id="footer-col-2">
-              <div class="footer-col-header h-50px mb-4"><h2 class="fw-bolder">Social Media</h2></div>
+              <div class="footer-col-header h-50px mb-4"><h2 class="display-5 fw-bolder">Social Media</h2></div>
               <ul class="list-group">
                 <li class="list-group-item bg-transparent border-0">
                   <div class="d-flex flex-row justify-content-start align-items-center gap-2">
@@ -530,7 +657,7 @@
               </ul>
             </div>
             <div class="footer-col wpct-29 border-0 border-warning" id="footer-col-3">
-              <div class="footer-col-header h-50px mb-4"><h2 class="fw-bolder">Contact Details</h2></div>
+              <div class="footer-col-header h-50px mb-4"><h2 class="display-5 fw-bolder">Contact Details</h2></div>
               <ul class="list-group">
                 <li class="list-group-item bg-transparent border-0">
                   <div class="d-flex flex-row justify-content-start align-items-start-center column-gap-3 row-gap-2">
@@ -559,7 +686,7 @@
               </ul>
             </div>
             <div class="footer-col wpct-15 border-0 border-warning" id="footer-col-4">
-              <div class="footer-col-header h-50px mb-4"><h2 class="fw-bolder">Legal</h2></div>
+              <div class="footer-col-header h-50px mb-4"><h2 class="display-5 fw-bolder">Legal</h2></div>
               <ul class="list-group">
                 <li class="list-group-item bg-transparent border-0">
                   <span>Terms of Service</span>
@@ -573,7 +700,7 @@
               </ul>
             </div>
           </div>
-          <div class="d-flex d-lg-none flex-column justify-content-start align-items-start row-gap-7 py-5 mb-3">
+          <div class="d-flex d-lg-none flex-column justify-content-start align-items-start row-gap-7 py-5 mb-2">
             <div class="footer-col mb1-3 w-100 px1-4 border-0 border-warning" id="footer-col-1a">
               <div class="footer-col-header h-50px mb-4">
                 <div class="logo-icon-wrapper fix-w-185px fix-h-56p overflow-hidden d-flex flex-row justify-content-center align-items-center">
@@ -651,7 +778,7 @@
               </ul>
             </div>
           </div>
-          <div class="w-100 d-flex flex-row justify-content-center align-items-center mt-6 mb-5">
+          <div class="w-100 d-flex flex-row justify-content-center align-items-center mt-4 mb-5">
             <span class="fs-8">&copy; 2025 MyJobDone. All rights reserved.</span>
           </div>
         </div>
@@ -661,25 +788,7 @@
     </div>
 
     <!-- Modal -->
-    <div style="display: none;" class="modal fade hidden-initially" id="calculateJobModalDialog1" tabindex="-1" aria-labelledby="calculateModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="calculateModalLabel">Calculate Job</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            Calculating...
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Calculate</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div style="display: none;" class="modal fade hidden-initially" id="calculateJobModalDialog" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div style="display: none;" class="modal fade hidden-initially-block" id="calculateJobModalDialog" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-scrollable">
         <form id="calculateForm" class="modal-content" action="" method="POST" novalidate>
           <div class="modal-header bg-secondary fs-6" id="staticBackdropLabel"><h1>Calculate Job</h1>

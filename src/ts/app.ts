@@ -125,11 +125,16 @@ calculateForm.addEventListener("submit", (e: any) => {
 // IIFE
 (function () {
   onReady(() => {
-    const allHiddenElements = Array.from(document.querySelectorAll(".hidden-initially"));
-    allHiddenElements.forEach((element, index) => {
-      const htmlElement = element as HTMLDivElement;
-      htmlElement.style.display = "block";
-    });
+    // const allHiddenElementsF = Array.from(document.querySelectorAll(".hidden-initially-flex"));
+    // allHiddenElementsF.forEach((element, index) => {
+    //   const htmlElement = element as HTMLDivElement;
+    //   htmlElement.style.display = "flex";
+    // });
+    // const allHiddenElementsB = Array.from(document.querySelectorAll(".hidden-initially-block"));
+    // allHiddenElementsB.forEach((element, index) => {
+    //   const htmlElement = element as HTMLDivElement;
+    //   htmlElement.style.display = "block";
+    // });
     const spinnerElement = document.querySelector("#loadingSpinner") as HTMLDivElement;
     spinnerElement.remove();
     // spinnerElement.style.display = "none";
