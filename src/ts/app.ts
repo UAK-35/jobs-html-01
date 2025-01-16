@@ -80,9 +80,7 @@ img.src = ico9;
 img.src = ico10;
 img.src = ico11;
 
-// document.addEventListener("load", (evt) => {
 const popoverTriggerList = Array.from(document.querySelectorAll('[data-bs-toggle="popover"]'));
-// alert(popoverTriggerList.length);
 const popoverList = [...popoverTriggerList].map((popoverTriggerEl) => {
   const popoverHtmlElem = popoverTriggerEl as HTMLElement;
   if (popoverHtmlElem.dataset["hasHtmlContent"] === "true" && popoverHtmlElem.dataset["htmlContentContainerId"] != null) {
@@ -105,24 +103,6 @@ const calculateForm = document.querySelector("#calculateForm") as HTMLFormElemen
 calculateForm.addEventListener("submit", (e: any) => {
   e.preventDefault();
   const formElem = e.target as HTMLFormElement;
-  // elemArray.forEach((element) => {
-  //   console.log(element.name);
-  //   console.log(element.id);
-  //   console.log(element.tagName);
-  //   console.log(element.value);
-  // });
-  // alert(formElem.length);
-  // const formData = new FormData(formElem);
-  // console.log("formData", formData);
-  // alert(JSON.stringify(formData.values()));
-  // alert(JSON.stringify(Object.fromEntries(formData.entries())));
-  // const data = new URLSearchParams(formData);
-  // const dataToSend = new URLSearchParams();
-  // alert(JSON.stringify(formData.entries()));
-  // for (const pair of formData.entries()) {
-  //   // alert(JSON.stringify(pair));
-  //   dataToSend.append(pair[0], "pair[1]");
-  // }
 
   const dataToSend: FormDataRecord = {};
   const formElements = formElem.elements;
@@ -140,126 +120,7 @@ calculateForm.addEventListener("submit", (e: any) => {
       dataToSend[key] = element.value;
     }
   }
-
-  // console.log(dataToSend);
-  // alert(JSON.stringify(dataToSend));
-
-  // // const serviceId = "service_h1d9kwr";
-  // // const serviceId = "service_20r3f2f";
-  // const serviceId = "service_d42o4ap";
-  // const templateId = "template_g1qnhik";
-  // const templateParams = {
-  //   from_name: dataToSend["name"],
-  //   to_name: "Jobs Admin",
-  //   message: "New calculation request received",
-  //   reply_to: "uak@delve-it.com",
-  //   from_email: dataToSend["email"],
-  // };
-  // emailjs.send(serviceId, templateId, templateParams).then(
-  //   function (response) {
-  //     console.log("SUCCESS!", response.status, response.text);
-  //     alert("Mail sent successfully");
-  //   },
-  //   function (err) {
-  //     console.log("FAILED...", err);
-  //     alert("Mail send failed");
-  //   }
-  // );
-
-  // @ts-ignore
-  Email.send({
-    Host: "mail.privateemail.com",
-    Username: "uak@delve-it.com",
-    Password: "b6T5kD@1#TMl!^0u2uM7J8%$GY",
-    // Host: "smtp.elasticemail.com",
-    // Port: 2525,
-    // Username: "uak@delve-it.com",
-    // Password: "513C467A5420F9B948B2D8D584225F08A367",
-    // To: "uak282006@gmail.com",
-    // From: dataToSend["email"],
-    From: "uak282006@gmail.com",
-    To: dataToSend["email"],
-    Subject: "Test Email",
-    Body: "This is a test email sent using SMTP.js",
-    // Body: `
-    //       Name: ${document.getElementById("name").value}<br>
-    //       Email: ${document.getElementById("email").value}<br>
-    //       Message: ${document.getElementById("message").value}
-    //     `,
-  }).then((message: any) => {
-    console.log("ERROR/MSG", message);
-    alert(message); // Alert message on successful email delivery
-  });
-  // .error((err: any) => {
-  //   console.error("error", err);
-  //   alert(JSON.stringify(err));
-  // })
-
-  // const client = new SMTPClient({
-  //   user: "user",
-  //   password: "password",
-  //   host: "smtp.your-email.com",
-  //   ssl: true,
-  // });
-
-  // fetch('url', {
-  //   method: 'post',
-  //   body: dataToSend,
-  // }).then(
-  //   (response) => {},
-  //   (error) => {}
-  // )
-  // .then( response => response.json() )
-  //     .then( response => {
-  //       console.log(response)
-  //     } );
-
-  // $.post('http://www.somewhere.com/path/to/post',
-  //   function(data, status, xhr){
-  //     // do something here with response;
-  //   });
 });
-// });
-
-// import Collapse from "bootstrap/js/dist/collapse";
-// import Popover from "bootstrap/js/dist/popover";
-// import Button from "bootstrap/js/dist/button";
-
-// // Import all of Bootstrap's JS
-// // import * as bootstrap from 'bootstrap'
-//
-// import Alert from "bootstrap/js/dist/alert";
-//
-// // or, specify which plugins you need:
-// import { Tooltip, Toast, Popover } from "bootstrap";
-//
-// // @ts-ignore
-// import logo from "../assets/images/icon.png";
-//
-// import { getUsers } from "./users";
-//
-// export async function printUsers(): Promise<HTMLElement> {
-//   const users = await getUsers();
-//   const element = document.createElement("div");
-//   element.innerHTML = `<h2>Current users</h2>
-//                         ${users.map((user) => `<div>${user.name}</div>`).join("")}`;
-//
-//   return element;
-// }
-//
-// // printUsers().then((element) => {
-// //   // const img = document.createElement("img");
-// //   // img.src = logo;
-// //   // document.body.appendChild(img);
-// //
-// //   return document.body.appendChild(element);
-// // })
-// // .catch(() => console.error("Something went wrong"));
-//
-// (async () => {
-//   const element = await printUsers();
-//   document.body.appendChild(element);
-// })();
 
 // IIFE
 (function () {
