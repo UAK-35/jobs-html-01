@@ -1,32 +1,51 @@
 const path = require('path');
 const autoprefixer = require('autoprefixer')
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 const ESLintPlugin = require('eslint-webpack-plugin');
 
-// module.exports = {
-//   entry: {
-//     app: './js/app.js',
-//   },
-//   output: {
-//     path: path.resolve(__dirname, 'dist'),
-//     clean: true,
-//     filename: './js/app.js',
-//   },
-// };
+require('dotenv').config();
+console.log("process.env.NODE_ENV", process.env.NODE_ENV);
+
+const resolve = pathString => {
+  return path.resolve(__dirname, pathString);
+}
+
+const PATH = {
+  src: resolve('./src'),
+  dist: resolve('./dist'),
+  // public: 'public/',
+  public: resolve('./public'),
+  // assets: 'assets/',
+  assets: resolve('./src/assets'),
+  base: resolve('.')
+};
 
 module.exports = {
-  entry: './src/ts/app.ts',
+  externals: {
+    path: PATH,
+  },
+  entry: {
+    app: `${ PATH.src }/ts/app.ts`,
+  },
   output: {
     // publicPath: "/",
-    filename: 'main.js',
-    path: path.resolve(__dirname, 'dist'),
-    // assetModuleFilename: "assets/[hash][ext][query]",
-    assetModuleFilename: 'assets/[name][ext][query]',
+    filename: `js/[name].js`,
+    path: PATH.dist,
+    assetModuleFilename: (pathData) => {
+      // help link: https://stackoverflow.com/a/68902490
+      const assetFolderPath = path.dirname(pathData.filename).split("/").slice(1).join("/");
+      console.log('assets filename', pathData.filename, path.dirname(pathData.filename), assetFolderPath);
+      // console.log('asses filename', pathData);
+      // return `${assetFolderPath}/[name].[hash][ext][query]`;
+      return `${assetFolderPath}/[name][ext][query]`;
+    },
     clean: true
   },
   resolve: {
-    extensions: [".ts", ".js"],
+    // extensions: [".css", ".js", "json"],
+    extensions: ["json"],
   },
   devServer: {
     static: path.resolve(__dirname, 'dist'),
@@ -34,7 +53,29 @@ module.exports = {
     hot: true
   },
   plugins: [
-    new HtmlWebpackPlugin({ template: './src/index.html', inject: false }),
+    new HtmlWebpackPlugin({
+      title: 'MyJobDone webpackage',
+      hash: false,
+      // favicon: `${ PATH.src }/assets/images/favicon/favicon.ico`,
+      template: `${ PATH.src }/index.html`, // template file
+      filename: 'index.html', // output file
+      inject: false,
+      collapseWhitespace: true,
+      removeComments: true,
+      removeRedundantAttributes: true,
+      removeScriptTypeAttributes: true,
+      removeStyleLinkTypeAttributes: true,
+      useShortDoctype: true
+    }),
+
+    new MiniCssExtractPlugin({
+      // filename: `${ PATH.assets }css/[name].[hash].css`,
+      // chunkFilename: `${ PATH.assets }css/[name].css`,
+      // filename: ({ chunk }) => `${chunk.name.replace('/js/', '/css/')}/[name].css`,
+      // filename: ({ chunk }) => `${chunk.name.replace('app', 'css')}/[name].css`,
+      filename: ({ chunk }) => `css/[name].css`,
+    }),
+
     new ESLintPlugin({
       configType: "flat",
       cache: true,
@@ -55,13 +96,25 @@ module.exports = {
   ],
   module: {
     rules: [
+      // {
+      //   test: /\.css$/,
+      //   use: [
+      //     {
+      //       loader: "css-loader",
+      //       options: {
+      //         sourceMap: true
+      //       }
+      //     }
+      //   ]
+      // },
       {
         test: /\.(scss)$/,
         use: [
-          {
-            // Adds CSS to the DOM by injecting a `<style>` tag
-            loader: 'style-loader'
-          },
+          MiniCssExtractPlugin.loader,
+          // {
+          //   // Adds CSS to the DOM by injecting a `<style>` tag
+          //   loader: 'style-loader'
+          // },
           {
             // Interprets `@import` and `url()` like `import/require()` and will resolve them
             loader: 'css-loader'
@@ -101,7 +154,6 @@ module.exports = {
       // },
       {
         test: /\.ts$/,
-        // enforce: 'pre',
         exclude: /node_modules/,
         loader: 'ts-loader',
         // options: {
@@ -118,23 +170,45 @@ module.exports = {
         //   ]
         // }
       },
-      // {
-      //   test: /\.(png|svg|jpg|jpeg|gif|ico)$/i,
-      //   type: 'asset/resource',
-      // },
       {
-        test: /\.(svg)$/i,
-        type: 'asset/resource',
-        generator: {
-          filename: './assets/images/icons/[name][ext]'
-        }
+        test: /\.html$/,
+        // loader: "html-loader",
+        // use: [
+        //   'html-loader',
+        // ],
+        use: [
+          // {
+          //   loader: 'file-loader',
+          //   options: {
+          //     name: '[name].html'
+          //   }
+          // },
+          // 'extract-loader',
+          {
+            // help link: https://stackoverflow.com/a/72485442
+            loader: 'html-loader',
+            options: {
+              esModule: false,
+              sources: {
+                // help link: https://stackoverflow.com/a/72559533
+                urlFilter: (attribute, value, resourcePath) => {
+                  // console.log('value', attribute, value, resourcePath);
+                  if (!(attribute === "content" || value === "./css/app.css" || value === "./site.webmanifest" || value === "./js/app.js")) {
+                    return true;
+                  }
+                  return false;
+                },
+              }
+            },
+          },
+        ]
       },
       {
-        test: /\.(png|jpg|jpeg|gif)$/i,
+        test: /\.(png|svg|jpg|jpeg|gif|ico)$/i,
         type: 'asset/resource',
-        generator: {
-          filename: './assets/images/pics/[name][ext]'
-        }
+        exclude: [
+          `${PATH.base}/favicon.png`
+        ]
       },
       // {
       //   test: /\.png$/,
@@ -143,24 +217,13 @@ module.exports = {
       {
         test: /\.(woff|woff2|eot|ttf|otf)$/i,
         type: 'asset/resource',
-        generator: {
-          // filename: './images/[name].[hash][ext]'
-          filename: './assets/fonts/[name][ext]'
-        }
       },
       // {
-      //   test: /\.html$/i,
-      //   use: [
-      //     {
-      //       loader: 'html-loader',
-      //       options: {
-      //         sources: true,
-      //         minimize: true,
-      //         esModule: true,
-      //       },
-      //     },
-      //   ],
-      // },
+      //   enforce: 'pre',
+      //   test: /\.ts$/,
+      //   loader: 'tslint-loader',
+      //   exclude: /node_modules/
+      // }
     ]
   }
 }

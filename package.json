@@ -11,8 +11,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start0": "webpack serve --open --config webpack.config.dev.js",
-    "start": "webpack serve --config webpack.config.dev.js",
-    "build": "webpack --config webpack.config.prod.js",
+    "start": "cross-env NODE_ENV=development webpack serve --config webpack.config.dev.js",
+    "build": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js",
     "format": "prettier --write ./src",
     "lint": "eslint"
   },
@@ -31,12 +31,16 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-webpack-plugin": "^4.2.0",
+    "file-loader": "^6.2.0",
+    "html-loader": "^5.1.0",
     "html-webpack-plugin": "^5.6.0",
+    "mini-css-extract-plugin": "^2.9.2",
     "postcss-loader": "^8.1.1",
     "prettier": "^3.4.2",
     "sass": "^1.83.1",
     "sass-loader": "^16.0.4",
     "style-loader": "^4.0.0",
+    "terser-webpack-plugin": "^5.3.11",
     "ts-loader": "^9.5.2",
     "typescript": "^5.7.3",
     "typescript-eslint": "^8.19.1",
@@ -47,7 +51,9 @@
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
+    "@naholyr/cross-env": "^1.0.0",
     "@popperjs/core": "^2.11.8",
-    "bootstrap": "^5.3.3"
+    "bootstrap": "^5.3.3",
+    "dotenv": "^16.4.7"
   }
 }

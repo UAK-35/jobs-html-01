@@ -5,22 +5,35 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <meta name="description" content="MyJobDone" />
+
+    <meta property="og:title" content="MyJobDone" />
+    <meta property="og:type" content="MyJobDone" />
+    <meta property="og:url" content="MyJobDone" />
+    <meta property="og:image" content="MyJobDone" />
+    <meta property="og:image:alt" content="MyJobDone" />
+
+    <link rel="stylesheet" type="text/css" href="./css/app.css" />
+
     <title></title>
-    <link type="text/css" href="css/style.css" />
-    <meta name="description" content="" />
 
-    <meta property="og:title" content="" />
-    <meta property="og:type" content="" />
-    <meta property="og:url" content="" />
-    <meta property="og:image" content="" />
-    <meta property="og:image:alt" content="" />
 
-    <link rel="icon" href="./assets/images/favicon/favicon.ico" sizes="any" />
+    <!--<link rel="icon" href="./assets/images/favicon/favicon.ico" sizes="any" />
     <link rel="icon" href="./assets/images/favicon/icon.svg" type="image/svg+xml" />
-    <link rel="apple-touch-icon" href="./assets/images/favicon/icon.png" />
+    <link rel="apple-touch-icon" href="./assets/images/favicon/icon.png" />-->
+
+    <link rel="icon" href="./assets/images/favicon/icon.svg" type="image/svg+xml" />
+    <!--<link rel=”icon” type=”image/png” sizes=”96x96“ href="./assets/images/favicon/icon-96x96.png" />-->
+    <link rel="apple-touch-icon" sizes="180x180" href="./assets/images/favicon/icon-apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon/icon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="./assets/images/favicon/icon-16x16.png" />
+    <link rel="icon" type="image/x-icon" href="./assets/images/favicon/icon.ico" />
+    <link rel="shortcut icon" href="./assets/images/favicon/icon.ico" type="image/ico" />
 
     <link rel="manifest" href="./site.webmanifest" />
     <meta name="theme-color" content="#fafafa" />
+
     <style>
       .spinner1 {
         width: 56px;
@@ -38,47 +51,13 @@
       }
     </style>
 
-    <script type="text/javascript">
-      // function onReady(callback) {
-      //   if (document.readyState === "loading") {
-      //     document.addEventListener("DOMContentLoaded", callback);
-      //   } else {
-      //     callback();
-      //   }
-      // }
-      //
-      // function spinnerLoad() {
-      //   // const allHiddenElementsF = Array.from(document.querySelectorAll(".hidden-initially-flex"));
-      //   // allHiddenElementsF.forEach((element, index) => {
-      //   //   // element.style.display = "flex";
-      //   //   element.style.removeProperty('display');
-      //   // });
-      //   // const allHiddenElementsB = Array.from(document.querySelectorAll(".hidden-initially-block"));
-      //   // allHiddenElementsB.forEach((element, index) => {
-      //   //   // element.style.display = "block";
-      //   //   element.style.removeProperty('display');
-      //   // });
-      //   setTimeout(() => {
-      //     const spinnerElement = document.querySelector("#loadingSpinner");
-      //     spinnerElement.remove();
-      //   }, 1000);
-      // }
-      //
-      // onReady(spinnerLoad);
-    </script>
-
-    <script type="text/javascript" src="https://smtpjs.com/v3/smtp.js"></script>
   </head>
 
   <body>
-    <!--<div id="loadingSpinner" style="width: 100%; min-height: 100vh; display: flex; flex-direction: row; justify-content: center; align-items: center;">-->
     <div id="loadingSpinner" style="position: absolute; top: 0; bottom: 0; left: 0; right: 0; width: 100%; min-height: 100vh; display: flex; flex-direction: row; justify-content: center; align-items: center;">
       <div class="spinner1 spinner1-grow" role="status">
       </div>
     </div>
-    <!--<script>
-      onReady(spinnerLoad);
-    </script>-->
 
     <div style="display: none" class="body-wrapper hidden-initially-flex w-100 min1-vh-100 m-0 p-0 d-flex flex-column justify-content-start align-items-center gap-5">
 
@@ -86,11 +65,14 @@
       <div class="top-wrapper external1-outer-container outer1-container w-100 h1-100px my-0 mx-auto d-flex flex-column gap-1 gap-sm-3 text-custom-black-1 bg-light bg-dev border-0 border-danger">
 
         <!-- Header Section -->
-        <header class="header-section section external1-outer-container outer-container w-100 mx-auto d-flex flex-column justify-content-between align-items-center h-100px bg-dev mb1-3 flex-md-row justify-content-md-between align-content-md-start">
-          <div class="logo-icon-wrapper fix-w-185px fix-h-56px overflow-hidden d-flex flex-row justify-content-center align-items-center">
-            <img class="logo-icon object-fit-contain w-100 h-100" src="./assets/images/icons/Logo1.svg" alt="">
+        <header class="header-section section external1-outer-container outer-container w-100 mx-auto d-flex flex-row justify-content-between align-content-center h-100px bg-dev mb1-3">
+          <div class="header-icon-wrapper fix-w-165px fix-w-sm-185px fix-h-56px overflow-hidden d-flex flex-row justify-content-center align-items-center">
+            <img class="header-icon object-fit-contain w-100 h-100" src="./assets/images/icons/Logo1.svg" alt="">
           </div>
-          <h3 class="phone">02034355542</h3>
+          <div class="header-phone-num-wrapper fix-w-152px fix-w-sm-170px fix-w-md-190px fix-h-56px overflow-hidden d-flex flex-row justify-content-center align-items-end">
+            <h5 class="phone d-inline d-sm-none">02034355542</h5>
+            <h3 class="phone d-none d-sm-inline">02034355542</h3>
+          </div>
         </header>
 
         <!-- Hero Section -->
@@ -340,8 +322,8 @@
                 </div>
                 <div class="step-content d-flex flex-column gap-2">
                   <span class="spacer-1 w-100 fix-h-4px">&nbsp;</span>
-                  <h4 class="approach-step-title">Initial Consultation</h4>
-                  <p class="fs-8 text-secondary fw-semibold">Our experts listen to your vision and provide professional advice to help shape your project</p>
+                  <h4 class="approach-step-title">Detailed Planning</h4>
+                  <p class="fs-8 text-secondary fw-semibold">We create a comprehensive project plan that includes timelines, budgets, and milestones</p>
                 </div>
               </div>
               <div class="approach-card w-100 wpct-xl-47 d-flex flex-row justify-content-start align-items-start gap-3">
@@ -353,8 +335,8 @@
                 </div>
                 <div class="step-content d-flex flex-column gap-2">
                   <span class="spacer-1 w-100 fix-h-4px">&nbsp;</span>
-                  <h4 class="approach-step-title">Initial Consultation</h4>
-                  <p class="fs-8 text-secondary fw-semibold">Our experts listen to your vision and provide professional advice to help shape your project</p>
+                  <h4 class="approach-step-title">Custom Design</h4>
+                  <p class="fs-8 text-secondary fw-semibold">Our design team develops detailed plans and 3D renderings to visualize your renovation</p>
                 </div>
               </div>
               <div class="approach-card w-100 wpct-xl-47 d-flex flex-row justify-content-start align-items-start gap-3">
@@ -366,8 +348,8 @@
                 </div>
                 <div class="step-content d-flex flex-column gap-2">
                   <span class="spacer-1 w-100 fix-h-4px">&nbsp;</span>
-                  <h4 class="approach-step-title">Initial Consultation</h4>
-                  <p class="fs-8 text-secondary fw-semibold">Our experts listen to your vision and provide professional advice to help shape your project</p>
+                  <h4 class="approach-step-title">Quality Assurance</h4>
+                  <p class="fs-8 text-secondary fw-semibold">We conduct thorough inspections at each stage of construction to maintain quality</p>
                 </div>
               </div>
             </div>
@@ -391,7 +373,7 @@
               <button id="stories-icon-btn-wrapper-1" type="button" class="btn btn-secondary bg-transparent border-0 position1-relative"
                       data-bs-toggle="popover"
                       data-bs-placement="bottom"
-                      data-bs-trigger="click"
+                      data-bs-trigger="hover"
                       data-bs-custom-class="custom-popover"
                       data-bs-title="Custom popover"
                       data-has-html-content="true"
@@ -405,8 +387,7 @@
               <button id="stories-icon-btn-wrapper-2" type="button" class="btn btn-secondary bg-transparent border-0 position1-relative"
                       data-bs-toggle="popover"
                       data-bs-placement="bottom"
-                      data-bs-offset1="10,30"
-                      data-bs-trigger="click"
+                      data-bs-trigger="hover"
                       data-bs-custom-class="custom-popover"
                       data-bs-title="Custom popover"
                       data-has-html-content="true"
@@ -420,8 +401,7 @@
               <button id="stories-icon-btn-wrapper-3" type="button" class="btn btn-secondary bg-transparent border-0 position1-relative"
                       data-bs-toggle="popover"
                       data-bs-placement="bottom"
-                      data-bs-offset1="10,30"
-                      data-bs-trigger="click"
+                      data-bs-trigger="hover"
                       data-bs-custom-class="custom-popover"
                       data-bs-title="Custom popover"
                       data-has-html-content="true"
@@ -436,7 +416,7 @@
               <button id="stories-icon-btn-wrapper-1a" type="button" class="btn btn-secondary bg-transparent border-0 position1-relative"
                       data-bs-toggle="popover"
                       data-bs-placement="bottom"
-                      data-bs-trigger="click"
+                      data-bs-trigger="hover"
                       data-bs-custom-class="custom-popover"
                       data-bs-title="Custom popover"
                       data-has-html-content="true"
@@ -451,7 +431,7 @@
                       data-bs-toggle="popover"
                       data-bs-placement="bottom"
                       data-bs-offset1="10,30"
-                      data-bs-trigger="click"
+                      data-bs-trigger="hover"
                       data-bs-custom-class="custom-popover"
                       data-bs-title="Custom popover"
                       data-has-html-content="true"
@@ -466,7 +446,7 @@
                       data-bs-toggle="popover"
                       data-bs-placement="bottom"
                       data-bs-offset1="10,30"
-                      data-bs-trigger="click"
+                      data-bs-trigger="hover"
                       data-bs-custom-class="custom-popover"
                       data-bs-title="Custom popover"
                       data-has-html-content="true"
@@ -486,7 +466,7 @@
                       <img class="approach-icon object-fit-cover1 w-100 h-100" src="./assets/images/pics/rvw-DPFW9030.JPG" alt="">
                     </div>
                   </div>
-                  <div class="w-300px w-lg-624px h-100 text-secondary text-start p-4 bg-light shadow border-0 border-danger">
+                  <div class="w-300px w-lg-624px min-h-260px text-secondary text-start p-4 bg-light shadow border-0 border-danger">
                     <!--<h6 class="fw-bold text-custom-black-1">Sarah Leona2222</h6>-->
                     <p class="fs-8 fw-normal">"I couldn't be happier with the bathroom installation. From the initial consultation to the final touches, everything was handled professionally and with great attention to detail.</p>
                     <p class="fs-8 fw-normal">The work was completed on time, and the results are stunning! [Your Name] kept me informed throughout the process and made sure I was happy with every step. They were always punctual, left the space spotless at the end of each day, and went above and beyond to ensure I was satisfied.</p>
@@ -503,7 +483,7 @@
                       <img class="approach-icon object-fit-cover1 w-100 h-100" src="./assets/images/pics/rvw-xtra-1.png" alt="">
                     </div>
                   </div>
-                  <div class="w-300px w-lg-624px h-100 text-secondary text-start p-4 bg-light shadow border-0 border-danger">
+                  <div class="w-300px w-lg-624px min-h-260px text-secondary text-start p-4 bg-light shadow border-0 border-danger">
                     <!--<h6 class="fw-bold text-custom-black-1">Sarah Leona1111</h6>-->
                     <p class="fs-8 fw-normal">"I had a fantastic experience working with them. They listened carefully to my ideas and brought them to life even better than I imagined.</p>
                     <p class="fs-8 fw-normal">The attention to detail was incredible, and they clearly take pride in their work. They kept everything on schedule and within the budget we discussed, which was a huge relief. The team was friendly, professional, and always left the work area clean and tidy.</p>
@@ -520,7 +500,7 @@
                       <img class="approach-icon object-fit-cover1 w-100 h-100" src="./assets/images/pics/rvw-OSVJE1220.JPG" alt="">
                     </div>
                   </div>
-                  <div class="w-300px w-lg-624px h-100 text-secondary text-start p-4 bg-light shadow border-0 border-danger">
+                  <div class="w-300px w-lg-624px min-h-260px text-secondary text-start p-4 bg-light shadow border-0 border-danger">
                     <!--<h6 class="fw-bold text-custom-black-1">Sarah Leona1111</h6>-->
                     <p class="fs-8 fw-normal">"Working with Roman was a stress-free and enjoyable experience. From start to finish, they were professional, reliable, and incredibly skilled. They helped me choose the best materials and design for my space, offering great advice while respecting my preferences.</p>
                     <p class="fs-8 fw-normal">The installation process was seamless, and they kept me updated every step of the way. The workmanship is flawless, and the transformation of my bathroom is beyond what I hoped for. It’s now my favorite room in the house!</p>
@@ -623,7 +603,7 @@
         <!-- Footer Section -->
         <div class="footer-section section external1-outer-container bg-light-green-1 pt-4 text-light">
           <div class="d-none d-lg-flex flex-row justify-content-between align-items-start py-5 mb-3">
-            <div class="footer-col wpct-25 px-4 border-0 border-warning" id="footer-col-1">
+            <div class="footer-col wpct-25 px-4 border-0 border-warning min-w-290px" id="footer-col-1">
               <div class="footer-col-header h-50px mb-4">
                 <div class="logo-icon-wrapper fix-w-185px fix-h-56p overflow-hidden d-flex flex-row justify-content-center align-items-center">
                   <img class="logo-icon object-fit-contain w-100 h-100" src="./assets/images/pics/Logo2.png" alt="">
@@ -656,7 +636,7 @@
                 </li>
               </ul>
             </div>
-            <div class="footer-col wpct-29 border-0 border-warning" id="footer-col-3">
+            <div class="footer-col wpct-29 border-0 border-warning fix-w-300px" id="footer-col-3">
               <div class="footer-col-header h-50px mb-4"><h2 class="display-5 fw-bolder">Contact Details</h2></div>
               <ul class="list-group">
                 <li class="list-group-item bg-transparent border-0">
@@ -700,8 +680,8 @@
               </ul>
             </div>
           </div>
-          <div class="d-flex d-lg-none flex-column justify-content-start align-items-start row-gap-7 py-5 mb-2">
-            <div class="footer-col mb1-3 w-100 px1-4 border-0 border-warning" id="footer-col-1a">
+          <div class="d-none d-md-flex d-lg-none flex-row justify-content-between align-items-start flex-wrap row-gap-5 py-5 mb-2">
+            <div class="footer-col mb1-3 wpct-47 px1-4 border-0 border-warning" id="footer-col-1a">
               <div class="footer-col-header h-50px mb-4">
                 <div class="logo-icon-wrapper fix-w-185px fix-h-56p overflow-hidden d-flex flex-row justify-content-center align-items-center">
                   <img class="logo-icon object-fit-contain w-100 h-100" src="./assets/images/pics/Logo2.png" alt="">
@@ -709,9 +689,9 @@
               </div>
               <p class="text-start fs-7 lh-lg">At MyjobDone, we transform houses into dream homes with expert craftsmanship and personalized solutions. From kitchen upgrades to home extensions, we create spaces you’ll love for years.</p>
             </div>
-            <div class="footer-col w-100 wpct-sm-46 border-0 border-warning text1-center text-sm-start" id="footer-col-2a">
-              <div class="footer-col-header h-50px mb-4"><h2 class="fw-bold">Social Media</h2></div>
-              <ul class="list-group align-items-start">
+            <div class="footer-col wpct-47 wpct-sm-46 border-0 border-warning text1-center text-sm-start" id="footer-col-2a">
+              <div class="footer-col-header h-50px mb-0 mb-sm-2 mb-lg-4"><h2 class="fw-bold">Social Media</h2></div>
+              <ul class="list-group list-group-footer align-items-start">
                 <li class="list-group-item bg-transparent border-0 w-50 w-sm-100">
                   <div class="d-flex flex-row justify-content-start align-items-center  column-gap-3 row-gap-">
                     <span class="contact-text">Facebook</span>
@@ -734,9 +714,9 @@
                 </li>
               </ul>
             </div>
-            <div class="footer-col w-100 wpct-sm-46 border-0 border-warning text1-center text-sm-start" id="footer-col-3a">
-              <div class="footer-col-header h-50px mb-4"><h2 class="fw-bold">Contact Details</h2></div>
-              <ul class="list-group align-items-start text-start">
+            <div class="footer-col wpct-47 wpct-sm-46 border-0 border-warning text1-center text-sm-start" id="footer-col-3a">
+              <div class="footer-col-header h-50px mb-0 mb-sm-2 mb-lg-4"><h2 class="fw-bold">Contact Details</h2></div>
+              <ul class="list-group list-group-footer align-items-start text-start">
                 <li class="list-group-item bg-transparent border-0 w-85 w-sm-100">
                   <div class="d-flex flex-row justify-content-start align-items-start-center  column-gap-3 row-gap-">
                     <div class="contact-icon-wrapper fix-size-24px overflow-hidden d-flex flex-row justify-content-center align-items-center">
@@ -763,9 +743,87 @@
                 </li>
               </ul>
             </div>
-            <div class="footer-col w-100 wpct-sm-40 border-0 border-warning text1-center text-sm-start" id="footer-col-4a">
-              <div class="footer-col-header h-50px mb-4"><h2 class="fw-bold">Legal</h2></div>
-              <ul class="list-group align-items-start">
+            <div class="footer-col wpct-47 wpct-sm-40 border-0 border-warning text1-center text-sm-start" id="footer-col-4a">
+              <div class="footer-col-header h-50px mb-0 mb-sm-2 mb-lg-4"><h2 class="fw-bold">Legal</h2></div>
+              <ul class="list-group list-group-footer align-items-start">
+                <li class="list-group-item bg-transparent border-0 w-50 w-sm-100">
+                  <span>Terms of Service</span>
+                </li>
+                <li class="list-group-item bg-transparent border-0 w-50 w-sm-100">
+                  <span>Privacy Policy</span>
+                </li>
+                <li class="list-group-item bg-transparent border-0 w-50 w-sm-100">
+                  <span>Cookie Policy</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="d-flex d-md-none flex-column justify-content-start align-items-start row-gap-5 py-5 mb-2">
+            <div class="footer-col mb1-3 w-100 px1-4 border-0 border-warning" id="footer-col-1b">
+              <div class="footer-col-header h-50px mb-4">
+                <div class="logo-icon-wrapper fix-w-185px fix-h-56p overflow-hidden d-flex flex-row justify-content-center align-items-center">
+                  <img class="logo-icon object-fit-contain w-100 h-100" src="./assets/images/pics/Logo2.png" alt="">
+                </div>
+              </div>
+              <p class="text-start fs-7 lh-lg">At MyjobDone, we transform houses into dream homes with expert craftsmanship and personalized solutions. From kitchen upgrades to home extensions, we create spaces you’ll love for years.</p>
+            </div>
+            <div class="footer-col w-100 wpct-sm-46 border-0 border-warning text1-center text-sm-start" id="footer-col-2b">
+              <div class="footer-col-header h-50px mb-0 mb-sm-2 mb-lg-4"><h2 class="fw-bold">Social Media</h2></div>
+              <ul class="list-group list-group-footer align-items-start">
+                <li class="list-group-item bg-transparent border-0 w-50 w-sm-100">
+                  <div class="d-flex flex-row justify-content-start align-items-center  column-gap-3 row-gap-">
+                    <span class="contact-text">Facebook</span>
+                  </div>
+                </li>
+                <li class="list-group-item bg-transparent border-0 w-50 w-sm-100">
+                  <div class="d-flex flex-row justify-content-start align-items-center gap-2">
+                    <span class="contact-text">Twitter</span>
+                  </div>
+                </li>
+                <li class="list-group-item bg-transparent border-0 w-50 w-sm-100">
+                  <div class="d-flex flex-row justify-content-start align-items-center gap-2">
+                    <span class="contact-text">Instagram</span>
+                  </div>
+                </li>
+                <li class="list-group-item bg-transparent border-0 w-50 w-sm-100">
+                  <div class="d-flex flex-row justify-content-start align-items-center gap-2">
+                    <span class="contact-text">LinkedIn</span>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="footer-col w-100 wpct-sm-46 border-0 border-warning text1-center text-sm-start" id="footer-col-3b">
+              <div class="footer-col-header h-50px mb-0 mb-sm-2 mb-lg-4"><h2 class="fw-bold">Contact Details</h2></div>
+              <ul class="list-group list-group-footer align-items-start text-start">
+                <li class="list-group-item bg-transparent border-0 w-85 w-sm-100">
+                  <div class="d-flex flex-row justify-content-start align-items-start-center  column-gap-3 row-gap-">
+                    <div class="contact-icon-wrapper fix-size-24px overflow-hidden d-flex flex-row justify-content-center align-items-center">
+                      <img class="contact-icon object-fit-contain w-100 h-100" src="./assets/images/icons/PhoneCall.svg" alt="">
+                    </div>
+                    <span class="contact-text">+44 7711 123456</span>
+                  </div>
+                </li>
+                <li class="list-group-item bg-transparent border-0 w-85 w-sm-100">
+                  <div class="d-flex flex-row justify-content-start align-items-start column-gap-3 row-gap-">
+                    <div class="contact-icon-wrapper fix-size-24px overflow-hidden d-flex flex-row justify-content-center align-items-center">
+                      <img class="contact-icon object-fit-contain w-100 h-100" src="./assets/images/icons/Email.svg" alt="">
+                    </div>
+                    <span class="contact-text">info&#64;homerefurbishment.co.uk</span>
+                  </div>
+                </li>
+                <li class="list-group-item bg-transparent border-0 w-85 w-sm-100">
+                  <div class="d-flex flex-row justify-content-start align-items-start  column-gap-3 row-gap-">
+                    <div class="contact-icon-wrapper fix-size-24px overflow-hidden d-flex flex-row justify-content-center align-items-center">
+                      <img class="contact-icon object-fit-contain w-100 h-100" src="./assets/images/icons/Location.svg" alt="">
+                    </div>
+                    <span class="contact-text">123 Refurbishment Lane, London, SW1A 1AA, United Kingdom</span>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="footer-col w-100 wpct-sm-40 border-0 border-warning text1-center text-sm-start" id="footer-col-4b">
+              <div class="footer-col-header h-50px mb-0 mb-sm-2 mb-lg-4"><h2 class="fw-bold">Legal</h2></div>
+              <ul class="list-group list-group-footer align-items-start">
                 <li class="list-group-item bg-transparent border-0 w-50 w-sm-100">
                   <span>Terms of Service</span>
                 </li>
@@ -813,6 +871,6 @@
       </div>
     </div>
 
-    <script src="./main.js"></script>
+    <script type="text/javascript" src="./js/app.js"></script>
   </body>
 </html>

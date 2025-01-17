@@ -534,7 +534,8 @@ $last-j: 0;
   //@extend .pad-y-lg-4rem;
   @extend .pad-x-1rem;
   @extend .pad-x-sm-1\.5rem;
-  @extend .pad-x-md-5rem;
+  @extend .pad-x-md-2\.5rem;
+  @extend .pad-x-xl-5rem;
   max-width: 100% !important;
   margin-inline: 0 !important;
 }
@@ -662,7 +663,14 @@ $last-j: 0;
 @include media-breakpoint-up(lg) {
   .custom-popover {
     top: 2.8rem !important;
-    left: 1.8rem !important;
+    left: 1.25rem !important;
+  }
+}
+@include media-breakpoint-up(xl) {
+  .custom-popover {
+    //top: 2.8rem !important;
+    //left: 1.8rem !important;
+    left: -15rem !important;
   }
 }
 //@include media-breakpoint-down(lg) {
@@ -761,6 +769,14 @@ a.calculate-btn > span {
 .approach-step-title {
   @extend .fnt-3;
   @extend .fw-bold;
+}
+
+.list-group-footer .list-group-item {
+  @extend .mb-0;
+  //@extend .mb-sm-3;
+  @extend .pb-0;
+  @extend .pb-sm-1;
+  @extend .pb-lg-2;
 }
 
 //html {
