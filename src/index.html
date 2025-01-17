@@ -51,6 +51,7 @@
       }
     </style>
 
+    <script type="text/javascript" src="./js/app.js" referrerPolicy="origin" async></script>
   </head>
 
   <body>
@@ -70,15 +71,17 @@
             <img class="header-icon object-fit-contain w-100 h-100" src="./assets/images/icons/Logo1.svg" alt="">
           </div>
           <div class="header-phone-num-wrapper fix-w-152px fix-w-sm-170px fix-w-md-190px fix-h-56px overflow-hidden d-flex flex-row justify-content-center align-items-end">
-            <h5 class="phone d-inline d-sm-none">02034355542</h5>
-            <h3 class="phone d-none d-sm-inline">02034355542</h3>
+            <!--<h5 class="phone d-inline d-sm-none"><a href="tel:+442034355542">02034355542</a></h5>
+            <h3 class="phone d-none d-sm-inline"><a href="tel:+442034355542">02034355542</a></h3>-->
+            <h5 class="phone d-inline d-sm-none"><a href="tel:+442034355542" class="text-decoration-none calculate-btn">Call Now</a></h5>
+            <h3 class="phone d-none d-sm-inline"><a href="tel:+442034355542" class="text-decoration-none calculate-btn">Call Now</a></h3>
           </div>
         </header>
 
         <!-- Hero Section -->
         <section class="hero-section section external1-outer-container outer-container w-100 mx-auto border-0 border-danger d-flex flex-column flex-lg-row justify-content-between align-items-start gap-5 gap-lg-0 bg-dev">
           <div class="hero-content w-100 wpct-lg-49 d-flex flex-column justify-content-start align-items-start gap-4">
-            <h1 class="display-1 fw-bolder"><span class="text-black">Get your Job<br /> Done with </span><br /><span class="highlight text-light-green-1">Local Tradesman</span></h1>
+            <h1 class="display-1 fw-bolder"><span class="text-custom-black-1">Get your Job<br /> Done with </span><br /><span class="highlight text-light-green-1">Local Tradesman</span></h1>
             <ul class="features text-custom-black-1 fnt-1 fw-medium">
               <li><span>Nr.1 Price in London</span></li>
               <li><span>Pay only then the Job is Done</span></li>
@@ -191,6 +194,19 @@
                 </svg>
               </a>
             </div>
+            <div class="job-card wpct-47 wpct-lg-31 max-w-lg-265px max-w-xxl-294px">
+              <img src="./assets/images/icons/Hammer.svg" alt="" class="job-icon">
+              <h4 class="job-title d-sm-none">Full House Job</h4>
+              <h6 class="job-description d-sm-none">Walls, Floor, Ceiling etc...</h6>
+              <h4 class="job-title fnt-1 d-none d-sm-inline">Full House Job</h4>
+              <h5 class="job-description fnt-4 d-none d-sm-inline">Walls, Floor, Ceiling etc...</h5>
+              <a href="#" class="calculate-btn" data-bs-toggle="modal" data-bs-target="#calculateJobModalDialog">
+                <span>Calculate</span>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                </svg>
+              </a>
+            </div>
           </div>
         </section>
 
@@ -254,28 +270,28 @@
               <div class="services-icon-wrapper fix-size-70px overflow-hidden d-flex flex-row justify-content-center align-items-center bg-light-green-1 is-circular">
                 <img class="service-icon object-fit-contain wpct-60 hpct-60" src="./assets/images/icons/KitchenRefurbishment.svg" alt="">
               </div>
-              <h5 class="fw-bold">Kitchen Refurbishment</h5>
+              <h5 class="fw-bold fnt-4">Kitchen Refurbishment</h5>
               <p class="fs-8 text-center">Reimagine your kitchen with modern designs, quality materials, and functional layouts. From sleek cabinetry to energy-efficient appliances, we'll transform your kitchen into the heart of your home.</p>
             </div>
             <div class="service-card w-100 wpct-md-47 wpct-lg-23 w-lx-25 p-4 bg-light-green-2 overflow-hidden rounded rounded-4 d-flex flex-column justify-content-start align-items-center gap-3">
               <div class="services-icon-wrapper fix-size-70px overflow-hidden d-flex flex-row justify-content-center align-items-center bg-light-green-1 is-circular">
                 <img class="service-icon object-fit-contain wpct-60 hpct-60" src="./assets/images/icons/BathroomRemodeling.svg" alt="">
               </div>
-              <h5 class="fw-bold">Bathroom Remodeling</h5>
+              <h5 class="fw-bold fnt-4">Bathroom Remodeling</h5>
               <p class="fs-8 text-center">Create a relaxing oasis with our bespoke bathroom remodeling services. Whether you desire a spa-like retreat or a contemporary look, we bring elegance and practicality to every detail.</p>
             </div>
             <div class="service-card w-100 wpct-md-47 wpct-lg-23 w-lx-25 p-4 bg-light-green-2 overflow-hidden rounded rounded-4 d-flex flex-column justify-content-start align-items-center gap-3">
               <div class="services-icon-wrapper fix-size-70px overflow-hidden d-flex flex-row justify-content-center align-items-center bg-light-green-1 is-circular">
                 <img class="service-icon object-fit-contain wpct-60 hpct-60" src="./assets/images/icons/HouseRefurbishment.svg" alt="">
               </div>
-              <h5 class="fw-bold">House Refurbishment</h5>
+              <h5 class="fw-bold fnt-4">House Refurbishment</h5>
               <p class="fs-8 text-center">Give your entire home a fresh, cohesive update with our comprehensive refurbishment services. From concept to completion, we enhance every corner of your living space to reflect your unique style.</p>
             </div>
             <div class="service-card w-100 wpct-md-47 wpct-lg-23 w-lx-25 p-4 bg-light-green-2 overflow-hidden rounded rounded-4 d-flex flex-column justify-content-start align-items-center gap-3">
               <div class="services-icon-wrapper fix-size-70px overflow-hidden d-flex flex-row justify-content-center align-items-center bg-light-green-1 is-circular">
                 <img class="service-icon object-fit-contain wpct-60 hpct-60" src="./assets/images/icons/HomeExtensions.svg" alt="">
               </div>
-              <h5 class="fw-bold">Home Extensions</h5>
+              <h5 class="fw-bold fnt-4">Home Extensions</h5>
               <p class="fs-8 text-center">Expand your living space with expertly designed and beautifully crafted home extensions that blend seamlessly with your existing property, adding value, comfort, functionality, and style to your home.</p>
             </div>
           </div>
@@ -411,6 +427,135 @@
                 <img class="stories-icon object-fit-contain w-100 h-100" src="./assets/images/icons/Pin.svg" alt="">
               </button>
             </div>
+            <div id="location-of-review-4" class="stories-icon-wrapper d-none d-lg-block fix-size-60px overflow1-hidden d-flex flex-row justify-content-center align-items-center position-absolute top-15pct start-40pct">
+              <button id="stories-icon-btn-wrapper-4" type="button" class="btn btn-secondary bg-transparent border-0 position1-relative"
+                      data-bs-toggle="popover"
+                      data-bs-placement="bottom"
+                      data-bs-trigger="hover"
+                      data-bs-custom-class="custom-popover"
+                      data-bs-title="Custom popover"
+                      data-has-html-content="true"
+                      data-html-content-container-id="popover-content-container-4"
+                      data-show-inside-container-id="stories-icon-btn-wrapper-4"
+              >
+                <img class="stories-icon object-fit-contain w-100 h-100" src="./assets/images/icons/Pin.svg" alt="">
+              </button>
+            </div>
+            <div id="location-of-review-5" class="stories-icon-wrapper d-none d-lg-block fix-size-60px overflow1-hidden d-flex flex-row justify-content-center align-items-center position-absolute top-25pct start-15pct">
+              <button id="stories-icon-btn-wrapper-5" type="button" class="btn btn-secondary bg-transparent border-0 position1-relative"
+                      data-bs-toggle="popover"
+                      data-bs-placement="bottom"
+                      data-bs-trigger="hover"
+                      data-bs-custom-class="custom-popover"
+                      data-bs-title="Custom popover"
+                      data-has-html-content="true"
+                      data-html-content-container-id="popover-content-container-5"
+                      data-show-inside-container-id="stories-icon-btn-wrapper-5"
+              >
+                <img class="stories-icon object-fit-contain w-100 h-100" src="./assets/images/icons/Pin.svg" alt="">
+              </button>
+            </div>
+            <div id="location-of-review-6" class="stories-icon-wrapper d-none d-lg-block fix-size-60px overflow1-hidden d-flex flex-row justify-content-center align-items-center position-absolute top-25pct start-25pct">
+              <button id="stories-icon-btn-wrapper-6" type="button" class="btn btn-secondary bg-transparent border-0 position1-relative"
+                      data-bs-toggle="popover"
+                      data-bs-placement="bottom"
+                      data-bs-trigger="hover"
+                      data-bs-custom-class="custom-popover"
+                      data-bs-title="Custom popover"
+                      data-has-html-content="true"
+                      data-html-content-container-id="popover-content-container-6"
+                      data-show-inside-container-id="stories-icon-btn-wrapper-6"
+              >
+                <img class="stories-icon object-fit-contain w-100 h-100" src="./assets/images/icons/Pin.svg" alt="">
+              </button>
+            </div>
+            <div id="location-of-review-7" class="stories-icon-wrapper d-none d-lg-block fix-size-60px overflow1-hidden d-flex flex-row justify-content-center align-items-center position-absolute top-20pct start-55pct">
+              <button id="stories-icon-btn-wrapper-7" type="button" class="btn btn-secondary bg-transparent border-0 position1-relative"
+                      data-bs-toggle="popover"
+                      data-bs-placement="bottom"
+                      data-bs-trigger="hover"
+                      data-bs-custom-class="custom-popover"
+                      data-bs-title="Custom popover"
+                      data-has-html-content="true"
+                      data-html-content-container-id="popover-content-container-7"
+                      data-show-inside-container-id="stories-icon-btn-wrapper-7"
+              >
+                <img class="stories-icon object-fit-contain w-100 h-100" src="./assets/images/icons/Pin.svg" alt="">
+              </button>
+            </div>
+            <div id="location-of-review-8" class="stories-icon-wrapper d-none d-lg-block fix-size-60px overflow1-hidden d-flex flex-row justify-content-center align-items-center position-absolute top-30pct start-60pct">
+              <button id="stories-icon-btn-wrapper-8" type="button" class="btn btn-secondary bg-transparent border-0 position1-relative"
+                      data-bs-toggle="popover"
+                      data-bs-placement="bottom"
+                      data-bs-trigger="hover"
+                      data-bs-custom-class="custom-popover"
+                      data-bs-title="Custom popover"
+                      data-has-html-content="true"
+                      data-html-content-container-id="popover-content-container-8"
+                      data-show-inside-container-id="stories-icon-btn-wrapper-8"
+              >
+                <img class="stories-icon object-fit-contain w-100 h-100" src="./assets/images/icons/Pin.svg" alt="">
+              </button>
+            </div>
+            <div id="location-of-review-9" class="stories-icon-wrapper d-none d-lg-block fix-size-60px overflow1-hidden d-flex flex-row justify-content-center align-items-center position-absolute top-35pct start-55pct">
+              <button id="stories-icon-btn-wrapper-9" type="button" class="btn btn-secondary bg-transparent border-0 position1-relative"
+                      data-bs-toggle="popover"
+                      data-bs-placement="bottom"
+                      data-bs-trigger="hover"
+                      data-bs-custom-class="custom-popover"
+                      data-bs-title="Custom popover"
+                      data-has-html-content="true"
+                      data-html-content-container-id="popover-content-container-9"
+                      data-show-inside-container-id="stories-icon-btn-wrapper-9"
+              >
+                <img class="stories-icon object-fit-contain w-100 h-100" src="./assets/images/icons/Pin.svg" alt="">
+              </button>
+            </div>
+            <div id="location-of-review-10" class="stories-icon-wrapper d-none d-lg-block fix-size-60px overflow1-hidden d-flex flex-row justify-content-center align-items-center position-absolute top-50pct start-50pct">
+              <button id="stories-icon-btn-wrapper-10" type="button" class="btn btn-secondary bg-transparent border-0 position1-relative"
+                      data-bs-toggle="popover"
+                      data-bs-placement="bottom"
+                      data-bs-trigger="hover"
+                      data-bs-custom-class="custom-popover"
+                      data-bs-title="Custom popover"
+                      data-has-html-content="true"
+                      data-html-content-container-id="popover-content-container-10"
+                      data-show-inside-container-id="stories-icon-btn-wrapper-10"
+              >
+                <img class="stories-icon object-fit-contain w-100 h-100" src="./assets/images/icons/Pin.svg" alt="">
+              </button>
+            </div>
+            <!--<div id="test" class="fix-size-60px d-flex flex-row justify-content-center align-items-center position-absolute top-65pct start-45pct">
+              <span>TTTTT</span>
+            </div>-->
+            <div id="location-of-review-11" class="stories-icon-wrapper d-none d-lg-block fix-size-60px overflow1-hidden d-flex flex-row justify-content-center align-items-center position-absolute top-70pct start-45pct">
+              <button id="stories-icon-btn-wrapper-11" type="button" class="btn btn-secondary bg-transparent border-0 position1-relative"
+                      data-bs-toggle="popover"
+                      data-bs-placement="bottom"
+                      data-bs-trigger="hover"
+                      data-bs-custom-class="custom-popover"
+                      data-bs-title="Custom popover"
+                      data-has-html-content="true"
+                      data-html-content-container-id="popover-content-container-11"
+                      data-show-inside-container-id="stories-icon-btn-wrapper-11"
+              >
+                <img class="stories-icon object-fit-contain w-100 h-100" src="./assets/images/icons/Pin.svg" alt="">
+              </button>
+            </div>
+            <div id="location-of-review-12" class="stories-icon-wrapper d-none d-lg-block fix-size-60px overflow1-hidden d-flex flex-row justify-content-center align-items-center position-absolute top-45pct start-40pct">
+              <button id="stories-icon-btn-wrapper-12" type="button" class="btn btn-secondary bg-transparent border-0 position1-relative"
+                      data-bs-toggle="popover"
+                      data-bs-placement="bottom"
+                      data-bs-trigger="hover"
+                      data-bs-custom-class="custom-popover"
+                      data-bs-title="Custom popover"
+                      data-has-html-content="true"
+                      data-html-content-container-id="popover-content-container-12"
+                      data-show-inside-container-id="stories-icon-btn-wrapper-12"
+              >
+                <img class="stories-icon object-fit-contain w-100 h-100" src="./assets/images/icons/Pin.svg" alt="">
+              </button>
+            </div>
 
             <div id="location-of-review-1a" class="stories-icon-wrapper d-block d-lg-none fix-size-60px overflow1-hidden d-flex flex-row justify-content-center align-items-center position-absolute top-45pct start-30pct">
               <button id="stories-icon-btn-wrapper-1a" type="button" class="btn btn-secondary bg-transparent border-0 position1-relative"
@@ -451,6 +596,134 @@
                       data-bs-title="Custom popover"
                       data-has-html-content="true"
                       data-html-content-container-id="popover-content-container-3"
+                      data-show-inside-container-id="stories-map-container"
+              >
+                <img class="stories-icon object-fit-contain w-100 h-100" src="./assets/images/icons/Pin.svg" alt="">
+              </button>
+            </div>
+            <div id="location-of-review-4a" class="stories-icon-wrapper d-block d-lg-none fix-size-60px overflow1-hidden d-flex flex-row justify-content-center align-items-center position-absolute top-15pct start-40pct">
+              <button id="stories-icon-btn-wrapper-4a" type="button" class="btn btn-secondary bg-transparent border-0 position1-relative"
+                      data-bs-toggle="popover"
+                      data-bs-placement="bottom"
+                      data-bs-offset1="10,30"
+                      data-bs-trigger="hover"
+                      data-bs-custom-class="custom-popover"
+                      data-bs-title="Custom popover"
+                      data-has-html-content="true"
+                      data-html-content-container-id="popover-content-container-4"
+                      data-show-inside-container-id="stories-map-container"
+              >
+                <img class="stories-icon object-fit-contain w-100 h-100" src="./assets/images/icons/Pin.svg" alt="">
+              </button>
+            </div>
+            <div id="location-of-review-5a" class="stories-icon-wrapper d-block d-lg-none fix-size-60px overflow1-hidden d-flex flex-row justify-content-center align-items-center position-absolute top-25pct start-15pct">
+              <button id="stories-icon-btn-wrapper-5a" type="button" class="btn btn-secondary bg-transparent border-0 position1-relative"
+                      data-bs-toggle="popover"
+                      data-bs-placement="bottom"
+                      data-bs-offset1="10,30"
+                      data-bs-trigger="hover"
+                      data-bs-custom-class="custom-popover"
+                      data-bs-title="Custom popover"
+                      data-has-html-content="true"
+                      data-html-content-container-id="popover-content-container-5"
+                      data-show-inside-container-id="stories-map-container"
+              >
+                <img class="stories-icon object-fit-contain w-100 h-100" src="./assets/images/icons/Pin.svg" alt="">
+              </button>
+            </div>
+            <div id="location-of-review-6a" class="stories-icon-wrapper d-block d-lg-none fix-size-60px overflow1-hidden d-flex flex-row justify-content-center align-items-center position-absolute top-25pct start-25pct">
+              <button id="stories-icon-btn-wrapper-6a" type="button" class="btn btn-secondary bg-transparent border-0 position1-relative"
+                      data-bs-toggle="popover"
+                      data-bs-placement="bottom"
+                      data-bs-trigger="hover"
+                      data-bs-custom-class="custom-popover"
+                      data-bs-title="Custom popover"
+                      data-has-html-content="true"
+                      data-html-content-container-id="popover-content-container-6"
+                      data-show-inside-container-id="stories-map-container"
+              >
+                <img class="stories-icon object-fit-contain w-100 h-100" src="./assets/images/icons/Pin.svg" alt="">
+              </button>
+            </div>
+            <div id="location-of-review-7a" class="stories-icon-wrapper d-block d-lg-none fix-size-60px overflow1-hidden d-flex flex-row justify-content-center align-items-center position-absolute top-20pct start-55pct">
+              <button id="stories-icon-btn-wrapper-7a" type="button" class="btn btn-secondary bg-transparent border-0 position1-relative"
+                      data-bs-toggle="popover"
+                      data-bs-placement="bottom"
+                      data-bs-trigger="hover"
+                      data-bs-custom-class="custom-popover"
+                      data-bs-title="Custom popover"
+                      data-has-html-content="true"
+                      data-html-content-container-id="popover-content-container-7"
+                      data-show-inside-container-id="stories-map-container"
+              >
+                <img class="stories-icon object-fit-contain w-100 h-100" src="./assets/images/icons/Pin.svg" alt="">
+              </button>
+            </div>
+            <div id="location-of-review-8a" class="stories-icon-wrapper d-block d-lg-none fix-size-60px overflow1-hidden d-flex flex-row justify-content-center align-items-center position-absolute top-30pct start-60pct">
+              <button id="stories-icon-btn-wrapper-8a" type="button" class="btn btn-secondary bg-transparent border-0 position1-relative"
+                      data-bs-toggle="popover"
+                      data-bs-placement="bottom"
+                      data-bs-trigger="hover"
+                      data-bs-custom-class="custom-popover"
+                      data-bs-title="Custom popover"
+                      data-has-html-content="true"
+                      data-html-content-container-id="popover-content-container-8"
+                      data-show-inside-container-id="stories-map-container"
+              >
+                <img class="stories-icon object-fit-contain w-100 h-100" src="./assets/images/icons/Pin.svg" alt="">
+              </button>
+            </div>
+            <div id="location-of-review-9a" class="stories-icon-wrapper d-block d-lg-none fix-size-60px overflow1-hidden d-flex flex-row justify-content-center align-items-center position-absolute top-35pct start-55pct">
+              <button id="stories-icon-btn-wrapper-9a" type="button" class="btn btn-secondary bg-transparent border-0 position1-relative"
+                      data-bs-toggle="popover"
+                      data-bs-placement="bottom"
+                      data-bs-trigger="hover"
+                      data-bs-custom-class="custom-popover"
+                      data-bs-title="Custom popover"
+                      data-has-html-content="true"
+                      data-html-content-container-id="popover-content-container-9"
+                      data-show-inside-container-id="stories-map-container"
+              >
+                <img class="stories-icon object-fit-contain w-100 h-100" src="./assets/images/icons/Pin.svg" alt="">
+              </button>
+            </div>
+            <div id="location-of-review-10a" class="stories-icon-wrapper d-block d-lg-none fix-size-60px overflow1-hidden d-flex flex-row justify-content-center align-items-center position-absolute top-50pct start-50pct">
+              <button id="stories-icon-btn-wrapper-10a" type="button" class="btn btn-secondary bg-transparent border-0 position1-relative"
+                      data-bs-toggle="popover"
+                      data-bs-placement="bottom"
+                      data-bs-trigger="hover"
+                      data-bs-custom-class="custom-popover"
+                      data-bs-title="Custom popover"
+                      data-has-html-content="true"
+                      data-html-content-container-id="popover-content-container-10"
+                      data-show-inside-container-id="stories-map-container"
+              >
+                <img class="stories-icon object-fit-contain w-100 h-100" src="./assets/images/icons/Pin.svg" alt="">
+              </button>
+            </div>
+            <div id="location-of-review-11a" class="stories-icon-wrapper d-block d-lg-none fix-size-60px overflow1-hidden d-flex flex-row justify-content-center align-items-center position-absolute top-70pct start-45pct">
+              <button id="stories-icon-btn-wrapper-11a" type="button" class="btn btn-secondary bg-transparent border-0 position1-relative"
+                      data-bs-toggle="popover"
+                      data-bs-placement="bottom"
+                      data-bs-trigger="hover"
+                      data-bs-custom-class="custom-popover"
+                      data-bs-title="Custom popover"
+                      data-has-html-content="true"
+                      data-html-content-container-id="popover-content-container-11"
+                      data-show-inside-container-id="stories-map-container"
+              >
+                <img class="stories-icon object-fit-contain w-100 h-100" src="./assets/images/icons/Pin.svg" alt="">
+              </button>
+            </div>
+            <div id="location-of-review-12a" class="stories-icon-wrapper d-block d-lg-none fix-size-60px overflow1-hidden d-flex flex-row justify-content-center align-items-center position-absolute top-45pct start-40pct">
+              <button id="stories-icon-btn-wrapper-12a" type="button" class="btn btn-secondary bg-transparent border-0 position1-relative"
+                      data-bs-toggle="popover"
+                      data-bs-placement="bottom"
+                      data-bs-trigger="hover"
+                      data-bs-custom-class="custom-popover"
+                      data-bs-title="Custom popover"
+                      data-has-html-content="true"
+                      data-html-content-container-id="popover-content-container-12"
                       data-show-inside-container-id="stories-map-container"
               >
                 <img class="stories-icon object-fit-contain w-100 h-100" src="./assets/images/icons/Pin.svg" alt="">
@@ -509,6 +782,176 @@
                 </div>
               </div>
             </div>
+            <div id="popover-content-container-4" style="display: none;">
+              <div data-name="popover-content">
+                <div class="w1-925px h1-260px d-flex flex-column flex-xl-row border-0 border-success">
+                  <div class="w-300px h-100 border-0 border-success">
+                    <div class="w-300px h-260px rounded rounded-4 overflow-hidden">
+                      <img class="approach-icon object-fit-cover1 w-100 h-100" src="./assets/images/pics/rvw-20191229_111014.jpg" alt="">
+                    </div>
+                  </div>
+                  <div class="w-300px w-lg-624px min-h-260px text-secondary text-start p-4 bg-light shadow border-0 border-danger">
+                    <!--<h6 class="fw-bold text-custom-black-1">Sarah Leona1111</h6>-->
+                    <p class="fs-8 fw-normal">"I’m absolutely thrilled with the work done by they on my bathroom renovation. They made the entire process so smooth and stress-free. From the initial consultation to the final touches, everything was handled with professionalism and care.</p>
+                    <p class="fs-8 fw-normal">What stood out the most was their attention to detail and commitment to perfection. They took the time to understand exactly what I wanted and delivered results that exceeded my expectations. The team was always punctual, polite, and respectful of my home, leaving it spotless every day.</p>
+                    <p class="fs-8 fw-normal">I now have a beautiful, functional bathroom that I’m proud to show off! I couldn’t recommend [Your Name/Company Name] more highly. They truly went above and beyond!"</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="popover-content-container-5" style="display: none;">
+              <div data-name="popover-content">
+                <div class="w1-925px h1-260px d-flex flex-column flex-xl-row border-0 border-success">
+                  <div class="w-300px h-100 border-0 border-success">
+                    <div class="w-300px h-260px rounded rounded-4 overflow-hidden">
+                      <img class="approach-icon object-fit-cover1 w-100 h-100" src="./assets/images/pics/rvw-AAWF9035.JPG" alt="">
+                    </div>
+                  </div>
+                  <div class="w-300px w-lg-624px min-h-260px text-secondary text-start p-4 bg-light shadow border-0 border-danger">
+                    <!--<h6 class="fw-bold text-custom-black-1">Sarah Leona1111</h6>-->
+                    <p class="fs-8 fw-normal">"I couldn’t be happier with the bathroom renovation done by Roman. The level of professionalism and craftsmanship was outstanding. They listened to all my ideas, offered great suggestions, and made sure every detail was perfect.</p>
+                    <p class="fs-8 fw-normal">The project was completed on time and within the agreed budget, with no hidden surprises. What impressed me the most was their cleanliness and respect for my home—they left the place spotless after every workday.</p>
+                    <p class="fs-8 fw-normal">The final result is stunning, and it’s clear that they take pride in their work. I’ve already recommended [Your Name/Company Name] to friends and family, and I will definitely hire them again for future projects. Thank you for creating my dream bathroom!"</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="popover-content-container-6" style="display: none;">
+              <div data-name="popover-content">
+                <div class="w1-925px h1-260px d-flex flex-column flex-xl-row border-0 border-success">
+                  <div class="w-300px h-100 border-0 border-success">
+                    <div class="w-300px h-260px rounded rounded-4 overflow-hidden">
+                      <img class="approach-icon object-fit-cover1 w-100 h-100" src="./assets/images/pics/rvw-FSYG1495.JPG" alt="">
+                    </div>
+                  </div>
+                  <div class="w-300px w-lg-624px min-h-260px text-secondary text-start p-4 bg-light shadow border-0 border-danger">
+                    <!--<h6 class="fw-bold text-custom-black-1">Sarah Leona1111</h6>-->
+                    <p class="fs-8 fw-normal">"You did an amazing job on my bathroom! They were professional, efficient, and paid attention to every detail. The whole process was stress-free, and the results exceeded my expectations. I highly recommend them for anyone looking for quality work!"</p>
+                    <!--<p class="fs-8 fw-normal">DDDDD</p>
+                    <p class="fs-8 fw-normal">GGGGG</p>-->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="popover-content-container-7" style="display: none;">
+              <div data-name="popover-content">
+                <div class="w1-925px h1-260px d-flex flex-column flex-xl-row border-0 border-success">
+                  <div class="w-300px h-100 border-0 border-success">
+                    <div class="w-300px h-260px rounded rounded-4 overflow-hidden">
+                      <img class="approach-icon object-fit-cover1 w-100 h-100" src="./assets/images/pics/rvw-IMG_0817.JPG" alt="">
+                    </div>
+                  </div>
+                  <div class="w-300px w-lg-624px min-h-260px text-secondary text-start p-4 bg-light shadow border-0 border-danger">
+                    <!--<h6 class="fw-bold text-custom-black-1">Sarah Leona1111</h6>-->
+                    <p class="fs-8 fw-normal">"Fantastic service from start to finish! They transformed my bathroom beautifully, staying on time and on budget. Great attention to detail and very professional. Highly recommend!"</p>
+                    <!--<p class="fs-8 fw-normal">DDDDD</p>
+                    <p class="fs-8 fw-normal">GGGGG</p>-->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="popover-content-container-8" style="display: none;">
+              <div data-name="popover-content">
+                <div class="w1-925px h1-260px d-flex flex-column flex-xl-row border-0 border-success">
+                  <div class="w-300px h-100 border-0 border-success">
+                    <div class="w-300px h-260px rounded rounded-4 overflow-hidden">
+                      <img class="approach-icon object-fit-cover1 w-100 h-100" src="./assets/images/pics/rvw-IMG_1191.JPG" alt="">
+                    </div>
+                  </div>
+                  <div class="w-300px w-lg-624px min-h-260px text-secondary text-start p-4 bg-light shadow border-0 border-danger">
+                    <!--<h6 class="fw-bold text-custom-black-1">Sarah Leona1111</h6>-->
+                    <p class="fs-8 fw-normal">"I’m so happy with my new kitchen. They were easy to work with, really listened to what I wanted, and delivered exactly as promised. The work was done on time, and they kept everything clean and tidy. I’d definitely recommend them to anyone looking for a reliable bathroom fitter!"</p>
+                    <!--<p class="fs-8 fw-normal">DDDDD</p>
+                    <p class="fs-8 fw-normal">GGGGG</p>-->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="popover-content-container-9" style="display: none;">
+              <div data-name="popover-content">
+                <div class="w1-925px h1-260px d-flex flex-column flex-xl-row border-0 border-success">
+                  <div class="w-300px h-100 border-0 border-success">
+                    <div class="w-300px h-260px rounded rounded-4 overflow-hidden">
+                      <img class="approach-icon object-fit-cover1 w-100 h-100" src="./assets/images/pics/rvw-IMG_1379.JPG" alt="">
+                    </div>
+                  </div>
+                  <div class="w-300px w-lg-624px min-h-260px text-secondary text-start p-4 bg-light shadow border-0 border-danger">
+                    <!--<h6 class="fw-bold text-custom-black-1">Sarah Leona1111</h6>-->
+                    <p class="fs-8 fw-normal">"They did an excellent job on my bathroom. They were professional, friendly, and really cared about getting everything right. The quality of the work is fantastic, and the whole process was hassle-free. I’m very pleased with the result and would happily recommend them!"</p>
+                    <!--<p class="fs-8 fw-normal">DDDDD</p>
+                    <p class="fs-8 fw-normal">GGGGG</p>-->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="popover-content-container-10" style="display: none;">
+              <div data-name="popover-content">
+                <div class="w1-925px h1-260px d-flex flex-column flex-xl-row border-0 border-success">
+                  <div class="w-300px h-100 border-0 border-success">
+                    <div class="w-300px h-260px rounded rounded-4 overflow-hidden">
+                      <img class="approach-icon object-fit-cover1 w-100 h-100" src="./assets/images/pics/rvw-IMG_2526.JPG" alt="">
+                    </div>
+                  </div>
+                  <div class="w-300px w-lg-624px min-h-260px text-secondary text-start p-4 bg-light shadow border-0 border-danger">
+                    <!--<h6 class="fw-bold text-custom-black-1">Sarah Leona1111</h6>-->
+                    <p class="fs-8 fw-normal">"I’m very pleased with the work. They were reliable, worked efficiently, and the attention to detail was impressive. The final result looks amazing, and the whole experience was smooth and stress-free. I’d definitely use their services again!"</p>
+                    <!--<p class="fs-8 fw-normal">DDDDD</p>
+                    <p class="fs-8 fw-normal">GGGGG</p>-->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="popover-content-container-11" style="display: none;">
+              <div data-name="popover-content">
+                <div class="w1-925px h1-260px d-flex flex-column flex-xl-row border-0 border-success">
+                  <div class="w-300px h-100 border-0 border-success">
+                    <div class="w-300px h-260px rounded rounded-4 overflow-hidden">
+                      <img class="approach-icon object-fit-cover1 w-100 h-100" src="./assets/images/pics/rvw-IMG_3290.JPG" alt="">
+                    </div>
+                  </div>
+                  <div class="w-300px w-lg-624px min-h-260px text-secondary text-start p-4 bg-light shadow border-0 border-danger">
+                    <!--<h6 class="fw-bold text-custom-black-1">Sarah Leona1111</h6>-->
+                    <p class="fs-8 fw-normal">"Roman did a fantastic job renovating my house. They were professional, easy to communicate with, and delivered exactly what they promised. The quality of the work is excellent, and I’m very happy with the result. Highly recommend!"</p>
+                    <!--<p class="fs-8 fw-normal">DDDDD</p>
+                    <p class="fs-8 fw-normal">GGGGG</p>-->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="popover-content-container-12" style="display: none;">
+              <div data-name="popover-content">
+                <div class="w1-925px h1-260px d-flex flex-column flex-xl-row border-0 border-success">
+                  <div class="w-300px h-100 border-0 border-success">
+                    <div class="w-300px h-260px rounded rounded-4 overflow-hidden">
+                      <img class="approach-icon object-fit-cover1 w-100 h-100" src="./assets/images/pics/rvw-IMG_4938.JPG" alt="">
+                    </div>
+                  </div>
+                  <div class="w-300px w-lg-624px min-h-260px text-secondary text-start p-4 bg-light shadow border-0 border-danger">
+                    <!--<h6 class="fw-bold text-custom-black-1">Sarah Leona1111</h6>-->
+                    <p class="fs-8 fw-normal">"I’m really happy with the work you did on my bathroom. They were professional, on time, and made sure everything was done to a high standard. The end result looks great, and I’d definitely recommend them to anyone!"</p>
+                    <!--<p class="fs-8 fw-normal">DDDDD</p>
+                    <p class="fs-8 fw-normal">GGGGG</p>-->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--<div id="popover-content-container-nn" style="display: none;">
+              <div data-name="popover-content">
+                <div class="w1-925px h1-260px d-flex flex-column flex-xl-row border-0 border-success">
+                  <div class="w-300px h-100 border-0 border-success">
+                    <div class="w-300px h-260px rounded rounded-4 overflow-hidden">
+                      <img class="approach-icon object-fit-cover1 w-100 h-100" src="./assets/images/pics/icon.svg" alt="">
+                    </div>
+                  </div>
+                  <div class="w-300px w-lg-624px min-h-260px text-secondary text-start p-4 bg-light shadow border-0 border-danger">
+                    &lt;!&ndash;<h6 class="fw-bold text-custom-black-1">Sarah Leona1111</h6>&ndash;&gt;
+                    <p class="fs-8 fw-normal">XXXXX</p>
+                    <p class="fs-8 fw-normal">DDDDD</p>
+                    <p class="fs-8 fw-normal">GGGGG</p>
+                  </div>
+                </div>
+              </div>
+            </div>-->
           </div>
         </section>
 
@@ -522,11 +965,11 @@
             <div class="accordion-item accordion-item-style-1 rounded1-3">
               <h2 class="accordion-header">
                 <button class="accordion-button collapsed1 rounded1-3" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#faq1" aria-expanded="true" aria-controls="faq1">
+                        data-bs-target="#faq-1" aria-expanded="true" aria-controls="faq-1">
                   <h3 class="fnt-1 fw-bold">What services do you offer?</h3>
                 </button>
               </h2>
-              <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+              <div id="faq-1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
                 <div class="accordion-body pt-0 pb-2">
                   <p class="mb-1 fnt-3 lh-lg fw-medium">We specialize in house refurbishments, including bathroom fitting, kitchen remodeling, tiling, flooring, painting, plastering, plumbing, and electrical work.</p>
                 </div>
@@ -534,30 +977,147 @@
             </div>
             <div class="accordion-item accordion-item-style-1 rounded1-3">
               <h2 class="accordion-header">
-                <button class="accordion-button collapsed1 rounded1-3" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#faq2" aria-expanded="true" aria-controls="faq2">
-                  <h3 class="fnt-1 fw-bold">What services do you offer?</h3>
+                <button class="accordion-button collapsed rounded1-3" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#faq-2" aria-expanded="true" aria-controls="faq-2">
+                  <h3 class="fnt-1 fw-bold">Do you provide free quotes or consultations?</h3>
                 </button>
               </h2>
-              <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+              <div id="faq-2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
                 <div class="accordion-body pt-0 pb-2">
-                  <p class="mb-1 fnt-3 lh-lg fw-medium">We specialize in house refurbishments, including bathroom fitting, kitchen remodeling, tiling, flooring, painting, plastering, plumbing, and electrical work.</p>
+                  <p class="mb-1 fnt-3 lh-lg fw-medium">Yes, we offer free, no-obligation quotes and consultations to discuss your refurbishment needs and provide an estimate.</p>
                 </div>
               </div>
             </div>
             <div class="accordion-item accordion-item-style-1 rounded1-3">
               <h2 class="accordion-header">
-                <button class="accordion-button collapsed1 rounded1-3" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#faq3" aria-expanded="true" aria-controls="faq3">
-                  <h3 class="fnt-1 fw-bold">What services do you offer?</h3>
+                <button class="accordion-button collapsed rounded1-3" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#faq-3" aria-expanded="true" aria-controls="faq-3">
+                  <h3 class="fnt-1 fw-bold">How long does a typical refurbishment project take?</h3>
                 </button>
               </h2>
-              <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+              <div id="faq-3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
                 <div class="accordion-body pt-0 pb-2">
-                  <p class="mb-1 fnt-3 lh-lg fw-medium">We specialize in house refurbishments, including bathroom fitting, kitchen remodeling, tiling, flooring, painting, plastering, plumbing, and electrical work.</p>
+                  <p class="mb-1 fnt-3 lh-lg fw-medium">The timeline depends on the scope of the project. Smaller jobs like a single room renovation may take a few days, while full house refurbishments can take several weeks. We’ll provide a detailed schedule during the consultation.</p>
                 </div>
               </div>
             </div>
+            <div class="accordion-item accordion-item-style-1 rounded1-3">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed rounded1-3" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#faq-4" aria-expanded="true" aria-controls="faq-4">
+                  <h3 class="fnt-1 fw-bold">Are you insured?</h3>
+                </button>
+              </h2>
+              <div id="faq-4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body pt-0 pb-2">
+                  <p class="mb-1 fnt-3 lh-lg fw-medium">Yes, we are fully insured for all the services we provide, ensuring your peace of mind throughout the project.</p>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item accordion-item-style-1 rounded1-3">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed rounded1-3" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#faq-5" aria-expanded="true" aria-controls="faq-5">
+                  <h3 class="fnt-1 fw-bold">Can you work within my budget?</h3>
+                </button>
+              </h2>
+              <div id="faq-5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body pt-0 pb-2">
+                  <p class="mb-1 fnt-3 lh-lg fw-medium">We aim to tailor our services to your budget without compromising on quality. During the consultation, we can discuss options and provide cost-effective solutions.</p>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item accordion-item-style-1 rounded1-3">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed rounded1-3" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#faq-6" aria-expanded="true" aria-controls="faq-6">
+                  <h3 class="fnt-1 fw-bold">Do you handle all the work, or will I need to hire other tradespeople?</h3>
+                </button>
+              </h2>
+              <div id="faq-6" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body pt-0 pb-2">
+                  <p class="mb-1 fnt-3 lh-lg fw-medium">We offer a comprehensive service and handle all aspects of the project, including plumbing, electrical work, and finishing touches.</p>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item accordion-item-style-1 rounded1-3">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed rounded1-3" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#faq-7" aria-expanded="true" aria-controls="faq-7">
+                  <h3 class="fnt-1 fw-bold">Do you provide materials, or do I need to supply them?</h3>
+                </button>
+              </h2>
+              <div id="faq-7" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body pt-0 pb-2">
+                  <p class="mb-1 fnt-3 lh-lg fw-medium">We can source high-quality materials for your project or work with materials you provide. This will be discussed during the planning stage.</p>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item accordion-item-style-1 rounded1-3">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed rounded1-3" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#faq-8" aria-expanded="true" aria-controls="faq-8">
+                  <h3 class="fnt-1 fw-bold">Do I need to vacate my home during the refurbishment?</h3>
+                </button>
+              </h2>
+              <div id="faq-8" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body pt-0 pb-2">
+                  <p class="mb-1 fnt-3 lh-lg fw-medium">Not always. It depends on the size and type of project. For extensive refurbishments, it might be more convenient, but we can discuss options to minimize disruption.</p>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item accordion-item-style-1 rounded1-3">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed rounded1-3" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#faq-9" aria-expanded="true" aria-controls="faq-9">
+                  <h3 class="fnt-1 fw-bold">How do I get started with a project?</h3>
+                </button>
+              </h2>
+              <div id="faq-9" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body pt-0 pb-2">
+                  <p class="mb-1 fnt-3 lh-lg fw-medium">Simply contact us through our website, email, or phone to book a consultation. We’ll assess your needs and create a detailed plan and estimate.</p>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item accordion-item-style-1 rounded1-3">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed rounded1-3" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#faq-10" aria-expanded="true" aria-controls="faq-10">
+                  <h3 class="fnt-1 fw-bold">What areas do you cover?</h3>
+                </button>
+              </h2>
+              <div id="faq-10" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body pt-0 pb-2">
+                  <p class="mb-1 fnt-3 lh-lg fw-medium">We provide our services in all London. Contact us to check if we serve your location.</p>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item accordion-item-style-1 rounded1-3">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed rounded1-3" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#faq-11" aria-expanded="true" aria-controls="faq-11">
+                  <h3 class="fnt-1 fw-bold">Do you offer a guarantee on your work?</h3>
+                </button>
+              </h2>
+              <div id="faq-11" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body pt-0 pb-2">
+                  <p class="mb-1 fnt-3 lh-lg fw-medium">Yes, we stand by the quality of our work and provide a 3 Year Warranty on labour job guarantee on all completed projects.</p>
+                </div>
+              </div>
+            </div>
+            <!--<div class="accordion-item accordion-item-style-1 rounded1-3">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed rounded1-3" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#faq-nn" aria-expanded="true" aria-controls="faq-nn">
+                  <h3 class="fnt-1 fw-bold">XXXXXXXXX</h3>
+                </button>
+              </h2>
+              <div id="faq-nn" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body pt-0 pb-2">
+                  <p class="mb-1 fnt-3 lh-lg fw-medium">YYYYYYYYY</p>
+                </div>
+              </div>
+            </div>-->
           </div>
 
         </section>
@@ -644,7 +1204,7 @@
                     <div class="contact-icon-wrapper fix-size-24px overflow-hidden d-flex flex-row justify-content-center align-items-center">
                       <img class="contact-icon object-fit-contain w-100 h-100" src="./assets/images/icons/PhoneCall.svg" alt="">
                     </div>
-                    <span class="contact-text">+44 7711 123456</span>
+                    <span class="contact-text"><a href="tel:+442034355542" class="text-decoration-none">+44 0203 4355542</a></span>
                   </div>
                 </li>
                 <li class="list-group-item bg-transparent border-0">
@@ -652,7 +1212,7 @@
                     <div class="contact-icon-wrapper fix-size-24px overflow-hidden d-flex flex-row justify-content-center align-items-center">
                       <img class="contact-icon object-fit-contain w-100 h-100" src="./assets/images/icons/Email.svg" alt="">
                     </div>
-                    <span class="contact-text">info&#64;homerefurbishment.co.uk</span>
+                    <span class="contact-text"><a href="mailto:info@homerefurbishment.co.uk" class="text-decoration-none">info&#64;homerefurbishment.co.uk</a></span>
                   </div>
                 </li>
                 <li class="list-group-item bg-transparent border-0">
@@ -722,7 +1282,7 @@
                     <div class="contact-icon-wrapper fix-size-24px overflow-hidden d-flex flex-row justify-content-center align-items-center">
                       <img class="contact-icon object-fit-contain w-100 h-100" src="./assets/images/icons/PhoneCall.svg" alt="">
                     </div>
-                    <span class="contact-text">+44 7711 123456</span>
+                    <span class="contact-text"><a href="tel:+442034355542" class="text-decoration-none">+44 0203 4355542</a></span>
                   </div>
                 </li>
                 <li class="list-group-item bg-transparent border-0 w-85 w-sm-100">
@@ -730,7 +1290,7 @@
                     <div class="contact-icon-wrapper fix-size-24px overflow-hidden d-flex flex-row justify-content-center align-items-center">
                       <img class="contact-icon object-fit-contain w-100 h-100" src="./assets/images/icons/Email.svg" alt="">
                     </div>
-                    <span class="contact-text">info&#64;homerefurbishment.co.uk</span>
+                    <span class="contact-text"><a href="mailto:info@homerefurbishment.co.uk">info&#64;homerefurbishment.co.uk</a></span>
                   </div>
                 </li>
                 <li class="list-group-item bg-transparent border-0 w-85 w-sm-100">
@@ -800,7 +1360,7 @@
                     <div class="contact-icon-wrapper fix-size-24px overflow-hidden d-flex flex-row justify-content-center align-items-center">
                       <img class="contact-icon object-fit-contain w-100 h-100" src="./assets/images/icons/PhoneCall.svg" alt="">
                     </div>
-                    <span class="contact-text">+44 7711 123456</span>
+                    <span class="contact-text"><a href="tel:+442034355542" class="text-decoration-none">+44 0203 4355542</a></span>
                   </div>
                 </li>
                 <li class="list-group-item bg-transparent border-0 w-85 w-sm-100">
@@ -808,7 +1368,7 @@
                     <div class="contact-icon-wrapper fix-size-24px overflow-hidden d-flex flex-row justify-content-center align-items-center">
                       <img class="contact-icon object-fit-contain w-100 h-100" src="./assets/images/icons/Email.svg" alt="">
                     </div>
-                    <span class="contact-text">info&#64;homerefurbishment.co.uk</span>
+                    <span class="contact-text"><a href="mailto:info@homerefurbishment.co.uk">info&#64;homerefurbishment.co.uk</a></span>
                   </div>
                 </li>
                 <li class="list-group-item bg-transparent border-0 w-85 w-sm-100">
@@ -871,6 +1431,5 @@
       </div>
     </div>
 
-    <script type="text/javascript" src="./js/app.js"></script>
   </body>
 </html>
