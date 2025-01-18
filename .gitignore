@@ -15,6 +15,12 @@ dist
 *.sass.map
 *.scss.map
 
+# env files
+/.env
+/.env.development
+/.env.staging
+/.env.production
+
 # Custom rules
 .idea
 *.txt

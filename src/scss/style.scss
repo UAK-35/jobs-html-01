@@ -1,9 +1,6 @@
 @charset "UTF-8";
 @use "sass:math";
 
-// Import all of Bootstrap's CSS
-//@use "bootstrap/scss/bootstrap" as *;
-
 // 1. Include functions first (so you can manipulate colors, SVGs, calc, etc)
 @import "bootstrap/scss/functions";
 //@use "bootstrap/scss/functions" as *;
@@ -456,82 +453,40 @@ $last-j: 0;
 //  }
 //}
 
+@import "./font1";
+
 :root {
   --bs-body-font-family: 'Montserrat', sans-serif;
   //--color-light-green-1: $light-green-1;
 }
-
-//.btn-cta-primary {
-//  --bs-btn-font-weight: 600;
-//  --bs-btn-color: var(--bs-white);
-//  --bs-btn-bg: var(--color-light-green-1);
-//  --bs-btn-border-color: var(--color-light-green-1);
-//  --bs-btn-border-radius: .5rem;
-//  --bs-btn-hover-color: var(--bs-white);
-//  --bs-btn-hover-bg: #{shade-color($color-light-green-1, 10%)};
-//  --bs-btn-hover-border-color: #{shade-color($color-light-green-1, 10%)};
-//  --bs-btn-focus-shadow-rgb: var(--color-light-green-1-rgb);
-//  --bs-btn-active-color: var(--bs-btn-hover-color);
-//  --bs-btn-active-bg: #{shade-color($color-light-green-1, 20%)};
-//  --bs-btn-active-border-color: #{shade-color($color-light-green-1, 20%)};
-//}
-
-
-
-@import "./font1";
 
 .bg-dev {
   //background-color: #F8F9FA !important;
 }
 .outer-container {
   max-width: 1440px;
-  //border: 4px solid red;
   //@extend .invisible;
 
   @extend .pad-x-1rem;
   @extend .pad-x-sm-1\.5rem;
-  //@extend .pad-x-md-2\.125rem;
   @extend .pad-x-lg-5\.875rem;
 }
 .outer-container.content-wrapper {
   @extend .pt-3;
-  //@extend .pad-b-2rem;
-  //@extend .pad-b-sm-3rem;
-  //@extend .pad-b-lg-4rem;
 }
 
 .external-outer-container {
   @extend .container-fluid;
-  //@extend .outer-container;
-  //@extend .mx-0;
-  //@extend .pad-x-md-3rem;
   @extend .pad-x-1rem;
   @extend .pad-x-sm-1\.5rem;
-  //@extend .pad-x-md-5\.875rem;
   @extend .pad-x-lg-4\.875rem;
   max-width: 100% !important;
   margin-inline: 0 !important;
 }
 .external-outer-container > .header-section, .external-outer-container > .hero-section {
 }
-//.external-outer-container.partners-list {
-//  @extend .pad-b-2rem;
-//  @extend .pad-b-sm-3rem;
-//  @extend .pad-b-lg-4rem;
-//}
-.external-outer-container.footer-section {
-  //@extend .pad-y-2rem;
-  //@extend .pad-y-sm-3rem;
-  //@extend .pad-y-lg-4rem;
-}
 .footer-section {
   @extend .container-fluid;
-  //@extend .outer-container;
-  //@extend .mx-0;
-  //@extend .pad-x-md-3rem;
-  //@extend .pad-y-2rem;
-  //@extend .pad-y-sm-3rem;
-  //@extend .pad-y-lg-4rem;
   @extend .pad-x-1rem;
   @extend .pad-x-sm-1\.5rem;
   @extend .pad-x-md-2\.5rem;
@@ -544,31 +499,9 @@ $last-j: 0;
   color: inherit !important;
 }
 
-//.outer-container.has-padding {
-//  padding: 1rem 5%;
-//  //padding: 2rem 7rem;
-//}
-//@media (min-width: 768px) {
-//  .outer-container.has-padding {
-//    //padding: 1rem 5%;
-//    padding: 2rem 5rem;
-//  }
-//}
-
 .content-wrapper {
-  //background-color: antiquewhite;
   background-color: white;
 }
-//.content-wrapper > section, .content-wrapper > header {
-//  padding: 2rem 2rem;
-//  background-color: white;
-//}
-//@media (min-width: 768px) {
-//  .content-wrapper > section, .content-wrapper > header {
-//    padding: 2rem 5rem;
-//    background-color: white;
-//  }
-//}
 
 
 .is-circular {
@@ -578,7 +511,6 @@ $last-j: 0;
 
 .btn-light-green-1 {
   @extend .rounded;
-  //@extend .rounded-3;
   @extend .fnt-4;
   @extend .fw-medium;
   border-radius: 0.5rem !important;
@@ -626,28 +558,13 @@ $last-j: 0;
   @extend .bg-light;
 }
 .service-card:hover > .services-icon-wrapper > .service-icon {
-  //filter: invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%);
   filter: invert(64%) sepia(57%) saturate(549%) hue-rotate(61deg) brightness(93%) contrast(88%);
 }
 
 .custom-popover {
-  //--bs-popover-max-width: 200px;
-  //--bs-popover-border-color: $light-green-1;
-  //--bs-popover-body-color: $light-green-1;
-  //--bs-popover-header-bg: $light-green-2;
-  //--bs-popover-header-color: var(--bs-white);
-  //--bs-popover-body-padding-x: 1rem;
-  //--bs-popover-body-padding-y: .5rem;
-
-  //background-color: $light-green-1;
-  //background-color: $light;
   transform: none !important;
-
-  //top: 2.8rem !important;
-  //left: 1.8rem !important;
   top: 20rem !important;
   left: 1.5rem !important;
-
   z-index: 1 !important;
 }
 @include media-breakpoint-up(sm) {
@@ -668,28 +585,9 @@ $last-j: 0;
 }
 @include media-breakpoint-up(xl) {
   .custom-popover {
-    //top: 2.8rem !important;
-    //left: 1.8rem !important;
     left: -15rem !important;
   }
 }
-//@include media-breakpoint-down(lg) {
-//  .custom-popover {
-//    //left: -3.75rem !important;
-//    left: 2rem !important;
-//    top: 33rem !important;
-//  }
-//}
-//@include media-breakpoint-down(md) {
-//  .custom-popover {
-//    top: 27rem !important;
-//  }
-//}
-//@include media-breakpoint-down(sm) {
-//  .custom-popover {
-//    top: 20rem !important;
-//  }
-//}
 
 .custom-popover > .popover-header {
   display: none;
@@ -699,11 +597,7 @@ $last-j: 0;
 //}
 
 .ring1 {
-  //background-color: transparent;
-  //border: 0;
-  //box-shadow: 0 0 20px 5px rgba(0, 255, 20, 0.69), inset 0 0 0px 7px rgb(0, 255, 20);
   background-color: $light-green-1;
-  //box-shadow: 0 0 20px 5px rgba(0, 255, 20, 0.69), inset 0 0 0px 7px $light-green-1;
   box-shadow: 0 0 0 8px $light-green-2;
 }
 
@@ -728,13 +622,9 @@ $last-j: 0;
 }
 
 .job-card {
-  //@extend .p-4;
-  //@extend .p-md-5;
   @extend .px-2;
   @extend .px-sm-4;
   @extend .py-3;
-  //@extend .px-md-5;
-  //@extend .py-md-4;
   @extend .bg-light-green-2;
   @extend .rounded;
   @extend .rounded-4;
@@ -742,7 +632,6 @@ $last-j: 0;
   @extend .flex-column;
   @extend .justify-content-start;
   @extend .align-items-start;
-  //@extend .gap-3;
   @extend .row-gap-2;
   @extend .row-gap-xxl-3;
   @extend .border-0;
@@ -778,27 +667,3 @@ a.calculate-btn > span {
   @extend .pb-sm-1;
   @extend .pb-lg-2;
 }
-
-//.indicatorTopLeft {
-//  display: block;
-//  width: 10px;
-//  height: 10px;
-//  background-color: red;
-//  position: fixed;
-//}
-
-//html {
-//  font-size: 14px; /* Default size */
-//}
-//
-//@media (min-width: 1440px) {
-//  html {
-//    font-size: 11px; /* Smaller for large screens */
-//  }
-//}
-//
-//@media (min-width: 1440px) {
-//  img {
-//    width: calc(100% * 0.7); /* Scale images down for large screens */
-//  }
-//}

@@ -4,8 +4,8 @@ const autoprefixer = require('autoprefixer')
 const ESLintPlugin = require('eslint-webpack-plugin');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const { InjectManifest } = require('workbox-webpack-plugin');
-const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
+// const { InjectManifest } = require('workbox-webpack-plugin');
+// const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
@@ -14,27 +14,30 @@ const getPublicUrlOrPath = require('./src/js/utilities/getPublicUrlOrPath');
 const resolvePath = require('./src/js/utilities/resolvePath');
 const BuildTimePlugin = require("./src/js/utilities/buildTimePlugin");
 
-require('dotenv').config();
-console.log("process.env.NODE_ENV", process.env.NODE_ENV);
+const envMode = process.env.NODE_ENV;
+console.log('NODE_ENV', envMode);
+const isDevelopmentEnv = envMode === 'development';
+const isStagingEnv = envMode === 'staging';
+const isProductionEnv = isStagingEnv || envMode === 'production';
 
-module.exports = (env, argv) => {
+const envFile = `.env${isProductionEnv ? "" : "." + envMode}`;
+console.info("environment file = " + envFile);
 
-  // get PUBLIC_URL, which is needed for production builds where process (which is a Node server var), doesn't exist
-  const publicUrlOrPath = "/"; // getPublicUrlOrPath(isDevelopmentMode, undefined, process.env.PUBLIC_URL)
+require('dotenv').config({ path: path.resolve(process.cwd(), envFile) });
+
+module.exports = (env, _argv) => {
+
+  const publicUrl = process.env.PUBLIC_URL;
+  console.log('PUBLIC_URL', publicUrl);
 
   // set whether are creating source maps with prod builds
   const genSourceMaps = false;
-  const isProductionMode = process.env.NODE_ENV === 'production';
-  const isDevelopmentMode = process.env.NODE_ENV === 'development';
+
+  // get PUBLIC_URL, which is needed for production builds where process (which is a Node server var), doesn't exist
+  const publicUrlOrPath = getPublicUrlOrPath(isDevelopmentEnv, undefined, publicUrl);
+  console.log('publicUrlOrPath', publicUrlOrPath);
 
   const PATH = {
-    // base: resolvePath('.'),
-    // src: resolvePath('./src'),
-    // dist: resolvePath('./dist'),
-    // public: resolvePath('./public'),
-    // assets: resolvePath('./src/assets'),
-    // npmPackages: resolvePath('./node_modules'),
-
     base: resolvePath('../../../'),
     src: resolvePath('../../../src'),
     dist: resolvePath('../../../dist'),
@@ -45,11 +48,11 @@ module.exports = (env, argv) => {
   // console.log('PATH', PATH);
 
   return {
-    // mode: isProductionMode ? 'production' : 'development',
+    mode: isProductionEnv ? 'production' : 'development',
     cache: { type: 'filesystem' },
     infrastructureLogging: { level: 'info' },
     stats: 'normal',
-    devtool: isProductionMode && genSourceMaps ? 'source-map' : isDevelopmentMode ? 'inline-source-map' : false, // https://webpack.js.org/configuration/devtool/
+    devtool: isProductionEnv && genSourceMaps ? 'source-map' : isDevelopmentEnv ? 'inline-source-map' : false, // https://webpack.js.org/configuration/devtool/
     externals: {
       path: PATH,
     },
@@ -64,27 +67,19 @@ module.exports = (env, argv) => {
       assetModuleFilename: (pathData) => {
         // help link: https://stackoverflow.com/a/68902490
         const assetFolderPath = path.dirname(pathData.filename).split("/").slice(1).join("/");
-        // console.log('assets filename', pathData.filename, path.dirname(pathData.filename), assetFolderPath);
-        // console.log('asses filename', pathData);
-        // return `${assetFolderPath}/[name].[hash][ext][query]`;
         return `${assetFolderPath}/[name][ext][query]`;
       },
       clean: true, // clears the output dist folder prior to building
 
       // Point sourcemap entries to original disk location (format as URL on Windows)
       devtoolModuleFilenameTemplate: (info) => {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-        if (isProductionMode) return path.relative('./src', info.absoluteResourcePath).replace(/\\/g, '/')
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        if (isProductionEnv) return path.relative('./src', info.absoluteResourcePath).replace(/\\/g, '/')
         else return resolvePath(info.absoluteResourcePath).replace(/\\/g, '/')
       }
     }, // output
 
     resolve: {
       modules: [PATH.npmPackages, PATH.src],
-      // modules: ['src', 'node_modules'], // Assuming that your files are inside the src dir
-      // extensions: [".css", ".js", "json"],
-      // extensions: ["js", ".txt", "json"],
       extensions: ['.js', '.ts', '.json', '.scss'],
       // alias: {
       //   "@": PATH.src,
@@ -121,35 +116,21 @@ module.exports = (env, argv) => {
 
     module: {
       rules: [
-        // {
-        //   test: /\.css$/,
-        //   use: [
-        //     {
-        //       loader: "css-loader",
-        //       options: {
-        //         sourceMap: true
-        //       }
-        //     }
-        //   ]
-        // },
-
         {
           test: /\.(scss)$/,
           use: [
             // In production mode, MiniCSSExtractPlugin extract CSS to file(s), but in development "style" loader enables hot editing of CSS.
-            isProductionMode && MiniCssExtractPlugin.loader,
+            isProductionEnv && MiniCssExtractPlugin.loader,
 
             // In development mode, style loader turns CSS into JS modules that inject <style> tags
             // Adds CSS to the DOM by injecting a `<style>` tag
-            isDevelopmentMode && {
-              // loader: 'style-loader'
+            isDevelopmentEnv && {
               loader: require.resolve('style-loader'),
             },
 
             // Interprets `@import` and `url()` like `import/require()` and will resolve them
             // css-loader resolves paths in CSS and adds assets as dependencies
             {
-              // loader: 'css-loader'
               loader: require.resolve('css-loader'),
               options: { sourceMap: genSourceMaps }
             },
@@ -157,7 +138,6 @@ module.exports = (env, argv) => {
             // Loader for webpack to process CSS with PostCSS
             // PostCSS loader applies autoprefixer to CSS
             {
-              // loader: 'postcss-loader',
               loader: require.resolve('postcss-loader'),
               options: {
                 sourceMap: genSourceMaps,
@@ -176,7 +156,7 @@ module.exports = (env, argv) => {
                 sassOptions: {
                   sourceMap: genSourceMaps,
                   implementation: require.resolve('sass'),
-                  mode: isProductionMode ? 'production' : 'development',
+                  mode: isProductionEnv ? 'production' : 'development',
                   webpackImporter: false,
 
                   api: 'modern',
@@ -189,55 +169,20 @@ module.exports = (env, argv) => {
           ].filter(Boolean)
         },
 
-        // {
-        //   test: /\.css$/,
-        //   exclude: /node_modules/,
-        //   use:[
-        //     {loader: 'style-loader'},
-        //     {loader: 'css-loader'}
-        //   ]
-        // },
-
         {
           test: /\.ts$/,
           exclude: /node_modules/,
           resolve: {
             extensions: ['.ts', '.js'] // --> JSON and HTML gets parsed by webpack's internal loaders
           },
-          // loader: 'ts-loader',
           loader: require.resolve('ts-loader'),
-          // options: {
-          //   plugins: [
-          //     new ESLintPlugin({
-          //       configType: "flat",
-          //       cache: true,
-          //       cacheLocation: ".cache/eslint-webpack-plugin/.eslintcache",
-          //       fix: true,
-          //       // files: 'src/**/*.ts',
-          //       extensions: ['ts'],
-          //       outputReport: true
-          //     }),
-          //   ]
-          // }
         },
 
         {
           test: /\.html$/,
-          // loader: "html-loader",
-          // use: [
-          //   'html-loader',
-          // ],
           use: [
-            // {
-            //   loader: 'file-loader',
-            //   options: {
-            //     name: '[name].html'
-            //   }
-            // },
-            // 'extract-loader',
             {
               // help link: https://stackoverflow.com/a/72485442
-              // loader: 'html-loader',
               loader: require.resolve('html-loader'),
               options: {
                 esModule: false,
@@ -245,10 +190,7 @@ module.exports = (env, argv) => {
                   // help link: https://stackoverflow.com/a/72559533
                   urlFilter: (attribute, value, _resourcePath) => {
                     // console.log('value', attribute, value, resourcePath);
-                    if (!(attribute === "content" || value === "./css/app.css" || value === "./site.webmanifest" || value === "./js/app.js")) {
-                      return true;
-                    }
-                    return false;
+                    return !(attribute === "content" || value === "./css/app.css" || value === "./site.webmanifest" || value === "./js/app.js");
                   },
                 }
               },
@@ -261,11 +203,6 @@ module.exports = (env, argv) => {
           type: 'asset/resource',
           exclude: `${ PATH.base }/favicon.png`
         },
-
-        // {
-        //   test: /\.png$/,
-        //   type: 'asset/inline'
-        // },
 
         {
           test: /\.(woff|woff2|eot|ttf|otf)$/i,
@@ -311,17 +248,10 @@ module.exports = (env, argv) => {
         }
       }),
 
-      ...(isProductionMode
+      ...(isProductionEnv
         ? [
           // Extracts CSS into separate files
           new MiniCssExtractPlugin({
-            // filename: `${ PATH.assets }css/[name].[hash].css`,
-            // chunkFilename: `${ PATH.assets }css/[name].css`,
-            // filename: ({ chunk }) => `${chunk.name.replace('/js/', '/css/')}/[name].css`,
-            // filename: ({ chunk }) => `${chunk.name.replace('app', 'css')}/[name].css`,
-
-            // filename: 'css/[name].[contenthash:8].css',
-            // chunkFilename: 'css/[name].[contenthash:8].chunk.css'
             filename: ({_chunk}) => `css/[name].css`,
           }),
 
@@ -358,10 +288,7 @@ module.exports = (env, argv) => {
             configType: "flat",
             cache: true,
             cacheLocation: ".cache/eslint-webpack-plugin/.eslintcache",
-            // formatter: 'html',
             fix: true,
-            // files: 'src/**/*.ts',
-            // extensions: ['js', 'mjs', 'jsx', 'ts', 'tsx'],
             extensions: ['ts'],
             outputReport: {
               formatter: "json"
