@@ -555,7 +555,9 @@ $last-j: 0;
   @extend .wpct-md-47;
   @extend .wpct-lg-31;
   @extend .wpct-xl-23;
-  @extend .p-4;
+  @extend .p-3;
+  @extend .pad-lg-0\.875rem;
+  @extend .p-xl-4;
   @extend .bg-light-green-2;
   @extend .overflow-hidden;
   @extend .rounded;
@@ -565,6 +567,15 @@ $last-j: 0;
   @extend .justify-content-start;
   @extend .align-items-center;
   @extend .gap-3;
+}
+// special media query
+@media (min-width: 1200px) and (max-width: 1269.98px) {
+  .service-card {
+    padding: 1rem !important;
+  }
+  .service-card-title {
+    padding-inline: 2rem !important;
+  }
 }
 .service-card:hover {
   @extend .bg-light-green-1;
