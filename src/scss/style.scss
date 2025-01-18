@@ -550,6 +550,22 @@ $last-j: 0;
   padding-inline: 2rem !important;
 }
 
+.service-card {
+  @extend .w-100;
+  @extend .wpct-md-47;
+  @extend .wpct-lg-31;
+  @extend .wpct-xl-23;
+  @extend .p-4;
+  @extend .bg-light-green-2;
+  @extend .overflow-hidden;
+  @extend .rounded;
+  @extend .rounded-4;
+  @extend .d-flex;
+  @extend .flex-column;
+  @extend .justify-content-start;
+  @extend .align-items-center;
+  @extend .gap-3;
+}
 .service-card:hover {
   @extend .bg-light-green-1;
   @extend .text-light;
@@ -559,6 +575,11 @@ $last-j: 0;
 }
 .service-card:hover > .services-icon-wrapper > .service-icon {
   filter: invert(64%) sepia(57%) saturate(549%) hue-rotate(61deg) brightness(93%) contrast(88%);
+}
+.service-card-title {
+  @extend .fw-bold;
+  @extend .fnt-4;
+  @extend .text-center;
 }
 
 .custom-popover {
@@ -622,6 +643,10 @@ $last-j: 0;
 }
 
 .job-card {
+  @extend .wpct-47;
+  @extend .wpct-lg-31;
+  @extend .max-w-lg-265px;
+  @extend .max-w-xxl-294px;
   @extend .px-2;
   @extend .px-sm-4;
   @extend .py-3;

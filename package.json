@@ -13,6 +13,7 @@
     "start0": "webpack serve --open --config webpack.config.dev.js",
     "start": "cross-env NODE_ENV=development webpack serve --config webpack.config.dev.js",
     "build": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js",
+    "buildStaging": "cross-env NODE_ENV=staging webpack --config webpack.config.prod.js",
     "format": "prettier --write ./src",
     "lint": "eslint"
   },
@@ -25,6 +26,7 @@
     "@typescript-eslint/eslint-plugin": "^8.19.1",
     "@typescript-eslint/parser": "^8.19.1",
     "autoprefixer": "^10.4.20",
+    "browserslist": "^4.24.4",
     "copy-webpack-plugin": "^11.0.0",
     "css-loader": "^7.1.2",
     "css-minimizer-webpack-plugin": "^7.0.0",

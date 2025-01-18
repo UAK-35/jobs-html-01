@@ -12,30 +12,39 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
 const getPublicUrlOrPath = require('./src/js/utilities/getPublicUrlOrPath');
 const resolvePath = require('./src/js/utilities/resolvePath');
-const BuildTimePlugin = require("./src/js/utilities/buildTimePlugin");
 
 const envMode = process.env.NODE_ENV;
 console.log('NODE_ENV', envMode);
-const isDevelopmentEnv = envMode === 'development';
-const isStagingEnv = envMode === 'staging';
-const isProductionEnv = isStagingEnv || envMode === 'production';
 
-const envFile = `.env${isProductionEnv ? "" : "." + envMode}`;
-console.info("environment file = " + envFile);
+module.exports = (webpackEnv, _argv) => {
+  console.log('webpackEnv', webpackEnv);
+  // console.log('webpack NODE_ENV', webpackEnv.NODE_ENV);
 
-require('dotenv').config({ path: path.resolve(process.cwd(), envFile) });
+  // const envMode = webpackEnv.NODE_ENV; // does not work
+  console.log('envMode', envMode);
 
-module.exports = (env, _argv) => {
+  const isDevelopmentEnv = envMode === 'development';
+  const isStagingEnv = envMode === 'staging';
+  const isProductionEnv = isStagingEnv || envMode === 'production';
+  const webPackMode = isProductionEnv ? 'production' : 'development';
 
-  const publicUrl = process.env.PUBLIC_URL;
-  console.log('PUBLIC_URL', publicUrl);
+  // const envFile = `.env${isProductionEnv ? "" : "." + envMode}`;
+  const envFile = `.env.${envMode}`;
+  console.info("environment file = " + envFile);
+
+  const { parsed: parsedEnv } = require('dotenv').config({ path: path.resolve(process.cwd(), envFile) });
+  // console.log('parsedEnv', parsedEnv);
+
+  // const publicUrl = process.env.PUBLIC_URL;
+  const publicUrl = parsedEnv.PUBLIC_URL;
+  // console.log('PUBLIC_URL', publicUrl);
 
   // set whether are creating source maps with prod builds
   const genSourceMaps = false;
 
   // get PUBLIC_URL, which is needed for production builds where process (which is a Node server var), doesn't exist
   const publicUrlOrPath = getPublicUrlOrPath(isDevelopmentEnv, undefined, publicUrl);
-  console.log('publicUrlOrPath', publicUrlOrPath);
+  // console.log('publicUrlOrPath', publicUrlOrPath);
 
   const PATH = {
     base: resolvePath('../../../'),
@@ -48,14 +57,71 @@ module.exports = (env, _argv) => {
   // console.log('PATH', PATH);
 
   return {
-    mode: isProductionEnv ? 'production' : 'development',
-    cache: { type: 'filesystem' },
-    infrastructureLogging: { level: 'info' },
-    stats: 'normal',
+    mode: webPackMode,
+    target: ['browserslist'],
+    cache: isProductionEnv ? {
+      type: 'filesystem',
+      name: `MyJobDone-${envMode}-BuildCache`,
+      profile: false,
+      cacheDirectory: path.resolve(__dirname, '.cache/webpack'),
+      compression: 'gzip',
+      hashAlgorithm: 'md4',
+      maxAge: 5184000000,
+      maxMemoryGenerations: 100,
+      memoryCacheUnaffected: true,
+      store: 'pack',
+      readonly: false,
+      // version: '1.0.0',
+    } : {
+      type: 'memory',
+      cacheUnaffected: true,
+      maxGenerations: 1,
+    },
+    snapshot: {
+      // managedPaths: [/^(.+?[\\/]node_modules[\\/](?!(@azure[\\/]msal-browser))(@.+?[\\/])?.+?)[\\/]/,],
+      managedPaths: [ PATH.npmPackages ],
+    },
+    infrastructureLogging: { level: 'error' },
+    // stats: 'normal',
+    stats: {
+      builtAt: true,
+      colors: true,
+      entrypoints: true,
+      modules: true,
+      optimizationBailout: true,
+      outputPath: true,
+      publicPath: true,
+      performance: true,
+      timings: true,
+      version: true,
+      hash: true,
+      ids: true,
+      env: true,
+      errorsCount: true,
+      errors: true,
+      errorStack: true,
+      errorDetails: true,
+      warnings: false,
+
+      // loggingDebug: /FileSystemInfo/,
+
+      // assets: false,
+      assetsSort: 'size',
+      cachedAssets: true,
+      cachedModules: true,
+
+      // chunks: false,
+      chunkGroups: true,
+      chunkModules: true,
+      chunkOrigins: true,
+      chunksSort: 'size',
+    },
     devtool: isProductionEnv && genSourceMaps ? 'source-map' : isDevelopmentEnv ? 'inline-source-map' : false, // https://webpack.js.org/configuration/devtool/
     externals: {
       path: PATH,
     },
+
+    // context: PATH.src,
     entry: {
       app: `${ PATH.src }/ts/app.ts`,
     },
@@ -95,6 +161,13 @@ module.exports = (env, _argv) => {
       open: true,
       hot: true,
       // historyApiFallback: true,
+      // historyApiFallback: {
+      //   index:'index.html',
+      //   rewrites: [
+      //     { from: /list\/*/, to: 'index.html' }
+      //   ]
+      // },
+      // https: false,
       // client: {
       //   overlay: {
       //     errors: true,
@@ -107,26 +180,35 @@ module.exports = (env, _argv) => {
       devMiddleware: {
         // writeToDisk: true, // massively speeds up loading of dev server
         writeToDisk: false,
+      },
+      watchFiles: {
+        paths: ['src/**/*.*'],
+        // Enables live reload in these folders
+        options: {
+          usePolling: true
+        }
       }
     }, // devServer
-    watchOptions: {
-      aggregateTimeout: 10000,
-      poll: 5000
-    },
+    // watchOptions: {
+    //   aggregateTimeout: 10000,
+    //   poll: 5000
+    // },
 
     module: {
       rules: [
         {
           test: /\.(scss)$/,
           use: [
-            // In production mode, MiniCSSExtractPlugin extract CSS to file(s), but in development "style" loader enables hot editing of CSS.
-            isProductionEnv && MiniCssExtractPlugin.loader,
+            isProductionEnv ?
 
-            // In development mode, style loader turns CSS into JS modules that inject <style> tags
-            // Adds CSS to the DOM by injecting a `<style>` tag
-            isDevelopmentEnv && {
-              loader: require.resolve('style-loader'),
-            },
+              // In production mode, MiniCSSExtractPlugin extract CSS to file(s), but in development "style" loader enables hot editing of CSS.
+              MiniCssExtractPlugin.loader :
+
+              // In development mode, style loader turns CSS into JS modules that injects <style> tags
+              // Adds CSS to the DOM by injecting one/multiple `<style>` tags
+              isDevelopmentEnv && {
+                loader: require.resolve('style-loader'),
+              },
 
             // Interprets `@import` and `url()` like `import/require()` and will resolve them
             // css-loader resolves paths in CSS and adds assets as dependencies
@@ -156,12 +238,12 @@ module.exports = (env, _argv) => {
                 sassOptions: {
                   sourceMap: genSourceMaps,
                   implementation: require.resolve('sass'),
-                  mode: isProductionEnv ? 'production' : 'development',
+                  mode: webPackMode,
                   webpackImporter: false,
 
                   api: 'modern',
                   silenceDeprecations: ['import', 'global-builtin', 'mixed-decls'],
-                  verbose: true,
+                  // verbose: true,
                   quietDeps: true
                 }
               }
@@ -199,7 +281,16 @@ module.exports = (env, _argv) => {
         },
 
         {
-          test: /\.(png|svg|jpg|jpeg|gif|ico)$/i,
+          mimetype: 'image/svg+xml',
+          scheme: 'data',
+          type: 'asset/resource',
+          generator: {
+            filename: 'bs-icons/[hash].svg'
+          }
+        },
+
+        {
+          test: /\.(webp|png|svg|jpg|jpeg|gif|ico)$/i,
           type: 'asset/resource',
           exclude: `${ PATH.base }/favicon.png`
         },
@@ -219,25 +310,6 @@ module.exports = (env, _argv) => {
     }, // module
 
     plugins: [
-      // Generates an `index.html` file with the <script> injected or otherwise
-      new HtmlWebpackPlugin({
-        title: 'MyJobDone webpackage',
-        hash: false,
-        // favicon: `${ PATH.src }/assets/images/favicon/favicon.ico`,
-        template: `${PATH.src}/index.html`, // template file
-        filename: 'index.html', // output file
-        inject: false,
-        collapseWhitespace: true,
-        removeComments: true,
-        removeRedundantAttributes: true,
-        removeScriptTypeAttributes: true,
-        removeStyleLinkTypeAttributes: true,
-        useShortDoctype: true
-      }),
-
-      // Copies the public directory into the root of build directory
-      // new CopyWebpackPlugin({ patterns: [{ from: 'public' }] }),
-
       // Makes environment variables available to the build code
       new webpack.DefinePlugin({
         'process.env': {
@@ -248,11 +320,33 @@ module.exports = (env, _argv) => {
         }
       }),
 
+      // Generates an `index.html` file with the <script> injected or otherwise
+      new HtmlWebpackPlugin({
+        hash: false,
+        // title: 'MyJobDone',
+        // header: 'MyJobDone',
+        // metaDesc: 'MyJobDone',
+        // favicon: `${ PATH.src }/assets/images/favicon/favicon.ico`,
+        template: `${PATH.src}/index.html`, // template file
+        filename: 'index.html', // output file
+        inject: true,
+        // inject: 'body',
+        collapseWhitespace: true,
+        removeComments: true,
+        removeRedundantAttributes: true,
+        removeScriptTypeAttributes: true,
+        removeStyleLinkTypeAttributes: true,
+        useShortDoctype: true,
+      }),
+
+      // Copies the public directory into the root of build directory
+      // new CopyWebpackPlugin({ patterns: [{ from: 'public' }] }),
+
       ...(isProductionEnv
         ? [
           // Extracts CSS into separate files
           new MiniCssExtractPlugin({
-            filename: ({_chunk}) => `css/[name].css`,
+            filename: ({_chunk}) => `css/[name].css`, // help link: https://stackoverflow.com/a/52895274
           }),
 
           // // Generate a service worker script that will precache, and keep up to date, the HTML & assets that are part of the webpack build
@@ -307,7 +401,6 @@ module.exports = (env, _argv) => {
           new ForkTsCheckerWebpackPlugin(),
         ]),
 
-      new BuildTimePlugin(),
     ], // plugins
 
     optimization: {
@@ -319,13 +412,21 @@ module.exports = (env, _argv) => {
           terserOptions: {
             format: {
               comments: false
+            },
+            compress: {
+              drop_console: true,
             }
           }
         }),
 
         // minimise CSS
         new CssMinimizerPlugin(),
-      ]
+      ],
+
+      usedExports: true,
+      splitChunks: {
+        chunks: "all",
+      }
     } // optimization
 
   } // return
