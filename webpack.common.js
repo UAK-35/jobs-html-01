@@ -6,6 +6,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 // const { InjectManifest } = require('workbox-webpack-plugin');
 // const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
@@ -182,14 +183,15 @@ module.exports = (webpackEnv, _argv) => {
 
     resolve: {
       modules: [PATH.npmPackages, PATH.src],
-      extensions: ['.js', '.ts', '.json', '.scss'],
-      alias: {
-        // "@": PATH.src,
-        "@icons": PATH.assets + "/images/icons",
-      }
+      extensions: ['.js', '.ts', '.ejs', '.json', '.scss'],
+      // alias: {
+      //   // "@": PATH.src,
+      //   "@icons": PATH.assets + "/images/icons",
+      // }
     }, // resolve
 
     devServer: {
+      // contentBase: '/dist',
       static: ['./src/'],
       // static: [ PATH.public ],
       host: 'localhost',
@@ -218,29 +220,111 @@ module.exports = (webpackEnv, _argv) => {
         // writeToDisk: true, // massively speeds up loading of dev server
         writeToDisk: false,
       },
-      watchFiles: {
-        paths: ['src/**/*.*'],
-        // Enables live reload in these folders
-        options: {
-          usePolling: true
-        }
-      },
+      // watchFiles: {
+      //   paths: [
+      //     'src/ts/**/*.ts',
+      //     'src/views/**/*.ejs'
+      //   ],
+      //   // Enables live reload in these folders
+      //   options: {
+      //     usePolling: true
+      //   }
+      // },
+      watchFiles: ["./src/**/*.{ejs,js,ts}"],
       // content: ["./src/**/*.{ejs,js,ts}"],
-}, // devServer
-    // watchOptions: {
-    //   aggregateTimeout: 10000,
-    //   poll: 5000
-    // },
+    }, // devServer
+    watchOptions: {
+      ignored: /node_modules/,
+      followSymlinks: false,
+      stdin: true,
+      // aggregateTimeout: 10000,
+      // poll: 5000
+    },
 
     module: {
       rules: [
-        {
-          test: /\.ejs$/,
-          loader: require.resolve('ejs-loader'),
-          options: {
-            esModule: false,
-          },
-        },
+        // {
+        //   test: /\.ejs$/,
+        //   loader: require.resolve('ejs-loader'),
+        //   options: {
+        //     esModule: false,
+        //   },
+        // },
+
+        // {
+        //   test: /\.ejs$/,
+        //   use: [
+        //     {
+        //       loader: require.resolve('html-loader'),
+        //       options: {
+        //         // esModule: false,
+        //         sources: {
+        //           urlFilter: (attribute, value, _resourcePath) => {
+        //             console.log('value', attribute, value, _resourcePath);
+        //             return !(attribute === "content" || value === "./css/app.css" || value === "./site.webmanifest" || value === "./js/app.js");
+        //           },
+        //         },
+        //         preprocessor: (content, loaderContext) => {
+        //           console.log('content', content);
+        //           return content;
+        //         },
+        //       },
+        //     },
+        //   ]
+        // },
+
+        // {
+        //   test: /\.ejs$/i,
+        //   loader: 'html-loader',
+        //   options: {
+        //     preprocessor: (content, loaderContext) => {
+        //       try {
+        //         const templatePath = path.resolve(__dirname, './src/index.ejs');
+        //
+        //         // trigger re-compile if partial has changed
+        //         // see: https://github.com/webpack-contrib/html-loader/issues/386
+        //         const partialsPath = path.resolve(__dirname, './src/partials');
+        //         fs.readdirSync(partialsPath).forEach((file) => {
+        //           if (file.endsWith('.ejs')) {
+        //             const filePath = `${partialsPath}/${file}`;
+        //             loaderContext.addDependency(filePath);
+        //           }
+        //         });
+        //
+        //         const templateParameters = {
+        //           // ... add your data here
+        //         };
+        //
+        //         // OPTIONAL: expose htmlWebpackPlugin object in EJS templates
+        //         const currentHtmlWebpackPlugin = loaderContext._compiler.options.plugins.filter(
+        //           (plugin) =>
+        //             typeof plugin === 'object' &&
+        //             plugin.options &&
+        //             plugin.options.template &&
+        //             plugin.options.template === loaderContext.resourcePath,
+        //         )[0];
+        //
+        //         if (typeof currentHtmlWebpackPlugin === 'object') {
+        //           Object.assign(templateParameters, {
+        //             htmlWebpackPlugin: currentHtmlWebpackPlugin,
+        //           });
+        //
+        //           if (typeof currentHtmlWebpackPlugin.options.templateParameters !== 'function') {
+        //             Object.assign(templateParameters, {
+        //               ...currentHtmlWebpackPlugin.options.templateParameters,
+        //             });
+        //           }
+        //         }
+        //
+        //         return ejs.render(content, templateParameters, { filename: templatePath });
+        //       } catch (error) {
+        //         loaderContext.emitError(error);
+        //
+        //         return content;
+        //       }
+        //     },
+        //   },
+        // },
 
         // {
         //   test: /\.js$/,
@@ -408,13 +492,22 @@ module.exports = (webpackEnv, _argv) => {
       ...perPageViewConfigs.map(cfg => new HtmlWebpackPlugin(Object.assign({}, defaultHtmlWebpackPluginConfig, {
         ...cfg,
         templateParameters: {
-          ...cfg.templateParameters,
+          ...cfg.templateParameters, // title, page
           viewsFolder: PATH.views.replace(/\\/g, '/'),
+          partialsFolder: PATH.views.replace(/\\/g, '/') + "/partials",
         },
       }))),
 
       // Copies the public directory into the root of build directory
       // new CopyWebpackPlugin({ patterns: [{ from: 'public' }] }),
+      new CopyWebpackPlugin({
+        patterns: [
+          {
+            from: `${PATH.src}/assets/images`,
+            to: './assets/images'
+          }
+        ]
+      }),
 
       ...(isProductionEnv
         ? [
