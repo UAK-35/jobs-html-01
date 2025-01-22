@@ -1,0 +1,91 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="MyJobDone" />
+
+    <meta property="og:title" content="MyJobDone" />
+    <meta property="og:type" content="MyJobDone" />
+    <meta property="og:url" content="MyJobDone" />
+    <meta property="og:image" content="MyJobDone" />
+    <meta property="og:image:alt" content="MyJobDone" />
+
+    <title><%= title %></title>
+
+    <link rel="icon" href="./assets/images/favicon/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" sizes="180x180" href="./assets/images/favicon/icon-apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon/icon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="./assets/images/favicon/icon-16x16.png" />
+    <link rel="icon" type="image/x-icon" href="./assets/images/favicon/icon.ico" />
+    <link rel="shortcut icon" href="./assets/images/favicon/icon.ico" type="image/ico" />
+
+    <link rel="manifest" href="./site.webmanifest" />
+    <meta name="theme-color" content="#fafafa" />
+
+    <style>
+        .spinner1 {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: conic-gradient(#0000 10%, #44a949);
+            -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 9px), #000 0);
+            animation: spinner-zp9dbg 1s infinite linear;
+        }
+
+        @keyframes spinner-zp9dbg {
+            to {
+                transform: rotate(1turn);
+            }
+        }
+    </style>
+
+    </head>
+<body>
+    <div id="loadingSpinner" style="position: absolute; top: 0; bottom: 0; left: 0; right: 0; width: 100%; min-height: 100vh; display: flex; flex-direction: row; justify-content: center; align-items: center;">
+        <div class="spinner1 spinner1-grow" role="status">
+        </div>
+    </div>
+
+    <div style="display: none" class="body-wrapper hidden-initially-flex w-100 min1-vh-100 m-0 p-0 d-flex flex-column justify-content-start align-items-center gap-5">
+
+        <!--Top Part-->
+        <div class="top-wrapper external1-outer-container outer1-container w-100 h1-100px my-0 mx-auto d-flex flex-column gap-1 gap-sm-3 text-custom-black-1 bg-light bg-dev border-0 border-danger">
+
+            <!-- Header Section -->
+            <%- hdr %>
+
+            <!-- Hero Section -->
+            <%- hro %>
+
+        </div>
+
+        <!--Content Part-->
+        <div class="content-wrapper outer-container w-100 min1-vh-100 my-0 mx-auto d-flex flex-column gap-5 gap-sm-9 text-custom-black-1">
+            <%- cnt %>
+        </div>
+
+        <!--Bottom Part-->
+        <div class="bottom-wrapper w-100 h1-100px my-0 mx-auto d-flex flex-column gap-1 gap-sm-5 bg-dev border-0 border-danger">
+
+            <!-- Footer Section -->
+            <%- ftr %>
+
+        </div>
+
+    </div>
+
+
+
+
+    <!--< %= hdr %>-->
+
+<!--    <h1>HEADER</h1>-->
+<!--    < %= cnt %>-->
+<!--    < %- cnt %>-->
+<!--    <h1>FOOTER</h1>-->
+<!--< %= ftr %>-->
+
+</body>
+</html>

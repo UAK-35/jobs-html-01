@@ -12,9 +12,34 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
 const getPublicUrlOrPath = require('./src/js/utilities/getPublicUrlOrPath');
 const resolvePath = require('./src/js/utilities/resolvePath');
+const getEjsViewConfigs = require("./src/js/utilities/getEjsViewConfigs");
 
 const envMode = process.env.NODE_ENV;
 console.log('NODE_ENV', envMode);
+
+// Get the script name, how was webpack process started, start or build
+const currentNpmScriptTask = process.env.npm_lifecycle_event;
+console.log('current npm script', currentNpmScriptTask);
+
+// const pages = ["app"];
+
+// EJS/html related
+const defaultHtmlWebpackPluginConfig = {
+  // title: 'MyJobDone',
+  // header: 'MyJobDone',
+  // metaDesc: 'MyJobDone',
+  // favicon: `${ PATH.src }/assets/images/favicon/favicon.ico`,
+  hash: false,
+  inject: true,
+  // inject: 'body',
+  collapseWhitespace: true,
+  removeComments: true,
+  removeRedundantAttributes: true,
+  removeScriptTypeAttributes: true,
+  removeStyleLinkTypeAttributes: true,
+  useShortDoctype: true,
+};
+
 
 module.exports = (webpackEnv, _argv) => {
   console.log('webpackEnv', webpackEnv);
@@ -52,9 +77,14 @@ module.exports = (webpackEnv, _argv) => {
     dist: resolvePath('../../../dist'),
     public: resolvePath('../../../public'),
     assets: resolvePath('../../../src/assets'),
+    views: resolvePath('../../../src/views'),
     npmPackages: resolvePath('../../../node_modules'),
   };
-  // console.log('PATH', PATH);
+  console.log('PATH', PATH);
+
+  // EJS related
+  const perPageViewConfigs = getEjsViewConfigs(`${PATH.views}${path.sep}pages`, { templatePath: `${PATH.src}/ts/ejs/layoutLoaders/template.ts`.replace(/\\/g, '/') });
+  // console.log('getEjsViewConfigs', perPageViewConfigs);
 
   return {
     mode: webPackMode,
@@ -124,7 +154,13 @@ module.exports = (webpackEnv, _argv) => {
     // context: PATH.src,
     entry: {
       app: `${ PATH.src }/ts/app.ts`,
+      // app: `${ PATH.src }/js/app.js`,
     },
+    // entry: pages.reduce((configAccumulator, page) => {
+    //   // configAccumulator[page] = `./${PATH.src}/js/${page}.js`;
+    //   configAccumulator[page] = `./${PATH.src}/ts/${page}.ts`;
+    //   return configAccumulator;
+    // }, {}),
 
     output: {
       path: PATH.dist,
@@ -147,13 +183,14 @@ module.exports = (webpackEnv, _argv) => {
     resolve: {
       modules: [PATH.npmPackages, PATH.src],
       extensions: ['.js', '.ts', '.json', '.scss'],
-      // alias: {
-      //   "@": PATH.src,
-      // }
+      alias: {
+        // "@": PATH.src,
+        "@icons": PATH.assets + "/images/icons",
+      }
     }, // resolve
 
     devServer: {
-      static: ['./'],
+      static: ['./src/'],
       // static: [ PATH.public ],
       host: 'localhost',
       port: 8080,
@@ -187,8 +224,9 @@ module.exports = (webpackEnv, _argv) => {
         options: {
           usePolling: true
         }
-      }
-    }, // devServer
+      },
+      // content: ["./src/**/*.{ejs,js,ts}"],
+}, // devServer
     // watchOptions: {
     //   aggregateTimeout: 10000,
     //   poll: 5000
@@ -196,6 +234,28 @@ module.exports = (webpackEnv, _argv) => {
 
     module: {
       rules: [
+        {
+          test: /\.ejs$/,
+          loader: require.resolve('ejs-loader'),
+          options: {
+            esModule: false,
+          },
+        },
+
+        // {
+        //   test: /\.js$/,
+        //   exclude: /node_modules/,
+        //   use: [
+        //     {
+        //       loader: require.resolve('babel-loader'),
+        //       // options: {
+        //       //   presets: ['@babel/env'],
+        //       //   plugins: ['@babel/plugin-proposal-class-properties'],
+        //       // },
+        //     }
+        //   ],
+        // },
+
         {
           test: /\.(scss)$/,
           use: [
@@ -233,7 +293,7 @@ module.exports = (webpackEnv, _argv) => {
 
             {
               // Loads a SASS/SCSS file and compiles it to CSS
-              loader: 'sass-loader',
+              loader: require.resolve('sass-loader'),
               options: {
                 sassOptions: {
                   sourceMap: genSourceMaps,
@@ -258,6 +318,15 @@ module.exports = (webpackEnv, _argv) => {
             extensions: ['.ts', '.js'] // --> JSON and HTML gets parsed by webpack's internal loaders
           },
           loader: require.resolve('ts-loader'),
+          // use: [
+          //   {
+          //     loader: require.resolve('ts-loader'),
+          //     options: {
+          //       // transpileOnly: true
+          //       configFile: './tsconfig.json',
+          //     }
+          //   }
+          // ]
         },
 
         {
@@ -303,7 +372,7 @@ module.exports = (webpackEnv, _argv) => {
         // {
         //   enforce: 'pre',
         //   test: /\.ts$/,
-        //   loader: 'tslint-loader',
+        //   loader: require.resolve('tslint-loader'),
         //   exclude: /node_modules/
         // }
       ], // rules
@@ -311,33 +380,38 @@ module.exports = (webpackEnv, _argv) => {
 
     plugins: [
       // Makes environment variables available to the build code
-      new webpack.DefinePlugin({
-        'process.env': {
-          NODE_ENV: JSON.stringify(process.env.NODE_ENV),
-          PUBLIC_URL: JSON.stringify(publicUrlOrPath.slice(0, -1)),
-          // APP_BUILD: JSON.stringify(env.APP_BUILD),
-          // FUNCTION_APP: JSON.stringify(env.FUNCTION_APP)
-        }
-      }),
+      // new webpack.DefinePlugin({
+      //   'process.env': {
+      //     NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+      //     PUBLIC_URL: JSON.stringify(publicUrlOrPath.slice(0, -1)),
+      //     // APP_BUILD: JSON.stringify(env.APP_BUILD),
+      //     // FUNCTION_APP: JSON.stringify(env.FUNCTION_APP)
+      //   }
+      // }),
 
       // Generates an `index.html` file with the <script> injected or otherwise
-      new HtmlWebpackPlugin({
-        hash: false,
-        // title: 'MyJobDone',
-        // header: 'MyJobDone',
-        // metaDesc: 'MyJobDone',
-        // favicon: `${ PATH.src }/assets/images/favicon/favicon.ico`,
-        template: `${PATH.src}/index.html`, // template file
-        filename: 'index.html', // output file
-        inject: true,
-        // inject: 'body',
-        collapseWhitespace: true,
-        removeComments: true,
-        removeRedundantAttributes: true,
-        removeScriptTypeAttributes: true,
-        removeStyleLinkTypeAttributes: true,
-        useShortDoctype: true,
-      }),
+      // new HtmlWebpackPlugin(Object.assign({}, defaultHtmlWebpackPluginConfig, {
+      //   // template: `${PATH.src}/index.html`, // template file
+      //   // filename: 'index.html', // output file
+      //
+      //   // template: `${PATH.assets}/layouts/template.js`, // template file
+      //   template: `${PATH.src}/ts/ejs/layoutLoaders/template.ts`, // template file
+      //   templateParameters: {
+      //     'title': "MyJobDone",
+      //     'page': "index",
+      //     viewsFolder: PATH.views.replace(/\\/g, '/'),
+      //   },
+      //   filename: 'index.html', // output file
+      // })),
+
+      // Generates an `.html` file for each of EJS views
+      ...perPageViewConfigs.map(cfg => new HtmlWebpackPlugin(Object.assign({}, defaultHtmlWebpackPluginConfig, {
+        ...cfg,
+        templateParameters: {
+          ...cfg.templateParameters,
+          viewsFolder: PATH.views.replace(/\\/g, '/'),
+        },
+      }))),
 
       // Copies the public directory into the root of build directory
       // new CopyWebpackPlugin({ patterns: [{ from: 'public' }] }),

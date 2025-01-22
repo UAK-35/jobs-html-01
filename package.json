@@ -1,13 +1,13 @@
 {
-  "name": "jobs-site-html-pages",
+  "name": "my-job-done-site",
   "version": "0.0.1",
   "description": "",
   "private": true,
   "keywords": [
-    ""
+    "MyJobDone"
   ],
-  "license": "",
-  "author": "",
+  "license": "MIT",
+  "author": "Umar Ali Khan <uak282006@gmail.com>",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start0": "webpack serve --open --config webpack.config.dev.js",
@@ -22,6 +22,7 @@
     "@eslint/eslintrc": "^3.2.0",
     "@eslint/js": "^9.18.0",
     "@types/bootstrap": "^5.2.10",
+    "@types/ejs": "^3.1.5",
     "@types/node": "^22.10.5",
     "@typescript-eslint/eslint-plugin": "^8.19.1",
     "@typescript-eslint/parser": "^8.19.1",
@@ -30,6 +31,7 @@
     "copy-webpack-plugin": "^11.0.0",
     "css-loader": "^7.1.2",
     "css-minimizer-webpack-plugin": "^7.0.0",
+    "ejs-loader": "^0.5.0",
     "eslint": "^9.18.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
