@@ -14,7 +14,6 @@ import manageFormSubmission from "./utils/forms";
 import manageReviewPopovers from "./utils/reviews";
 import manageQuotesCalculation from "./utils/calculation";
 
-
 // IIFE
 (function () {
   onPageReady(() => {

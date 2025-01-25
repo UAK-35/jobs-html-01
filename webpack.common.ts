@@ -13,46 +13,30 @@ import CopyWebpackPlugin from 'copy-webpack-plugin';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import TerserPlugin from 'terser-webpack-plugin';
 import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
-import { getEjsViewConfigs, getPublicUrlOrPath, resolvePath } from "./src/ts/utils/helpers";
+import { getEjsViewConfigs, getPublicUrlOrPath } from "./src/ts/utils/helpers";
+import Constants from "./src/ts/lib/constants";
+import { ErrorInfo } from "ts-loader/dist/interfaces";
 
-const envMode = process.env.NODE_ENV;
-console.log('NODE_ENV', envMode);
+// console.log('NODE_ENV', Constants.envValues.envMode);
 
 // Get the script name, how was webpack process started, start or build
 const currentNpmScriptTask = process.env.npm_lifecycle_event;
 console.log('current npm script', currentNpmScriptTask);
-
-// EJS/html related
-const defaultHtmlWebpackPluginConfig = {
-  // title: 'MyJobDone',
-  // header: 'MyJobDone',
-  // metaDesc: 'MyJobDone',
-  // favicon: `${ PATH.src }/assets/images/favicon/favicon.ico`,
-  hash: false,
-  inject: true,
-  // inject: 'body',
-  collapseWhitespace: true,
-  removeComments: true,
-  removeRedundantAttributes: true,
-  removeScriptTypeAttributes: true,
-  removeStyleLinkTypeAttributes: true,
-  useShortDoctype: true,
-};
 
 const config = (webpackEnv: any, _argv: any): webpack.Configuration => {
   console.log('webpackEnv', webpackEnv);
   // console.log('webpack NODE_ENV', webpackEnv.NODE_ENV);
 
   // const envMode = webpackEnv.NODE_ENV; // does not work
-  console.log('envMode', envMode);
+  console.log('envMode', Constants.envValues.envMode);
 
-  const isDevelopmentEnv = envMode === 'development';
-  const isStagingEnv = envMode === 'staging';
-  const isProductionEnv = isStagingEnv || envMode === 'production';
-  const webPackMode = isProductionEnv ? 'production' : 'development';
+  const isDevelopmentEnv = Constants.envValues.isDevelopmentEnv;
+  const isStagingEnv = Constants.envValues.isStagingEnv;
+  const isProductionEnv = Constants.envValues.isProductionEnv;
+  const webPackMode = Constants.envValues.webPackMode;
 
   // const envFile = `.env${isProductionEnv ? "" : "." + envMode}`;
-  const envFile = `.env.${envMode}`;
+  const envFile = `${Constants.otherValues.envFilePrefix}.${Constants.envValues.envMode}`;
   console.info("environment file = " + envFile);
 
   const { parsed: parsedEnv } = require('dotenv').config({ path: path.resolve(process.cwd(), envFile) });
@@ -69,29 +53,23 @@ const config = (webpackEnv: any, _argv: any): webpack.Configuration => {
   const publicUrlOrPath = getPublicUrlOrPath(isDevelopmentEnv, undefined, publicUrl);
   // console.log('publicUrlOrPath', publicUrlOrPath);
 
-  const PATH = {
-    base: resolvePath('../../../'),
-    src: resolvePath('../../../src'),
-    dist: resolvePath('../../../dist'),
-    public: resolvePath('../../../public'),
-    assets: resolvePath('../../../src/assets'),
-    views: resolvePath('../../../src/views'),
-    npmPackages: resolvePath('../../../node_modules'),
-  };
+  const PATH = Constants.folderPaths;
   console.log('PATH', PATH);
 
   // EJS related
-  const perPageViewConfigs = getEjsViewConfigs(`${PATH.views}${path.sep}pages`, { templatePath: `${PATH.src}/ts/ejs/layoutLoaders/template.ts`.replace(/\\/g, '/') });
+  const perPageViewConfigs = getEjsViewConfigs(PATH.ejsPages, { templatePath: `${Constants.folderPaths.ejsLayoutLoaders}/${Constants.fileNames.templateLoaderFileName}`.replace(/\\/g, '/') });
   // console.log('getEjsViewConfigs', perPageViewConfigs);
+
+  console.log('__dirname', __dirname);
 
   return {
     mode: webPackMode,
     target: ['browserslist'],
     cache: isProductionEnv ? {
       type: 'filesystem',
-      name: `MyJobDone-${envMode}-BuildCache`,
+      name: `${Constants.appValues.name}-${Constants.envValues.envMode}-BuildCache`,
       profile: false,
-      cacheDirectory: path.resolve(__dirname, '.cache/webpack'),
+      cacheDirectory: path.resolve(__dirname, Constants.relativeFolderPaths.webpackCacheFolder),
       compression: 'gzip',
       hashAlgorithm: 'md4',
       maxAge: 5184000000,
@@ -151,7 +129,7 @@ const config = (webpackEnv: any, _argv: any): webpack.Configuration => {
 
     // context: PATH.src,
     entry: {
-      app: `${ PATH.src }/ts/app.ts`,
+      app: `${ Constants.folderPaths.typescript }/${Constants.fileNames.entryFileName}`,
       // app: `${ PATH.src }/js/app.js`,
     },
     // entry: pages.reduce((configAccumulator, page) => {
@@ -175,10 +153,12 @@ const config = (webpackEnv: any, _argv: any): webpack.Configuration => {
       clean: true, // clears the output dist folder prior to building
 
       // Point sourcemap entries to original disk location (format as URL on Windows)
-      devtoolModuleFilenameTemplate: (info: any) => {
-        if (isProductionEnv) return path.relative('./src', info.absoluteResourcePath).replace(/\\/g, '/')
-        else return resolvePath(info.absoluteResourcePath).replace(/\\/g, '/')
-      }
+      // devtoolModuleFilenameTemplate: (info: any) => {
+      //   console.log('info.absoluteResourcePath', info.absoluteResourcePath);
+      //   return info.absoluteResourcePath;
+      //   // if (isProductionEnv) return path.relative('./src', info.absoluteResourcePath).replace(/\\/g, '/')
+      //   // else return Constants.resolvePath(info.absoluteResourcePath).replace(/\\/g, '/')
+      // }
     }, // output
 
     resolve: {
@@ -406,12 +386,35 @@ const config = (webpackEnv: any, _argv: any): webpack.Configuration => {
             extensions: ['.ts', '.js'] // --> JSON and HTML gets parsed by webpack's internal loaders
           },
           loader: require.resolve('ts-loader'),
+          options: {
+            // errorFormatter: (error: any, colors: any) => {
+            //   // console.log('__dirname', __dirname);
+            //   const messageColor =
+            //     error.severity === "warning" ? colors.bold.yellow : colors.bold.red;
+            //   return (
+            //     "Does not compute.... " +
+            //     messageColor(Object.keys(error).map(key => `${key}: ${error[key]}`))
+            //   );
+            // },
+            transpileOnly: false,
+            // configFile: `${PATH.base}./tsconfig.json`,
+            // context: PATH.base,
+            // configFile: require.resolve('tsconfig.json'),
+            configFile: path.resolve(__dirname, 'tsconfig.json'),
+            compiler: 'typescript',
+            logLevel: 'info',
+            silent: false,
+            colors: false,
+            useCaseSensitiveFileNames: true,
+            experimentalFileCaching: true,
+          },
           // use: [
           //   {
           //     loader: require.resolve('ts-loader'),
           //     options: {
           //       // transpileOnly: true
           //       configFile: './tsconfig.json',
+          //       configFile: `${PATH.base}./tsconfig.json`,
           //     }
           //   }
           // ]
@@ -468,14 +471,13 @@ const config = (webpackEnv: any, _argv: any): webpack.Configuration => {
 
     plugins: [
       // Makes environment variables available to the build code
-      // new webpack.DefinePlugin({
-      //   'process.env': {
-      //     NODE_ENV: JSON.stringify(process.env.NODE_ENV),
-      //     PUBLIC_URL: JSON.stringify(publicUrlOrPath.slice(0, -1)),
-      //     // APP_BUILD: JSON.stringify(env.APP_BUILD),
-      //     // FUNCTION_APP: JSON.stringify(env.FUNCTION_APP)
-      //   }
-      // }),
+      new webpack.DefinePlugin({
+        'PUBLIC_URL': JSON.stringify(publicUrlOrPath),
+        'WEBPACK_MODE': JSON.stringify(webPackMode),
+        'process.env': {
+          NODE_ENV: JSON.stringify(Constants.envValues.envMode),
+        },
+      }),
 
       // Generates an `index.html` file with the <script> injected or otherwise
       // new HtmlWebpackPlugin(Object.assign({}, defaultHtmlWebpackPluginConfig, {
@@ -495,12 +497,12 @@ const config = (webpackEnv: any, _argv: any): webpack.Configuration => {
       // Generates an `.html` file for each of EJS views
       ...perPageViewConfigs.map(cfg => {
         if (cfg == null) return null;
-        return new HtmlWebpackPlugin(Object.assign({}, defaultHtmlWebpackPluginConfig, {
+        return new HtmlWebpackPlugin(Object.assign({}, Constants.defaultHtmlWebpackPluginConfig, {
           ...cfg,
           templateParameters: {
             ...cfg.templateParameters, // title, page
             viewsFolder: PATH.views.replace(/\\/g, '/'),
-            partialsFolder: PATH.views.replace(/\\/g, '/') + "/partials",
+            partialsFolder: PATH.ejsPartials.replace(/\\/g, '/'),
           },
         }));
       }).filter(Boolean),
@@ -510,7 +512,7 @@ const config = (webpackEnv: any, _argv: any): webpack.Configuration => {
       new CopyWebpackPlugin({
         patterns: [
           {
-            from: `${PATH.src}/assets/images`,
+            from: `${PATH.assets}/images`,
             to: './assets/images'
           }
         ]
@@ -555,7 +557,7 @@ const config = (webpackEnv: any, _argv: any): webpack.Configuration => {
           new ESLintPlugin({
             configType: "flat",
             cache: true,
-            cacheLocation: ".cache/eslint-webpack-plugin/.eslintcache",
+            cacheLocation: Constants.relativeFolderPaths.eslintCacheFolder,
             fix: true,
             extensions: ['ts'],
             outputReport: {

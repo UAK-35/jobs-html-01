@@ -1,0 +1,14 @@
+[
+  {
+    "title":"Wall Removing",
+    "defaultQuantity":20,
+    "units":"sqm",
+    "pricePounds":70
+  },
+  {
+    "title":"Painting",
+    "defaultQuantity":20,
+    "units":"sqm",
+    "pricePounds":10
+  }
+]

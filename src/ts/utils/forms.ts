@@ -1,3 +1,5 @@
+/** @format */
+
 import emailJs from "@emailjs/browser";
 
 function doSendEmail(fromName: string, fromEmail: string, emailBody: string) {
@@ -46,7 +48,6 @@ export default function manageFormSubmission() {
           dataToSend[key] = element.value;
         }
       }
-
 
       // const fromName = dataToSend["name"];
       const fromName = "test-user";

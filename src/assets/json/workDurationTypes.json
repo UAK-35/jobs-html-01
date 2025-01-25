@@ -1,0 +1,22 @@
+[
+  {
+    "title":"2 - 5 days",
+    "code":"2to5d"
+  },
+  {
+    "title":"< 2 weeks",
+    "code":"l2w"
+  },
+  {
+    "title":"< 4 weeks",
+    "code":"l4w"
+  },
+  {
+    "title":"Other time",
+    "code":"ot"
+  },
+  {
+    "title":"I'm flexible",
+    "code":"flex"
+  }
+]

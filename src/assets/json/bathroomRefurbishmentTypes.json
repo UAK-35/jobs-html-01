@@ -1,0 +1,14 @@
+[
+  {
+    "title":"Remove Bathtub",
+    "defaultQuantity":1,
+    "units":"p",
+    "pricePounds":120
+  },
+  {
+    "title":"Install Bathtub",
+    "defaultQuantity":1,
+    "units":"p",
+    "pricePounds":400
+  }
+]

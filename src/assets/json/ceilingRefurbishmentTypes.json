@@ -1,0 +1,14 @@
+[
+  {
+    "title":"Ceiling Removal",
+    "defaultQuantity":12,
+    "units":"sqm",
+    "pricePounds":30
+  },
+  {
+    "title":"Painting",
+    "defaultQuantity":12,
+    "units":"sqm",
+    "pricePounds":10
+  }
+]

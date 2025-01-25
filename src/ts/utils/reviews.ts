@@ -1,3 +1,5 @@
+/** @format */
+
 import { Popover } from "bootstrap";
 
 export default function manageReviewPopovers() {

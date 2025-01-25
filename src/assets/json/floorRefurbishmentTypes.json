@@ -1,0 +1,14 @@
+[
+  {
+    "title":"Floor Tiling",
+    "defaultQuantity":5,
+    "units":"sqm",
+    "pricePounds":70
+  },
+  {
+    "title":"Laminate",
+    "defaultQuantity":15,
+    "units":"sqm",
+    "pricePounds":30
+  }
+]

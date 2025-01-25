@@ -1,0 +1,14 @@
+[
+  {
+    "title":"Remove Wall Cabinets",
+    "defaultQuantity":12,
+    "units":"p",
+    "pricePounds":20
+  },
+  {
+    "title":"Install Wall Cabinets",
+    "defaultQuantity":12,
+    "units":"p",
+    "pricePounds":95
+  }
+]
