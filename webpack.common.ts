@@ -1,19 +1,19 @@
-const webpack = require('webpack');
-const path = require('path');
-const autoprefixer = require('autoprefixer')
-const ESLintPlugin = require('eslint-webpack-plugin');
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-// const { InjectManifest } = require('workbox-webpack-plugin');
-// const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
-const TerserPlugin = require('terser-webpack-plugin');
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+import path from 'path';
+import webpack from 'webpack';
+// in case you run into any typescript error when configuring `devServer`
+import 'webpack-dev-server';
 
-const getPublicUrlOrPath = require('./src/js/utilities/getPublicUrlOrPath');
-const resolvePath = require('./src/js/utilities/resolvePath');
-const getEjsViewConfigs = require("./src/js/utilities/getEjsViewConfigs");
+import autoprefixer from 'autoprefixer';
+import ESLintPlugin from 'eslint-webpack-plugin';
+import HtmlWebpackPlugin from "html-webpack-plugin";
+import MiniCssExtractPlugin from "mini-css-extract-plugin";
+// import { InjectManifest } from 'workbox-webpack-plugin';
+// import { WebpackManifestPlugin } from 'webpack-manifest-plugin';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
+import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
+import TerserPlugin from 'terser-webpack-plugin';
+import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
+import { getEjsViewConfigs, getPublicUrlOrPath, resolvePath } from "./src/ts/utils/helpers";
 
 const envMode = process.env.NODE_ENV;
 console.log('NODE_ENV', envMode);
@@ -21,8 +21,6 @@ console.log('NODE_ENV', envMode);
 // Get the script name, how was webpack process started, start or build
 const currentNpmScriptTask = process.env.npm_lifecycle_event;
 console.log('current npm script', currentNpmScriptTask);
-
-// const pages = ["app"];
 
 // EJS/html related
 const defaultHtmlWebpackPluginConfig = {
@@ -41,8 +39,7 @@ const defaultHtmlWebpackPluginConfig = {
   useShortDoctype: true,
 };
 
-
-module.exports = (webpackEnv, _argv) => {
+const config = (webpackEnv: any, _argv: any): webpack.Configuration => {
   console.log('webpackEnv', webpackEnv);
   // console.log('webpack NODE_ENV', webpackEnv.NODE_ENV);
 
@@ -167,15 +164,18 @@ module.exports = (webpackEnv, _argv) => {
       path: PATH.dist,
       publicPath: publicUrlOrPath,
       filename: `js/[name].js`,
-      assetModuleFilename: (pathData) => {
-        // help link: https://stackoverflow.com/a/68902490
-        const assetFolderPath = path.dirname(pathData.filename).split("/").slice(1).join("/");
-        return `${assetFolderPath}/[name][ext][query]`;
+      assetModuleFilename: (pathData: webpack.PathData) => {
+        if (pathData.filename != null) {
+          // help link: https://stackoverflow.com/a/68902490
+          const assetFolderPath = path.dirname(pathData.filename).split("/").slice(1).join("/");
+          return `${assetFolderPath}/[name][ext][query]`;
+        }
+        return "";
       },
       clean: true, // clears the output dist folder prior to building
 
       // Point sourcemap entries to original disk location (format as URL on Windows)
-      devtoolModuleFilenameTemplate: (info) => {
+      devtoolModuleFilenameTemplate: (info: any) => {
         if (isProductionEnv) return path.relative('./src', info.absoluteResourcePath).replace(/\\/g, '/')
         else return resolvePath(info.absoluteResourcePath).replace(/\\/g, '/')
       }
@@ -187,7 +187,11 @@ module.exports = (webpackEnv, _argv) => {
       // alias: {
       //   // "@": PATH.src,
       //   "@icons": PATH.assets + "/images/icons",
-      // }
+      // },
+      fallback: {
+        "fs": false,
+        "url": false,
+      },
     }, // resolve
 
     devServer: {
@@ -423,7 +427,7 @@ module.exports = (webpackEnv, _argv) => {
                 esModule: false,
                 sources: {
                   // help link: https://stackoverflow.com/a/72559533
-                  urlFilter: (attribute, value, _resourcePath) => {
+                  urlFilter: (attribute: string, value: string, _resourcePath: string) => {
                     // console.log('value', attribute, value, resourcePath);
                     return !(attribute === "content" || value === "./css/app.css" || value === "./site.webmanifest" || value === "./js/app.js");
                   },
@@ -489,14 +493,17 @@ module.exports = (webpackEnv, _argv) => {
       // })),
 
       // Generates an `.html` file for each of EJS views
-      ...perPageViewConfigs.map(cfg => new HtmlWebpackPlugin(Object.assign({}, defaultHtmlWebpackPluginConfig, {
-        ...cfg,
-        templateParameters: {
-          ...cfg.templateParameters, // title, page
-          viewsFolder: PATH.views.replace(/\\/g, '/'),
-          partialsFolder: PATH.views.replace(/\\/g, '/') + "/partials",
-        },
-      }))),
+      ...perPageViewConfigs.map(cfg => {
+        if (cfg == null) return null;
+        return new HtmlWebpackPlugin(Object.assign({}, defaultHtmlWebpackPluginConfig, {
+          ...cfg,
+          templateParameters: {
+            ...cfg.templateParameters, // title, page
+            viewsFolder: PATH.views.replace(/\\/g, '/'),
+            partialsFolder: PATH.views.replace(/\\/g, '/') + "/partials",
+          },
+        }));
+      }).filter(Boolean),
 
       // Copies the public directory into the root of build directory
       // new CopyWebpackPlugin({ patterns: [{ from: 'public' }] }),
@@ -513,7 +520,7 @@ module.exports = (webpackEnv, _argv) => {
         ? [
           // Extracts CSS into separate files
           new MiniCssExtractPlugin({
-            filename: ({_chunk}) => `css/[name].css`, // help link: https://stackoverflow.com/a/52895274
+            filename: (pathData: webpack.PathData) => `css/[name].css`, // help link: https://stackoverflow.com/a/52895274
           }),
 
           // // Generate a service worker script that will precache, and keep up to date, the HTML & assets that are part of the webpack build
@@ -598,3 +605,7 @@ module.exports = (webpackEnv, _argv) => {
 
   } // return
 };
+
+export default config;
+
+// npm i -D @types/node @types/webpack @types/webpack-dev-server ts-node tsconfig-paths
