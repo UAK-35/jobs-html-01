@@ -34,6 +34,10 @@ export default async (data: any) => {
     webpackMode: WEBPACK_MODE,
   };
 
+  // const webData = {
+  //   quoteType: 'test', // request query paramater value - not possible
+  // };
+
   // page data
   const contentData =
     data.page === "calculate"
@@ -41,6 +45,7 @@ export default async (data: any) => {
           // calculate page data
           ...data, // title, page, viewsFolder, partialsFolder
           ...webpackData,
+          // ...webData,
           partialsFolder,
           jobTypes,
           bathroomRefurbTypes,
@@ -57,7 +62,8 @@ export default async (data: any) => {
       : {
           ...data,
           ...webpackData,
-          partialsFolder,
+          // ...webData,
+          partialsFolder
         };
 
   const ejsTemplateStr = fs.readFileSync(`${data.viewsFolder}/layouts/template.ejs`, "ascii");

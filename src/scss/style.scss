@@ -1,5 +1,6 @@
 @charset "UTF-8";
 @use "sass:math";
+@use "sass:map";
 
 // 1. Include functions first (so you can manipulate colors, SVGs, calc, etc)
 @import "bootstrap/scss/functions";
@@ -73,8 +74,8 @@ $widths-map: ();
 @for $i from $startPctW through $endPctW {
   $width: percentage(math.div($i, 100));
   //$map: ();
-  //$map: map-merge($map, ($i: create_kv_map($width)) );
-  $widths-map: map-merge($widths-map, ($i: $width));
+  //$map: map.merge($map, ($i: create_kv_map($width)) );
+  $widths-map: map.merge($widths-map, ($i: $width));
 }
 
 $utilities: (
@@ -103,19 +104,28 @@ $custom-black-1: #101722;
 $font-size-low-base-1: 0.85rem !default;
 $font-size-low-base-2: 0.75rem !default;
 
-$spacers: (
-  0: 0,
-  1: $spacer * .25,
-  2: $spacer * .5,
-  3: $spacer,
-  4: $spacer * 1.5,
-  5: $spacer * 3,
-  6: $spacer * 4,
-  7: $spacer * 5,
-  8: $spacer * 6,
-  9: $spacer * 7,
-  10: $spacer * 8,
-);
+//$spacers: (
+//  0: 0,
+//  1: $spacer * .25,
+//  2: $spacer * .5,
+//  3: $spacer,
+//  4: $spacer * 1.5,
+//  5: $spacer * 3,
+//  6: $spacer * 4,
+//  7: $spacer * 5,
+//  8: $spacer * 6,
+//  9: $spacer * 7,
+//  10: $spacer * 8,
+//);
+$startSpacer: 1;
+$endSpacer: 40;
+$spacer-map: (0: 0);
+@for $i from $startSpacer through $endSpacer {
+  $val: math.div($i, 4);
+  $spacer-map: map.merge($spacer-map, ($i: $spacer * $val));
+}
+$spacers: $spacer-map;
+
 $font-sizes: (
   1: $h1-font-size,
   2: $h2-font-size,
@@ -133,7 +143,7 @@ $custom-colors: (
   "light-green-2": $light-green-2,
   "custom-black-1": $custom-black-1,
 );
-$theme-colors: map-merge($theme-colors, $custom-colors);
+$theme-colors: map.merge($theme-colors, $custom-colors);
 
 // 5. Include remainder of required parts
 @import "bootstrap/scss/maps";
@@ -199,7 +209,7 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
     $map-reversed: ();
 
     @for $i from length($keys) through 1 {
-      $map-reversed: map-merge(
+      $map-reversed: map.merge(
           $map-reversed,
           (nth($keys, $i): map-get($map, nth($keys, $i)))
       );
@@ -230,13 +240,13 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 
 
 //$j-text-colors: map-merge-multiple($blues, $indigos, $purples, $pinks, $reds, $oranges, $yellows, $greens, $teals, $cyans);
-//$utilities: map-merge(
+//$utilities: map.merge(
 //    $utilities,
 //    (
-//      "color": map-merge(
+//      "color": map.merge(
 //          map-get($utilities, "color"),
 //          (
-//            values: map-merge(
+//            values: map.merge(
 //                map-get(map-get($utilities, "color"), "values"),
 //                  (
 //                    $j-text-colors
@@ -581,6 +591,7 @@ $last-j: 0;
 .service-card:hover {
   @extend .bg-light-green-1;
   @extend .text-light;
+  box-shadow: rgba(0, 0, 0, 0.35) 2.95px 2.95px 2.6px;
 }
 .service-card:hover > .services-icon-wrapper {
   @extend .bg-light;
@@ -691,6 +702,16 @@ a.calculate-btn > span {
   @extend .fnt-5;
   @extend .fw-semibold;
 }
+a.cta-button:hover {
+  color: var(--bs-btn-hover-color);
+  background-color: var(--bs-btn-hover-bg);
+  border-color: var(--bs-btn-hover-border-color);
+}
+a.calculate-btn:hover, a.cta-button:hover {
+  opacity: 0.85;
+  //box-shadow: 8px 8px 10px -7px rgba(0,0,0,0.75);
+  box-shadow: rgba(0, 0, 0, 0.35) 2.95px 2.95px 2.6px;
+}
 
 .approach-step-title {
   @extend .fnt-3;
@@ -703,4 +724,101 @@ a.calculate-btn > span {
   @extend .pb-0;
   @extend .pb-sm-1;
   @extend .pb-lg-2;
+}
+
+// calculate page hide-show logic
+
+.d-none-not-imp {
+  //display: none;
+}
+
+.disabled-div {
+  pointer-events: none;
+  opacity: 0.5;
+  /* Optional: Add additional styles to convey disabled state */
+  background-color: #f2f2f2;
+  color: #999;
+  cursor: not-allowed;
+}
+
+.float-none {
+  float: none;
+}
+
+.clear-none {
+  clear: none;
+}
+
+.clear-start {
+  clear: left;
+}
+
+.clear-end {
+  clear: right;
+}
+
+.d-flow-root {
+  display: flow-root;
+}
+
+.form-check-label {
+  cursor: pointer;
+}
+.form-check.form-check-inline:hover input.form-check-input {
+  background-color: yellow;
+}
+.form-check.form-check-inline:hover input.form-check-input:checked {
+  --bs-form-check-bg-image: url("../assets/images/icons/check-mark-hover.svg");
+}
+
+.quantities-container .quote-page-card {
+  @extend .mb-8;
+  height: max-content;
+}
+
+.form-check-input:checked {
+  background-color: $light-green-1;
+  border-color: $light-green-1;
+}
+
+input[type=checkbox]{
+  accent-color: green;
+}
+
+.not-all-types > .job-types-container,
+.not-all-types:not(.bathroom-job) > .bathroom-types-container,
+.not-all-types:not(.kitchen-job) > .kitchen-types-container,
+.not-all-types:not(.wall-job) > .walls-types-container,
+.not-all-types:not(.floor-job) > .floors-types-container,
+.not-all-types:not(.ceiling-job) > .ceiling-types-container,
+.not-all-types:not(.extension-job) > .extension-types-container,
+.not-all-types:not(.loft-conver-job) > .loft-types-container
+{
+  display: none;
+}
+
+.not-all-types.wall-job > .walls-types-container,
+.not-all-types.floor-job > .floors-types-container,
+.not-all-types.ceiling-job > .ceiling-types-container,
+.not-all-types.bathroom-job > .bathroom-types-container,
+.not-all-types.kitchen-job > .kitchen-types-container,
+.not-all-types.extension-job > .extension-types-container,
+.not-all-types.loft-conver-job > .loft-types-container,
+//.not-all-types.full-house-job > .full-types-container,
+.not-all-types > .duration-selection-container,
+.not-all-types > .data-submit-container
+{
+  display: block;
+}
+
+.not-all-types.wall-job > .walls-types-container,
+.not-all-types.floor-job > .floors-types-container,
+.not-all-types.ceiling-job > .ceiling-types-container,
+.not-all-types.bathroom-job > .bathroom-types-container,
+.not-all-types.kitchen-job > .kitchen-types-container,
+.not-all-types.extension-job > .extension-types-container,
+.not-all-types.loft-conver-job > .loft-types-container,
+.not-all-types.full-house-job > .full-types-container
+{
+  width: 100% !important;
 }

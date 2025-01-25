@@ -1,10 +1,13 @@
 <div class="content-wrapper outer-container w-100 min1-vh-100 my-0 mx-auto d-flex flex-column gap-3 gap-sm-5 text-custom-black-1">
 
-    <h1>Calculate your quote</h1>
+    <div class="container d-flex flex-column gap-1">
+        <h1>Calculate your quote</h1>
+        <p class="fs-6">Easily understand the labor costs for your project with our straightforward calculation process.</p>
+    </div>
 
-    <div class="container d-flex flex-row justify-content-between align-content-center flex-wrap column-gap-3 row-gap-4 w-100 border-0 border-danger">
+    <div id="quotes-calc-container" class="container quantities-container d-flow-root d1-inline-flex flex-row justify-content-between align-content-center flex-wrap column-gap-3 row-gap-4 w-100 border-0 border-danger">
 
-        <div class="job-types-container quote-page-card card wpct-48">
+        <div class="job-types-container quote-page-card card wpct-32 float-start clear-start">
             <div class="card-header bg-light-green-2">
                 <h5 class="fw-bold">My Job</h5>
             </div>
@@ -23,12 +26,12 @@
             </div>
         </div>
 
-        <div class="bathroom-types-container d-none quote-page-card card wpct-48">
+        <div class="bathroom-types-container d-none-not-imp quote-page-card card wpct-66 float-end clear-end">
             <div class="card-header bg-light-green-2">
                 <h5 class="fw-bold">Bathroom Refurbishment</h5>
             </div>
             <div class="card-body">
-                <ul class="list-group list1-group-flush flex-row justify-content-between align-items-center gap-1">
+                <ul class="list-group list1-group-flush flex-row justify-content-between align-items-center flex-wrap gap-1">
                     <% for (var i = 0; i < bathroomRefurbTypes.length; i++) { %>
                         <li class="list-group-item w-100 wpct-sm-48 px-1">
                             <div class="form-check form-check-inline">
@@ -43,27 +46,7 @@
             </div>
         </div>
 
-        <div class="kitchen-types-container d-none quote-page-card card wpct-48">
-            <div class="card-header bg-light-green-2">
-                <h5 class="fw-bold">Kitchen Refurbishment</h5>
-            </div>
-            <div class="card-body">
-                <ul class="list-group list-group-flush">
-                    <% for (var i = 0; i < kitchenRefurbTypes.length; i++) { %>
-                        <li class="list-group-item">
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input ktchn-type-ckbx ckbx-with-quantity" data-price-in-pounds="<%= kitchenRefurbTypes[i].pricePounds %>" type="checkbox" id="ktchnType<%= i %>" name="ktchnType<%= i %>" value="<%= kitchenRefurbTypes[i].title %>">
-                                <label class="form-check-label fw-medium ps-1" for="ktchnType<%= i %>"><%= kitchenRefurbTypes[i].title %></label>
-                                <input class="w-45px" data-last-value="<%= kitchenRefurbTypes[i].defaultQuantity %>" type="number" min="1" id="ktchnTypeQ<%= i %>" name="ktchnTypeQ<%= i %>" value="<%= kitchenRefurbTypes[i].defaultQuantity %>">
-                                <label class="" for="ktchnTypeQ<%= i %>"><%= kitchenRefurbTypes[i].units %></label>
-                            </div>
-                        </li>
-                    <% } %>
-                </ul>
-            </div>
-        </div>
-
-        <div class="walls-types-container d-none quote-page-card card wpct-24">
+        <div class="walls-types-container d-none-not-imp quote-page-card card wpct-32 float-start clear-start">
             <div class="card-header bg-light-green-2">
                 <h5 class="fw-bold">Walls Refurbishment</h5>
             </div>
@@ -83,7 +66,27 @@
             </div>
         </div>
 
-        <div class="floors-types-container d-none quote-page-card card wpct-24">
+        <div class="kitchen-types-container d-none-not-imp quote-page-card card wpct-66 float-end clear-end">
+            <div class="card-header bg-light-green-2">
+                <h5 class="fw-bold">Kitchen Refurbishment</h5>
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush flex-row justify-content-between align-items-center flex-wrap gap-1">
+                    <% for (var i = 0; i < kitchenRefurbTypes.length; i++) { %>
+                        <li class="list-group-item w-100 wpct-sm-48 px-1">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input ktchn-type-ckbx ckbx-with-quantity" data-price-in-pounds="<%= kitchenRefurbTypes[i].pricePounds %>" type="checkbox" id="ktchnType<%= i %>" name="ktchnType<%= i %>" value="<%= kitchenRefurbTypes[i].title %>">
+                                <label class="form-check-label fw-medium ps-1" for="ktchnType<%= i %>"><%= kitchenRefurbTypes[i].title %></label>
+                                <input class="w-45px" data-last-value="<%= kitchenRefurbTypes[i].defaultQuantity %>" type="number" min="1" id="ktchnTypeQ<%= i %>" name="ktchnTypeQ<%= i %>" value="<%= kitchenRefurbTypes[i].defaultQuantity %>">
+                                <label class="" for="ktchnTypeQ<%= i %>"><%= kitchenRefurbTypes[i].units %></label>
+                            </div>
+                        </li>
+                    <% } %>
+                </ul>
+            </div>
+        </div>
+
+        <div class="floors-types-container d-none-not-imp quote-page-card card wpct-32 float-start clear-start">
             <div class="card-header bg-light-green-2">
                 <h5 class="fw-bold">Floor Refurbishment</h5>
             </div>
@@ -103,7 +106,7 @@
             </div>
         </div>
 
-        <div class="ceiling-types-container d-none quote-page-card card wpct-24">
+        <div class="ceiling-types-container d-none-not-imp quote-page-card card wpct-32 float-end clear-end ms-6">
             <div class="card-header bg-light-green-2">
                 <h5 class="fw-bold">Ceiling Refurbishment</h5>
             </div>
@@ -123,27 +126,7 @@
             </div>
         </div>
 
-        <div class="extension-types-container d-none quote-page-card card wpct-24">
-            <div class="card-header bg-light-green-2">
-                <h5 class="fw-bold">Extensions</h5>
-            </div>
-            <div class="card-body">
-                <ul class="list-group list-group-flush">
-                    <% for (var i = 0; i < extensionTypes.length; i++) { %>
-                        <li class="list-group-item">
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input extension-type-ckbx ckbx-with-quantity" data-price-in-pounds="<%= extensionTypes[i].pricePounds %>" type="checkbox" id="extensionType<%= i %>" name="extensionType<%= i %>" value="<%= extensionTypes[i].title %>">
-                                <label class="form-check-label fw-medium ps-1" for="extensionType<%= i %>"><%= extensionTypes[i].title %></label>
-                                <input class="w-45px" data-last-value="<%= extensionTypes[i].defaultQuantity %>" type="number" min="1" id="extensionTypeQ<%= i %>" name="extensionTypeQ<%= i %>" value="<%= extensionTypes[i].defaultQuantity %>">
-                                <label class="" for="extensionTypeQ<%= i %>"><%= extensionTypes[i].units %></label>
-                            </div>
-                        </li>
-                    <% } %>
-                </ul>
-            </div>
-        </div>
-
-        <div class="loft-types-container d-none quote-page-card card wpct-24">
+        <div class="loft-types-container d-none-not-imp quote-page-card card wpct-32 float-end clear-none">
             <div class="card-header bg-light-green-2">
                 <h5 class="fw-bold">Loft Conversion</h5>
             </div>
@@ -163,7 +146,31 @@
             </div>
         </div>
 
-        <div id="timeDurationSelectionContainer" class="duration-selection-container d-none quote-page-card card wpct-33">
+        <div class="extension-types-container d-none-not-imp quote-page-card card wpct-32 float-end clear-none">
+            <div class="card-header bg-light-green-2">
+                <h5 class="fw-bold">Extensions</h5>
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <% for (var i = 0; i < extensionTypes.length; i++) { %>
+                        <li class="list-group-item">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input extension-type-ckbx ckbx-with-quantity" data-price-in-pounds="<%= extensionTypes[i].pricePounds %>" type="checkbox" id="extensionType<%= i %>" name="extensionType<%= i %>" value="<%= extensionTypes[i].title %>">
+                                <label class="form-check-label fw-medium ps-1" for="extensionType<%= i %>"><%= extensionTypes[i].title %></label>
+                                <input class="w-45px" data-last-value="<%= extensionTypes[i].defaultQuantity %>" type="number" min="1" id="extensionTypeQ<%= i %>" name="extensionTypeQ<%= i %>" value="<%= extensionTypes[i].defaultQuantity %>">
+                                <label class="" for="extensionTypeQ<%= i %>"><%= extensionTypes[i].units %></label>
+                            </div>
+                        </li>
+                    <% } %>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="container d-inline-flex flex-row justify-content-between align-content-center flex-wrap column-gap-3 row-gap-4 w-100 border-0 border-danger">
+
+        <div id="timeDurationSelectionContainer" class="duration-selection-container d-none-not-imp quote-page-card card wpct-32">
             <div class="card-header bg-light-green-2">
                 <h5 class="fw-bold">Time on Starting the Job</h5>
             </div>
@@ -185,7 +192,7 @@
             </div>
         </div>
 
-        <div id="formContainer" class="data-submit-container d-none quote-page-card card wpct-65">
+        <div id="formContainer" class="data-submit-container d-none-not-imp quote-page-card card wpct-66">
             <div class="card-header bg-light-green-2">
                 <h5 class="fw-bold">Request your quote</h5>
             </div>

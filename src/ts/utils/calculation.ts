@@ -6,6 +6,9 @@ import { BehaviorSubject, Observable } from "rxjs";
 // const totalObservable: Observable<any> = totalSubject.asObservable();
 const runningTotalSubject: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 const runningTotalObservable: Observable<any> = runningTotalSubject.asObservable();
+// const classForHidingCalculationSections = "d-none";
+const classForHidingCalculationSections = "d-none-not-imp";
+const classForDisablingCalculationSections = "disabled-div";
 
 function getElementsByText(str: string, tag = "a") {
   return Array.prototype.slice.call(document.getElementsByTagName(tag)).filter((el) => el.textContent.trim() === str.trim());
@@ -70,21 +73,25 @@ export default function manageQuotesCalculation() {
                 const headingElem = headingElems[0] as HTMLHeadingElement;
                 const cardElem = headingElem.closest<HTMLDivElement>(".quote-page-card");
                 if (cardElem != null) {
-                  if (chkElem.checked && cardElem.classList.contains("d-none")) cardElem.classList.remove("d-none");
-                  if (!chkElem.checked && !cardElem.classList.contains("d-none")) cardElem.classList.add("d-none");
+                  if (chkElem.checked && cardElem.classList.contains(classForHidingCalculationSections)) cardElem.classList.remove(classForHidingCalculationSections, classForDisablingCalculationSections);
+                  if (!chkElem.checked && !cardElem.classList.contains(classForHidingCalculationSections)) cardElem.classList.add(classForHidingCalculationSections, classForDisablingCalculationSections);
 
                   const checkboxCheckedElems = document.querySelectorAll<HTMLInputElement>("input.form-check-input.job-type-ckbx:checked");
 
                   const timeDurationContainer = document.querySelector<HTMLDivElement>("#timeDurationSelectionContainer");
                   if (timeDurationContainer != null) {
-                    if (checkboxCheckedElems.length === 1 && timeDurationContainer.classList.contains("d-none")) timeDurationContainer.classList.remove("d-none");
-                    if (checkboxCheckedElems.length === 0 && !timeDurationContainer.classList.contains("d-none")) timeDurationContainer.classList.add("d-none");
+                    if (checkboxCheckedElems.length === 1 && timeDurationContainer.classList.contains(classForHidingCalculationSections))
+                      timeDurationContainer.classList.remove(classForHidingCalculationSections, classForDisablingCalculationSections);
+                    if (checkboxCheckedElems.length === 0 && !timeDurationContainer.classList.contains(classForHidingCalculationSections))
+                      timeDurationContainer.classList.add(classForHidingCalculationSections, classForDisablingCalculationSections);
                   }
 
                   const formContainer = document.querySelector<HTMLDivElement>("#formContainer");
                   if (formContainer != null) {
-                    if (checkboxCheckedElems.length === 1 && formContainer.classList.contains("d-none")) formContainer.classList.remove("d-none");
-                    if (checkboxCheckedElems.length === 0 && !formContainer.classList.contains("d-none")) formContainer.classList.add("d-none");
+                    if (checkboxCheckedElems.length === 1 && formContainer.classList.contains(classForHidingCalculationSections))
+                      formContainer.classList.remove(classForHidingCalculationSections, classForDisablingCalculationSections);
+                    if (checkboxCheckedElems.length === 0 && !formContainer.classList.contains(classForHidingCalculationSections))
+                      formContainer.classList.add(classForHidingCalculationSections, classForDisablingCalculationSections);
                   }
                 }
               }

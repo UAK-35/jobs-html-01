@@ -5,8 +5,6 @@ import "../scss/style.scss";
 
 import "@popperjs/core";
 import "bootstrap";
-// import { Popover } from "bootstrap";
-// import { BehaviorSubject, Observable } from "rxjs";
 import emailJs from "@emailjs/browser";
 
 import { onPageReady } from "./utils/helpers";
@@ -25,8 +23,39 @@ import manageQuotesCalculation from "./utils/calculation";
       blockHeadless: true, // Do not allow headless browsers
     });
 
+    const currentPagePath = window.location.pathname.slice(1);
+
+    // calculate page hide-show logic
+    if (currentPagePath === "calculate.html") {
+      const urlParams = new URLSearchParams(window.location.search);
+      let quoteType = urlParams.get("type");
+      if (quoteType == null) {
+        quoteType = "all";
+      }
+
+      const quotesCalcContainer = document.querySelector<HTMLDivElement>("#quotes-calc-container");
+      if (quotesCalcContainer != null) {
+        if (quoteType === "all" || quoteType === "full-house-job") {
+          const quantityCards = quotesCalcContainer.querySelectorAll<HTMLDivElement>(".quote-page-card.card");
+          quantityCards.forEach((cardElem) => {
+            if (!cardElem.classList.contains("job-types-container")) cardElem.classList.add("disabled-div");
+          });
+
+          if (quotesCalcContainer.nextElementSibling != null) {
+            const lastTwoCards = quotesCalcContainer.nextElementSibling.querySelectorAll<HTMLDivElement>(".quote-page-card.card");
+            lastTwoCards.forEach((cardElem) => {
+              cardElem.classList.add("disabled-div");
+            });
+          }
+        } else {
+          quotesCalcContainer.classList.add("not-all-types");
+          quotesCalcContainer.classList.add(quoteType);
+        }
+      }
+    }
+
     manageReviewPopovers();
-    manageFormSubmission();
     manageQuotesCalculation();
+    manageFormSubmission();
   });
 })();
