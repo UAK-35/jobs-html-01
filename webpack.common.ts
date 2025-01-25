@@ -15,7 +15,6 @@ import TerserPlugin from 'terser-webpack-plugin';
 import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
 import { getEjsViewConfigs, getPublicUrlOrPath } from "./src/ts/utils/helpers";
 import Constants from "./src/ts/lib/constants";
-import { ErrorInfo } from "ts-loader/dist/interfaces";
 
 // console.log('NODE_ENV', Constants.envValues.envMode);
 
@@ -31,34 +30,28 @@ const config = (webpackEnv: any, _argv: any): webpack.Configuration => {
   console.log('envMode', Constants.envValues.envMode);
 
   const isDevelopmentEnv = Constants.envValues.isDevelopmentEnv;
-  const isStagingEnv = Constants.envValues.isStagingEnv;
+  // const isStagingEnv = Constants.envValues.isStagingEnv;
   const isProductionEnv = Constants.envValues.isProductionEnv;
   const webPackMode = Constants.envValues.webPackMode;
 
-  // const envFile = `.env${isProductionEnv ? "" : "." + envMode}`;
   const envFile = `${Constants.otherValues.envFilePrefix}.${Constants.envValues.envMode}`;
   console.info("environment file = " + envFile);
 
   const { parsed: parsedEnv } = require('dotenv').config({ path: path.resolve(process.cwd(), envFile) });
-  // console.log('parsedEnv', parsedEnv);
 
-  // const publicUrl = process.env.PUBLIC_URL;
   const publicUrl = parsedEnv.PUBLIC_URL;
-  // console.log('PUBLIC_URL', publicUrl);
 
   // set whether are creating source maps with prod builds
   const genSourceMaps = false;
 
   // get PUBLIC_URL, which is needed for production builds where process (which is a Node server var), doesn't exist
   const publicUrlOrPath = getPublicUrlOrPath(isDevelopmentEnv, undefined, publicUrl);
-  // console.log('publicUrlOrPath', publicUrlOrPath);
 
   const PATH = Constants.folderPaths;
   console.log('PATH', PATH);
 
   // EJS related
   const perPageViewConfigs = getEjsViewConfigs(PATH.ejsPages, { templatePath: `${Constants.folderPaths.ejsLayoutLoaders}/${Constants.fileNames.templateLoaderFileName}`.replace(/\\/g, '/') });
-  // console.log('getEjsViewConfigs', perPageViewConfigs);
 
   console.log('__dirname', __dirname);
 
@@ -130,13 +123,7 @@ const config = (webpackEnv: any, _argv: any): webpack.Configuration => {
     // context: PATH.src,
     entry: {
       app: `${ Constants.folderPaths.typescript }/${Constants.fileNames.entryFileName}`,
-      // app: `${ PATH.src }/js/app.js`,
     },
-    // entry: pages.reduce((configAccumulator, page) => {
-    //   // configAccumulator[page] = `./${PATH.src}/js/${page}.js`;
-    //   configAccumulator[page] = `./${PATH.src}/ts/${page}.ts`;
-    //   return configAccumulator;
-    // }, {}),
 
     output: {
       path: PATH.dist,
@@ -151,23 +138,11 @@ const config = (webpackEnv: any, _argv: any): webpack.Configuration => {
         return "";
       },
       clean: true, // clears the output dist folder prior to building
-
-      // Point sourcemap entries to original disk location (format as URL on Windows)
-      // devtoolModuleFilenameTemplate: (info: any) => {
-      //   console.log('info.absoluteResourcePath', info.absoluteResourcePath);
-      //   return info.absoluteResourcePath;
-      //   // if (isProductionEnv) return path.relative('./src', info.absoluteResourcePath).replace(/\\/g, '/')
-      //   // else return Constants.resolvePath(info.absoluteResourcePath).replace(/\\/g, '/')
-      // }
     }, // output
 
     resolve: {
       modules: [PATH.npmPackages, PATH.src],
       extensions: ['.js', '.ts', '.ejs', '.json', '.scss'],
-      // alias: {
-      //   // "@": PATH.src,
-      //   "@icons": PATH.assets + "/images/icons",
-      // },
       fallback: {
         "fs": false,
         "url": false,
@@ -227,103 +202,6 @@ const config = (webpackEnv: any, _argv: any): webpack.Configuration => {
 
     module: {
       rules: [
-        // {
-        //   test: /\.ejs$/,
-        //   loader: require.resolve('ejs-loader'),
-        //   options: {
-        //     esModule: false,
-        //   },
-        // },
-
-        // {
-        //   test: /\.ejs$/,
-        //   use: [
-        //     {
-        //       loader: require.resolve('html-loader'),
-        //       options: {
-        //         // esModule: false,
-        //         sources: {
-        //           urlFilter: (attribute, value, _resourcePath) => {
-        //             console.log('value', attribute, value, _resourcePath);
-        //             return !(attribute === "content" || value === "./css/app.css" || value === "./site.webmanifest" || value === "./js/app.js");
-        //           },
-        //         },
-        //         preprocessor: (content, loaderContext) => {
-        //           console.log('content', content);
-        //           return content;
-        //         },
-        //       },
-        //     },
-        //   ]
-        // },
-
-        // {
-        //   test: /\.ejs$/i,
-        //   loader: 'html-loader',
-        //   options: {
-        //     preprocessor: (content, loaderContext) => {
-        //       try {
-        //         const templatePath = path.resolve(__dirname, './src/index.ejs');
-        //
-        //         // trigger re-compile if partial has changed
-        //         // see: https://github.com/webpack-contrib/html-loader/issues/386
-        //         const partialsPath = path.resolve(__dirname, './src/partials');
-        //         fs.readdirSync(partialsPath).forEach((file) => {
-        //           if (file.endsWith('.ejs')) {
-        //             const filePath = `${partialsPath}/${file}`;
-        //             loaderContext.addDependency(filePath);
-        //           }
-        //         });
-        //
-        //         const templateParameters = {
-        //           // ... add your data here
-        //         };
-        //
-        //         // OPTIONAL: expose htmlWebpackPlugin object in EJS templates
-        //         const currentHtmlWebpackPlugin = loaderContext._compiler.options.plugins.filter(
-        //           (plugin) =>
-        //             typeof plugin === 'object' &&
-        //             plugin.options &&
-        //             plugin.options.template &&
-        //             plugin.options.template === loaderContext.resourcePath,
-        //         )[0];
-        //
-        //         if (typeof currentHtmlWebpackPlugin === 'object') {
-        //           Object.assign(templateParameters, {
-        //             htmlWebpackPlugin: currentHtmlWebpackPlugin,
-        //           });
-        //
-        //           if (typeof currentHtmlWebpackPlugin.options.templateParameters !== 'function') {
-        //             Object.assign(templateParameters, {
-        //               ...currentHtmlWebpackPlugin.options.templateParameters,
-        //             });
-        //           }
-        //         }
-        //
-        //         return ejs.render(content, templateParameters, { filename: templatePath });
-        //       } catch (error) {
-        //         loaderContext.emitError(error);
-        //
-        //         return content;
-        //       }
-        //     },
-        //   },
-        // },
-
-        // {
-        //   test: /\.js$/,
-        //   exclude: /node_modules/,
-        //   use: [
-        //     {
-        //       loader: require.resolve('babel-loader'),
-        //       // options: {
-        //       //   presets: ['@babel/env'],
-        //       //   plugins: ['@babel/plugin-proposal-class-properties'],
-        //       // },
-        //     }
-        //   ],
-        // },
-
         {
           test: /\.(scss)$/,
           use: [
@@ -387,19 +265,7 @@ const config = (webpackEnv: any, _argv: any): webpack.Configuration => {
           },
           loader: require.resolve('ts-loader'),
           options: {
-            // errorFormatter: (error: any, colors: any) => {
-            //   // console.log('__dirname', __dirname);
-            //   const messageColor =
-            //     error.severity === "warning" ? colors.bold.yellow : colors.bold.red;
-            //   return (
-            //     "Does not compute.... " +
-            //     messageColor(Object.keys(error).map(key => `${key}: ${error[key]}`))
-            //   );
-            // },
             transpileOnly: false,
-            // configFile: `${PATH.base}./tsconfig.json`,
-            // context: PATH.base,
-            // configFile: require.resolve('tsconfig.json'),
             configFile: path.resolve(__dirname, 'tsconfig.json'),
             compiler: 'typescript',
             logLevel: 'info',
@@ -408,16 +274,6 @@ const config = (webpackEnv: any, _argv: any): webpack.Configuration => {
             useCaseSensitiveFileNames: true,
             experimentalFileCaching: true,
           },
-          // use: [
-          //   {
-          //     loader: require.resolve('ts-loader'),
-          //     options: {
-          //       // transpileOnly: true
-          //       configFile: './tsconfig.json',
-          //       configFile: `${PATH.base}./tsconfig.json`,
-          //     }
-          //   }
-          // ]
         },
 
         {
@@ -479,21 +335,6 @@ const config = (webpackEnv: any, _argv: any): webpack.Configuration => {
         },
       }),
 
-      // Generates an `index.html` file with the <script> injected or otherwise
-      // new HtmlWebpackPlugin(Object.assign({}, defaultHtmlWebpackPluginConfig, {
-      //   // template: `${PATH.src}/index.html`, // template file
-      //   // filename: 'index.html', // output file
-      //
-      //   // template: `${PATH.assets}/layouts/template.js`, // template file
-      //   template: `${PATH.src}/ts/ejs/layoutLoaders/template.ts`, // template file
-      //   templateParameters: {
-      //     'title': "MyJobDone",
-      //     'page': "index",
-      //     viewsFolder: PATH.views.replace(/\\/g, '/'),
-      //   },
-      //   filename: 'index.html', // output file
-      // })),
-
       // Generates an `.html` file for each of EJS views
       ...perPageViewConfigs.map(cfg => {
         if (cfg == null) return null;
@@ -522,7 +363,7 @@ const config = (webpackEnv: any, _argv: any): webpack.Configuration => {
         ? [
           // Extracts CSS into separate files
           new MiniCssExtractPlugin({
-            filename: (pathData: webpack.PathData) => `css/[name].css`, // help link: https://stackoverflow.com/a/52895274
+            filename: (_pathData: webpack.PathData) => `css/[name].css`, // help link: https://stackoverflow.com/a/52895274
           }),
 
           // // Generate a service worker script that will precache, and keep up to date, the HTML & assets that are part of the webpack build

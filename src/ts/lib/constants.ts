@@ -63,13 +63,8 @@ class Constants {
   static get defaultHtmlWebpackPluginConfig() {
     // EJS/html related
     return {
-      // title: 'MyJobDone',
-      // header: 'MyJobDone',
-      // metaDesc: 'MyJobDone',
-      // favicon: `${ PATH.src }/assets/images/favicon/favicon.ico`,
       hash: false,
       inject: true,
-      // inject: 'body',
       collapseWhitespace: true,
       removeComments: true,
       removeRedundantAttributes: true,
@@ -80,7 +75,6 @@ class Constants {
   }
 
   static resolvePath(pathString: string) {
-    // console.log('current-folder constants resolvePath', Constants.currentFolder);
     return path.resolve(Constants.currentFolder, pathString);
   }
 
