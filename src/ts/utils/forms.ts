@@ -2,20 +2,9 @@
 
 import emailJs, { type EmailJSResponseStatus } from "@emailjs/browser";
 
-const form_being_submitted = true;
 const errorFieldParentClassName = "has-input-error";
 const formFieldInvalidClassName = "is-invalid";
 const formFieldValidClassName = "is-valid";
-
-// function isAlphabetic(value: string) {
-//   for (let i = 0; i < value.length; i++) {
-//     const charCode = value.charCodeAt(i);
-//     if (!(charCode > 64 && charCode < 91) && !(charCode > 96 && charCode < 123)) {
-//       return false;
-//     }
-//   }
-//   return true;
-// }
 
 function validateRequired(controlValue: string) {
   return (controlValue || "").trim().length > 0;
@@ -199,15 +188,3 @@ export default function manageFormSubmission(currentPagePath: string) {
     }
   }
 }
-
-// function checkForm(form: HTMLFormElement) {
-//   if (form_being_submitted) {
-//     alert("The form is being submitted, please wait a moment...");
-//     form.myButton.disabled = true;
-//     return false;
-//   }
-//
-//   form.submitBtn.value = "Submitting form...";
-//   form_being_submitted = true;
-//   return true; /* submit form */
-// }

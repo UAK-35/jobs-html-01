@@ -68,33 +68,81 @@ $custom-font-sizes-one: (
   5: 1rem,
 );
 
-$startPctW: 1;
-$endPctW: 100;
-$widths-map: ();
-@for $i from $startPctW through $endPctW {
-  $width: percentage(math.div($i, 100));
-  //$map: ();
-  //$map: map.merge($map, ($i: create_kv_map($width)) );
-  $widths-map: map.merge($widths-map, ($i: $width));
+$startPctSiz: 1;
+$endPctSiz: 100;
+$percentSiz-map: (auto: auto, min: min-content, max: max-content, 0: 0);
+@for $i from $startPctSiz through $endPctSiz {
+  $percentVal: percentage(math.div($i, 100));
+  $percentSiz-map: map.merge($percentSiz-map, ($i: $percentVal));
+}
+
+$startPxSiz: 1;
+$endPxSiz: 1500;
+$pxSiz-map: (auto: auto, min: min-content, max: max-content, 0: 0);
+@for $i from $startPxSiz through $endPxSiz {
+  $pxVal: $i + px;
+  $pxSiz-map: map.merge($pxSiz-map, ($i: $pxVal));
 }
 
 $utilities: (
+  "width": (
+    property: width,
+    class: w,
+    responsive: true,
+    values: (
+      25: 25%,
+      50: 50%,
+      75: 75%,
+      100: 100%,
+      auto: auto,
+      min: min-content,
+      max: max-content,
+    )
+  ),
+  "max-width": (
+    property: max-width,
+    class: mw,
+    responsive: true,
+    values: $percentSiz-map,
+  ),
+  "height": (
+    property: height,
+    class: h,
+    responsive: true,
+    values: (
+      25: 25%,
+      50: 50%,
+      75: 75%,
+      100: 100%,
+      auto: auto,
+      min: min-content,
+      max: max-content,
+    )
+  ),
   "wpct": (
     property: width,
     class: wpct,
     responsive: true,
-    //values: (
-    //  31: 31%,
-    //  47: 47%,
-    //)
-    values: $widths-map,
+    values: $percentSiz-map,
+  ),
+  "wpx": (
+    property: width,
+    class: wpx,
+    responsive: true,
+    values: $pxSiz-map,
   ),
   "hpct": (
     property: height,
     class: hpct,
     responsive: true,
-    values: $widths-map,
-  )
+    values: $percentSiz-map,
+  ),
+  "hpx": (
+    property: height,
+    class: hpx,
+    responsive: true,
+    values: $pxSiz-map,
+  ),
 );
 
 
@@ -257,20 +305,22 @@ $theme-colors: map.merge($theme-colors, $custom-colors);
 //    )
 //);
 
-$widths: (
-  25: 25%,
-  50: 50%,
-  75: 75%,
-  100: 100%,
-  auto: auto
-);
-@each $breakpoint in map-keys($grid-breakpoints) {
-  @each $size, $length in $widths {
-    @include media-breakpoint-up($breakpoint) {
-      .w-#{$breakpoint}-#{$size} {width: $length !important;}
-    }
-  }
-}
+//$widths: (
+//  25: 25%,
+//  50: 50%,
+//  75: 75%,
+//  100: 100%,
+//  auto: auto,
+//  min: min-content,
+//  max: max-content,
+//);
+//@each $breakpoint in map-keys($grid-breakpoints) {
+//  @each $size, $length in $widths {
+//    @include media-breakpoint-up($breakpoint) {
+//      .w-#{$breakpoint}-#{$size} {width: $length !important;}
+//    }
+//  }
+//}
 
 // display-n classes
 @each $breakpoint in map-keys($grid-breakpoints) {
@@ -468,7 +518,9 @@ $last-j: 0;
 
 :root {
   --bs-body-font-family: 'Montserrat', sans-serif;
-  //--color-light-green-1: $light-green-1;
+  --box-shadow-style-1: 0 0 0 8px $light-green-2;
+  --box-shadow-style-2: rgba(0, 0, 0, 0.35) 2.95px 2.95px 2.6px;
+  --box-shadow-style-3: rgba(0, 0, 0, 0.25) 1.95px 1.95px 2.6px;
 }
 
 .bg-dev {
@@ -481,6 +533,11 @@ $last-j: 0;
   @extend .pad-x-1rem;
   @extend .pad-x-sm-1\.5rem;
   @extend .pad-x-lg-5\.875rem;
+}
+body.calculate-all .outer-container {
+  @extend .pad-x-lg-1\.875rem;
+  @extend .pad-x-xl-4\.875rem;
+  @extend .pad-x-xxl-5\.875rem;
 }
 .outer-container.content-wrapper {
   @extend .pt-3;
@@ -591,7 +648,7 @@ $last-j: 0;
 .service-card:hover {
   @extend .bg-light-green-1;
   @extend .text-light;
-  box-shadow: rgba(0, 0, 0, 0.35) 2.95px 2.95px 2.6px;
+  box-shadow: var(--box-shadow-style-2);
 }
 .service-card:hover > .services-icon-wrapper {
   @extend .bg-light;
@@ -642,7 +699,7 @@ $last-j: 0;
 
 .ring1 {
   background-color: $light-green-1;
-  box-shadow: 0 0 0 8px $light-green-2;
+  box-shadow: var(--box-shadow-style-1);
 }
 
 .accordion {
@@ -710,7 +767,7 @@ a.cta-button:hover {
 a.calculate-btn:hover, a.cta-button:hover {
   opacity: 0.85;
   //box-shadow: 8px 8px 10px -7px rgba(0,0,0,0.75);
-  box-shadow: rgba(0, 0, 0, 0.35) 2.95px 2.95px 2.6px;
+  box-shadow: var(--box-shadow-style-2);
 }
 
 .approach-step-title {
@@ -772,7 +829,7 @@ a.calculate-btn:hover, a.cta-button:hover {
 }
 
 .quote-page-card.card {
-  box-shadow: rgba(0, 0, 0, 0.25) 1.95px 1.95px 2.6px;
+  box-shadow: var(--box-shadow-style-3);
 }
 
 .quantities-container .quote-page-card {
@@ -825,7 +882,8 @@ input[type=checkbox]{
 {
   @extend .flex-row;
   @extend .justify-content-between;
-  @extend .align-items-center;
+  //@extend .align-items-center;
+  @extend .align-items-stretch;
   @extend .flex-wrap;
   @extend .gap-1;
 }
@@ -839,7 +897,8 @@ input[type=checkbox]{
 .not-all-types.loft-conver-job > .loft-types-container .list-group .list-group-item
 {
   @extend .w-100;
-  @extend .wpct-sm-30;
+  @extend .wpct-sm-47;
+  @extend .wpct-md-30;
   @extend .px-1;
 }
 
@@ -853,4 +912,111 @@ input[type=checkbox]{
 .not-all-types.full-house-job > .full-types-container
 {
   width: 100% !important;
+}
+
+input[type=number] {
+  border-radius: 4px;
+}
+
+input[type=number]:disabled {
+  cursor: not-allowed;
+  background-color: #EBEBE4;
+  color: $custom-black-1;
+  //background-color: #ccc;
+  //color: #666;
+  opacity: 0.5;
+}
+
+.list-group.list-group-horiz {
+  @extend .list-group-horizontal;
+  //@extend .list-group-flush;
+  @extend .flex-column;
+  @extend .flex-lg-row;
+  @extend .justify-content-lg-between;
+  @extend .align-items-lg-center;
+  @extend .flex-wrap;
+  @extend .gap-1;
+}
+
+.list-group.list-group-horiz .list-group-item {
+  @extend .w-100;
+  @extend .wpct-lg-48;
+  @extend .px-1;
+}
+
+.list-group.list-group-vert {
+  @extend .list-group-flush;
+  @extend .gap-1;
+}
+
+.list-group.list-group-horizont {
+  @extend .list-group-horizontal;
+  //@extend .list-group-flush;
+  //@extend .flex-row;
+  //@extend .justify-content-between;
+  //@extend .align-items-center;
+  //@extend .flex-wrap;
+  //@extend .gap-1;
+}
+
+.list-group.list-group-horizont .list-group-item,
+.list-group.list-group-horiz .list-group-item,
+.list-group.list-group-vert .list-group-item {
+  //@extend .list-group-horizontal;
+  //@extend .list-group-flush;
+  @extend .flex-fill;
+  @extend .d-inline-flex;
+  @extend .flex-row;
+  @extend .justify-content-between;
+  @extend .border;
+  @extend .border-secondary-subtle;
+  @extend .rounded;
+  @extend .rounded-2;
+  @extend .w-100;
+  //@extend .px-1;
+}
+.list-group.list-group-horizont .list-group-item {
+  @extend .wpct-sm-48;
+}
+@include media-breakpoint-up(lg) {
+  .list-group.list-group-horizont .list-group-item {
+    max-width: 50%;
+  }
+}
+@include media-breakpoint-up(xl) {
+  .list-group.list-group-horizont .list-group-item {
+    max-width: 33%;
+  }
+}
+
+.list-group.list-group-horizont .list-group-item input[type=number] {
+  padding-left: 0.25rem;
+}
+
+.list-group.list-group-horizont .list-group-item .form-check.form-check-inline,
+.list-group.list-group-horizont .list-group-item .d-inline-block,
+.list-group.list-group-vert .list-group-item .form-check.form-check-inline,
+.list-group.list-group-vert .list-group-item .d-inline-block {
+  @extend .h-max;
+  @extend .my-auto;
+}
+
+.list-group.list-group-horizont .list-group-item:not(.has-no-quantity) .form-check.form-check-inline,
+.list-group.list-group-vert .list-group-item:not(.has-no-quantity) .form-check.form-check-inline {
+  @extend .wpct-67;
+}
+
+.list-group.list-group-horizont .list-group-item .d-inline-block,
+.list-group.list-group-vert .list-group-item .d-inline-block {
+  @extend .wpct-30;
+}
+
+.list-group.list-group-horizont.has-sqm-units .list-group-item:not(.has-no-quantity) .form-check.form-check-inline,
+.list-group.list-group-vert.has-sqm-units .list-group-item:not(.has-no-quantity) .form-check.form-check-inline {
+  @extend .wpct-60;
+}
+
+.list-group.list-group-horizont.has-sqm-units .list-group-item .d-inline-block,
+.list-group.list-group-vert.has-sqm-units .list-group-item .d-inline-block {
+  @extend .wpct-37;
 }
