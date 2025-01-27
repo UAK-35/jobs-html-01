@@ -21,15 +21,15 @@ if (clearIndexDb && process.env.NODE_ENV !== "development") {
   clearIndexDb = false;
 }
 
-const checkBrowserSupportsIndexDbApi = () => {
-  // Check for IndexedDB support:
-  if (!("indexedDB" in window)) {
-    // Can't use IndexedDB
-    alert("This browser doesn't support IndexedDB");
-  } else {
-    alert("This browser DOES support IndexedDB");
-  }
-};
+// const checkBrowserSupportsIndexDbApi = () => {
+//   // Check for IndexedDB support:
+//   if (!("indexedDB" in window)) {
+//     // Can't use IndexedDB
+//     alert("This browser doesn't support IndexedDB");
+//   } else {
+//     alert("This browser DOES support IndexedDB");
+//   }
+// };
 
 // IIFE
 (function () {
@@ -104,6 +104,6 @@ const checkBrowserSupportsIndexDbApi = () => {
 
     manageReviewPopovers();
     if (!clearIndexDb) manageQuotesCalculation(currentPagePath);
-    manageFormSubmission(currentPagePath);
+    manageFormSubmission();
   });
 })();

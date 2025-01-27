@@ -2,12 +2,7 @@
 
 import { BehaviorSubject, Observable } from "rxjs";
 import IndexDbManager from "../lib/indexDbManager";
-
-type SelectionInfo = { serviceGroup: string; service: string; quantity: number; pricePerItem: number };
-interface ISelectionRecord extends SelectionInfo {
-  id: number;
-  price: number;
-}
+import { SelectionInfo } from "../lib/types";
 
 const runningTotalSubject: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 const runningTotalObservable: Observable<any> = runningTotalSubject.asObservable();
@@ -38,7 +33,7 @@ async function updateTotalPriceOnQuantityChange(itemInfo: SelectionInfo, lastQua
   // runningTotalSubject.next(itemPrice * quantity);
   const quantity = itemInfo.quantity;
   const itemPrice = itemInfo.pricePerItem;
-  let price = 0;
+  let price: number;
   if (lastQuantity < quantity) {
     const diff = quantity - lastQuantity;
     price = totalPrice + itemPrice * diff;
@@ -144,7 +139,7 @@ export default async function manageQuotesCalculation(currentPagePath: string) {
           if (regExMatch != null) {
             const quantityElem = document.querySelector<HTMLInputElement>(`#${chkElem.id.replace(/\d+$/, "")}Q${regExMatch[0]}`);
             if (quantityElem != null) {
-              quantityElem.disabled = false;
+              quantityElem.disabled = !chkElem.checked;
               const quantity = quantityElem.valueAsNumber;
               updateTotalPriceOnCheckChange({ serviceGroup: serviceGroupName, service: titleSpan.innerText, quantity, pricePerItem: itemPrice }, itemPrice * quantity, chkElem.checked);
             }

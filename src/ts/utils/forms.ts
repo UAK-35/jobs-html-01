@@ -33,11 +33,11 @@ function validateUkPhone(phoneValue: string) {
   return !!phoneValue.match(validRegex);
 }
 
-function validateUsAddress(emailValue: string) {
-  // help link: https://www.geopostcodes.com/blog/address-validation-regex-javascript/
-  const validRegex = /^(\\d+[A-Z]*)\\s([A-Z0-9\\s.-]+?)[\\s,]+([A-Z\\s.-]+?)[\\s,]+([A-Z\\s.-]+)\\s(\\d{5})[\\s,]+(US|USA|(United States(?: Of America)?))$/;
-  return !!emailValue.match(validRegex);
-}
+// function validateUsAddress(emailValue: string) {
+//   // help link: https://www.geopostcodes.com/blog/address-validation-regex-javascript/
+//   const validRegex = /^(\\d+[A-Z]*)\\s([A-Z0-9\\s.-]+?)[\\s,]+([A-Z\\s.-]+?)[\\s,]+([A-Z\\s.-]+)\\s(\\d{5})[\\s,]+(US|USA|(United States(?: Of America)?))$/;
+//   return !!emailValue.match(validRegex);
+// }
 
 function validateUkAddress(emailValue: string) {
   const validRegex = /[a-zA-Z0-9,# \-\/!@$%^\*(){}|[\]\\]*/gi;
@@ -111,7 +111,7 @@ const validateField = (element: HTMLFormElement, reqMsg: string, formatValidator
   return fieldErrorOccurred;
 };
 
-export default function manageFormSubmission(currentPagePath: string) {
+export default function manageFormSubmission() {
   const calculateForm = document.querySelector<HTMLFormElement>("#calculateForm");
   if (calculateForm != null) {
     const submitButton = calculateForm.querySelector<HTMLButtonElement>("button[type=submit]");
@@ -144,7 +144,7 @@ export default function manageFormSubmission(currentPagePath: string) {
             // console.log("  value", element.value);
             // console.groupEnd();
             const key = element.id != null ? element.id : element.name;
-            const parentElem = element.parentElement as HTMLDivElement;
+            // const parentElem = element.parentElement as HTMLDivElement;
 
             if (key === "name") {
               inputErrorOccurred = validateField(element, "Name is required", validateName, "Invalid format of name");

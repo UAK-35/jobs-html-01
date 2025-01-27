@@ -25,7 +25,7 @@ export default class IndexDbManager {
       } else {
         const that = this;
         this.db = await openDB(this.dbName, this.dbVersion, {
-          upgrade(db: IDBPDatabase, oldVersion: number, newVersion: number | null, transaction: any, event: IDBVersionChangeEvent) {
+          upgrade(db: IDBPDatabase, oldVersion: number, newVersion: number | null, _transaction: any, _event: IDBVersionChangeEvent) {
             console.log("upgrade called", { oldVersion, newVersion });
             if (oldVersion < 1) {
               tableNames.forEach((tableName) => db.createObjectStore(tableName, { autoIncrement: true, keyPath: that.primaryKeyName }));
@@ -88,6 +88,7 @@ export default class IndexDbManager {
     return result;
   }
 
+  // TODO: use generics here for value argument
   public async insertValue(tableName: string, value: object) {
     const tx = this.db.transaction(tableName, "readwrite");
     const store = tx.objectStore(tableName);
@@ -96,6 +97,7 @@ export default class IndexDbManager {
     return result;
   }
 
+  // TODO: use generics here for value argument
   public async patchValue(tableName: string, value: object) {
     if (!(this.primaryKeyName in value)) throw new Error("primary key must be part of value argument object");
     const tx = this.db.transaction(tableName, "readwrite", { durability: "strict" });
@@ -105,6 +107,7 @@ export default class IndexDbManager {
     return result;
   }
 
+  // TODO: use generics here for value argument
   public async patchValueForPk(tableName: string, value: object, pkValue: string | number) {
     const tx = this.db.transaction(tableName, "readwrite", { durability: "strict" });
     const store = tx.objectStore(tableName);
@@ -113,6 +116,7 @@ export default class IndexDbManager {
     return result;
   }
 
+  // TODO: use generics here for value argument
   public async searchAndPatch(tableName: string, value: any, searchKey: string) {
     const allValues: any[] = await this.getAllValue(tableName);
     for (let i = 0; i < allValues.length; i++) {
