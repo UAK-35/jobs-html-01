@@ -1,44 +1,44 @@
 [
   {
-    "title":"Floor Tiling",
-    "defaultQuantity":5,
-    "units":"sqm",
-    "pricePounds":70
+    "title": "Floor Tiling",
+    "defaultQuantity": 5,
+    "units": "sqm",
+    "pricePounds": 70
   },
   {
-    "title":"Laminate",
-    "defaultQuantity":15,
-    "units":"sqm",
-    "pricePounds":30
+    "title": "Laminate",
+    "defaultQuantity": 15,
+    "units": "sqm",
+    "pricePounds": 30
   },
   {
-    "title":"xxxxxxxxxxxxxxxx",
-    "defaultQuantity":15,
-    "units":"sqm",
-    "pricePounds":30
+    "title": "Engineered",
+    "defaultQuantity": 15,
+    "units": "sqm",
+    "pricePounds": 30
   },
   {
-    "title":"xxxxxxxxxxxxxxxx",
-    "defaultQuantity":15,
-    "units":"sqm",
-    "pricePounds":30
+    "title": "Hardwood",
+    "defaultQuantity": 15,
+    "units": "sqm",
+    "pricePounds": 50
   },
   {
-    "title":"xxxxxxxxxxxxxxxx",
-    "defaultQuantity":15,
-    "units":"sqm",
-    "pricePounds":30
+    "title": "Vinyl",
+    "defaultQuantity": 15,
+    "units": "sqm",
+    "pricePounds": 50
   },
   {
-    "title":"xxxxxxxxxxxxxxxx",
-    "defaultQuantity":15,
-    "units":"sqm",
-    "pricePounds":30
+    "title": "Floor Remove",
+    "defaultQuantity": 15,
+    "units": "sqm",
+    "pricePounds": 20
   },
   {
-    "title":"xxxxxxxxxxxxxxxx",
-    "defaultQuantity":15,
-    "units":"sqm",
-    "pricePounds":30
+    "title": "Floor Fixing",
+    "defaultQuantity": 15,
+    "units": "sqm",
+    "pricePounds": 40
   }
 ]

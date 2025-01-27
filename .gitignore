@@ -23,6 +23,7 @@ dist
 
 # Custom rules
 .idea
+*.pdf
 *.txt
 !/src/robots.txt
 test.*
@@ -36,3 +37,6 @@ test.*
 /Group 1000001820.jpg
 /Group 1000001820.svg
 /Group-1000001820.ico
+/emailTempl/images
+/emailTempl/new-email*
+/emailTempl/emailjs-default-templ.html

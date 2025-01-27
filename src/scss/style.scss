@@ -771,6 +771,10 @@ a.calculate-btn:hover, a.cta-button:hover {
   --bs-form-check-bg-image: url("../assets/images/icons/check-mark-hover.svg");
 }
 
+.quote-page-card.card {
+  box-shadow: rgba(0, 0, 0, 0.25) 1.95px 1.95px 2.6px;
+}
+
 .quantities-container .quote-page-card {
   @extend .mb-8;
   height: max-content;
@@ -809,6 +813,34 @@ input[type=checkbox]{
 .not-all-types > .data-submit-container
 {
   display: block;
+}
+
+.not-all-types.wall-job > .walls-types-container .list-group,
+.not-all-types.floor-job > .floors-types-container .list-group,
+.not-all-types.ceiling-job > .ceiling-types-container .list-group,
+.not-all-types.bathroom-job > .bathroom-types-container .list-group,
+.not-all-types.kitchen-job > .kitchen-types-container .list-group,
+.not-all-types.extension-job > .extension-types-container .list-group,
+.not-all-types.loft-conver-job > .loft-types-container .list-group
+{
+  @extend .flex-row;
+  @extend .justify-content-between;
+  @extend .align-items-center;
+  @extend .flex-wrap;
+  @extend .gap-1;
+}
+
+.not-all-types.wall-job > .walls-types-container .list-group .list-group-item,
+.not-all-types.floor-job > .floors-types-container .list-group .list-group-item,
+.not-all-types.ceiling-job > .ceiling-types-container .list-group .list-group-item,
+.not-all-types.bathroom-job > .bathroom-types-container .list-group .list-group-item,
+.not-all-types.kitchen-job > .kitchen-types-container .list-group .list-group-item,
+.not-all-types.extension-job > .extension-types-container .list-group .list-group-item,
+.not-all-types.loft-conver-job > .loft-types-container .list-group .list-group-item
+{
+  @extend .w-100;
+  @extend .wpct-sm-30;
+  @extend .px-1;
 }
 
 .not-all-types.wall-job > .walls-types-container,

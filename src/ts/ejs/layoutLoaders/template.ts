@@ -40,7 +40,7 @@ export default async (data: any) => {
 
   // page data
   const contentData =
-    data.page === "calculate"
+    data.page === "calculate" || data.page === "calculate-all"
       ? {
           // calculate page data
           ...data, // title, page, viewsFolder, partialsFolder
@@ -63,7 +63,7 @@ export default async (data: any) => {
           ...data,
           ...webpackData,
           // ...webData,
-          partialsFolder
+          partialsFolder,
         };
 
   const ejsTemplateStr = fs.readFileSync(`${data.viewsFolder}/layouts/template.ejs`, "ascii");
@@ -75,7 +75,7 @@ export default async (data: any) => {
     partialsFolder,
 
     hdr: ejs.compile(headerStr, { beautify: false })(contentData),
-    hro: !(data.page === "calculate") ? ejs.compile(heroStr, { beautify: false })(contentData) : "",
+    hro: !(data.page === "calculate" || data.page === "calculate-all") ? ejs.compile(heroStr, { beautify: false })(contentData) : "",
     cnt: ejs.compile(contentStr, { beautify: false })(contentData),
     ftr: ejs.compile(footerStr, { beautify: false })({ ...contentData, year: new Date().getFullYear() }),
   });

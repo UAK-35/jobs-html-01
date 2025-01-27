@@ -1,0 +1,7 @@
+@emailjshost = api.emailjs.com/api/
+
+###
+# @name = EmailJS history
+GET https://{{emailjshost}}/v1.1/history?user_id={{$env.EMAIL_JS_PUBLIC_KEY}}&accessToken={{$env.EMAIL_JS_PRIVATE_KEY}}&page=1&count=50
+
+###

@@ -1,26 +1,26 @@
 [
   {
-    "title":"Ceiling Removal",
-    "defaultQuantity":12,
-    "units":"sqm",
-    "pricePounds":30
+    "title": "Ceiling Removal",
+    "defaultQuantity": 12,
+    "units": "sqm",
+    "pricePounds": 30
   },
   {
-    "title":"Painting",
-    "defaultQuantity":12,
-    "units":"sqm",
-    "pricePounds":10
+    "title": "Painting",
+    "defaultQuantity": 12,
+    "units": "sqm",
+    "pricePounds": 10
   },
   {
-    "title":"Skimming",
-    "defaultQuantity":12,
-    "units":"sqm",
-    "pricePounds":20
+    "title": "Skimming",
+    "defaultQuantity": 12,
+    "units": "sqm",
+    "pricePounds": 20
   },
   {
-    "title":"Building Suspended Ceiling",
-    "defaultQuantity":12,
-    "units":"sqm",
-    "pricePounds":70
+    "title": "Building Suspended Ceiling",
+    "defaultQuantity": 12,
+    "units": "sqm",
+    "pricePounds": 70
   }
 ]

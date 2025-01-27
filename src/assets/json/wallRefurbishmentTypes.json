@@ -1,44 +1,44 @@
 [
   {
-    "title":"Wall Removing",
-    "defaultQuantity":20,
-    "units":"sqm",
-    "pricePounds":70
+    "title": "Walls Removing",
+    "defaultQuantity": 20,
+    "units": "sqm",
+    "pricePounds": 70
   },
   {
-    "title":"Painting",
-    "defaultQuantity":20,
-    "units":"sqm",
-    "pricePounds":10
+    "title": "Tiles/Paper Remove £10",
+    "defaultQuantity": 20,
+    "units": "sqm",
+    "pricePounds": 10
   },
   {
-    "title":"xxxxxxxxxxxxxxxxx",
-    "defaultQuantity":20,
-    "units":"sqm",
-    "pricePounds":10
+    "title": "Painting",
+    "defaultQuantity": 20,
+    "units": "sqm",
+    "pricePounds": 10
   },
   {
-    "title":"xxxxxxxxxxxxxxxxx",
-    "defaultQuantity":20,
-    "units":"sqm",
-    "pricePounds":10
+    "title": "Skimming",
+    "defaultQuantity": 20,
+    "units": "sqm",
+    "pricePounds": 15
   },
   {
-    "title":"xxxxxxxxxxxxxxxxx",
-    "defaultQuantity":20,
-    "units":"sqm",
-    "pricePounds":10
+    "title": "Rendering",
+    "defaultQuantity": 20,
+    "units": "sqm",
+    "pricePounds": 20
   },
   {
-    "title":"xxxxxxxxxxxxxxxxx",
-    "defaultQuantity":20,
-    "units":"sqm",
-    "pricePounds":10
+    "title": "Tiling",
+    "defaultQuantity": 20,
+    "units": "sqm",
+    "pricePounds": 70
   },
   {
-    "title":"xxxxxxxxxxxxxxxxx",
-    "defaultQuantity":20,
-    "units":"sqm",
-    "pricePounds":10
+    "title": "Building Partition Wall",
+    "defaultQuantity": 20,
+    "units": "sqm",
+    "pricePounds": 70
   }
 ]

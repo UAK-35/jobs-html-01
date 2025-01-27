@@ -10,6 +10,9 @@ const runningTotalObservable: Observable<any> = runningTotalSubject.asObservable
 const classForHidingCalculationSections = "d-none-not-imp";
 const classForDisablingCalculationSections = "disabled-div";
 
+const calcAllPageCheckedBoxesCountSubject: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+const calcAllPageCheckedBoxesCountObservable: Observable<any> = calcAllPageCheckedBoxesCountSubject.asObservable();
+
 function getElementsByText(str: string, tag = "a") {
   return Array.prototype.slice.call(document.getElementsByTagName(tag)).filter((el) => el.textContent.trim() === str.trim());
 }
@@ -38,7 +41,7 @@ function updateTotalPriceOnQuantityChange(itemPrice: number, lastQuantity: numbe
   }
 }
 
-export default function manageQuotesCalculation() {
+export default function manageQuotesCalculation(currentPagePath: string) {
   // totalObservable.subscribe((value: number) => {
   //   // console.log("updated total", value);
   //   const totalElem = document.querySelector<HTMLElement>("#calc-price");
@@ -52,62 +55,82 @@ export default function manageQuotesCalculation() {
     // alert(value);
     const totalElem = document.querySelector<HTMLElement>("#calc-price");
     if (totalElem != null) {
-      totalElem.innerText = String(value);
+      const valueString = String(value);
+      totalElem.innerText = valueString;
+      localStorage.setItem("totalAmount", valueString);
     }
   });
 
-  const jobTypeChkboxElems = document.querySelectorAll<HTMLInputElement>("input.form-check-input.job-type-ckbx");
-  if (jobTypeChkboxElems.length > 0) {
-    jobTypeChkboxElems.forEach((jobTypeChkboxElem) => {
-      jobTypeChkboxElem.addEventListener("change", (evt: Event) => {
-        const chkElem = evt.target as HTMLInputElement;
-        if (chkElem.id.startsWith("jobType")) {
-          // additional may be unnecessary check
-          const parentContainerElem = chkElem.closest<HTMLDivElement>(".job-types-container");
-          if (parentContainerElem != null) {
-            const outerContainerElem = parentContainerElem.parentElement;
-            if (outerContainerElem != null) {
-              // const headingElem = outerContainerElem.querySelector("h5:first-child");
-              const headingElems = getElementsByText(chkElem.value, "h5");
-              if (headingElems.length === 1) {
-                const headingElem = headingElems[0] as HTMLHeadingElement;
-                const cardElem = headingElem.closest<HTMLDivElement>(".quote-page-card");
-                if (cardElem != null) {
-                  if (chkElem.checked && cardElem.classList.contains(classForHidingCalculationSections)) cardElem.classList.remove(classForHidingCalculationSections, classForDisablingCalculationSections);
-                  if (!chkElem.checked && !cardElem.classList.contains(classForHidingCalculationSections)) cardElem.classList.add(classForHidingCalculationSections, classForDisablingCalculationSections);
+  calcAllPageCheckedBoxesCountObservable.subscribe((value: number) => {
+    const timeDurationContainer = document.querySelector<HTMLDivElement>("#timeDurationSelectionContainer");
+    if (timeDurationContainer != null) {
+      if (value === 1 && timeDurationContainer.classList.contains(classForHidingCalculationSections))
+        timeDurationContainer.classList.remove(classForHidingCalculationSections, classForDisablingCalculationSections);
+      if (value === 0 && !timeDurationContainer.classList.contains(classForHidingCalculationSections))
+        timeDurationContainer.classList.add(classForHidingCalculationSections, classForDisablingCalculationSections);
+    }
 
-                  const checkboxCheckedElems = document.querySelectorAll<HTMLInputElement>("input.form-check-input.job-type-ckbx:checked");
+    const formContainer = document.querySelector<HTMLDivElement>("#formContainer");
+    if (formContainer != null) {
+      if (value === 1 && formContainer.classList.contains(classForHidingCalculationSections)) formContainer.classList.remove(classForHidingCalculationSections, classForDisablingCalculationSections);
+      if (value === 0 && !formContainer.classList.contains(classForHidingCalculationSections)) formContainer.classList.add(classForHidingCalculationSections, classForDisablingCalculationSections);
+    }
+  });
 
-                  const timeDurationContainer = document.querySelector<HTMLDivElement>("#timeDurationSelectionContainer");
-                  if (timeDurationContainer != null) {
-                    if (checkboxCheckedElems.length === 1 && timeDurationContainer.classList.contains(classForHidingCalculationSections))
-                      timeDurationContainer.classList.remove(classForHidingCalculationSections, classForDisablingCalculationSections);
-                    if (checkboxCheckedElems.length === 0 && !timeDurationContainer.classList.contains(classForHidingCalculationSections))
-                      timeDurationContainer.classList.add(classForHidingCalculationSections, classForDisablingCalculationSections);
-                  }
+  if (currentPagePath === "calculate-all.html") {
+    const jobTypeChkboxElems = document.querySelectorAll<HTMLInputElement>("input.form-check-input.job-type-ckbx");
+    if (jobTypeChkboxElems.length > 0) {
+      jobTypeChkboxElems.forEach((jobTypeChkboxElem) => {
+        jobTypeChkboxElem.addEventListener("change", (evt: Event) => {
+          const chkElem = evt.target as HTMLInputElement;
+          if (chkElem.id.startsWith("jobType")) {
+            // additional may be unnecessary check
+            const parentContainerElem = chkElem.closest<HTMLDivElement>(".job-types-container");
+            if (parentContainerElem != null) {
+              const outerContainerElem = parentContainerElem.parentElement;
+              if (outerContainerElem != null) {
+                // const headingElem = outerContainerElem.querySelector("h5:first-child");
+                const headingElems = getElementsByText(chkElem.value, "h5");
+                if (headingElems.length === 1) {
+                  const headingElem = headingElems[0] as HTMLHeadingElement;
+                  const cardElem = headingElem.closest<HTMLDivElement>(".quote-page-card");
+                  if (cardElem != null) {
+                    if (chkElem.checked && cardElem.classList.contains(classForHidingCalculationSections)) cardElem.classList.remove(classForHidingCalculationSections, classForDisablingCalculationSections);
+                    if (!chkElem.checked && !cardElem.classList.contains(classForHidingCalculationSections)) cardElem.classList.add(classForHidingCalculationSections, classForDisablingCalculationSections);
 
-                  const formContainer = document.querySelector<HTMLDivElement>("#formContainer");
-                  if (formContainer != null) {
-                    if (checkboxCheckedElems.length === 1 && formContainer.classList.contains(classForHidingCalculationSections))
-                      formContainer.classList.remove(classForHidingCalculationSections, classForDisablingCalculationSections);
-                    if (checkboxCheckedElems.length === 0 && !formContainer.classList.contains(classForHidingCalculationSections))
-                      formContainer.classList.add(classForHidingCalculationSections, classForDisablingCalculationSections);
+                    // const checkboxCheckedElems = document.querySelectorAll<HTMLInputElement>("input.form-check-input.job-type-ckbx:checked");
+                    //
+                    // const timeDurationContainer = document.querySelector<HTMLDivElement>("#timeDurationSelectionContainer");
+                    // if (timeDurationContainer != null) {
+                    //   if (checkboxCheckedElems.length === 1 && timeDurationContainer.classList.contains(classForHidingCalculationSections))
+                    //     timeDurationContainer.classList.remove(classForHidingCalculationSections, classForDisablingCalculationSections);
+                    //   if (checkboxCheckedElems.length === 0 && !timeDurationContainer.classList.contains(classForHidingCalculationSections))
+                    //     timeDurationContainer.classList.add(classForHidingCalculationSections, classForDisablingCalculationSections);
+                    // }
+                    //
+                    // const formContainer = document.querySelector<HTMLDivElement>("#formContainer");
+                    // if (formContainer != null) {
+                    //   if (checkboxCheckedElems.length === 1 && formContainer.classList.contains(classForHidingCalculationSections))
+                    //     formContainer.classList.remove(classForHidingCalculationSections, classForDisablingCalculationSections);
+                    //   if (checkboxCheckedElems.length === 0 && !formContainer.classList.contains(classForHidingCalculationSections))
+                    //     formContainer.classList.add(classForHidingCalculationSections, classForDisablingCalculationSections);
+                    // }
                   }
                 }
               }
             }
           }
-        }
+        });
       });
-    });
+    }
   }
 
   const re = /(\d+)$/; // regex to get/extract number from checkbox id attribute value
 
-  const bathroomTypeChkboxElems = document.querySelectorAll<HTMLInputElement>("input.form-check-input.ckbx-with-quantity");
-  if (bathroomTypeChkboxElems.length > 0) {
-    bathroomTypeChkboxElems.forEach((bathroomTypeChkboxElem) => {
-      bathroomTypeChkboxElem.addEventListener("change", (evt: Event) => {
+  const quantityCheckboxElems = document.querySelectorAll<HTMLInputElement>("input.form-check-input.ckbx-with-quantity");
+  if (quantityCheckboxElems.length > 0) {
+    quantityCheckboxElems.forEach((quantityCheckboxElem) => {
+      quantityCheckboxElem.addEventListener("change", (evt: Event) => {
         const chkElem = evt.target as HTMLInputElement;
         const itemPrice = Number(chkElem.dataset["priceInPounds"]);
 
@@ -120,11 +143,14 @@ export default function manageQuotesCalculation() {
             updateTotalPriceOnCheckChange(itemPrice * quantity, chkElem.checked);
           }
         }
+
+        const oldCount = calcAllPageCheckedBoxesCountSubject.getValue();
+        calcAllPageCheckedBoxesCountSubject.next(chkElem.checked ? oldCount + 1 : oldCount - 1);
       });
 
-      const regExMatch = re.exec(bathroomTypeChkboxElem.id);
+      const regExMatch = re.exec(quantityCheckboxElem.id);
       if (regExMatch != null) {
-        const quantityElemId = `${bathroomTypeChkboxElem.id.replace(/\d+$/, "")}Q${regExMatch[0]}`;
+        const quantityElemId = `${quantityCheckboxElem.id.replace(/\d+$/, "")}Q${regExMatch[0]}`;
         // alert(quantityElemId);
         const quantityElement = document.querySelector<HTMLInputElement>(`#${quantityElemId}`);
         if (quantityElement != null) {

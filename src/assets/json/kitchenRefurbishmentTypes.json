@@ -1,86 +1,92 @@
 [
   {
-    "title":"Remove Wall Cabinets",
-    "defaultQuantity":12,
-    "units":"p",
-    "pricePounds":20
+    "title": "Remove Wall Cabinets",
+    "defaultQuantity": 12,
+    "units": "p",
+    "pricePounds": 20
   },
   {
-    "title":"Install Wall Cabinets",
-    "defaultQuantity":12,
-    "units":"p",
-    "pricePounds":95
+    "title": "Remove Floor Cabinets",
+    "defaultQuantity": 12,
+    "units": "p",
+    "pricePounds": 20
   },
   {
-    "title":"xxxxxxxxxxxxxxxxx",
-    "defaultQuantity":12,
-    "units":"p",
-    "pricePounds":95
+    "title": "Remove Worktop",
+    "defaultQuantity": 12,
+    "units": "p",
+    "pricePounds": 25
   },
   {
-    "title":"xxxxxxxxxxxxxxxxx",
-    "defaultQuantity":12,
-    "units":"p",
-    "pricePounds":95
+    "title": "Install Wall Cabinets",
+    "defaultQuantity": 12,
+    "units": "p",
+    "pricePounds": 95
   },
   {
-    "title":"xxxxxxxxxxxxxxxxx",
-    "defaultQuantity":12,
-    "units":"p",
-    "pricePounds":95
+    "title": "Install Floor Cabinets",
+    "defaultQuantity": 12,
+    "units": "p",
+    "pricePounds": 95
   },
   {
-    "title":"xxxxxxxxxxxxxxxxx",
-    "defaultQuantity":12,
-    "units":"p",
-    "pricePounds":95
+    "title": "Install Worktop",
+    "defaultQuantity": 12,
+    "units": "p",
+    "pricePounds": 40
   },
   {
-    "title":"xxxxxxxxxxxxxxxxx",
-    "defaultQuantity":12,
-    "units":"p",
-    "pricePounds":95
+    "title": "Install Washing Machine",
+    "defaultQuantity": 12,
+    "units": "p",
+    "pricePounds": 90
   },
   {
-    "title":"xxxxxxxxxxxxxxxxx",
-    "defaultQuantity":12,
-    "units":"p",
-    "pricePounds":95
+    "title": "Install Dishwasher",
+    "defaultQuantity": 12,
+    "units": "p",
+    "pricePounds": 80
   },
   {
-    "title":"xxxxxxxxxxxxxxxxx",
-    "defaultQuantity":12,
-    "units":"p",
-    "pricePounds":95
+    "title": "Install Hob",
+    "defaultQuantity": 12,
+    "units": "p",
+    "pricePounds": 90
   },
   {
-    "title":"xxxxxxxxxxxxxxxxx",
-    "defaultQuantity":12,
-    "units":"p",
-    "pricePounds":95
+    "title": "Install Cooker",
+    "defaultQuantity": 12,
+    "units": "p",
+    "pricePounds": 80
   },
   {
-    "title":"xxxxxxxxxxxxxxxxx",
-    "defaultQuantity":12,
-    "units":"p",
-    "pricePounds":95
+    "title": "Install Hood",
+    "defaultQuantity": 12,
+    "units": "p",
+    "pricePounds": 90
   },
   {
-    "title":"xxxxxxxxxxxxxxxxx",
-    "defaultQuantity":12,
-    "units":"p",
-    "pricePounds":95
+    "title": "Install FridgeFrizer",
+    "defaultQuantity": 12,
+    "units": "p",
+    "pricePounds": 120
   },
   {
-    "title":"xxxxxxxxxxxxxxxxx",
-    "defaultQuantity":12,
-    "units":"p",
-    "pricePounds":95
+    "title": "Install sink",
+    "defaultQuantity": 12,
+    "units": "p",
+    "pricePounds": 120
   },
   {
-    "title":"xxxxxxxxxxxxxxxxx",
-    "defaultQuantity":12,
-    "units":"p",
-    "pricePounds":95
+    "title": "Replace Boiler",
+    "defaultQuantity": 12,
+    "units": "p",
+    "pricePounds": 800
+  },
+  {
+    "title": "Relocate Boiler",
+    "defaultQuantity": 12,
+    "units": "p",
+    "pricePounds": 1200
   }
 ]

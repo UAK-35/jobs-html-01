@@ -1,8 +1,8 @@
 [
   {
-    "title":"Extension",
-    "defaultQuantity":1,
-    "units":"sqm",
-    "pricePounds":1600
+    "title": "Extension",
+    "defaultQuantity": 1,
+    "units": "sqm",
+    "pricePounds": 1600
   }
 ]

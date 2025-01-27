@@ -14,11 +14,11 @@
             <div class="card-body">
                 <ul class="list-group list-group-flush">
                     <!-- help link: https://stackoverflow.com/a/38371978 -->
-                    <% for (var i = 0; i < jobTypes.length; i++) { %>
+                    <% for (var i1 = 0; i1 < jobTypes.length; i1++) { %>
                         <li class="list-group-item">
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input job-type-ckbx" type="checkbox" id="jobType<%= i %>" name="jobType<%= i %>" value="<%= jobTypes[i].value %>" />
-                                <label class="form-check-label fw-medium ps-1" for="jobType<%= i %>"><%= jobTypes[i].title %></label>
+                                <input class="form-check-input job-type-ckbx" type="checkbox" id="jobType<%= i1 %>" name="jobType<%= i1 %>" value="<%= jobTypes[i1].value %>" />
+                                <label class="form-check-label fw-medium ps-1" for="jobType<%= i1 %>"><%= jobTypes[i1].title %></label>
                             </div>
                         </li>
                     <% } %>
@@ -32,13 +32,13 @@
             </div>
             <div class="card-body">
                 <ul class="list-group list1-group-flush flex-row justify-content-between align-items-center flex-wrap gap-1">
-                    <% for (var i = 0; i < bathroomRefurbTypes.length; i++) { %>
+                    <% for (var i2 = 0; i2 < bathroomRefurbTypes.length; i2++) { %>
                         <li class="list-group-item w-100 wpct-sm-48 px-1">
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input bathrm-type-ckbx ckbx-with-quantity" data-price-in-pounds="<%= bathroomRefurbTypes[i].pricePounds %>" type="checkbox" id="bathrmType<%= i %>" name="bathrmType<%= i %>" value="<%= bathroomRefurbTypes[i].title %>">
-                                <label class="form-check-label fw-medium ps-1" for="bathrmType<%= i %>"><%= bathroomRefurbTypes[i].title %></label>
-                                <input class="w-45px" data-last-value="<%= bathroomRefurbTypes[i].defaultQuantity %>" type="number" min="1" id="bathrmTypeQ<%= i %>" name="bathrmTypeQ<%= i %>" value="<%= bathroomRefurbTypes[i].defaultQuantity %>">
-                                <label class="" for="bathrmTypeQ<%= i %>"><%= bathroomRefurbTypes[i].units %></label>
+                                <input class="form-check-input bathrm-type-ckbx ckbx-with-quantity" data-price-in-pounds="<%= bathroomRefurbTypes[i2].pricePounds %>" type="checkbox" id="bathrmType<%= i2 %>" name="bathrmType<%= i2 %>" value="<%= bathroomRefurbTypes[i2].title %>">
+                                <label class="form-check-label fw-medium ps-1" for="bathrmType<%= i2 %>"><%= bathroomRefurbTypes[i2].title %></label>
+                                <input class="w-45px" data-last-value="<%= bathroomRefurbTypes[i2].defaultQuantity %>" type="number" min="1" id="bathrmTypeQ<%= i2 %>" name="bathrmTypeQ<%= i2 %>" value="<%= bathroomRefurbTypes[i2].defaultQuantity %>">
+                                <label class="" for="bathrmTypeQ<%= i2 %>"><%= bathroomRefurbTypes[i2].units %></label>
                             </div>
                         </li>
                     <% } %>
@@ -52,13 +52,13 @@
             </div>
             <div class="card-body">
                 <ul class="list-group list-group-flush">
-                    <% for (var i = 0; i < wallRefurbTypes.length; i++) { %>
+                    <% for (var i3 = 0; i3 < wallRefurbTypes.length; i3++) { %>
                         <li class="list-group-item">
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input wall-type-ckbx ckbx-with-quantity" data-price-in-pounds="<%= wallRefurbTypes[i].pricePounds %>" type="checkbox" id="wallsType<%= i %>" name="wallsType<%= i %>" value="<%= wallRefurbTypes[i].title %>">
-                                <label class="form-check-label fw-medium ps-1" for="wallsType<%= i %>"><%= wallRefurbTypes[i].title %></label>
-                                <input class="w-45px" data-last-value="<%= wallRefurbTypes[i].defaultQuantity %>" type="number" min="1" id="wallsTypeQ<%= i %>" name="wallsTypeQ<%= i %>" value="<%= wallRefurbTypes[i].defaultQuantity %>">
-                                <label class="" for="wallsTypeQ<%= i %>"><%= wallRefurbTypes[i].units %></label>
+                                <input class="form-check-input wall-type-ckbx ckbx-with-quantity" data-price-in-pounds="<%= wallRefurbTypes[i3].pricePounds %>" type="checkbox" id="wallsType<%= i3 %>" name="wallsType<%= i3 %>" value="<%= wallRefurbTypes[i3].title %>">
+                                <label class="form-check-label fw-medium ps-1" for="wallsType<%= i3 %>"><%= wallRefurbTypes[i3].title %></label>
+                                <input class="w-45px" data-last-value="<%= wallRefurbTypes[i3].defaultQuantity %>" type="number" min="1" id="wallsTypeQ<%= i3 %>" name="wallsTypeQ<%= i3 %>" value="<%= wallRefurbTypes[i3].defaultQuantity %>">
+                                <label class="" for="wallsTypeQ<%= i3 %>"><%= wallRefurbTypes[i3].units %></label>
                             </div>
                         </li>
                     <% } %>
@@ -72,13 +72,13 @@
             </div>
             <div class="card-body">
                 <ul class="list-group list-group-flush flex-row justify-content-between align-items-center flex-wrap gap-1">
-                    <% for (var i = 0; i < kitchenRefurbTypes.length; i++) { %>
+                    <% for (var i4 = 0; i4 < kitchenRefurbTypes.length; i4++) { %>
                         <li class="list-group-item w-100 wpct-sm-48 px-1">
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input ktchn-type-ckbx ckbx-with-quantity" data-price-in-pounds="<%= kitchenRefurbTypes[i].pricePounds %>" type="checkbox" id="ktchnType<%= i %>" name="ktchnType<%= i %>" value="<%= kitchenRefurbTypes[i].title %>">
-                                <label class="form-check-label fw-medium ps-1" for="ktchnType<%= i %>"><%= kitchenRefurbTypes[i].title %></label>
-                                <input class="w-45px" data-last-value="<%= kitchenRefurbTypes[i].defaultQuantity %>" type="number" min="1" id="ktchnTypeQ<%= i %>" name="ktchnTypeQ<%= i %>" value="<%= kitchenRefurbTypes[i].defaultQuantity %>">
-                                <label class="" for="ktchnTypeQ<%= i %>"><%= kitchenRefurbTypes[i].units %></label>
+                                <input class="form-check-input ktchn-type-ckbx ckbx-with-quantity" data-price-in-pounds="<%= kitchenRefurbTypes[i4].pricePounds %>" type="checkbox" id="ktchnType<%= i4 %>" name="ktchnType<%= i4 %>" value="<%= kitchenRefurbTypes[i4].title %>">
+                                <label class="form-check-label fw-medium ps-1" for="ktchnType<%= i4 %>"><%= kitchenRefurbTypes[i4].title %></label>
+                                <input class="w-45px" data-last-value="<%= kitchenRefurbTypes[i4].defaultQuantity %>" type="number" min="1" id="ktchnTypeQ<%= i4 %>" name="ktchnTypeQ<%= i4 %>" value="<%= kitchenRefurbTypes[i4].defaultQuantity %>">
+                                <label class="" for="ktchnTypeQ<%= i4 %>"><%= kitchenRefurbTypes[i4].units %></label>
                             </div>
                         </li>
                     <% } %>
@@ -92,13 +92,13 @@
             </div>
             <div class="card-body">
                 <ul class="list-group list-group-flush">
-                    <% for (var i = 0; i < floorRefurbTypes.length; i++) { %>
+                    <% for (var i5 = 0; i5 < floorRefurbTypes.length; i5++) { %>
                         <li class="list-group-item">
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input floor-type-ckbx ckbx-with-quantity" data-price-in-pounds="<%= floorRefurbTypes[i].pricePounds %>" type="checkbox" id="floorType<%= i %>" name="floorType<%= i %>" value="<%= floorRefurbTypes[i].title %>">
-                                <label class="form-check-label fw-medium ps-1" for="floorType<%= i %>"><%= floorRefurbTypes[i].title %></label>
-                                <input class="w-45px" data-last-value="<%= floorRefurbTypes[i].defaultQuantity %>" type="number" min="1" id="floorTypeQ<%= i %>" name="floorTypeQ<%= i %>" value="<%= floorRefurbTypes[i].defaultQuantity %>">
-                                <label class="" for="floorTypeQ<%= i %>"><%= floorRefurbTypes[i].units %></label>
+                                <input class="form-check-input floor-type-ckbx ckbx-with-quantity" data-price-in-pounds="<%= floorRefurbTypes[i5].pricePounds %>" type="checkbox" id="floorType<%= i5 %>" name="floorType<%= i5 %>" value="<%= floorRefurbTypes[i5].title %>">
+                                <label class="form-check-label fw-medium ps-1" for="floorType<%= i5 %>"><%= floorRefurbTypes[i5].title %></label>
+                                <input class="w-45px" data-last-value="<%= floorRefurbTypes[i5].defaultQuantity %>" type="number" min="1" id="floorTypeQ<%= i5 %>" name="floorTypeQ<%= i5 %>" value="<%= floorRefurbTypes[i5].defaultQuantity %>">
+                                <label class="" for="floorTypeQ<%= i5 %>"><%= floorRefurbTypes[i5].units %></label>
                             </div>
                         </li>
                     <% } %>
@@ -112,13 +112,13 @@
             </div>
             <div class="card-body">
                 <ul class="list-group list-group-flush">
-                    <% for (var i = 0; i < ceilingRefurbTypes.length; i++) { %>
+                    <% for (var i6 = 0; i6 < ceilingRefurbTypes.length; i6++) { %>
                         <li class="list-group-item">
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input ceiling-type-ckbx ckbx-with-quantity" data-price-in-pounds="<%= ceilingRefurbTypes[i].pricePounds %>" type="checkbox" id="ceilingType<%= i %>" name="ceilingType<%= i %>" value="<%= ceilingRefurbTypes[i].title %>">
-                                <label class="form-check-label fw-medium ps-1" for="ceilingType<%= i %>"><%= ceilingRefurbTypes[i].title %></label>
-                                <input class="w-45px" data-last-value="<%= ceilingRefurbTypes[i].defaultQuantity %>" type="number" min="1" id="ceilingTypeQ<%= i %>" name="ceilingTypeQ<%= i %>" value="<%= ceilingRefurbTypes[i].defaultQuantity %>">
-                                <label class="" for="ceilingTypeQ<%= i %>"><%= ceilingRefurbTypes[i].units %></label>
+                                <input class="form-check-input ceiling-type-ckbx ckbx-with-quantity" data-price-in-pounds="<%= ceilingRefurbTypes[i6].pricePounds %>" type="checkbox" id="ceilingType<%= i6 %>" name="ceilingType<%= i6 %>" value="<%= ceilingRefurbTypes[i6].title %>">
+                                <label class="form-check-label fw-medium ps-1" for="ceilingType<%= i6 %>"><%= ceilingRefurbTypes[i6].title %></label>
+                                <input class="w-45px" data-last-value="<%= ceilingRefurbTypes[i6].defaultQuantity %>" type="number" min="1" id="ceilingTypeQ<%= i6 %>" name="ceilingTypeQ<%= i6 %>" value="<%= ceilingRefurbTypes[i6].defaultQuantity %>">
+                                <label class="" for="ceilingTypeQ<%= i6 %>"><%= ceilingRefurbTypes[i6].units %></label>
                             </div>
                         </li>
                     <% } %>
@@ -132,13 +132,13 @@
             </div>
             <div class="card-body">
                 <ul class="list-group list-group-flush">
-                    <% for (var i = 0; i < loftConversionTypes.length; i++) { %>
+                    <% for (var i7 = 0; i7 < loftConversionTypes.length; i7++) { %>
                         <li class="list-group-item">
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input left-conv-type-ckbx ckbx-with-quantity" data-price-in-pounds="<%= loftConversionTypes[i].pricePounds %>" type="checkbox" id="loftConvType<%= i %>" name="loftConvType<%= i %>" value="<%= loftConversionTypes[i].title %>">
-                                <label class="form-check-label fw-medium ps-1" for="loftConvType<%= i %>"><%= loftConversionTypes[i].title %></label>
-                                <input class="w-45px" data-last-value="<%= loftConversionTypes[i].defaultQuantity %>" type="number" min="1" id="loftConvTypeQ<%= i %>" name="loftConvTypeQ<%= i %>" value="<%= loftConversionTypes[i].defaultQuantity %>">
-                                <label class="" for="loftConvTypeQ<%= i %>"><%= loftConversionTypes[i].units %></label>
+                                <input class="form-check-input left-conv-type-ckbx ckbx-with-quantity" data-price-in-pounds="<%= loftConversionTypes[i7].pricePounds %>" type="checkbox" id="loftConvType<%= i7 %>" name="loftConvType<%= i7 %>" value="<%= loftConversionTypes[i7].title %>">
+                                <label class="form-check-label fw-medium ps-1" for="loftConvType<%= i7 %>"><%= loftConversionTypes[i7].title %></label>
+                                <input class="w-45px" data-last-value="<%= loftConversionTypes[i7].defaultQuantity %>" type="number" min="1" id="loftConvTypeQ<%= i7 %>" name="loftConvTypeQ<%= i7 %>" value="<%= loftConversionTypes[i7].defaultQuantity %>">
+                                <label class="" for="loftConvTypeQ<%= i7 %>"><%= loftConversionTypes[i7].units %></label>
                             </div>
                         </li>
                     <% } %>
@@ -152,13 +152,13 @@
             </div>
             <div class="card-body">
                 <ul class="list-group list-group-flush">
-                    <% for (var i = 0; i < extensionTypes.length; i++) { %>
+                    <% for (var i8 = 0; i8 < extensionTypes.length; i8++) { %>
                         <li class="list-group-item">
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input extension-type-ckbx ckbx-with-quantity" data-price-in-pounds="<%= extensionTypes[i].pricePounds %>" type="checkbox" id="extensionType<%= i %>" name="extensionType<%= i %>" value="<%= extensionTypes[i].title %>">
-                                <label class="form-check-label fw-medium ps-1" for="extensionType<%= i %>"><%= extensionTypes[i].title %></label>
-                                <input class="w-45px" data-last-value="<%= extensionTypes[i].defaultQuantity %>" type="number" min="1" id="extensionTypeQ<%= i %>" name="extensionTypeQ<%= i %>" value="<%= extensionTypes[i].defaultQuantity %>">
-                                <label class="" for="extensionTypeQ<%= i %>"><%= extensionTypes[i].units %></label>
+                                <input class="form-check-input extension-type-ckbx ckbx-with-quantity" data-price-in-pounds="<%= extensionTypes[i8].pricePounds %>" type="checkbox" id="extensionType<%= i8 %>" name="extensionType<%= i8 %>" value="<%= extensionTypes[i8].title %>">
+                                <label class="form-check-label fw-medium ps-1" for="extensionType<%= i8 %>"><%= extensionTypes[i8].title %></label>
+                                <input class="w-45px" data-last-value="<%= extensionTypes[i8].defaultQuantity %>" type="number" min="1" id="extensionTypeQ<%= i8 %>" name="extensionTypeQ<%= i8 %>" value="<%= extensionTypes[i8].defaultQuantity %>">
+                                <label class="" for="extensionTypeQ<%= i8 %>"><%= extensionTypes[i8].units %></label>
                             </div>
                         </li>
                     <% } %>
@@ -176,11 +176,11 @@
             </div>
             <div class="card-body">
                 <ul class="list-group list-group-flush">
-                    <% for (var i = 0; i < workDurationTypes.length; i++) { %>
+                    <% for (var i9 = 0; i9 < workDurationTypes.length; i9++) { %>
                         <li class="list-group-item">
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input work-dur-type-ckbx" type="checkbox" id="workDurType<%= i %>" name="workDurType<%= i %>" value="<%= workDurationTypes[i].title %>">
-                                <label class="form-check-label fw-medium ps-1" for="workDurType<%= i %>"><%= workDurationTypes[i].title %></label>
+                                <input class="form-check-input work-dur-type-ckbx" type="checkbox" id="workDurType<%= i9 %>" name="workDurType<%= i9 %>" value="<%= workDurationTypes[i9].title %>">
+                                <label class="form-check-label fw-medium ps-1" for="workDurType<%= i9 %>"><%= workDurationTypes[i9].title %></label>
                             </div>
                         </li>
                     <% } %>
@@ -197,26 +197,38 @@
                 <h5 class="fw-bold">Request your quote</h5>
             </div>
             <div class="card-body">
-                <form action="" class="w-100 d-flex flex-column justify-content-start align-items-center gap-3">
+                <form novalidate autocomplete="off" id="calculateForm" action="" class="w-100 d-flex flex-column justify-content-start align-items-center gap-3" onsubmit="return false" onkeydown="if(event.keyCode === 13) return false">
                     <div class="form-floating w-100">
-                        <input type="text" id="name" name="name" class="form-control" placeholder="John Doe" />
+                        <input type="text" id="name" name="name" class="form-control" placeholder="John Doe" tabindex="1" />
                         <label for="name">Name</label>
+                        <div class="invalid-tooltip end-0">
+                            This field is required!
+                        </div>
                     </div>
                     <div class="form-floating w-100">
-                        <input type="email" id="email" name="email" class="form-control" placeholder="name@example.com" />
+                        <input type="email" id="email" name="email" class="form-control" placeholder="name@example.com" tabindex="2" />
                         <label for="email">Email address</label>
+                        <div class="invalid-tooltip end-0">
+                            This field is required!
+                        </div>
                     </div>
                     <div class="form-floating w-100">
-                        <input type="tel" id="phone" name="phone" class="form-control" placeholder="1231231231" />
+                        <input type="tel" id="phone" name="phone" class="form-control" placeholder="1231231231" tabindex="3" />
                         <label for="phone">Phone</label>
+                        <div class="invalid-tooltip end-0">
+                            This field is required!
+                        </div>
                     </div>
                     <div class="form-floating w-100">
                         <!--<input type="text" id="address" name="address" class="form-control" />-->
-                        <textarea name="address" id="address" cols="80" rows="3" class="form-control" placeholder="1231231231"></textarea>
+                        <textarea name="address" id="address" cols="80" rows="3" class="form-control" placeholder="1231231231" tabindex="4"></textarea>
                         <label for="address">Address</label>
+                        <div class="invalid-tooltip end-0">
+                            This field is required!
+                        </div>
                     </div>
                     <div class="form-1">
-                        <button type="submit" class="request-quote-btn btn btn-light-green-1 btn-large">Submit</button>
+                        <button id="submitBtn" type="submit" class="request-quote-btn btn btn-light-green-1 btn-large">Submit</button>
                     </div>
                 </form>
             </div>
