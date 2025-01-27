@@ -13,6 +13,8 @@ import CopyWebpackPlugin from 'copy-webpack-plugin';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import TerserPlugin from 'terser-webpack-plugin';
 import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
+import JSON5 from "json5";
+
 import { getEjsViewConfigs, getPublicUrlOrPath } from "./src/ts/utils/helpers";
 import Constants from "./src/ts/lib/constants";
 
@@ -142,7 +144,7 @@ const config = (webpackEnv: any, _argv: any): webpack.Configuration => {
 
     resolve: {
       modules: [PATH.npmPackages, PATH.src],
-      extensions: ['.js', '.ts', '.ejs', '.json', '.scss'],
+      extensions: ['.js', '.ts', '.ejs', '.json', '.json5', '.scss'],
       fallback: {
         "fs": false,
         "url": false,
@@ -202,6 +204,18 @@ const config = (webpackEnv: any, _argv: any): webpack.Configuration => {
 
     module: {
       rules: [
+        {
+          test: /\.json5$/,
+          type: "json",
+          parser: {
+            parse: JSON5.parse,
+          }
+          // loader: 'json5-loader',
+          // options: {
+          //   esModule: false,
+          // },
+        },
+
         {
           test: /\.(scss)$/,
           use: [

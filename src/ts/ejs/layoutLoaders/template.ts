@@ -7,15 +7,24 @@ import path from "path";
 
 import ejs from "ejs";
 
-import jobTypes from "../../../assets/json/jobTypes.json";
-import bathroomRefurbTypes from "../../../assets/json/bathroomRefurbishmentTypes.json";
-import kitchenRefurbTypes from "../../../assets/json/kitchenRefurbishmentTypes.json";
-import wallRefurbTypes from "../../../assets/json/wallRefurbishmentTypes.json";
-import floorRefurbTypes from "../../../assets/json/floorRefurbishmentTypes.json";
-import ceilingRefurbTypes from "../../../assets/json/ceilingRefurbishmentTypes.json";
-import extensionTypes from "../../../assets/json/extensionTypes.json";
-import loftConversionTypes from "../../../assets/json/loftConversionTypes.json";
-import workDurationTypes from "../../../assets/json/workDurationTypes.json";
+// @ts-ignore
+import jobTypes from "../../../assets/json/jobTypes.json5";
+// @ts-ignore
+import bathroomRefurbTypes from "../../../assets/json/bathroomRefurbishmentTypes.json5";
+// @ts-ignore
+import kitchenRefurbTypes from "../../../assets/json/kitchenRefurbishmentTypes.json5";
+// @ts-ignore
+import wallRefurbTypes from "../../../assets/json/wallRefurbishmentTypes.json5";
+// @ts-ignore
+import floorRefurbTypes from "../../../assets/json/floorRefurbishmentTypes.json5";
+// @ts-ignore
+import ceilingRefurbTypes from "../../../assets/json/ceilingRefurbishmentTypes.json5";
+// @ts-ignore
+import extensionTypes from "../../../assets/json/extensionTypes.json5";
+// @ts-ignore
+import loftConversionTypes from "../../../assets/json/loftConversionTypes.json5";
+// @ts-ignore
+import workDurationTypes from "../../../assets/json/workDurationTypes.json5";
 
 export default async (data: any) => {
   const partialsFolder = data.partialsFolder.replaceAll("/", path.sep);
