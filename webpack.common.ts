@@ -41,7 +41,12 @@ const config = (webpackEnv: any, _argv: any): webpack.Configuration => {
 
   const { parsed: parsedEnv } = require('dotenv').config({ path: path.resolve(process.cwd(), envFile) });
 
+  // .env file variables
   const publicUrl = parsedEnv.PUBLIC_URL;
+  const toEmail = parsedEnv.TO_EMAIL;
+  const emailJsServiceId = parsedEnv.EMAIL_JS_SERVICE_ID;
+  const emailJsTemplateId = parsedEnv.EMAIL_JS_TEMPLATE_ID;
+  const emailJsPublicKey = parsedEnv.EMAIL_JS_PUBLIC_KEY;
 
   // set whether are creating source maps with prod builds
   const genSourceMaps = false;
@@ -50,7 +55,7 @@ const config = (webpackEnv: any, _argv: any): webpack.Configuration => {
   const publicUrlOrPath = getPublicUrlOrPath(isDevelopmentEnv, undefined, publicUrl);
 
   const PATH = Constants.folderPaths;
-  console.log('PATH', PATH);
+  // console.log('PATH', PATH);
 
   // EJS related
   const perPageViewConfigs = getEjsViewConfigs(PATH.ejsPages, { templatePath: `${Constants.folderPaths.ejsLayoutLoaders}/${Constants.fileNames.templateLoaderFileName}`.replace(/\\/g, '/') });
@@ -346,6 +351,10 @@ const config = (webpackEnv: any, _argv: any): webpack.Configuration => {
         'WEBPACK_MODE': JSON.stringify(webPackMode),
         'process.env': {
           NODE_ENV: JSON.stringify(Constants.envValues.envMode),
+          TO_EMAIL: JSON.stringify(toEmail),
+          EMAIL_JS_SERVICE_ID: JSON.stringify(emailJsServiceId),
+          EMAIL_JS_TEMPLATE_ID: JSON.stringify(emailJsTemplateId),
+          EMAIL_JS_PUBLIC_KEY: JSON.stringify(emailJsPublicKey),
         },
       }),
 
@@ -369,6 +378,10 @@ const config = (webpackEnv: any, _argv: any): webpack.Configuration => {
           {
             from: `${PATH.assets}/images`,
             to: './assets/images'
+          },
+          {
+            from: `${PATH.assets}/json`,
+            to: './assets/json'
           }
         ]
       }),

@@ -105,6 +105,12 @@ $utilities: (
     responsive: true,
     values: $percentSiz-map,
   ),
+  "min-width": (
+    property: min-width,
+    class: nw,
+    responsive: true,
+    values: $percentSiz-map,
+  ),
   "height": (
     property: height,
     class: h,
@@ -128,6 +134,12 @@ $utilities: (
   "wpx": (
     property: width,
     class: wpx,
+    responsive: true,
+    values: $pxSiz-map,
+  ),
+  "min-wpx": (
+    property: min-width,
+    class: min-wpx,
     responsive: true,
     values: $pxSiz-map,
   ),
@@ -212,6 +224,8 @@ $theme-colors: map.merge($theme-colors, $custom-colors);
 @import "bootstrap/scss/helpers";
 @import "bootstrap/scss/images";
 @import "bootstrap/scss/spinners";
+@import "bootstrap/scss/tables";
+@import "bootstrap/scss/toasts";
 
 @import "bootstrap/scss/close";
 @import "bootstrap/scss/modal";
@@ -1019,4 +1033,53 @@ input[type=number]:disabled {
 .list-group.list-group-horizont.has-sqm-units .list-group-item .d-inline-block,
 .list-group.list-group-vert.has-sqm-units .list-group-item .d-inline-block {
   @extend .wpct-37;
+}
+
+
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.9);
+  z-index: 1051; /* Above Bootstrap's modal overlay */
+
+  /* Other styles */
+  display: none; /* Hidden by default */
+  opacity: 0;
+  transition: opacity .3s ease-in-out;
+}
+
+.overlay.active {
+  display: block; /* Show overlay */
+  opacity: 0.8;
+}
+
+.overlay-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes blink {
+  1%, 3% {opacity: 0;}
+  2%, 4% {opacity: 1;}
+}
+
+.blinking-div {
+  animation: blink 10s linear infinite;
+  border: 1px solid red;
+}
+
+.toast-container {
+  @extend .position-fixed;
+  @extend .bottom-0;
+  @extend .end-0;
+  @extend .p-4;
+  @extend .hpx-300;
+  background-color: transparent;
+  //border: 1px solid red;
 }

@@ -1,6 +1,12 @@
 /** @format */
 
-import emailJs, { type EmailJSResponseStatus } from "@emailjs/browser";
+import emailJs, { EmailJSResponseStatus } from "@emailjs/browser";
+import { Modal, Toast } from "bootstrap";
+
+import IndexDbManager from "../lib/indexDbManager";
+import { ISelectionRecord } from "../lib/types";
+// @ts-ignore
+import workDurationTypes from "../../assets/json/workDurationTypes.json5";
 
 const errorFieldParentClassName = "has-input-error";
 const formFieldInvalidClassName = "is-invalid";
@@ -44,35 +50,65 @@ function validateUkAddress(emailValue: string) {
   return !!emailValue.match(validRegex);
 }
 
-function doSendEmail(fromName: string, fromEmail: string, fromPhone: string, fromAddress: string, totalAmount: string, emailBody: string) {
-  console.log("doSendEmail", { fromName, fromEmail, fromPhone, fromAddress, totalAmount, emailBody });
-  // const serviceId = "service_20r3f2f";
-  // const templateId = "template_g1qnhik"; // to_email is permanently set in template which can be modified
-  // // const toEmail = "admin@myjobdone.co.uk";
-  // const toEmail = "uak282006@gmail.com";
-  // const templateParams = {
-  //   from_name: fromName,
-  //   from_email: fromEmail,
-  //   from_phone: fromPhone,
-  //   from_address: fromAddress,
-  //   to_name: "MyJobDone Admin",
-  //   to_email: toEmail,
-  //   reply_to: fromEmail,
-  //   current_date: new Date().toDateString(),
-  //   total_amount: totalAmount,
-  //   message: emailBody,
-  // };
-  // emailJs.send(serviceId, templateId, templateParams).then(
-  //   function (response) {
-  //     console.log("SUCCESS!", response.status, response.text);
-  //     alert("Mail sent successfully");
-  //   },
-  //   function (err) {
-  //     console.log('FAILED...', (error as EmailJSResponseStatus).text);
-  //     console.log("FAILED...", err);
-  //     alert("Mail send failed");
-  //   }
-  // );
+const handleEmailSuccess = () => {
+  const calculateForm = document.querySelector<HTMLFormElement>("#calculateForm");
+  if (calculateForm != null) {
+    const submitButton = calculateForm.querySelector<HTMLButtonElement>("button[type=submit]");
+    if (submitButton != null) submitButton.innerText = "Email sent successfully";
+  }
+  const emailModal = Modal.getOrCreateInstance("#emailSuccessModal", {
+    // backdrop: false,
+    focus: true,
+    keyboard: false,
+  });
+  if (emailModal != null) {
+    document.querySelector("#emailSuccessModal")!.addEventListener("hide.bs.modal", (event) => {
+      // document.querySelector("#full-screen-overlay")!.classList.remove("active");
+      setTimeout(() => {
+        document.location.href = "index.html";
+      }, 2000);
+    });
+  }
+  emailModal.show();
+};
+
+function doSendEmail(fromName: string, fromEmail: string, fromPhone: string, fromAddress: string, totalAmount: string, duration: string, emailBody: string) {
+  // console.log("doSendEmail", { fromName, fromEmail, fromPhone, fromAddress, totalAmount, duration, emailBody });
+  const serviceId = process.env.EMAIL_JS_SERVICE_ID;
+  const templateId = process.env.EMAIL_JS_TEMPLATE_ID; // to_email is permanently set in template which can be modified
+  const toEmail = process.env.TO_EMAIL;
+
+  if (serviceId != null && templateId != null && toEmail != null) {
+    const templateParams = {
+      from_name: fromName,
+      from_email: fromEmail,
+      from_phone: fromPhone,
+      from_address: fromAddress,
+      to_name: "MyJobDone Admin",
+      to_email: toEmail,
+      reply_to: fromEmail,
+      current_date: new Date().toDateString(),
+      total_amount: `&pound;${totalAmount}`,
+      start_duration: duration,
+      message: emailBody,
+    };
+    // console.log("email data", templateParams);
+
+    emailJs.send(serviceId, templateId, templateParams).then(
+      function (response) {
+        console.log("EMAIL-SUCCESS!", response.status, response.text);
+        // alert("Mail sent successfully");
+        handleEmailSuccess();
+      },
+      function (err) {
+        console.log("EMAIL-FAILED error-text...", (err as EmailJSResponseStatus).text);
+        console.log("EMAIL-FAILED...", err);
+        alert("Mail send failed");
+      }
+    );
+  }
+
+  // setTimeout(() => handleEmailSuccess(), 4000); // for testing purposes only
 }
 
 const changeErrorText = (element: HTMLFormElement, reqMsg: string) => {
@@ -111,29 +147,151 @@ const validateField = (element: HTMLFormElement, reqMsg: string, formatValidator
   return fieldErrorOccurred;
 };
 
-export default function manageFormSubmission() {
+const setHeadingElementText = (elemSelector: string, textToSet: string) => {
+  const headingElement = document.querySelector<HTMLHeadingElement>(elemSelector);
+  if (headingElement != null) {
+    // headingElement.textContent = textToSet;
+    // const labelElem = headingElement.children[0];
+    // labelElem.textContent = "label";
+    const valueElem = headingElement.children[1];
+    valueElem.textContent = textToSet;
+  }
+};
+
+const addServicesTableRow = (tbody: HTMLTableSectionElement, serviceVal: string, qtyText: string, priceVal: number, totalVal: number) => {
+  const row = tbody.insertRow();
+
+  const serviceCell = row.insertCell();
+  serviceCell.textContent = serviceVal;
+
+  const quantityCell = row.insertCell();
+  quantityCell.textContent = qtyText;
+
+  const priceCell = row.insertCell();
+  priceCell.textContent = `\u00A3${priceVal}`;
+
+  const totalCell = row.insertCell();
+  totalCell.textContent = `\u00A3${totalVal}`;
+};
+
+function getDurationText(durationCode: string): string {
+  const dataList = workDurationTypes as Array<any>;
+  for (const dataItem of dataList) {
+    if (dataItem.code === durationCode) {
+      return dataItem.descriptiveText;
+    }
+  }
+  return "";
+}
+
+const hideToast = () => {
+  const userToastElem = Toast.getOrCreateInstance("#userToast", { autohide: false });
+  userToastElem.hide();
+};
+
+const showToast = (toastClasses: string, html: string) => {
+  const userToastElem = Toast.getOrCreateInstance("#userToast", { autohide: false });
+  // userToastElem.addEventListener('hidden.bs.toast', () => {});
+  document.querySelector("#userToast")!.querySelector(".toast-body")!.innerHTML = html;
+  // document.querySelector("#userToast")!.classList.add("text-bg-danger", "border-0");
+  document.querySelector("#userToast")!.classList.add(...toastClasses.split(" "));
+  (document.querySelector("#userToast")! as HTMLElement).style.cssText = "--bs-bg-opacity: .5;";
+  userToastElem.show();
+};
+
+const showErrorToast = (message: string) => {
+  const errorToastClasses = "text-bg-danger border-2 border-danger";
+  showToast(errorToastClasses, message);
+};
+
+export default async function manageFormSubmission() {
+  const hiddenElements = document.querySelectorAll<HTMLDivElement>(".hidden-elem");
+  hiddenElements.forEach((hiddenElem) => {
+    hiddenElem.style.cssText = "";
+  });
+
+  // alert(process.env.NODE_ENV);
+  // @ts-ignore
+  // alert(PUBLIC_URL);
+  // @ts-ignore
+  // alert(WEBPACK_MODE);
+  if (process.env.EMAIL_JS_PUBLIC_KEY != null) {
+    emailJs.init({
+      publicKey: process.env.EMAIL_JS_PUBLIC_KEY,
+      blockHeadless: true, // Do not allow headless browsers
+    });
+  }
+
+  const indexedDb = new IndexDbManager("quotation_selections", 1);
+  await indexedDb.createObjectStore(["selections"]);
+  const dataToSend: FormDataRecord = {};
+
+  const summaryModal = Modal.getOrCreateInstance("#quotationSummaryModal", {
+    // backdrop: false,
+    focus: true,
+    keyboard: false,
+  });
+
   const calculateForm = document.querySelector<HTMLFormElement>("#calculateForm");
   if (calculateForm != null) {
+    document.querySelector("#quotationSummaryModal")!.addEventListener("hide.bs.modal", () => {
+      const submitButton = calculateForm.querySelector<HTMLButtonElement>("button[type=submit]");
+      if (submitButton != null) submitButton.innerText = "Submit again";
+    });
+
     const submitButton = calculateForm.querySelector<HTMLButtonElement>("button[type=submit]");
-    if (submitButton != null) {
-      // submitButton.addEventListener("click", (e: any) => {
-      //   alert("button");
-      //   e.preventDefault();
-      // });
+    // if (submitButton != null) {
+    //   submitButton.addEventListener("click", (e: any) => {
+    //     e.preventDefault();
+    //     alert("button");
+    //   });
+    // }
+    const sendEmailButton = document.querySelector<HTMLButtonElement>("#sendEmailBtn");
+    if (sendEmailButton != null) {
+      sendEmailButton.addEventListener("click", async (e: any) => {
+        e.preventDefault();
+
+        const calculateForm = document.querySelector<HTMLFormElement>("#calculateForm");
+        if (calculateForm != null) {
+          const submitButton = calculateForm.querySelector<HTMLButtonElement>("button[type=submit]");
+          if (submitButton != null) submitButton.innerText = "Sending email! Wait...";
+        }
+
+        summaryModal.hide();
+        document.querySelector("#full-screen-overlay")!.classList.add("active");
+
+        const fromName = dataToSend["name"] as string;
+        const fromEmail = dataToSend["email"] as string;
+        const phone = dataToSend["phone"] as string;
+        const address = dataToSend["address"] as string;
+        const totalAmount = dataToSend["totalAmount"] as string;
+        const duration = dataToSend["duration"] as string;
+
+        let emailBody = "";
+        const allUserSelections: ISelectionRecord[] = await indexedDb.getAllValues("selections");
+        allUserSelections.forEach((record) => {
+          emailBody += "<tr>";
+          emailBody += `<td style="text-align: center; border: 1px solid gainsboro;">${record.service}</td>`;
+          emailBody += `<td style="text-align: center; border: 1px solid gainsboro;">${record.quantityText}</td>`;
+          emailBody += `<td style="text-align: center; border: 1px solid gainsboro;">&pound;${record.pricePerItem}</td>`;
+          emailBody += `<td style="text-align: center; border: 1px solid gainsboro;">&pound;${record.price}</td>`;
+          emailBody += "</tr>";
+        });
+        doSendEmail(fromName, fromEmail, phone, address, totalAmount, duration, emailBody);
+      });
     }
 
     if (calculateForm.dataset["hasSubmitHandler"] == null) {
       calculateForm.dataset["hasSubmitHandler"] = "true";
-      calculateForm.addEventListener("submit", (e: any) => {
+      calculateForm.addEventListener("submit", async (e: any) => {
         e.preventDefault();
         e.stopPropagation();
         e.stopImmediatePropagation();
         if (submitButton != null) submitButton.innerText = "Submitting form...";
         const formElem = e.target as HTMLFormElement;
-        const dataToSend: FormDataRecord = {};
         let inputErrorOccurred = false;
         const formElements = formElem.elements;
-        console.group("form-errors");
+        // console.group("form-errors");
         for (const formElement of formElements) {
           const element = formElement as HTMLFormElement;
           if (element.tagName != null && !(element.tagName === "BUTTON")) {
@@ -148,41 +306,83 @@ export default function manageFormSubmission() {
 
             if (key === "name") {
               inputErrorOccurred = validateField(element, "Name is required", validateName, "Invalid format of name");
-              console.log("name error", inputErrorOccurred);
+              // console.log("name error", inputErrorOccurred);
             }
             if (!inputErrorOccurred && key === "email") {
               inputErrorOccurred = validateField(element, "Email is required", validateEmail, "Invalid format of email");
-              console.log("email error", inputErrorOccurred);
+              // console.log("email error", inputErrorOccurred);
             }
             if (!inputErrorOccurred && key === "phone") {
               inputErrorOccurred = validateField(element, "Phone is required", validateUkPhone, "Invalid format of phone");
-              console.log("phone error", inputErrorOccurred);
+              // console.log("phone error", inputErrorOccurred);
             }
             if (!inputErrorOccurred && key === "address") {
               inputErrorOccurred = validateField(element, "Address is required", validateUkAddress, "Invalid format of address");
-              console.log("address error", inputErrorOccurred);
+              // console.log("address error", inputErrorOccurred);
             }
 
             if (!inputErrorOccurred) dataToSend[key] = element.value;
           }
         }
-        console.groupEnd();
+        // console.groupEnd();
 
         if (inputErrorOccurred) {
           if (submitButton != null) submitButton.innerText = "Correct and Submit again";
         } else {
-          const fromName = dataToSend["name"] as string;
-          const fromEmail = dataToSend["email"] as string;
-          const phone = dataToSend["phone"] as string;
-          const address = dataToSend["address"] as string;
-          const totalAmount = localStorage.getItem("totalAmount") || "0";
-          const emailBody = "New calculation request received";
+          // check that any duration is selected or not
+          const timeDurationContainer = document.querySelector<HTMLDivElement>("#timeDurationSelectionContainer");
+          const durationCheckboxElems = document.querySelectorAll<HTMLInputElement>("input.form-check-input.work-dur-type-ckbx:checked");
+          if (durationCheckboxElems.length === 0) {
+            if (timeDurationContainer != null) {
+              timeDurationContainer.classList.add("blinking-div");
+            }
+            showErrorToast('<span>Select start duration <i class="fw-medium">(Time on Starting the Job)</i></span>');
+          } else {
+            if (timeDurationContainer != null && timeDurationContainer.classList.contains("blinking-div")) {
+              timeDurationContainer.classList.remove("blinking-div");
+            }
+            hideToast();
 
-          // console.log("dataToSend", dataToSend);
-          // console.log({ fromName, fromEmail, phone, address, emailBody });
-          if (totalAmount !== "0") {
-            doSendEmail(fromName, fromEmail, phone, address, totalAmount, emailBody);
+            const allUserSelections: ISelectionRecord[] = await indexedDb.getAllValues("selections");
+
+            const fromName = dataToSend["name"] as string;
+            const fromEmail = dataToSend["email"] as string;
+            const phone = dataToSend["phone"] as string;
+            const address = dataToSend["address"] as string;
+
+            const totalAmount = localStorage.getItem("totalAmount") || "0";
+            // const totalAmount = localStorage.getItem("totalAmount") || "0";
+            dataToSend["totalAmount"] = totalAmount;
+
+            const duration = getDurationText(localStorage.getItem("durationCode") || "");
+            dataToSend["duration"] = duration;
+
+            // if (totalAmount !== "0") {
+            setHeadingElementText("#from-name", fromName);
+            setHeadingElementText("#from-email", fromEmail);
+            setHeadingElementText("#from-phone", phone);
+            setHeadingElementText("#from-address", address);
+            setHeadingElementText("#total", `\u00A3${totalAmount}`);
+            setHeadingElementText("#duration", duration);
+
+            const tableElement = document.querySelector<HTMLTableElement>("#quotation-review-tbl");
+            if (tableElement != null) {
+              // remove all previous shown data first
+              const tBodies = tableElement.tBodies;
+              if (tBodies.length > 0)
+                [...tBodies].forEach((x, i) => {
+                  x.remove();
+                });
+
+              const tbody = tableElement.createTBody();
+              allUserSelections.forEach((record) => {
+                addServicesTableRow(tbody, record.service, record.quantityText, record.pricePerItem, record.price);
+              });
+            }
+
+            summaryModal.show();
           }
+          // }
         }
       });
     }

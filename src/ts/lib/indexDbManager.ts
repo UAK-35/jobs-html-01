@@ -19,14 +19,14 @@ export default class IndexDbManager {
 
   public async createObjectStore(tableNames: string[]) {
     try {
-      console.log("createObjectStore called");
+      // console.log("createObjectStore called");
       if (this.dbVersion === 0) {
         await deleteDB(this.dbName);
       } else {
         const that = this;
         this.db = await openDB(this.dbName, this.dbVersion, {
           upgrade(db: IDBPDatabase, oldVersion: number, newVersion: number | null, _transaction: any, _event: IDBVersionChangeEvent) {
-            console.log("upgrade called", { oldVersion, newVersion });
+            // console.log("upgrade called", { oldVersion, newVersion });
             if (oldVersion < 1) {
               tableNames.forEach((tableName) => db.createObjectStore(tableName, { autoIncrement: true, keyPath: that.primaryKeyName }));
             }
@@ -36,10 +36,10 @@ export default class IndexDbManager {
               } else {
                 for (const tableName of tableNames) {
                   if (db.objectStoreNames.contains(tableName)) {
-                    console.log("indexDB tableName (already exists...)", tableName);
+                    // console.log("indexDB tableName (already exists...)", tableName);
                     continue;
                   }
-                  console.log("indexDB tableName (creating...)", tableName);
+                  // console.log("indexDB tableName (creating...)", tableName);
                   db.createObjectStore(tableName, { autoIncrement: true, keyPath: that.primaryKeyName });
                 }
               }
@@ -76,15 +76,15 @@ export default class IndexDbManager {
     const tx = this.db.transaction(tableName, "readonly");
     const store = tx.objectStore(tableName);
     const result = await store.get(id);
-    console.log("Get Data ", JSON.stringify(result));
+    // console.log("Get Data ", JSON.stringify(result));
     return result;
   }
 
-  public async getAllValue(tableName: string) {
+  public async getAllValues(tableName: string) {
     const tx = this.db.transaction(tableName, "readonly");
     const store = tx.objectStore(tableName);
     const result = await store.getAll();
-    console.log("Get All Data", JSON.stringify(result));
+    // console.log("Get All Data", JSON.stringify(result));
     return result;
   }
 
@@ -93,7 +93,7 @@ export default class IndexDbManager {
     const tx = this.db.transaction(tableName, "readwrite");
     const store = tx.objectStore(tableName);
     const result = await store.add(value);
-    console.log("Put Data ", JSON.stringify(result));
+    // console.log("Put Data ", JSON.stringify(result));
     return result;
   }
 
@@ -103,7 +103,7 @@ export default class IndexDbManager {
     const tx = this.db.transaction(tableName, "readwrite", { durability: "strict" });
     const store = tx.objectStore(tableName);
     const result = await store.put(value);
-    console.log("Patch Data (in-line) ", JSON.stringify(result));
+    // console.log("Patch Data (in-line) ", JSON.stringify(result));
     return result;
   }
 
@@ -112,13 +112,13 @@ export default class IndexDbManager {
     const tx = this.db.transaction(tableName, "readwrite", { durability: "strict" });
     const store = tx.objectStore(tableName);
     const result = await store.put(value, pkValue);
-    console.log("Patch Data (out-of-line) ", JSON.stringify(result));
+    // console.log("Patch Data (out-of-line) ", JSON.stringify(result));
     return result;
   }
 
   // TODO: use generics here for value argument
   public async searchAndPatch(tableName: string, value: any, searchKey: string) {
-    const allValues: any[] = await this.getAllValue(tableName);
+    const allValues: any[] = await this.getAllValues(tableName);
     for (let i = 0; i < allValues.length; i++) {
       const record = allValues[i];
       // console.log("TEST", i + 1, searchKey, record[searchKey], value[searchKey], record[searchKey] === value[searchKey]);
@@ -133,7 +133,7 @@ export default class IndexDbManager {
   }
 
   public async searchAndDelete(tableName: string, searchKey: string, searchValue: string | number) {
-    const allValues: any[] = await this.getAllValue(tableName);
+    const allValues: any[] = await this.getAllValues(tableName);
     for (let i = 0; i < allValues.length; i++) {
       const record = allValues[i];
       if (record[searchKey] === searchValue) {
@@ -149,9 +149,9 @@ export default class IndexDbManager {
     const store = tx.objectStore(tableName);
     for (const value of values) {
       const result = await store.put(value);
-      console.log("Put Bulk Data ", JSON.stringify(result));
+      // console.log("Put Bulk Data ", JSON.stringify(result));
     }
-    return this.getAllValue(tableName);
+    return this.getAllValues(tableName);
   }
 
   public async deleteValue(tableName: string, id: number) {
@@ -163,7 +163,13 @@ export default class IndexDbManager {
       return result;
     }
     await store.delete(id);
-    console.log("Deleted Data", id);
+    // console.log("Deleted Data", id);
     return id;
+  }
+
+  async clearObjectStore(tableName: string) {
+    const tx = this.db.transaction(tableName, "readwrite");
+    const store = tx.objectStore(tableName);
+    await store.clear();
   }
 }

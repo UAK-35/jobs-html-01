@@ -1,22 +1,27 @@
 [
   {
     "title": "2 - 5 days",
-    "code": "2to5d"
+    "code": "2to5d",
+    "descriptiveText": "2 to 5 days"
   },
   {
     "title": "< 2 weeks",
-    "code": "l2w"
+    "code": "l2w",
+    "descriptiveText": "Less than 2 weeks"
   },
   {
     "title": "< 4 weeks",
-    "code": "l4w"
+    "code": "l4w",
+    "descriptiveText": "Less than 4 weeks"
   },
   {
     "title": "Other time",
-    "code": "ot"
+    "code": "ot",
+    "descriptiveText": "Any other time"
   },
   {
     "title": "I'm flexible",
-    "code": "flex"
+    "code": "flex",
+    "descriptiveText": "Flexible timings"
   }
 ]

@@ -5,7 +5,6 @@ import "../scss/style.scss";
 
 import "@popperjs/core";
 import "bootstrap";
-import emailJs from "@emailjs/browser";
 
 import { onPageReady } from "./utils/helpers";
 import manageFormSubmission from "./utils/forms";
@@ -49,11 +48,6 @@ if (clearIndexDb && process.env.NODE_ENV !== "development") {
 
     const spinnerElement = document.querySelector<HTMLDivElement>("#loadingSpinner");
     if (spinnerElement != null) spinnerElement.remove();
-
-    emailJs.init({
-      publicKey: "iOXXeJ531GOeQqGwS",
-      blockHeadless: true, // Do not allow headless browsers
-    });
 
     const currentPagePath = window.location.pathname.slice(1);
     document.body.classList.add(currentPagePath.split(".")[0]);
@@ -102,8 +96,11 @@ if (clearIndexDb && process.env.NODE_ENV !== "development") {
       }
     }
 
-    manageReviewPopovers();
-    if (!clearIndexDb) manageQuotesCalculation(currentPagePath);
-    manageFormSubmission();
+    if (currentPagePath === "calculate.html" || currentPagePath === "calculate-all.html") {
+      if (!clearIndexDb) manageQuotesCalculation(currentPagePath);
+      manageFormSubmission();
+    } else {
+      manageReviewPopovers(); // index page
+    }
   });
 })();

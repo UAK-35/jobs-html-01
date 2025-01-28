@@ -3,6 +3,7 @@
 import { BehaviorSubject, Observable } from "rxjs";
 import IndexDbManager from "../lib/indexDbManager";
 import { SelectionInfo } from "../lib/types";
+import { Toast } from "bootstrap";
 
 const runningTotalSubject: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 const runningTotalObservable: Observable<any> = runningTotalSubject.asObservable();
@@ -16,8 +17,9 @@ const classForDisablingCalculationSections = "disabled-div";
 
 let indexedDb: IndexDbManager | null = null;
 
-function getElementsByText(str: string, tag = "a") {
-  return Array.prototype.slice.call(document.getElementsByTagName(tag)).filter((el) => el.textContent.trim() === str.trim());
+function getElementsByText(str: string, tag = "a", parentElement?: HTMLElement) {
+  if (parentElement == null) parentElement = document.body;
+  return Array.prototype.slice.call(parentElement.getElementsByTagName(tag)).filter((el) => el.textContent.trim() === str.trim());
 }
 
 function updateTotalPriceOnCheckChange(itemInfo: SelectionInfo, priceToAdd: number, addPrice = false) {
@@ -42,17 +44,21 @@ async function updateTotalPriceOnQuantityChange(itemInfo: SelectionInfo, lastQua
     price = totalPrice - itemPrice * diff;
   }
   runningTotalSubject.next(price);
-  const updatedData = { ...itemInfo, price };
+  const updatedData = { ...itemInfo, price: quantity * itemPrice };
   indexedDb!.searchAndPatch("selections", updatedData, "service");
 }
+
+const hideToast = () => {
+  const userToastElem = Toast.getOrCreateInstance("#userToast", { autohide: false });
+  userToastElem.hide();
+};
 
 export default async function manageQuotesCalculation(currentPagePath: string) {
   indexedDb = new IndexDbManager("quotation_selections", 1);
   await indexedDb.createObjectStore(["selections"]);
+  await indexedDb.clearObjectStore("selections"); // clear all previous selections on page refresh/reload
 
   runningTotalObservable.subscribe((value: number) => {
-    // console.log("updated total", value);
-    // alert(value);
     const totalElem = document.querySelector<HTMLElement>("#calc-price");
     if (totalElem != null) {
       const valueString = String(value);
@@ -87,16 +93,29 @@ export default async function manageQuotesCalculation(currentPagePath: string) {
             // additional may be unnecessary check
             const parentContainerElem = chkElem.closest<HTMLDivElement>(".job-types-container");
             if (parentContainerElem != null) {
-              const outerContainerElem = parentContainerElem.parentElement;
-              if (outerContainerElem != null) {
-                // const headingElem = outerContainerElem.querySelector("h5:first-child");
-                const headingElems = getElementsByText(chkElem.value, "h5");
-                if (headingElems.length === 1) {
-                  const headingElem = headingElems[0] as HTMLHeadingElement;
-                  const cardElem = headingElem.closest<HTMLDivElement>(".quote-page-card");
-                  if (cardElem != null) {
-                    if (chkElem.checked && cardElem.classList.contains(classForHidingCalculationSections)) cardElem.classList.remove(classForHidingCalculationSections, classForDisablingCalculationSections);
-                    if (!chkElem.checked && !cardElem.classList.contains(classForHidingCalculationSections)) cardElem.classList.add(classForHidingCalculationSections, classForDisablingCalculationSections);
+              if (parentContainerElem.parentElement != null) {
+                const outerContainerElem = parentContainerElem.parentElement.parentElement;
+                if (outerContainerElem != null) {
+                  // const headingElem = outerContainerElem.querySelector("h5:first-child");
+                  const headingElems = getElementsByText(chkElem.value, "h5", outerContainerElem);
+                  if (headingElems.length === 1) {
+                    const headingElem = headingElems[0] as HTMLHeadingElement;
+                    const cardElem = headingElem.closest<HTMLDivElement>(".quote-page-card");
+                    if (cardElem != null) {
+                      if (chkElem.checked && cardElem.classList.contains(classForHidingCalculationSections)) cardElem.classList.remove(classForHidingCalculationSections, classForDisablingCalculationSections);
+                      if (!chkElem.checked && !cardElem.classList.contains(classForHidingCalculationSections)) cardElem.classList.add(classForHidingCalculationSections, classForDisablingCalculationSections);
+                    }
+                  }
+                  if (headingElems.length === 2) {
+                    // problem of bootstrap responsive hide/show elements - dual elements inside different parents to be visible on different screen resolutions
+                    headingElems.forEach((hElem) => {
+                      const headingElem = hElem as HTMLHeadingElement;
+                      const cardElem = headingElem.closest<HTMLDivElement>(".quote-page-card");
+                      if (cardElem != null) {
+                        if (chkElem.checked && cardElem.classList.contains(classForHidingCalculationSections)) cardElem.classList.remove(classForHidingCalculationSections, classForDisablingCalculationSections);
+                        if (!chkElem.checked && !cardElem.classList.contains(classForHidingCalculationSections)) cardElem.classList.add(classForHidingCalculationSections, classForDisablingCalculationSections);
+                      }
+                    });
                   }
                 }
               }
@@ -139,9 +158,15 @@ export default async function manageQuotesCalculation(currentPagePath: string) {
           if (regExMatch != null) {
             const quantityElem = document.querySelector<HTMLInputElement>(`#${chkElem.id.replace(/\d+$/, "")}Q${regExMatch[0]}`);
             if (quantityElem != null) {
+              let unitsStr: string | null = null;
+              if (quantityElem.nextElementSibling != null) {
+                unitsStr = (quantityElem.nextElementSibling as HTMLLabelElement).textContent;
+              }
+
               quantityElem.disabled = !chkElem.checked;
               const quantity = quantityElem.valueAsNumber;
-              updateTotalPriceOnCheckChange({ serviceGroup: serviceGroupName, service: titleSpan.innerText, quantity, pricePerItem: itemPrice }, itemPrice * quantity, chkElem.checked);
+              const quantityText = unitsStr === "sqm" ? `${quantity} ${unitsStr}` : String(quantity);
+              updateTotalPriceOnCheckChange({ serviceGroup: serviceGroupName, service: titleSpan.innerText, quantity, quantityText, pricePerItem: itemPrice }, itemPrice * quantity, chkElem.checked);
             }
           }
         }
@@ -153,16 +178,20 @@ export default async function manageQuotesCalculation(currentPagePath: string) {
       const regExMatch = re.exec(quantityCheckboxElem.id);
       if (regExMatch != null) {
         const quantityElemId = `${quantityCheckboxElem.id.replace(/\d+$/, "")}Q${regExMatch[0]}`;
-        // alert(quantityElemId);
         const quantityElement = document.querySelector<HTMLInputElement>(`#${quantityElemId}`);
         if (quantityElement != null) {
+          let unitsStr: string | null = null;
+          if (quantityElement.nextElementSibling != null) {
+            unitsStr = (quantityElement.nextElementSibling as HTMLLabelElement).textContent;
+          }
           quantityElement.addEventListener("change", (evt: Event) => {
             const quantityElem = evt.target as HTMLInputElement;
             const lastQuantity = Number(quantityElem.dataset.lastValue);
             quantityElem.dataset.lastValue = quantityElem.value;
             const quantity = quantityElem.valueAsNumber;
 
-            const parentDivElem = quantityElem.closest<HTMLDivElement>("div.form-check.form-check-inline");
+            // const parentDivElem = quantityElem.closest<HTMLDivElement>("div.form-check.form-check-inline");
+            const parentDivElem = quantityElem.closest<HTMLLIElement>("li.list-group-item");
             if (parentDivElem != null) {
               const chkElem = parentDivElem.querySelector<HTMLInputElement>("input.form-check-input.ckbx-with-quantity");
               if (chkElem != null) {
@@ -171,7 +200,8 @@ export default async function manageQuotesCalculation(currentPagePath: string) {
                 const chkLabel = chkElem.nextElementSibling;
                 if (chkLabel != null && serviceGroupName != null) {
                   const titleSpan = chkLabel.children[0] as HTMLSpanElement;
-                  updateTotalPriceOnQuantityChange({ serviceGroup: serviceGroupName, service: titleSpan.innerText, quantity, pricePerItem: itemPrice }, lastQuantity);
+                  const quantityText = unitsStr === "sqm" ? `${quantity} ${unitsStr}` : String(quantity);
+                  updateTotalPriceOnQuantityChange({ serviceGroup: serviceGroupName, service: titleSpan.innerText, quantity, quantityText, pricePerItem: itemPrice }, lastQuantity);
                 }
               }
             }
@@ -180,4 +210,27 @@ export default async function manageQuotesCalculation(currentPagePath: string) {
       }
     });
   }
+
+  const durationCheckboxElems = document.querySelectorAll<HTMLInputElement>("input.form-check-input.work-dur-type-ckbx");
+  if (durationCheckboxElems.length > 0) {
+    durationCheckboxElems.forEach((durationCheckboxElem) => {
+      durationCheckboxElem.addEventListener("change", (evt: Event) => {
+        const chkElem = evt.target as HTMLInputElement;
+        const chkElemIsChecked = chkElem.checked;
+        const parentContainerElem = chkElem.closest<HTMLDivElement>(".list-group");
+        const allCheckboxes = parentContainerElem!.querySelectorAll<HTMLInputElement>("input.form-check-input.work-dur-type-ckbx");
+        allCheckboxes.forEach((chk) => {
+          chk.checked = false;
+        });
+        chkElem.checked = chkElemIsChecked;
+        if (chkElemIsChecked) {
+          localStorage.setItem("durationCode", chkElem.value);
+          const timeDurationContainer = document.querySelector<HTMLDivElement>("#timeDurationSelectionContainer");
+          if (timeDurationContainer!.classList.contains("blinking-div")) timeDurationContainer!.classList.remove("blinking-div");
+          hideToast();
+        }
+      });
+    });
+  }
+  // duration-selection-container
 }

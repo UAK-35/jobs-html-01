@@ -1,0 +1,101 @@
+<!-- Fullscreen overlay -->
+<div class="overlay hidden-elem" id="full-screen-overlay" style="display: none;">
+    <div class="overlay-content">
+        <div class="spinner1 spinner1-grow" role="status">
+        </div>
+    </div>
+</div>
+
+
+
+<!-- User toast messages -->
+<div class="toast-container hidden-elem" style="display: none;">
+    <div id="userToast" class="toast align-items-center end-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <strong class="me-auto text-danger">Error</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            Hello, world! This is a toast message.
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Quotation Summary Modal -->
+<div class="modal fade hidden-elem" style="display: none;" id="quotationSummaryModal" tabindex="-1" aria-labelledby="quotationSummaryModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="quotationSummaryModalLabel">Quotation Summary</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body d-flex flex-column gap-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h6 id="from-name">
+                            <span class="label wpx-150 d-inline-block border-0 border-danger">Your Name:&nbsp;</span>
+                            <span class="value"></span>
+                        </h6>
+                        <h6 id="from-email">
+                            <span class="label wpx-150 d-inline-block border-0 border-danger">Your email:&nbsp;</span>
+                            <span class="value"></span>
+                        </h6>
+                        <h6 id="from-phone">
+                            <span class="label wpx-150 d-inline-block border-0 border-danger">Your phone:&nbsp;</span>
+                            <span class="value"></span>
+                        </h6>
+                        <h6 id="from-address" class="d-flex gap-1">
+                            <span class="label wpx-150 min-wpx-150 d-inline-block border-0 border-danger">Your address:&nbsp;</span>
+                            <span class="value"></span>
+                        </h6>
+                        <h6 id="total">
+                            <span class="label wpx-150 d-inline-block border-0 border-danger">Total:&nbsp;</span>
+                            <span class="value"></span>
+                        </h6>
+                        <h6 id="duration">
+                            <span class="label wpx-150 d-inline-block border-0 border-danger">Start Time:&nbsp;</span>
+                            <span class="value"></span>
+                        </h6>
+                    </div>
+                </div>
+                <div class="card p-1">
+                    <table id="quotation-review-tbl" class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col">Service</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Total</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-light-green-1" id="sendEmailBtn">Send</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Email Success Modal -->
+<div class="modal fade hidden-elem" style="display: none;" id="emailSuccessModal" tabindex="-1" aria-labelledby="emailSuccessModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header border-0">
+                <!--<h1 class="modal-title fs-5 fw-medium text-light-green-1" id="emailSuccessModalLabel">Thank You</h1>-->
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-8 pt-0 d-flex flex-column justify-content-start align-items-center gap-4">
+                <img class="logo-icon object-fit-contain wpx-80 hpx-80" src="./assets/images/icons/Hammer.svg" alt="">
+                <h1 class="modal-title fnt-3 fw-bold text-light-green-1" id="emailSuccessModalLabel">Thank You</h1>
+                <p class="fnt-4 text-center">We will contact you in 24 hours to confirm your price and to book your job for inspection. Once inspection is done then we will book you job for completion.</p>
+            </div>
+        </div>
+    </div>
+</div>

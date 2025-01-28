@@ -32,6 +32,7 @@ export default async (data: any) => {
   const headerStr = fs.readFileSync(`${data.viewsFolder}/partials/header.ejs`, "ascii");
   const heroStr = fs.readFileSync(`${data.viewsFolder}/partials/index/hero.ejs`, "ascii");
   const footerStr = fs.readFileSync(`${data.viewsFolder}/partials/footer.ejs`, "ascii");
+  const hiddenElementsStr = fs.readFileSync(`${data.viewsFolder}/partials/hidden.ejs`, "ascii");
   const contentStr = fs.readFileSync(`${data.viewsFolder}/pages/${data.page}.ejs`, "ascii");
 
   const webpackData = {
@@ -56,6 +57,7 @@ export default async (data: any) => {
           ...webpackData,
           // ...webData,
           partialsFolder,
+
           jobTypes,
           bathroomRefurbTypes,
           kitchenRefurbTypes,
@@ -81,11 +83,11 @@ export default async (data: any) => {
   return ejsTemplate({
     ...data,
     ...webpackData,
-    partialsFolder,
 
-    hdr: ejs.compile(headerStr, { beautify: false })(contentData),
-    hro: !(data.page === "calculate" || data.page === "calculate-all") ? ejs.compile(heroStr, { beautify: false })(contentData) : "",
-    cnt: ejs.compile(contentStr, { beautify: false })(contentData),
-    ftr: ejs.compile(footerStr, { beautify: false })({ ...contentData, year: new Date().getFullYear() }),
+    hdr: ejs.compile(headerStr, { beautify: false })(),
+    hro: !(data.page === "calculate" || data.page === "calculate-all") ? ejs.compile(heroStr, { beautify: false })() : "",
+    cnt: ejs.compile(contentStr, { beautify: false })(data.page === "calculate" || data.page === "calculate-all" ? contentData : { partialsFolder }),
+    ftr: ejs.compile(footerStr, { beautify: false })({ year: new Date().getFullYear() }),
+    hdn: data.page === "calculate" || data.page === "calculate-all" ? ejs.compile(hiddenElementsStr, { beautify: false })() : "",
   });
 };
