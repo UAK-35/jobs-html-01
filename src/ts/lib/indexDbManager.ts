@@ -1,6 +1,6 @@
 /** @format */
 
-import { IDBPDatabase, openDB, deleteDB } from "idb";
+import { deleteDB, IDBPDatabase, openDB } from "idb";
 
 export default class IndexDbManager {
   private db: any;
@@ -19,14 +19,12 @@ export default class IndexDbManager {
 
   public async createObjectStore(tableNames: string[]) {
     try {
-      // console.log("createObjectStore called");
       if (this.dbVersion === 0) {
         await deleteDB(this.dbName);
       } else {
         const that = this;
         this.db = await openDB(this.dbName, this.dbVersion, {
           upgrade(db: IDBPDatabase, oldVersion: number, newVersion: number | null, _transaction: any, _event: IDBVersionChangeEvent) {
-            // console.log("upgrade called", { oldVersion, newVersion });
             if (oldVersion < 1) {
               tableNames.forEach((tableName) => db.createObjectStore(tableName, { autoIncrement: true, keyPath: that.primaryKeyName }));
             }
@@ -36,10 +34,8 @@ export default class IndexDbManager {
               } else {
                 for (const tableName of tableNames) {
                   if (db.objectStoreNames.contains(tableName)) {
-                    // console.log("indexDB tableName (already exists...)", tableName);
                     continue;
                   }
-                  // console.log("indexDB tableName (creating...)", tableName);
                   db.createObjectStore(tableName, { autoIncrement: true, keyPath: that.primaryKeyName });
                 }
               }
@@ -53,48 +49,23 @@ export default class IndexDbManager {
     }
   }
 
-  // public async deleteObjectStore(tableNames: string[]) {
-  //   try {
-  //     this.db = await openDB(this.dbName, 1, {
-  //       async upgrade(db: IDBPDatabase) {
-  //         for (const tableName of tableNames) {
-  //           if (db.objectStoreNames.contains(tableName)) {
-  //             console.log("tableName", tableName);
-  //             await db.clear(tableName);
-  //             db.deleteObjectStore(tableName);
-  //           }
-  //         }
-  //       },
-  //     });
-  //     return true;
-  //   } catch (error) {
-  //     return false;
-  //   }
-  // }
-
   public async getValue(tableName: string, id: number) {
     const tx = this.db.transaction(tableName, "readonly");
     const store = tx.objectStore(tableName);
-    const result = await store.get(id);
-    // console.log("Get Data ", JSON.stringify(result));
-    return result;
+    return await store.get(id);
   }
 
   public async getAllValues(tableName: string) {
     const tx = this.db.transaction(tableName, "readonly");
     const store = tx.objectStore(tableName);
-    const result = await store.getAll();
-    // console.log("Get All Data", JSON.stringify(result));
-    return result;
+    return await store.getAll();
   }
 
   // TODO: use generics here for value argument
   public async insertValue(tableName: string, value: object) {
     const tx = this.db.transaction(tableName, "readwrite");
     const store = tx.objectStore(tableName);
-    const result = await store.add(value);
-    // console.log("Put Data ", JSON.stringify(result));
-    return result;
+    return await store.add(value);
   }
 
   // TODO: use generics here for value argument
@@ -102,18 +73,14 @@ export default class IndexDbManager {
     if (!(this.primaryKeyName in value)) throw new Error("primary key must be part of value argument object");
     const tx = this.db.transaction(tableName, "readwrite", { durability: "strict" });
     const store = tx.objectStore(tableName);
-    const result = await store.put(value);
-    // console.log("Patch Data (in-line) ", JSON.stringify(result));
-    return result;
+    return await store.put(value);
   }
 
   // TODO: use generics here for value argument
   public async patchValueForPk(tableName: string, value: object, pkValue: string | number) {
     const tx = this.db.transaction(tableName, "readwrite", { durability: "strict" });
     const store = tx.objectStore(tableName);
-    const result = await store.put(value, pkValue);
-    // console.log("Patch Data (out-of-line) ", JSON.stringify(result));
-    return result;
+    return await store.put(value, pkValue);
   }
 
   // TODO: use generics here for value argument
@@ -121,9 +88,6 @@ export default class IndexDbManager {
     const allValues: any[] = await this.getAllValues(tableName);
     for (let i = 0; i < allValues.length; i++) {
       const record = allValues[i];
-      // console.log("TEST", i + 1, searchKey, record[searchKey], value[searchKey], record[searchKey] === value[searchKey]);
-      // console.log('record', record);
-      // console.log('value', value);
       if (record[searchKey] === value[searchKey]) {
         await this.patchValue("selections", { ...value, [this.primaryKeyName]: record[this.primaryKeyName] });
         return true;
@@ -148,8 +112,7 @@ export default class IndexDbManager {
     const tx = this.db.transaction(tableName, "readwrite");
     const store = tx.objectStore(tableName);
     for (const value of values) {
-      const result = await store.put(value);
-      // console.log("Put Bulk Data ", JSON.stringify(result));
+      await store.put(value);
     }
     return this.getAllValues(tableName);
   }
@@ -163,7 +126,6 @@ export default class IndexDbManager {
       return result;
     }
     await store.delete(id);
-    // console.log("Deleted Data", id);
     return id;
   }
 
