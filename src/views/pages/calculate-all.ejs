@@ -81,12 +81,12 @@
                         <% for (var i4 = 0; i4 < ceilingRefurbTypes.length; i4++) { %>
                             <li class="list-group-item">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input ceiling-type-ckbx ckbx-with-quantity" data-price-in-pounds="<%= ceilingRefurbTypes[i4].pricePounds %>" type="checkbox" id="ceilingType<%= i4 %>" name="ceilingType<%= i4 %>" value="<%= ceilingRefurbTypes[i4].title %>">
-                                    <label class="form-check-label fw-medium ps-1" for="ceilingType<%= i4 %>"><span><%= ceilingRefurbTypes[i4].title %></span></label>
+                                    <input class="form-check-input ceiling-type-ckbx ckbx-with-quantity" data-price-in-pounds="<%= ceilingRefurbTypes[i4].pricePounds %>" type="checkbox" id="ceilingRefurbType<%= i4 %>" name="ceilingRefurbType<%= i4 %>" value="<%= ceilingRefurbTypes[i4].title %>">
+                                    <label class="form-check-label fw-medium ps-1" for="ceilingRefurbType<%= i4 %>"><span><%= ceilingRefurbTypes[i4].title %></span></label>
                                 </div>
                                 <div class="d-inline-block text-end">
-                                    <input disabled class="w-42px wpx-lg-45" data-last-value="<%= ceilingRefurbTypes[i4].defaultQuantity %>" type="number" min="1" id="ceilingTypeQ<%= i4 %>" name="ceilingTypeQ<%= i4 %>" value="<%= ceilingRefurbTypes[i4].defaultQuantity %>">
-                                    <label class="" for="ceilingTypeQ<%= i4 %>"><%= ceilingRefurbTypes[i4].units %></label>
+                                    <input disabled class="w-42px wpx-lg-45" data-last-value="<%= ceilingRefurbTypes[i4].defaultQuantity %>" type="number" min="1" id="ceilingRefurbTypeQ<%= i4 %>" name="ceilingRefurbTypeQ<%= i4 %>" value="<%= ceilingRefurbTypes[i4].defaultQuantity %>">
+                                    <label class="" for="ceilingRefurbTypeQ<%= i4 %>"><%= ceilingRefurbTypes[i4].units %></label>
                                 </div>
                             </li>
                         <% } %>
@@ -103,12 +103,12 @@
                         <% for (var i5 = 0; i5 < loftConversionTypes.length; i5++) { %>
                             <li class="list-group-item">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input left-conv-type-ckbx ckbx-with-quantity" data-price-in-pounds="<%= loftConversionTypes[i5].pricePounds %>" type="checkbox" id="loftConvType<%= i5 %>" name="loftConvType<%= i5 %>" value="<%= loftConversionTypes[i5].title %>">
-                                    <label class="form-check-label fw-medium ps-1" for="loftConvType<%= i5 %>"><span><%= loftConversionTypes[i5].title %></span></label>
+                                    <input class="form-check-input left-conv-type-ckbx ckbx-with-quantity" data-price-in-pounds="<%= loftConversionTypes[i5].pricePounds %>" type="checkbox" id="loftConverType<%= i5 %>" name="loftConverType<%= i5 %>" value="<%= loftConversionTypes[i5].title %>">
+                                    <label class="form-check-label fw-medium ps-1" for="loftConverType<%= i5 %>"><span><%= loftConversionTypes[i5].title %></span></label>
                                 </div>
                                 <div class="d-inline-block text-end">
-                                    <input disabled class="w-42px wpx-lg-45" data-last-value="<%= loftConversionTypes[i5].defaultQuantity %>" type="number" min="1" id="loftConvTypeQ<%= i5 %>" name="loftConvTypeQ<%= i5 %>" value="<%= loftConversionTypes[i5].defaultQuantity %>">
-                                    <label class="" for="loftConvTypeQ<%= i5 %>"><%= loftConversionTypes[i5].units %></label>
+                                    <input disabled class="w-42px wpx-lg-45" data-last-value="<%= loftConversionTypes[i5].defaultQuantity %>" type="number" min="1" id="loftConverTypeQ<%= i5 %>" name="loftConverTypeQ<%= i5 %>" value="<%= loftConversionTypes[i5].defaultQuantity %>">
+                                    <label class="" for="loftConverTypeQ<%= i5 %>"><%= loftConversionTypes[i5].units %></label>
                                 </div>
                             </li>
                         <% } %>

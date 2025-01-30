@@ -114,6 +114,7 @@
     "src/index.d.ts"
   ],
   "exclude": [
+    "webpack*.ts",
     "dist",
     "**/*_old.ts"
   ]

@@ -5,9 +5,17 @@ import CopyWebpackPlugin from 'copy-webpack-plugin';
 // @ts-ignore
 import common from "./webpack.common";
 
+import Constants from "./src/ts/lib/constants";
+import path from "path";
+
 const config = (env: any, argv: any): webpack.Configuration => {
+  const PATH = Constants.folderPaths;
+
   return merge(common(env, argv), {
     mode: 'production',
+    output: {
+      path: PATH.dist + path.sep + Constants.envValues.envMode
+    },
     plugins: [
       new CopyWebpackPlugin({
         patterns: [

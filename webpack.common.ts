@@ -36,7 +36,8 @@ const config = (webpackEnv: any, _argv: any): webpack.Configuration => {
   const isProductionEnv = Constants.envValues.isProductionEnv;
   const webPackMode = Constants.envValues.webPackMode;
 
-  const envFile = `${Constants.otherValues.envFilePrefix}.${Constants.envValues.envMode}`;
+  // const envFile = `${Constants.otherValues.envFilePrefix}.${Constants.envValues.envMode}`;
+  const envFile = `${Constants.otherValues.envFilePrefix}${Constants.envValues.isProductionEnv && !Constants.envValues.isStagingEnv ? "" : `.${Constants.envValues.envMode}`}`;
   console.info("environment file = " + envFile);
 
   const { parsed: parsedEnv } = require('dotenv').config({ path: path.resolve(process.cwd(), envFile) });

@@ -6,7 +6,8 @@
     "esModuleInterop": true,
     "lib": [
       "ES2021",
-      "DOM",
+      "DOM"
     ]
-  }
+  },
+  "files": ["webpack.common.ts", "webpack.config.dev.ts", "webpack.config.prod.ts"]
 }

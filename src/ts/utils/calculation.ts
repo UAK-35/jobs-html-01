@@ -15,6 +15,8 @@ const classForHidingCalculationSections = "d-none-not-imp";
 const classForDisablingCalculationSections = "disabled-div";
 
 let indexedDb: IndexDbManager | null = null;
+let currentNumberInputVal = "";
+const maxNumberVal = 200;
 
 function getElementsByText(str: string, tag = "a", parentElement?: HTMLElement) {
   if (parentElement == null) parentElement = document.body;
@@ -48,6 +50,78 @@ async function updateTotalPriceOnQuantityChange(itemInfo: SelectionInfo, lastQua
 const hideToast = () => {
   const userToastElem = Toast.getOrCreateInstance("#userToast", { autohide: false });
   userToastElem.hide();
+};
+
+const handleQuantityChanged = (eventTarget: EventTarget, unitsStr: string | null | string) => {
+  const quantityElem = eventTarget as HTMLInputElement;
+  if (quantityElem.value.length > 0) {
+    const lastQuantity = Number(quantityElem.dataset.lastValue);
+    quantityElem.dataset.lastValue = quantityElem.value;
+    const quantity = quantityElem.valueAsNumber;
+
+    // find quantity input's related checkbox
+    const parentDivElem = quantityElem.closest<HTMLLIElement>("li.list-group-item");
+    if (parentDivElem != null) {
+      const chkElem = parentDivElem.querySelector<HTMLInputElement>("input.form-check-input.ckbx-with-quantity");
+      if (chkElem != null) {
+        const serviceGroupName = chkElem.dataset.serviceGroupName;
+        const itemPrice = Number(chkElem.dataset["priceInPounds"]);
+        const chkLabel = chkElem.nextElementSibling; // find/get service name from checkbox's label
+        if (chkLabel != null && serviceGroupName != null) {
+          const titleSpan = chkLabel.children[0] as HTMLSpanElement;
+          const quantityText = unitsStr === "sqm" ? `${quantity} ${unitsStr}` : String(quantity);
+          updateTotalPriceOnQuantityChange({ serviceGroup: serviceGroupName, service: titleSpan.innerText, quantity, quantityText, pricePerItem: itemPrice }, lastQuantity);
+        }
+      }
+    }
+  }
+};
+
+const handleCheckboxCheckChange = (evt: Event, re: RegExp) => {
+  const chkElem = evt.target as HTMLInputElement;
+  const itemPrice = Number(chkElem.dataset["priceInPounds"]);
+
+  // find/get job type (service group) name from checkbox's parent card heading
+  let serviceGroupName: string | null = null;
+  const parentCardContainerElem = chkElem.closest<HTMLDivElement>(".quote-page-card.card");
+  if (parentCardContainerElem != null) {
+    const cardHeaderDiv = parentCardContainerElem.querySelector(".card-header");
+    if (cardHeaderDiv != null) {
+      const headingElem = cardHeaderDiv.children[0] as HTMLHeadingElement;
+      if (headingElem != null) {
+        serviceGroupName = headingElem.innerText;
+        chkElem.dataset.serviceGroupName = serviceGroupName; // also add attribute to checkbox for later easy retrieval
+      }
+    }
+  }
+
+  // find/get service name from checkbox's label
+  const chkLabel = chkElem.nextElementSibling;
+  if (chkLabel != null && serviceGroupName != null) {
+    const titleSpan = chkLabel.children[0] as HTMLSpanElement;
+
+    // find/get related quantity element
+    // const re = /(?<trailingNumber>\d+)$/;
+    const regExMatch = re.exec(chkElem.id);
+    if (regExMatch != null) {
+      const quantityElem = document.querySelector<HTMLInputElement>(`#${chkElem.id.replace(/\d+$/, "")}Q${regExMatch[0]}`);
+      if (quantityElem != null) {
+        quantityElem.disabled = !chkElem.checked;
+
+        // find/get unit from label on right side of quantity element
+        let unitsStr: string | null = null;
+        if (quantityElem.nextElementSibling != null) {
+          unitsStr = (quantityElem.nextElementSibling as HTMLLabelElement).textContent;
+        }
+        const quantity = quantityElem.valueAsNumber;
+        const quantityText = unitsStr === "sqm" ? `${quantity} ${unitsStr}` : String(quantity);
+        updateTotalPriceOnCheckChange({ serviceGroup: serviceGroupName, service: titleSpan.innerText, quantity, quantityText, pricePerItem: itemPrice }, itemPrice * quantity, chkElem.checked);
+      }
+    }
+  }
+
+  const oldCount = calcAllPageCheckedBoxesCountSubject.getValue();
+  calcAllPageCheckedBoxesCountSubject.next(chkElem.checked ? oldCount + 1 : oldCount - 1);
 };
 
 export default async function manageQuotesCalculation(currentPagePath: string) {
@@ -130,53 +204,10 @@ export default async function manageQuotesCalculation(currentPagePath: string) {
   if (quantityRelatedCheckboxElems.length > 0) {
     quantityRelatedCheckboxElems.forEach((quantityCheckboxElem) => {
       quantityCheckboxElem.addEventListener("change", (evt: Event) => {
-        const chkElem = evt.target as HTMLInputElement;
-        const itemPrice = Number(chkElem.dataset["priceInPounds"]);
-
-        // find/get job type (service group) name from checkbox's parent card heading
-        let serviceGroupName: string | null = null;
-        const parentCardContainerElem = chkElem.closest<HTMLDivElement>(".quote-page-card.card");
-        if (parentCardContainerElem != null) {
-          const cardHeaderDiv = parentCardContainerElem.querySelector(".card-header");
-          if (cardHeaderDiv != null) {
-            const headingElem = cardHeaderDiv.children[0] as HTMLHeadingElement;
-            if (headingElem != null) {
-              serviceGroupName = headingElem.innerText;
-              chkElem.dataset.serviceGroupName = serviceGroupName; // also add attribute to checkbox for later easy retrieval
-            }
-          }
-        }
-
-        // find/get service name from checkbox's label
-        const chkLabel = chkElem.nextElementSibling;
-        if (chkLabel != null && serviceGroupName != null) {
-          const titleSpan = chkLabel.children[0] as HTMLSpanElement;
-
-          // find/get related quantity element
-          // const re = /(?<trailingNumber>\d+)$/;
-          const regExMatch = re.exec(chkElem.id);
-          if (regExMatch != null) {
-            const quantityElem = document.querySelector<HTMLInputElement>(`#${chkElem.id.replace(/\d+$/, "")}Q${regExMatch[0]}`);
-            if (quantityElem != null) {
-              // find/get unit from label on right side of quantity element
-              let unitsStr: string | null = null;
-              if (quantityElem.nextElementSibling != null) {
-                unitsStr = (quantityElem.nextElementSibling as HTMLLabelElement).textContent;
-              }
-
-              quantityElem.disabled = !chkElem.checked;
-              const quantity = quantityElem.valueAsNumber;
-              const quantityText = unitsStr === "sqm" ? `${quantity} ${unitsStr}` : String(quantity);
-              updateTotalPriceOnCheckChange({ serviceGroup: serviceGroupName, service: titleSpan.innerText, quantity, quantityText, pricePerItem: itemPrice }, itemPrice * quantity, chkElem.checked);
-            }
-          }
-        }
-
-        const oldCount = calcAllPageCheckedBoxesCountSubject.getValue();
-        calcAllPageCheckedBoxesCountSubject.next(chkElem.checked ? oldCount + 1 : oldCount - 1);
+        handleCheckboxCheckChange(evt, re);
       }); // END OF -> quantityCheckboxElem.addEventListener("change",
 
-      // find/get related quantity element - getting 2nd time
+      // finding/getting related quantity element - getting 2nd time - 1st time inside handleCheckboxCheckChange
       const regExMatch = re.exec(quantityCheckboxElem.id);
       if (regExMatch != null) {
         const quantityElemId = `${quantityCheckboxElem.id.replace(/\d+$/, "")}Q${regExMatch[0]}`;
@@ -187,27 +218,44 @@ export default async function manageQuotesCalculation(currentPagePath: string) {
           if (quantityElement.nextElementSibling != null) {
             unitsStr = (quantityElement.nextElementSibling as HTMLLabelElement).textContent;
           }
-          quantityElement.addEventListener("change", (evt: Event) => {
-            const quantityElem = evt.target as HTMLInputElement;
-            const lastQuantity = Number(quantityElem.dataset.lastValue);
-            quantityElem.dataset.lastValue = quantityElem.value;
-            const quantity = quantityElem.valueAsNumber;
-
-            // find quantity input's related checkbox
-            const parentDivElem = quantityElem.closest<HTMLLIElement>("li.list-group-item");
-            if (parentDivElem != null) {
-              const chkElem = parentDivElem.querySelector<HTMLInputElement>("input.form-check-input.ckbx-with-quantity");
-              if (chkElem != null) {
-                const serviceGroupName = chkElem.dataset.serviceGroupName;
-                const itemPrice = Number(chkElem.dataset["priceInPounds"]);
-                const chkLabel = chkElem.nextElementSibling; // find/get service name from checkbox's label
-                if (chkLabel != null && serviceGroupName != null) {
-                  const titleSpan = chkLabel.children[0] as HTMLSpanElement;
-                  const quantityText = unitsStr === "sqm" ? `${quantity} ${unitsStr}` : String(quantity);
-                  updateTotalPriceOnQuantityChange({ serviceGroup: serviceGroupName, service: titleSpan.innerText, quantity, quantityText, pricePerItem: itemPrice }, lastQuantity);
-                }
+          quantityElement.addEventListener(
+            "keydown",
+            (evt: KeyboardEvent) => {
+              if (evt.key === "-") {
+                // do not allow negative values
+                evt.preventDefault();
               }
-            }
+            },
+            { passive: false, capture: true }
+          );
+          quantityElement.addEventListener(
+            "input",
+            (evt: Event) => {
+              const eventTarget = evt.target! as HTMLInputElement;
+              if (eventTarget.value.length > 0) {
+                if (isNaN(eventTarget.valueAsNumber) || eventTarget.valueAsNumber > maxNumberVal || eventTarget.value == currentNumberInputVal + " ") {
+                  eventTarget.value = currentNumberInputVal;
+                } else {
+                  if (eventTarget.valueAsNumber <= 0) {
+                    eventTarget.value = "1";
+                    currentNumberInputVal = "1";
+                    handleQuantityChanged(eventTarget, unitsStr);
+                  } else {
+                    currentNumberInputVal = eventTarget.value;
+                    handleQuantityChanged(eventTarget, unitsStr);
+                  }
+                }
+              } else {
+                eventTarget.value = "1";
+                currentNumberInputVal = "1";
+                handleQuantityChanged(eventTarget, unitsStr);
+              }
+            },
+            { passive: false, capture: true }
+          );
+          quantityElement.addEventListener("change", (evt: Event) => {
+            const eventTarget = evt.target! as HTMLInputElement;
+            handleQuantityChanged(eventTarget, unitsStr);
           });
         }
       }
