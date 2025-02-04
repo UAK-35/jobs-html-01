@@ -24,6 +24,8 @@ import Constants from "./src/ts/lib/constants";
 const currentNpmScriptTask = process.env.npm_lifecycle_event;
 console.log('current npm script', currentNpmScriptTask);
 
+// const buildTimestamp = new Date().getTime();
+
 const config = (webpackEnv: any, _argv: any): webpack.Configuration => {
   console.log('webpackEnv', webpackEnv);
   // console.log('webpack NODE_ENV', webpackEnv.NODE_ENV);
@@ -137,6 +139,7 @@ const config = (webpackEnv: any, _argv: any): webpack.Configuration => {
       path: PATH.dist,
       publicPath: publicUrlOrPath,
       filename: `js/[name].js`,
+      // filename: `js/[name]-${buildTimestamp}.js`,
       assetModuleFilename: (pathData: webpack.PathData) => {
         if (pathData.filename != null) {
           // help link: https://stackoverflow.com/a/68902490
@@ -392,6 +395,7 @@ const config = (webpackEnv: any, _argv: any): webpack.Configuration => {
           // Extracts CSS into separate files
           new MiniCssExtractPlugin({
             filename: (_pathData: webpack.PathData) => `css/[name].css`, // help link: https://stackoverflow.com/a/52895274
+            // filename: (_pathData: webpack.PathData) => `css/[name]-${buildTimestamp}.css`, // help link: https://stackoverflow.com/a/52895274
           }),
 
           // // Generate a service worker script that will precache, and keep up to date, the HTML & assets that are part of the webpack build

@@ -836,11 +836,16 @@ a.calculate-btn:hover, a.cta-button:hover {
 .form-check-label {
   cursor: pointer;
 }
-.form-check.form-check-inline:hover input.form-check-input {
-  background-color: yellow;
-}
-.form-check.form-check-inline:hover input.form-check-input:checked {
-  --bs-form-check-bg-image: url("../assets/images/icons/check-mark-hover.svg");
+//.form-check.form-check-inline:hover input.form-check-input {
+//  background-color: yellow;
+//}
+//.form-check.form-check-inline:hover input.form-check-input:checked {
+//  --bs-form-check-bg-image: url("../assets/images/icons/check-mark-hover.svg");
+//}
+.list-group-item:hover {
+  //background-color: lightgoldenrodyellow;
+  //background-color: ivory;
+  background-color: #FFFFFA;
 }
 
 .quote-page-card.card {
@@ -958,6 +963,17 @@ input[type=number]:disabled {
   @extend .wpct-lg-48;
   @extend .px-1;
 }
+.list-group.list-group-horiz .list-group-item:not(.has-no-quantity) .form-check.form-check-inline {
+  @extend .wpct-64;
+  @extend .wpct-sm-52;
+  @extend .wpct-lg-56;
+  @extend .wpct-xl-64;
+  @extend .wpct-xxl-71;
+}
+.list-group.list-group-horiz .list-group-item .d-inline-block {
+  @extend .wpx-67;
+}
+
 
 .list-group.list-group-vert {
   @extend .list-group-flush;
@@ -1018,22 +1034,29 @@ input[type=number]:disabled {
 
 .list-group.list-group-horizont .list-group-item:not(.has-no-quantity) .form-check.form-check-inline,
 .list-group.list-group-vert .list-group-item:not(.has-no-quantity) .form-check.form-check-inline {
-  @extend .wpct-67;
+  //@extend .wpct-67;
+  @extend .wpct-64;
 }
 
 .list-group.list-group-horizont .list-group-item .d-inline-block,
 .list-group.list-group-vert .list-group-item .d-inline-block {
-  @extend .wpct-30;
+  //@extend .wpct-30;
+  @extend .wpx-67;
 }
 
 .list-group.list-group-horizont.has-sqm-units .list-group-item:not(.has-no-quantity) .form-check.form-check-inline,
 .list-group.list-group-vert.has-sqm-units .list-group-item:not(.has-no-quantity) .form-check.form-check-inline {
-  @extend .wpct-60;
+  @extend .wpct-64;
+  @extend .wpct-sm-52;
+  @extend .wpct-lg-56;
+  @extend .wpct-xl-64;
+  @extend .wpct-xxl-71;
 }
 
 .list-group.list-group-horizont.has-sqm-units .list-group-item .d-inline-block,
 .list-group.list-group-vert.has-sqm-units .list-group-item .d-inline-block {
-  @extend .wpct-37;
+  //@extend .wpct-37;
+  @extend .wpx-90;
 }
 
 
@@ -1083,4 +1106,17 @@ input[type=number]:disabled {
   @extend .hpx-300;
   background-color: transparent;
   //border: 1px solid red;
+}
+
+/* remove number input's arrows */
+/* Chrome, Safari, Edge, Opera */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
 }

@@ -16,7 +16,7 @@ const classForDisablingCalculationSections = "disabled-div";
 
 let indexedDb: IndexDbManager | null = null;
 let currentNumberInputVal = "";
-const maxNumberVal = 200;
+const maxNumberVal = 9999;
 
 function getElementsByText(str: string, tag = "a", parentElement?: HTMLElement) {
   if (parentElement == null) parentElement = document.body;
@@ -52,7 +52,7 @@ const hideToast = () => {
   userToastElem.hide();
 };
 
-const handleQuantityChanged = (eventTarget: EventTarget, unitsStr: string | null | string) => {
+const handleQuantityChanged = (eventTarget: EventTarget, unitsStr: string | null) => {
   const quantityElem = eventTarget as HTMLInputElement;
   if (quantityElem.value.length > 0) {
     const lastQuantity = Number(quantityElem.dataset.lastValue);
@@ -77,8 +77,8 @@ const handleQuantityChanged = (eventTarget: EventTarget, unitsStr: string | null
   }
 };
 
-const handleCheckboxCheckChange = (evt: Event, re: RegExp) => {
-  const chkElem = evt.target as HTMLInputElement;
+const handleCheckboxCheckChange = (eventTarget: EventTarget | null, re: RegExp) => {
+  const chkElem = eventTarget as HTMLInputElement;
   const itemPrice = Number(chkElem.dataset["priceInPounds"]);
 
   // find/get job type (service group) name from checkbox's parent card heading
@@ -199,12 +199,30 @@ export default async function manageQuotesCalculation(currentPagePath: string) {
 
   const re = /(\d+)$/; // regex to get/extract number from checkbox id attribute value
 
+  // get all number inputs
+  const numberInputElems = document.querySelectorAll<HTMLInputElement>("input[type=number]");
+  if (numberInputElems.length > 0) {
+    numberInputElems.forEach((numberInputElement) => {
+      numberInputElement.setAttribute("max", String(maxNumberVal));
+      numberInputElement.addEventListener(
+        "keydown",
+        (evt: KeyboardEvent) => {
+          if (evt.key === "-" || evt.key === "ArrowUp" || evt.key === "ArrowDown") {
+            // do not allow negative values
+            evt.preventDefault();
+          }
+        },
+        { passive: false, capture: true }
+      );
+    });
+  }
+
   // get all checkboxes which have related quantity input
   const quantityRelatedCheckboxElems = document.querySelectorAll<HTMLInputElement>("input.form-check-input.ckbx-with-quantity");
   if (quantityRelatedCheckboxElems.length > 0) {
     quantityRelatedCheckboxElems.forEach((quantityCheckboxElem) => {
       quantityCheckboxElem.addEventListener("change", (evt: Event) => {
-        handleCheckboxCheckChange(evt, re);
+        handleCheckboxCheckChange(evt.target, re);
       }); // END OF -> quantityCheckboxElem.addEventListener("change",
 
       // finding/getting related quantity element - getting 2nd time - 1st time inside handleCheckboxCheckChange
@@ -218,16 +236,6 @@ export default async function manageQuotesCalculation(currentPagePath: string) {
           if (quantityElement.nextElementSibling != null) {
             unitsStr = (quantityElement.nextElementSibling as HTMLLabelElement).textContent;
           }
-          quantityElement.addEventListener(
-            "keydown",
-            (evt: KeyboardEvent) => {
-              if (evt.key === "-") {
-                // do not allow negative values
-                evt.preventDefault();
-              }
-            },
-            { passive: false, capture: true }
-          );
           quantityElement.addEventListener(
             "input",
             (evt: Event) => {
@@ -246,9 +254,12 @@ export default async function manageQuotesCalculation(currentPagePath: string) {
                   }
                 }
               } else {
+                eventTarget.disabled = true;
+                quantityCheckboxElem.checked = false;
                 eventTarget.value = "1";
                 currentNumberInputVal = "1";
-                handleQuantityChanged(eventTarget, unitsStr);
+                // handleQuantityChanged(eventTarget, unitsStr);
+                handleCheckboxCheckChange(quantityCheckboxElem, re);
               }
             },
             { passive: false, capture: true }
