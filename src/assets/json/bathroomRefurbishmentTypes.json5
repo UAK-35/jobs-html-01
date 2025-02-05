@@ -32,7 +32,7 @@
   {
     "title": "Remove Wall and Floor Tiles",
     "defaultQuantity": 1,
-    "units": "p",
+    "units": "sqm",
     "pricePounds": 20
   },
   {
@@ -68,13 +68,13 @@
   {
     "title": "Tiling Walls",
     "defaultQuantity": 1,
-    "units": "p",
+    "units": "sqm",
     "pricePounds": 70
   },
   {
     "title": "Tiling Floor",
     "defaultQuantity": 1,
-    "units": "p",
+    "units": "sqm",
     "pricePounds": 70
   },
   {
@@ -86,19 +86,19 @@
   {
     "title": "Wall Skimming",
     "defaultQuantity": 1,
-    "units": "p",
+    "units": "sqm",
     "pricePounds": 18
   },
   {
     "title": "Floor Fixing",
     "defaultQuantity": 1,
-    "units": "p",
+    "units": "sqm",
     "pricePounds": 20
   },
   {
     "title": "Painting",
     "defaultQuantity": 1,
-    "units": "p",
+    "units": "sqm",
     "pricePounds": 12
   },
   {
@@ -110,13 +110,13 @@
   {
     "title": "Wall Insulation",
     "defaultQuantity": 1,
-    "units": "p",
+    "units": "sqm",
     "pricePounds": 12
   },
   {
     "title": "Floor Insulation",
     "defaultQuantity": 1,
-    "units": "p",
+    "units": "sqm",
     "pricePounds": 15
   }
 ]

@@ -1,8 +1,42 @@
 <div class="content-wrapper outer-container w-100 min1-vh-100 my-0 mx-auto d-flex flex-column justify-content-center gap-3 gap-sm-5 text-custom-black-1">
 
-    <div class="container w-100 mw-sm-100 d-flex flex-column gap-1 mt-5">
+    <!--<div class="container w-100 mw-sm-100 d-flex flex-column gap-1 mt-5">
         <h1>Calculate your quote</h1>
         <p class="fs-6">Easily understand the labor costs for your project with our straightforward calculation process.</p>
+    </div>-->
+
+    <div class="container w-100 mw-sm-100 d-flex flex-column gap-1 mt-5">
+        <h1>Calculate your quote</h1>
+        <ul class="list-group list-group-dashed">
+            <li class="list-group-item border-0 p-0"><span class="fs-7">Tick any job in 'My Job' box below to highlight the breakdown of the work.</span></li>
+            <li class="list-group-item border-0 p-0"><span class="fs-7">Input your quantities into the cell and get the price at the bottom.</span></li>
+            <li class="list-group-item border-0 p-0"><span class="fs-7">Once happy with the price, input your details, and 'Submit' the quote.</span></li>
+        </ul>
+    </div>
+
+    <div class="container w-100 mw-sm-100 d-flex flex-column gap-1 mt-5">
+        <h5>Quantity units:</h5>
+        <!--<ul>
+            <li><span>*sqm - square meter</span></li>
+            <li><span>*p - pieces</span></li>
+            <li><span>*m - meter</span></li>
+        </ul>-->
+        <table class="table table-bordered fs-7" style="width: 300px;">
+            <tbody>
+            <tr>
+                <td>*sqm</td>
+                <td>square meter</td>
+            </tr>
+            <tr>
+                <td>*p</td>
+                <td>pieces</td>
+            </tr>
+            <tr>
+                <td>*m</td>
+                <td>meter</td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 
     <div class="container w-100 mw-sm-100 d-flex flex-column flex-sm-row flex-wrap p-0 p-lg-3">
@@ -127,7 +161,7 @@
                     <h5 class="fw-bold">Bathroom Refurbishment</h5>
                 </div>
                 <div class="card-body">
-                    <ul class="list-group list-group-horiz">
+                    <ul class="list-group list-group-horiz has-sqm-units">
                         <% for (var i6 = 0; i6 < bathroomRefurbTypes.length; i6++) { %>
                             <li class="list-group-item">
                                 <div class="form-check form-check-inline">

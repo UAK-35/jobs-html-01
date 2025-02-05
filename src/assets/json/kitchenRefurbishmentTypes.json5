@@ -14,7 +14,7 @@
   {
     "title": "Remove Worktop",
     "defaultQuantity": 12,
-    "units": "p",
+    "units": "m",
     "pricePounds": 25
   },
   {
@@ -32,7 +32,7 @@
   {
     "title": "Install Worktop",
     "defaultQuantity": 12,
-    "units": "p",
+    "units": "m",
     "pricePounds": 40
   },
   {

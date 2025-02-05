@@ -41,7 +41,7 @@
                         <div class="contact-icon-wrapper fix-size-24px overflow-hidden d-flex flex-row justify-content-center align-items-center">
                             <img class="contact-icon object-fit-contain w-100 h-100" src="./assets/images/icons/PhoneCall.svg" alt="">
                         </div>
-                        <span class="contact-text"><a href="tel:+442034355542" class="text-decoration-none">+44 0203 4355542</a></span>
+                        <span class="contact-text"><a href="tel:<%= siteTelephoneNumber.replaceAll(' ', '') %>" class="footer-contact-links"><%= siteTelephoneNumber %></a></span>
                     </div>
                 </li>
                 <li class="list-group-item bg-transparent border-0">
@@ -49,7 +49,7 @@
                         <div class="contact-icon-wrapper fix-size-24px overflow-hidden d-flex flex-row justify-content-center align-items-center">
                             <img class="contact-icon object-fit-contain w-100 h-100" src="./assets/images/icons/Email.svg" alt="">
                         </div>
-                        <span class="contact-text"><a href="mailto:info@homerefurbishment.co.uk" class="text-decoration-none">info&#64;homerefurbishment.co.uk</a></span>
+                        <span class="contact-text"><a href="mailto:<%= siteEmail %>" class="footer-contact-links"><%= siteEmail %></a></span>
                     </div>
                 </li>
                 <li class="list-group-item bg-transparent border-0">
@@ -57,7 +57,7 @@
                         <div class="contact-icon-wrapper fix-size-24px overflow-hidden d-flex flex-row justify-content-center align-items-center">
                             <img class="contact-icon object-fit-contain w-100 h-100" src="./assets/images/icons/Location.svg" alt="">
                         </div>
-                        <span class="contact-text">123 Refurbishment Lane, London, SW1A 1AA, United Kingdom</span>
+                        <span class="contact-text"><%= siteAddress %></span>
                     </div>
                 </li>
             </ul>
@@ -119,7 +119,7 @@
                         <div class="contact-icon-wrapper fix-size-24px overflow-hidden d-flex flex-row justify-content-center align-items-center">
                             <img class="contact-icon object-fit-contain w-100 h-100" src="./assets/images/icons/PhoneCall.svg" alt="">
                         </div>
-                        <span class="contact-text"><a href="tel:+442034355542" class="text-decoration-none">+44 0203 4355542</a></span>
+                        <span class="contact-text"><a href="tel:<%= siteTelephoneNumber.replaceAll(' ', '') %>" class="footer-contact-links"><%= siteTelephoneNumber %></a></span>
                     </div>
                 </li>
                 <li class="list-group-item bg-transparent border-0 w-85 w-sm-100">
@@ -127,7 +127,7 @@
                         <div class="contact-icon-wrapper fix-size-24px overflow-hidden d-flex flex-row justify-content-center align-items-center">
                             <img class="contact-icon object-fit-contain w-100 h-100" src="./assets/images/icons/Email.svg" alt="">
                         </div>
-                        <span class="contact-text"><a href="mailto:info@homerefurbishment.co.uk">info&#64;homerefurbishment.co.uk</a></span>
+                        <span class="contact-text"><a href="mailto:<%= siteEmail %>" class="footer-contact-links"><%= siteEmail %></a></span>
                     </div>
                 </li>
                 <li class="list-group-item bg-transparent border-0 w-85 w-sm-100">
@@ -135,7 +135,7 @@
                         <div class="contact-icon-wrapper fix-size-24px overflow-hidden d-flex flex-row justify-content-center align-items-center">
                             <img class="contact-icon object-fit-contain w-100 h-100" src="./assets/images/icons/Location.svg" alt="">
                         </div>
-                        <span class="contact-text">123 Refurbishment Lane, London, SW1A 1AA, United Kingdom</span>
+                        <span class="contact-text"><%= siteAddress %></span>
                     </div>
                 </li>
             </ul>
@@ -197,7 +197,7 @@
                         <div class="contact-icon-wrapper fix-size-24px overflow-hidden d-flex flex-row justify-content-center align-items-center">
                             <img class="contact-icon object-fit-contain w-100 h-100" src="./assets/images/icons/PhoneCall.svg" alt="">
                         </div>
-                        <span class="contact-text"><a href="tel:+442034355542" class="text-decoration-none">+44 0203 4355542</a></span>
+                        <span class="contact-text"><a href="tel:<%= siteTelephoneNumber.replaceAll(' ', '') %>" class="footer-contact-links"><%= siteTelephoneNumber %></a></span>
                     </div>
                 </li>
                 <li class="list-group-item bg-transparent border-0 w-85 w-sm-100">
@@ -205,7 +205,8 @@
                         <div class="contact-icon-wrapper fix-size-24px overflow-hidden d-flex flex-row justify-content-center align-items-center">
                             <img class="contact-icon object-fit-contain w-100 h-100" src="./assets/images/icons/Email.svg" alt="">
                         </div>
-                        <span class="contact-text"><a href="mailto:info@homerefurbishment.co.uk">info&#64;homerefurbishment.co.uk</a></span>
+                        <!--<span class="contact-text"><a href="mailto:info@homerefurbishment.co.uk">info&#64;homerefurbishment.co.uk</a></span>-->
+                        <span class="contact-text"><a href="mailto:<%= siteEmail %>" class="footer-contact-links"><%= siteEmail %></a></span>
                     </div>
                 </li>
                 <li class="list-group-item bg-transparent border-0 w-85 w-sm-100">
@@ -213,7 +214,7 @@
                         <div class="contact-icon-wrapper fix-size-24px overflow-hidden d-flex flex-row justify-content-center align-items-center">
                             <img class="contact-icon object-fit-contain w-100 h-100" src="./assets/images/icons/Location.svg" alt="">
                         </div>
-                        <span class="contact-text">123 Refurbishment Lane, London, SW1A 1AA, United Kingdom</span>
+                        <span class="contact-text"><%= siteAddress %></span>
                     </div>
                 </li>
             </ul>

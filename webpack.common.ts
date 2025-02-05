@@ -1,18 +1,29 @@
+// @ts-ignore
 import path from 'path';
+// @ts-ignore
 import webpack from 'webpack';
 // in case you run into any typescript error when configuring `devServer`
 import 'webpack-dev-server';
 
+// @ts-ignore
 import autoprefixer from 'autoprefixer';
+// @ts-ignore
 import ESLintPlugin from 'eslint-webpack-plugin';
+// @ts-ignore
 import HtmlWebpackPlugin from "html-webpack-plugin";
+// @ts-ignore
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 // import { InjectManifest } from 'workbox-webpack-plugin';
 // import { WebpackManifestPlugin } from 'webpack-manifest-plugin';
+// @ts-ignore
 import CopyWebpackPlugin from 'copy-webpack-plugin';
+// @ts-ignore
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
+// @ts-ignore
 import TerserPlugin from 'terser-webpack-plugin';
+// @ts-ignore
 import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
+// @ts-ignore
 import JSON5 from "json5";
 
 import { getEjsViewConfigs, getPublicUrlOrPath } from "./src/ts/utils/helpers";
@@ -50,6 +61,9 @@ const config = (webpackEnv: any, _argv: any): webpack.Configuration => {
   const emailJsServiceId = parsedEnv.EMAIL_JS_SERVICE_ID;
   const emailJsTemplateId = parsedEnv.EMAIL_JS_TEMPLATE_ID;
   const emailJsPublicKey = parsedEnv.EMAIL_JS_PUBLIC_KEY;
+  const siteEmail = parsedEnv.EMAIL_TO_SHOW;
+  const siteTelephoneNumber = parsedEnv.TELEPHONE_NUMBER;
+  const siteAddress = parsedEnv.ADDRESS;
 
   // set whether are creating source maps with prod builds
   const genSourceMaps = false;
@@ -353,6 +367,9 @@ const config = (webpackEnv: any, _argv: any): webpack.Configuration => {
       new webpack.DefinePlugin({
         'PUBLIC_URL': JSON.stringify(publicUrlOrPath),
         'WEBPACK_MODE': JSON.stringify(webPackMode),
+        'SITE_EMAIL': JSON.stringify(siteEmail),
+        'SITE_TELEPHONE_NUMBER': JSON.stringify(siteTelephoneNumber),
+        'SITE_ADDRESS': JSON.stringify(siteAddress),
         'process.env': {
           NODE_ENV: JSON.stringify(Constants.envValues.envMode),
           TO_EMAIL: JSON.stringify(toEmail),

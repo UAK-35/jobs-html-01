@@ -20,24 +20,24 @@
     "indexPageDescription": "Painting, Skimming, Rendering, Tiling etc...",
     "calculateButtonUrl": "calculate.html?type=wall-job",
     "indexPageOrdering": 1,
-    "title": "Walls",
-    "value": "Walls Refurbishment"
+    "title": "Walls Refurbishment",
+    "value": "Walls"
   },
   {
     "indexPageTitle": "Floor Job",
     "indexPageDescription": "Tiling, Laminate, Hardwood, Vinyl etc...",
     "calculateButtonUrl": "calculate.html?type=floor-job",
     "indexPageOrdering": 2,
-    "title": "Floor",
-    "value": "Floor Refurbishment"
+    "title": "Floor Refurbishment",
+    "value": "Floor"
   },
   {
     "indexPageTitle": "Ceiling Job",
     "indexPageDescription": "Painting, Skimming, Suspended ceiling etc...",
     "calculateButtonUrl": "calculate.html?type=ceiling-job",
     "indexPageOrdering": 3,
-    "title": "Ceiling",
-    "value": "Ceiling Refurbishment"
+    "title": "Ceiling Refurbishment",
+    "value": "Ceiling"
   },
   {
     "indexPageTitle": "Extension Job",

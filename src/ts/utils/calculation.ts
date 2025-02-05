@@ -223,7 +223,27 @@ export default async function manageQuotesCalculation(currentPagePath: string) {
       numberInputElement.addEventListener(
         "keydown",
         (evt: KeyboardEvent) => {
-          if (evt.key === "-" || evt.key === "ArrowUp" || evt.key === "ArrowDown") {
+          // console.log("keydown", evt.code, evt.key, evt.shiftKey);
+          if (
+            evt.code === "-" ||
+            evt.code === "ArrowUp" ||
+            evt.code === "ArrowDown" ||
+            evt.code === "Period" ||
+            evt.code === "Minus" ||
+            evt.code === "KeyE" ||
+            evt.code === "NumpadAdd" ||
+            evt.code === "NumpadSubtract" ||
+            evt.code === "NumpadDivide" ||
+            evt.code === "NumpadMultiply" ||
+            evt.code === "NumpadDecimal" ||
+            evt.code === "ShiftRight" ||
+            evt.code === "ShiftLeft" ||
+            evt.code === "Tab" ||
+            evt.shiftKey ||
+            evt.altKey ||
+            evt.ctrlKey ||
+            (evt.code === "Equal" && evt.key === "+" && evt.shiftKey)
+          ) {
             // do not allow negative values
             evt.preventDefault();
           }

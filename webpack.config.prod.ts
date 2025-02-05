@@ -1,11 +1,14 @@
+// @ts-ignore
 import webpack from 'webpack';
 import merge from "webpack-merge";
+// @ts-ignore
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 
 // @ts-ignore
 import common from "./webpack.common";
 
 import Constants from "./src/ts/lib/constants";
+// @ts-ignore
 import path from "path";
 
 const config = (env: any, argv: any): webpack.Configuration => {

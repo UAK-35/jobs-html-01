@@ -803,11 +803,11 @@ a.calculate-btn:hover, a.cta-button:hover {
 //.form-check.form-check-inline:hover input.form-check-input:checked {
 //  --bs-form-check-bg-image: url("../assets/images/icons/check-mark-hover.svg");
 //}
-.list-group-item:hover {
-  //background-color: lightgoldenrodyellow;
-  //background-color: ivory;
-  background-color: #FFFFFA;
-}
+//.list-group-item:hover {
+//  //background-color: lightgoldenrodyellow;
+//  //background-color: ivory;
+//  background-color: #FFFFFA;
+//}
 
 .quote-page-card.card {
   box-shadow: var(--box-shadow-style-3);
@@ -932,7 +932,8 @@ input[type=number]:disabled {
   @extend .wpct-xxl-71;
 }
 .list-group.list-group-horiz .list-group-item .d-inline-block {
-  @extend .wpx-67;
+  //@extend .wpx-67;
+  @extend .wpx-72;
 }
 
 
@@ -1005,6 +1006,7 @@ input[type=number]:disabled {
   @extend .wpx-67;
 }
 
+.list-group.list-group-horiz.has-sqm-units .list-group-item:not(.has-no-quantity) .form-check.form-check-inline,
 .list-group.list-group-horizont.has-sqm-units .list-group-item:not(.has-no-quantity) .form-check.form-check-inline,
 .list-group.list-group-vert.has-sqm-units .list-group-item:not(.has-no-quantity) .form-check.form-check-inline {
   @extend .wpct-64;
@@ -1014,10 +1016,20 @@ input[type=number]:disabled {
   @extend .wpct-xxl-71;
 }
 
+.list-group.list-group-horiz.has-sqm-units .list-group-item .d-inline-block,
 .list-group.list-group-horizont.has-sqm-units .list-group-item .d-inline-block,
 .list-group.list-group-vert.has-sqm-units .list-group-item .d-inline-block {
   //@extend .wpct-37;
-  @extend .wpx-90;
+  //@extend .wpx-90;
+  //@extend .wpx-92;
+  @extend .wpx-104;
+}
+
+ul.list-group-dashed {
+  list-style-type: none;
+}
+ul.list-group-dashed li::before {
+  content: "– ";
 }
 
 
@@ -1080,6 +1092,16 @@ input[type="number"]::-webkit-inner-spin-button {
 /* Firefox */
 input[type=number] {
   -moz-appearance: textfield;
+}
+
+.footer-contact-links {
+  @extend .text-light;
+  @extend .text-decoration-none;
+}
+
+.footer-contact-links:hover {
+  color: rgba(var(--bs-link-hover-color-rgb), var(--bs-link-opacity, 1)) !important;
+  text-decoration: underline !important;;
 }
 
 #preloadedImages, #loadingSpinner

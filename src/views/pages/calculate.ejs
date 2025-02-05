@@ -1,37 +1,52 @@
 <div class="content-wrapper outer-container w-100 min1-vh-100 my-0 mx-auto d-flex flex-column gap-3 gap-sm-5 text-custom-black-1">
 
-    <div class="container d-flex flex-column gap-1 mw-sm-100 mt-5">
+    <!--<div class="container d-flex flex-column gap-1 mw-sm-100 mt-5">
         <h1>Calculate your quote</h1>
         <p class="fs-6">Easily understand the labor costs for your project with our straightforward calculation process.</p>
+    </div>-->
+
+    <div class="container w-100 mw-sm-100 d-flex flex-column gap-1 mt-5">
+        <h1>Calculate your quote</h1>
+        <ul class="list-group list-group-dashed">
+            <li class="list-group-item border-0 p-0"><span class="fs-7">Tick any service in <strong id="titleDyn">'###'</strong> box below to input quantity.</span></li>
+            <li class="list-group-item border-0 p-0"><span class="fs-7">Input your quantities into the cells and get the price at the bottom.</span></li>
+            <li class="list-group-item border-0 p-0"><span class="fs-7">Once happy with the price, input your details, and 'Submit' the quote.</span></li>
+        </ul>
+    </div>
+
+    <div class="container w-100 mw-sm-100 d-flex flex-column gap-1 mt-5">
+        <h5>Quantity units:</h5>
+        <!--<ul>
+            <li><span>*sqm - square meter</span></li>
+            <li><span>*p - pieces</span></li>
+            <li><span>*m - meter</span></li>
+        </ul>-->
+        <table class="table table-bordered fs-7" style="width: 300px;">
+            <tbody>
+                <tr>
+                    <td>*sqm</td>
+                    <td>square meter</td>
+                </tr>
+                <tr>
+                    <td>*p</td>
+                    <td>pieces</td>
+                </tr>
+                <tr>
+                    <td>*m</td>
+                    <td>meter</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
     <div id="quotes-calc-container" class="container quantities-container d-flow-root d1-inline-flex flex-row justify-content-between align-content-center flex-wrap column-gap-3 row-gap-4 w-100 mw-sm-100 border-0 border-danger">
-
-        <div class="job-types-container quote-page-card card wpct-32 float-start clear-start">
-            <div class="card-header bg-light-green-2">
-                <h5 class="fw-bold">My Job</h5>
-            </div>
-            <div class="card-body">
-                <ul class="list-group list-group-flush">
-                    <!-- help link: https://stackoverflow.com/a/38371978 -->
-                    <% for (var i1 = 0; i1 < jobTypes.length; i1++) { %>
-                        <li class="list-group-item has-no-quantity">
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input job-type-ckbx" type="checkbox" id="jobType<%= i1 %>" name="jobType<%= i1 %>" value="<%= jobTypes[i1].value %>" />
-                                <label class="form-check-label fw-medium ps-1" for="jobType<%= i1 %>"><%= jobTypes[i1].title %></label>
-                            </div>
-                        </li>
-                    <% } %>
-                </ul>
-            </div>
-        </div>
 
         <div class="bathroom-types-container d-none-not-imp quote-page-card card wpct-66 float-end clear-end">
             <div class="card-header bg-light-green-2">
                 <h5 class="fw-bold">Bathroom Refurbishment</h5>
             </div>
             <div class="card-body">
-                <ul class="list-group list-group-horizont">
+                <ul class="list-group list-group-horizont has-sqm-units">
                     <% for (var i2 = 0; i2 < bathroomRefurbTypes.length; i2++) { %>
                         <li class="list-group-item">
                             <div class="form-check form-check-inline">

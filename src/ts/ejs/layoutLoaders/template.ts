@@ -46,6 +46,12 @@ export default async (data: any) => {
     publicUrl: PUBLIC_URL,
     // @ts-ignore
     webpackMode: WEBPACK_MODE,
+    // @ts-ignore
+    siteEmail: SITE_EMAIL,
+    // @ts-ignore
+    siteTelephoneNumber: SITE_TELEPHONE_NUMBER,
+    // @ts-ignore
+    siteAddress: SITE_ADDRESS,
   };
 
   // const webData = {
@@ -80,7 +86,7 @@ export default async (data: any) => {
           // ...webData,
           partialsFolder,
 
-          reviewStoriesList,
+          reviewStoriesList
         };
 
   const ejsTemplateStr = fs.readFileSync(`${data.viewsFolder}/layouts/template.ejs`, "ascii");
@@ -90,10 +96,10 @@ export default async (data: any) => {
     ...data,
     ...webpackData,
 
-    hdr: ejs.compile(headerStr, { beautify: false })(),
+    hdr: ejs.compile(headerStr, { beautify: false })({ ...webpackData }),
     hro: !(data.page === "calculate" || data.page === "calculate-all") ? ejs.compile(heroStr, { beautify: false })() : "",
     cnt: ejs.compile(contentStr, { beautify: false })(data.page === "calculate" || data.page === "calculate-all" ? contentData : { partialsFolder, jobTypes: jobTypes.sort((a: { indexPageOrdering: number }, b: { indexPageOrdering: number }) => a.indexPageOrdering - b.indexPageOrdering), reviewStoriesList, faqsList }),
-    ftr: ejs.compile(footerStr, { beautify: false })({ year: new Date().getFullYear() }),
+    ftr: ejs.compile(footerStr, { beautify: false })({ ...webpackData, year: new Date().getFullYear() }),
     hdn: data.page === "calculate" || data.page === "calculate-all" ? ejs.compile(hiddenElementsStr, { beautify: false })() : "",
   });
 };
