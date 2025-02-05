@@ -490,6 +490,7 @@ $theme-colors: map.merge($theme-colors, $custom-colors);
 //}
 
 @import "./font1";
+@import "./font2";
 
 :root {
   --bs-body-font-family: 'Montserrat', sans-serif;
