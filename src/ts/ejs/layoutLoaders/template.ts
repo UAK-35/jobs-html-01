@@ -27,6 +27,8 @@ import loftConversionTypes from "../../../assets/json/loftConversionTypes.json5"
 import workDurationTypes from "../../../assets/json/workDurationTypes.json5";
 // @ts-ignore
 import reviewStoriesList from "../../../assets/json/reviewStories.json5";
+// @ts-ignore
+import faqsList from "../../../assets/json/faqs.json5";
 
 export default async (data: any) => {
   const partialsFolder = data.partialsFolder.replaceAll("/", path.sep);
@@ -90,7 +92,7 @@ export default async (data: any) => {
 
     hdr: ejs.compile(headerStr, { beautify: false })(),
     hro: !(data.page === "calculate" || data.page === "calculate-all") ? ejs.compile(heroStr, { beautify: false })() : "",
-    cnt: ejs.compile(contentStr, { beautify: false })(data.page === "calculate" || data.page === "calculate-all" ? contentData : { partialsFolder, jobTypes: jobTypes.sort((a: { indexPageOrdering: number }, b: { indexPageOrdering: number }) => a.indexPageOrdering - b.indexPageOrdering), reviewStoriesList }),
+    cnt: ejs.compile(contentStr, { beautify: false })(data.page === "calculate" || data.page === "calculate-all" ? contentData : { partialsFolder, jobTypes: jobTypes.sort((a: { indexPageOrdering: number }, b: { indexPageOrdering: number }) => a.indexPageOrdering - b.indexPageOrdering), reviewStoriesList, faqsList }),
     ftr: ejs.compile(footerStr, { beautify: false })({ year: new Date().getFullYear() }),
     hdn: data.page === "calculate" || data.page === "calculate-all" ? ejs.compile(hiddenElementsStr, { beautify: false })() : "",
   });
