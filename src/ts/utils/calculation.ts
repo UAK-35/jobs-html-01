@@ -30,17 +30,22 @@ function updateTotalPriceOnCheckChange(itemInfo: SelectionInfo, priceToAdd: numb
   else indexedDb!.searchAndDelete("selections", "service", itemInfo.service);
 }
 
-async function updateTotalPriceOnQuantityChange(itemInfo: SelectionInfo, lastQuantity: number) {
+function updateTotalPriceOnQuantityChange(itemInfo: SelectionInfo, lastQuantity: number) {
   const totalPrice = runningTotalSubject.getValue();
   const quantity = itemInfo.quantity;
   const itemPrice = itemInfo.pricePerItem;
+  const diff = lastQuantity < quantity ? quantity - lastQuantity : lastQuantity - quantity;
+
   let price: number;
   if (lastQuantity < quantity) {
-    const diff = quantity - lastQuantity;
-    price = totalPrice + itemPrice * diff;
+    price = totalPrice + itemPrice * diff; // diff is positive
   } else {
-    const diff = lastQuantity - quantity;
-    price = totalPrice - itemPrice * diff;
+    // diff below is negative or zero
+    if (diff === 0 && quantity === 1) {
+      price = totalPrice + itemPrice;
+    } else {
+      price = totalPrice - itemPrice * diff;
+    }
   }
   runningTotalSubject.next(price);
   const updatedData = { ...itemInfo, price: quantity * itemPrice };
@@ -203,6 +208,8 @@ export default async function manageQuotesCalculation(currentPagePath: string) {
   const numberInputElems = document.querySelectorAll<HTMLInputElement>("input[type=number]");
   if (numberInputElems.length > 0) {
     numberInputElems.forEach((numberInputElement) => {
+      numberInputElement.valueAsNumber = 0;
+      numberInputElement.dataset.lastValue = "0";
       numberInputElement.setAttribute("max", String(maxNumberVal));
       numberInputElement.addEventListener(
         "keydown",
@@ -245,28 +252,41 @@ export default async function manageQuotesCalculation(currentPagePath: string) {
                   eventTarget.value = currentNumberInputVal;
                 } else {
                   if (eventTarget.valueAsNumber <= 0) {
-                    eventTarget.value = "1";
-                    currentNumberInputVal = "1";
+                    if (eventTarget.valueAsNumber < 0) {
+                      eventTarget.value = "1";
+                      currentNumberInputVal = "1";
+                    }
                     handleQuantityChanged(eventTarget, unitsStr);
                   } else {
                     currentNumberInputVal = eventTarget.value;
                     handleQuantityChanged(eventTarget, unitsStr);
                   }
                 }
-              } else {
-                eventTarget.disabled = true;
-                quantityCheckboxElem.checked = false;
-                eventTarget.value = "1";
-                currentNumberInputVal = "1";
-                // handleQuantityChanged(eventTarget, unitsStr);
-                handleCheckboxCheckChange(quantityCheckboxElem, re);
+                // } else {
+                //     eventTarget.value = "1";
+                //     currentNumberInputVal = "1";
+                //     handleQuantityChanged(eventTarget, unitsStr);
+                //     eventTarget.disabled = true;
+                //     quantityCheckboxElem.checked = false;
+                //     handleCheckboxCheckChange(quantityCheckboxElem, re);
               }
             },
             { passive: false, capture: true }
           );
-          quantityElement.addEventListener("change", (evt: Event) => {
+          // quantityElement.addEventListener("change", (evt: Event) => {
+          //   const eventTarget = evt.target! as HTMLInputElement;
+          //   handleQuantityChanged(eventTarget, unitsStr);
+          // });
+          quantityElement.addEventListener("blur", (evt: Event) => {
             const eventTarget = evt.target! as HTMLInputElement;
-            handleQuantityChanged(eventTarget, unitsStr);
+            if (isNaN(eventTarget.valueAsNumber) || eventTarget.valueAsNumber === 0 || eventTarget.valueAsNumber > maxNumberVal || eventTarget.value == currentNumberInputVal + " ") {
+              eventTarget.value = "0";
+              currentNumberInputVal = "0";
+              handleQuantityChanged(eventTarget, unitsStr);
+              eventTarget.disabled = true;
+              quantityCheckboxElem.checked = false;
+              handleCheckboxCheckChange(quantityCheckboxElem, re);
+            }
           });
         }
       }
