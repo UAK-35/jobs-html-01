@@ -17,12 +17,14 @@
                     <ul class="list-group list-group-vert">
                         <!-- help link: https://stackoverflow.com/a/38371978 -->
                         <% for (var i1 = 0; i1 < jobTypes.length; i1++) { %>
+                        <%if (jobTypes[i1].title.length > 0) { %>
                             <li class="list-group-item has-no-quantity">
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input job-type-ckbx" type="checkbox" id="jobType<%= i1 %>" name="jobType<%= i1 %>" value="<%= jobTypes[i1].value %>" />
                                     <label class="form-check-label fw-medium ps-1" for="jobType<%= i1 %>"><%= jobTypes[i1].title %></label>
                                 </div>
                             </li>
+                        <% } %>
                         <% } %>
                     </ul>
                 </div>

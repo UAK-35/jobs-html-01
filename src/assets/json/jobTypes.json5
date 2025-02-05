@@ -1,30 +1,66 @@
 [
   {
+    "indexPageTitle": "Bathroom Job",
+    "indexPageDescription": "Tiling, Bathtub, Shower, Basin, Toilet etc...",
+    "calculateButtonUrl": "calculate.html?type=bathroom-job",
+    "indexPageOrdering": 4,
     "title": "Bathroom Refurbishment",
     "value": "Bathroom Refurbishment"
   },
   {
+    "indexPageTitle": "Kitchen Job",
+    "indexPageDescription": "Wall and Floor Units, Worktop, Appliances etc...",
+    "calculateButtonUrl": "calculate.html?type=kitchen-job",
+    "indexPageOrdering": 5,
     "title": "Kitchen Refurbishment",
     "value": "Kitchen Refurbishment"
   },
   {
+    "indexPageTitle": "Wall Job",
+    "indexPageDescription": "Painting, Skimming, Rendering, Tiling etc...",
+    "calculateButtonUrl": "calculate.html?type=wall-job",
+    "indexPageOrdering": 1,
     "title": "Walls",
     "value": "Walls Refurbishment"
   },
   {
+    "indexPageTitle": "Floor Job",
+    "indexPageDescription": "Tiling, Laminate, Hardwood, Vinyl etc...",
+    "calculateButtonUrl": "calculate.html?type=floor-job",
+    "indexPageOrdering": 2,
     "title": "Floor",
     "value": "Floor Refurbishment"
   },
   {
+    "indexPageTitle": "Ceiling Job",
+    "indexPageDescription": "Painting, Skimming, Suspended ceiling etc...",
+    "calculateButtonUrl": "calculate.html?type=ceiling-job",
+    "indexPageOrdering": 3,
     "title": "Ceiling",
     "value": "Ceiling Refurbishment"
   },
   {
+    "indexPageTitle": "Extension Job",
+    "indexPageDescription": "Walls, Foundation, Roof shell etc...",
+    "calculateButtonUrl": "calculate.html?type=extension-job",
+    "indexPageOrdering": 6,
     "title": "Extensions",
     "value": "Extensions"
   },
   {
+    "indexPageTitle": "Loft Conver. Job",
+    "indexPageDescription": "Loft Dormer etc...",
+    "calculateButtonUrl": "calculate.html?type=loft-conver-job",
+    "indexPageOrdering": 7,
     "title": "Loft Conversion",
     "value": "Loft Conversion"
+  },
+  {
+    "indexPageTitle": "Full House Job",
+    "indexPageDescription": "Walls, Floor, Ceiling etc...",
+    "calculateButtonUrl": "calculate-all.html?type=full-house-job",
+    "indexPageOrdering": 8,
+    "title": "",
+    "value": ""
   }
 ]

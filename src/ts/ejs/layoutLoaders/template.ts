@@ -78,7 +78,7 @@ export default async (data: any) => {
           // ...webData,
           partialsFolder,
 
-          reviewStoriesList
+          reviewStoriesList,
         };
 
   const ejsTemplateStr = fs.readFileSync(`${data.viewsFolder}/layouts/template.ejs`, "ascii");
@@ -90,7 +90,7 @@ export default async (data: any) => {
 
     hdr: ejs.compile(headerStr, { beautify: false })(),
     hro: !(data.page === "calculate" || data.page === "calculate-all") ? ejs.compile(heroStr, { beautify: false })() : "",
-    cnt: ejs.compile(contentStr, { beautify: false })(data.page === "calculate" || data.page === "calculate-all" ? contentData : { partialsFolder, reviewStoriesList }),
+    cnt: ejs.compile(contentStr, { beautify: false })(data.page === "calculate" || data.page === "calculate-all" ? contentData : { partialsFolder, jobTypes: jobTypes.sort((a: { indexPageOrdering: number }, b: { indexPageOrdering: number }) => a.indexPageOrdering - b.indexPageOrdering), reviewStoriesList }),
     ftr: ejs.compile(footerStr, { beautify: false })({ year: new Date().getFullYear() }),
     hdn: data.page === "calculate" || data.page === "calculate-all" ? ejs.compile(hiddenElementsStr, { beautify: false })() : "",
   });
