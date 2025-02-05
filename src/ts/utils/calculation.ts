@@ -59,25 +59,34 @@ const hideToast = () => {
 
 const handleQuantityChanged = (eventTarget: EventTarget, unitsStr: string | null) => {
   const quantityElem = eventTarget as HTMLInputElement;
-  if (quantityElem.value.length > 0) {
-    const lastQuantity = Number(quantityElem.dataset.lastValue);
-    quantityElem.dataset.lastValue = quantityElem.value;
-    const quantity = quantityElem.valueAsNumber;
-
-    // find quantity input's related checkbox
-    const parentDivElem = quantityElem.closest<HTMLLIElement>("li.list-group-item");
-    if (parentDivElem != null) {
-      const chkElem = parentDivElem.querySelector<HTMLInputElement>("input.form-check-input.ckbx-with-quantity");
-      if (chkElem != null) {
-        const serviceGroupName = chkElem.dataset.serviceGroupName;
-        const itemPrice = Number(chkElem.dataset["priceInPounds"]);
-        const chkLabel = chkElem.nextElementSibling; // find/get service name from checkbox's label
-        if (chkLabel != null && serviceGroupName != null) {
-          const titleSpan = chkLabel.children[0] as HTMLSpanElement;
-          const quantityText = unitsStr === "sqm" ? `${quantity} ${unitsStr}` : String(quantity);
-          updateTotalPriceOnQuantityChange({ serviceGroup: serviceGroupName, service: titleSpan.innerText, quantity, quantityText, pricePerItem: itemPrice }, lastQuantity);
+  const quantity = quantityElem.value.length > 0 ? quantityElem.valueAsNumber : 0;
+  const quantityText = unitsStr === "sqm" ? `${quantity} ${unitsStr}` : String(quantity);
+  let serviceGroupName: string | null | undefined = null;
+  let itemPrice: number | null = null;
+  let titleText: string | null | undefined = null;
+  let lastQuantity: number | null = null;
+  const parentDivElem = quantityElem.closest<HTMLLIElement>("li.list-group-item");
+  if (parentDivElem != null) {
+    const chkElem = parentDivElem.querySelector<HTMLInputElement>("input.form-check-input.ckbx-with-quantity");
+    if (chkElem != null) {
+      serviceGroupName = chkElem.dataset.serviceGroupName;
+      itemPrice = Number(chkElem.dataset["priceInPounds"]);
+      const chkLabel = chkElem.nextElementSibling; // find/get service name from checkbox's label
+      if (chkLabel != null) {
+        const titleSpan = chkLabel.children.item(0);
+        if (titleSpan != null) {
+          titleText = (titleSpan as HTMLSpanElement).innerText;
         }
       }
+    }
+  }
+
+  lastQuantity = Number(quantityElem.dataset.lastValue);
+  quantityElem.dataset.lastValue = String(quantity);
+
+  if (serviceGroupName != null && titleText != null && itemPrice != null) {
+    if (lastQuantity != null) {
+      updateTotalPriceOnQuantityChange({ serviceGroup: serviceGroupName, service: titleText, quantity, quantityText, pricePerItem: itemPrice }, lastQuantity);
     }
   }
 };
@@ -262,13 +271,18 @@ export default async function manageQuotesCalculation(currentPagePath: string) {
                     handleQuantityChanged(eventTarget, unitsStr);
                   }
                 }
-                // } else {
-                //     eventTarget.value = "1";
-                //     currentNumberInputVal = "1";
-                //     handleQuantityChanged(eventTarget, unitsStr);
-                //     eventTarget.disabled = true;
-                //     quantityCheckboxElem.checked = false;
-                //     handleCheckboxCheckChange(quantityCheckboxElem, re);
+              } else {
+                // eventTarget.value = "1";
+                // currentNumberInputVal = "1";
+                // handleQuantityChanged(eventTarget, unitsStr);
+                // eventTarget.disabled = true;
+                // quantityCheckboxElem.checked = false;
+                // handleCheckboxCheckChange(quantityCheckboxElem, re);
+                if (eventTarget.value.length === 0) {
+                  // eventTarget.value = "1";
+                  currentNumberInputVal = "0";
+                  handleQuantityChanged(eventTarget, unitsStr);
+                }
               }
             },
             { passive: false, capture: true }

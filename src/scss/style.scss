@@ -1,10 +1,58 @@
 @charset "UTF-8";
 @use "sass:math";
 @use "sass:map";
+@use "sass:string";
 
 // 1. Include functions first (so you can manipulate colors, SVGs, calc, etc)
 @import "bootstrap/scss/functions";
 //@use "bootstrap/scss/functions" as *;
+
+
+@function str-replace($string, $search, $replace: '') {
+  $index: string.index($string, $search);
+
+  @if $index {
+    @return string.slice($string, 1, $index - 1) + $replace + str-replace(string.slice($string, $index + string.length($search)), $search, $replace);
+  }
+
+  @return $string;
+}
+
+@function reverse-list($list, $separator:comma) {
+  $reversedList: null;
+
+  @for $i from length($list) to 0 {
+    $reversedList: append($reversedList, nth($list, $i), $separator);
+  }
+
+  @return $reversedList;
+}
+
+@function map-reverse ($map) {
+  $result: null;
+  @if type-of($map) == "map" {
+    $keys: map-keys($map);
+    $map-reversed: ();
+
+    @for $i from length($keys) through 1 {
+      $map-reversed: map.merge(
+                      $map-reversed,
+                      (nth($keys, $i): map-get($map, nth($keys, $i)))
+      );
+    }
+
+    @if type-of($map-reversed) == "map" {
+      $result: $map-reversed;
+    } @else {
+      @warn 'There was an error reversing the order of "#{$map}"';
+    }
+  } @else {
+    @warn '"#{$map}" is not a valid map';
+  }
+
+  @return $result;
+}
+
 
 // 2. Include any default variable overrides here
 $enable-important-utilities: true;
@@ -68,21 +116,61 @@ $custom-font-sizes-one: (
   5: 1rem,
 );
 
-$startPctSiz: 1;
+//$startPctSiz: 1;
+//$endPctSiz: 100;
+////$percentSiz-map: (auto: auto, min: min-content, max: max-content, 0: 0);
+//$percentSiz-map: ();
+//@for $i from $startPctSiz through $endPctSiz {
+//  $percentVal: percentage(math.div($i, 100));
+//  $percentSiz-map: map.merge($percentSiz-map, ($i: $percentVal));
+//}
+
+$startPctSiz: 0;
 $endPctSiz: 100;
-$percentSiz-map: (auto: auto, min: min-content, max: max-content, 0: 0);
+$pctParts: 8;
+$last-j: 0;
+$percentSiz-map: ();
 @for $i from $startPctSiz through $endPctSiz {
-  $percentVal: percentage(math.div($i, 100));
-  $percentSiz-map: map.merge($percentSiz-map, ($i: $percentVal));
+  @for $j from 1 through $pctParts {
+    @if ($i < $endPctSiz or $i == $endPctSiz and $j == $pctParts - ($pctParts - 1)) {
+      $val: math.div($last-j, $pctParts);
+      $pctVal: math.percentage(math.div($val, 100));
+      $key: str-replace(#{$val}, '.', '\\.');
+      $percentSiz-map: map.merge($percentSiz-map, ($key: $pctVal));
+    }
+    $last-j: $last-j + 1;
+  }
 }
+
 
 $startPxSiz: 1;
 $endPxSiz: 1500;
-$pxSiz-map: (auto: auto, min: min-content, max: max-content, 0: 0);
+//$pxSiz-map: (auto: auto, min: min-content, max: max-content, 0: 0);
+$pxSiz-map: ();
 @for $i from $startPxSiz through $endPxSiz {
   $pxVal: $i + px;
   $pxSiz-map: map.merge($pxSiz-map, ($i: $pxVal));
 }
+
+$startRem: 0;
+$endRem: 10;
+$remParts: 8;
+$last-j: 0;
+$remSiz-map: ();
+@for $i from $startRem through $endRem {
+  @for $j from 1 through $remParts {
+    @if ($i < $endRem or $i == $endRem and $j == $remParts - ($remParts - 1)) {
+      $val: math.div($last-j, $remParts);
+      $remVal: $val + rem;
+      // @debug $i, $j, $val, $last-j, $remVal;
+      $key: str-replace(#{$val}, '.', '\\.');
+      // @debug $key, $remVal;
+      $remSiz-map: map.merge($remSiz-map, ($key: $remVal));
+    }
+    $last-j: $last-j + 1;
+  }
+}
+
 
 $utilities: (
   "width": (
@@ -90,6 +178,7 @@ $utilities: (
     class: w,
     responsive: true,
     values: (
+      0: 0,
       25: 25%,
       50: 50%,
       75: 75%,
@@ -97,6 +186,7 @@ $utilities: (
       auto: auto,
       min: min-content,
       max: max-content,
+      fit: fit-content,
     )
   ),
   "max-width": (
@@ -116,6 +206,7 @@ $utilities: (
     class: h,
     responsive: true,
     values: (
+      0: 0,
       25: 25%,
       50: 50%,
       75: 75%,
@@ -123,6 +214,7 @@ $utilities: (
       auto: auto,
       min: min-content,
       max: max-content,
+      fit: fit-content,
     )
   ),
   "wpct": (
@@ -140,6 +232,12 @@ $utilities: (
   "min-wpx": (
     property: min-width,
     class: min-wpx,
+    responsive: true,
+    values: $pxSiz-map,
+  ),
+  "max-wpx": (
+    property: max-width,
+    class: max-wpx,
     responsive: true,
     values: $pxSiz-map,
   ),
@@ -244,52 +342,16 @@ $theme-colors: map.merge($theme-colors, $custom-colors);
 // Add additional custom code here
 
 
-@function str-replace($string, $search, $replace: '') {
-  $index: str-index($string, $search);
-
-  @if $index {
-    @return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
-  }
-
-  @return $string;
-}
-
-@function reverseList($list, $separator:comma) {
-  $reversedList: null;
-
-  @for $i from length($list) to 0 {
-    $reversedList: append($reversedList, nth($list, $i), $separator);
-  }
-
-  @return $reversedList;
-}
-
-@function mapReverse ($map) {
-  $result: null;
-  @if type-of($map) == "map" {
-    $keys: map-keys($map);
-    $map-reversed: ();
-
-    @for $i from length($keys) through 1 {
-      $map-reversed: map.merge(
-          $map-reversed,
-          (nth($keys, $i): map-get($map, nth($keys, $i)))
-      );
+// Typography - display-n classes
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @each $size, $length in $display-font-sizes {
+    @include media-breakpoint-up($breakpoint) {
+      .display-#{$breakpoint}-#{$size} {font-size: $length !important;}
     }
-
-    @if type-of($map-reversed) == "map" {
-      $result: $map-reversed;
-    } @else {
-      @warn 'There was an error reversing the order of "#{$map}"';
-    }
-  } @else {
-    @warn '"#{$map}" is not a valid map';
   }
-
-  @return $result;
 }
 
-// Type custom font classes
+// Typography - custom font classes
 @each $display, $font-size in $custom-font-sizes-one {
   .fnt-#{$display} {
     @include font-size($font-size);
@@ -319,56 +381,7 @@ $theme-colors: map.merge($theme-colors, $custom-colors);
 //    )
 //);
 
-//$widths: (
-//  25: 25%,
-//  50: 50%,
-//  75: 75%,
-//  100: 100%,
-//  auto: auto,
-//  min: min-content,
-//  max: max-content,
-//);
-//@each $breakpoint in map-keys($grid-breakpoints) {
-//  @each $size, $length in $widths {
-//    @include media-breakpoint-up($breakpoint) {
-//      .w-#{$breakpoint}-#{$size} {width: $length !important;}
-//    }
-//  }
-//}
-
-// display-n classes
-@each $breakpoint in map-keys($grid-breakpoints) {
-  @each $size, $length in $display-font-sizes {
-    @include media-breakpoint-up($breakpoint) {
-      .display-#{$breakpoint}-#{$size} {font-size: $length !important;}
-    }
-  }
-}
-
-$startPct: 1;
-$endPct: 100;
-@for $i from $startPct through $endPct {
-  $width: percentage(math.div($i, 100));
-
-  //$breakpoints: mapReverse($grid-breakpoints);
-  //@each $breakpoint in map-keys($breakpoints) {
-  //  @include media-breakpoint-up($breakpoint) {
-  //    .w-#{$breakpoint}-#{$i}pct {
-  //      width: $width;
-  //    }
-  //    .h-#{$breakpoint}-#{$i}pct {
-  //      height: $width;
-  //    }
-  //  }
-  //}
-  //
-  //.w-#{$i}pct {
-  //  width: $width;
-  //}
-  //.h-#{$i}pct {
-  //  height: $width;
-  //}
-
+@each $i, $width in $percentSiz-map {
   .start-#{$i}pct {
     left: $width;
   }
@@ -383,35 +396,13 @@ $endPct: 100;
   }
 };
 
-$startSiz: 1;
-$endSiz: 1500;
-@for $i from $startSiz through $endSiz {
-  $sizVal: $i + px;
-
-  .w-#{$i}px {
-    width: $sizVal;
-  }
-  .min-w-#{$i}px {
-    min-width: $sizVal;
-  }
-  .max-w-#{$i}px {
-    max-width: $sizVal;
-  }
-  .fix-w-#{$i}px {
+@each $i, $sizVal in $pxSiz-map {
+  .fix-wpx-#{$i} {
     min-width: $sizVal;
     max-width: $sizVal;
   }
 
-  .h-#{$i}px {
-    height: $sizVal;
-  }
-  .min-h-#{$i}px {
-    min-height: $sizVal;
-  }
-  .max-h-#{$i}px {
-    max-height: $sizVal;
-  }
-  .fix-h-#{$i}px {
+  .fix-hpx-#{$i} {
     min-height: $sizVal;
     max-height: $sizVal;
   }
@@ -425,30 +416,12 @@ $endSiz: 1500;
 
   @each $breakpoint in map-keys($grid-breakpoints) {
     @include media-breakpoint-up($breakpoint) {
-      .w-#{$breakpoint}-#{$i}px {
-        width: $sizVal !important;
-      }
-      .min-w-#{$breakpoint}-#{$i}px {
-        min-width: $sizVal !important;
-      }
-      .max-w-#{$breakpoint}-#{$i}px {
-        max-width: $sizVal !important;
-      }
-      .fix-w-#{$breakpoint}-#{$i}px {
+      .fix-wpx-#{$breakpoint}-#{$i} {
         min-width: $sizVal !important;
         max-width: $sizVal !important;
       }
 
-      .h-#{$breakpoint}-#{$i}px {
-        height: $sizVal !important;
-      }
-      .min-h-#{$breakpoint}-#{$i}px {
-        min-height: $sizVal !important;
-      }
-      .max-h-#{$breakpoint}-#{$i}px {
-        max-height: $sizVal !important;
-      }
-      .fix-h-#{$breakpoint}-#{$i}px {
+      .fix-hpx-#{$breakpoint}-#{$i} {
         min-height: $sizVal !important;
         max-height: $sizVal !important;
       }
@@ -463,60 +436,48 @@ $endSiz: 1500;
   }
 };
 
-$startRem: 0;
-$endRem: 10;
-$remParts: 8;
-$last-j: 0;
-@for $i from $startRem through $endRem {
-  @for $j from 1 through $remParts {
-    @if ($i < $endRem or $i == $endRem and $j == $remParts - ($remParts - 1)) {
-      $val: math.div($last-j, $remParts);
-      //@debug $i, $j, $last-j, $val;
-      $remVal: $val + rem;
-      @if $i == 0 and $j == 1 {
-        $remVal: 0;
+@each $val, $remVal in $remSiz-map {
+  @if $val == '0' {
+    $remVal: 0;
+  }
+
+  .pad-#{$val}rem {
+    padding: $remVal;
+  }
+  .pad-y-#{$val}rem {
+    //padding-block: $remVal;
+    padding-top: $remVal;
+    padding-bottom: $remVal;
+  }
+  .pad-x-#{$val}rem {
+    //padding-inline: $remVal;
+    padding-left: $remVal;
+    padding-right: $remVal;
+  }
+  .pad-b-#{$val}rem {
+    padding-bottom: $remVal;
+  }
+
+  @each $breakpoint in map-keys($grid-breakpoints) {
+    @include media-breakpoint-up($breakpoint) {
+      .pad-#{$breakpoint}-#{$val}rem {
+        padding: $remVal !important;
+      }
+      .pad-y-#{$breakpoint}-#{$val}rem {
+        //padding-block: $remVal !important;
+        padding-top: $remVal !important;
+        padding-bottom: $remVal !important;
+      }
+      .pad-x-#{$breakpoint}-#{$val}rem {
+        //padding-inline: $remVal !important;
+        padding-left: $remVal !important;
+        padding-right: $remVal !important;
+      }
+      .pad-b-#{$breakpoint}-#{$val}rem {
+        padding-bottom: $remVal !important;
       }
 
-      .pad-#{str-replace(#{$val}, '.', '\\.')}rem {
-        padding: $remVal;
-      }
-      .pad-y-#{str-replace(#{$val}, '.', '\\.')}rem {
-        //padding-block: $remVal;
-        padding-top: $remVal;
-        padding-bottom: $remVal;
-      }
-      .pad-x-#{str-replace(#{$val}, '.', '\\.')}rem {
-        //padding-inline: $remVal;
-        padding-left: $remVal;
-        padding-right: $remVal;
-      }
-      .pad-b-#{str-replace(#{$val}, '.', '\\.')}rem {
-        padding-bottom: $remVal;
-      }
-
-      @each $breakpoint in map-keys($grid-breakpoints) {
-        @include media-breakpoint-up($breakpoint) {
-          .pad-#{$breakpoint}-#{str-replace(#{$val}, '.', '\\.')}rem {
-            padding: $remVal !important;
-          }
-          .pad-y-#{$breakpoint}-#{str-replace(#{$val}, '.', '\\.')}rem {
-            //padding-block: $remVal !important;
-            padding-top: $remVal !important;
-            padding-bottom: $remVal !important;
-          }
-          .pad-x-#{$breakpoint}-#{str-replace(#{$val}, '.', '\\.')}rem {
-            //padding-inline: $remVal !important;
-            padding-left: $remVal !important;
-            padding-right: $remVal !important;
-          }
-          .pad-b-#{$breakpoint}-#{str-replace(#{$val}, '.', '\\.')}rem {
-            padding-bottom: $remVal !important;
-          }
-
-        }
-      }
     }
-    $last-j: $last-j + 1;
   }
 }
 
@@ -740,8 +701,8 @@ body.calculate-all .outer-container {
 .job-card {
   @extend .wpct-47;
   @extend .wpct-lg-31;
-  @extend .max-w-lg-265px;
-  @extend .max-w-xxl-294px;
+  @extend .max-wpx-lg-265;
+  @extend .max-wpx-xxl-294;
   @extend .px-2;
   @extend .px-sm-4;
   @extend .py-3;
@@ -1119,4 +1080,24 @@ input[type="number"]::-webkit-inner-spin-button {
 /* Firefox */
 input[type=number] {
   -moz-appearance: textfield;
+}
+
+#preloadedImages, #loadingSpinner
+{
+  width: 0;
+  height: 0;
+  display: inline;
+  background-image: url("assets/images/pics/rvw-20191229_111014.jpg");
+  background-image: url("assets/images/pics/rvw-AAWF9035.JPG");
+  background-image: url("assets/images/pics/rvw-DPFW9030.JPG");
+  background-image: url("assets/images/pics/rvw-FSYG1495.JPG");
+  background-image: url("assets/images/pics/rvw-IMG_0817.JPG");
+  background-image: url("assets/images/pics/rvw-IMG_1191.JPG");
+  background-image: url("assets/images/pics/rvw-IMG_1379.JPG");
+  background-image: url("assets/images/pics/rvw-IMG_2526.JPG");
+  background-image: url("assets/images/pics/rvw-IMG_3290.JPG");
+  background-image: url("assets/images/pics/rvw-IMG_4938.JPG");
+  background-image: url("assets/images/pics/rvw-OSVJE1220.JPG");
+  background-image: url("assets/images/pics/rvw-xtra-1.png");
+  background-image: none;
 }
