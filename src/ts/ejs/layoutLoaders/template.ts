@@ -86,7 +86,7 @@ export default async (data: any) => {
           // ...webData,
           partialsFolder,
 
-          reviewStoriesList
+          reviewStoriesList,
         };
 
   const ejsTemplateStr = fs.readFileSync(`${data.viewsFolder}/layouts/template.ejs`, "ascii");

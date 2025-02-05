@@ -4,6 +4,7 @@
     "indexPageDescription": "Tiling, Bathtub, Shower, Basin, Toilet etc...",
     "calculateButtonUrl": "calculate.html?type=bathroom-job",
     "indexPageOrdering": 4,
+    "indexPageIcon": "bathroom.svg",
     "title": "Bathroom Refurbishment",
     "value": "Bathroom Refurbishment"
   },
@@ -12,6 +13,7 @@
     "indexPageDescription": "Wall and Floor Units, Worktop, Appliances etc...",
     "calculateButtonUrl": "calculate.html?type=kitchen-job",
     "indexPageOrdering": 5,
+    "indexPageIcon": "kitchen.svg",
     "title": "Kitchen Refurbishment",
     "value": "Kitchen Refurbishment"
   },
@@ -20,6 +22,7 @@
     "indexPageDescription": "Painting, Skimming, Rendering, Tiling etc...",
     "calculateButtonUrl": "calculate.html?type=wall-job",
     "indexPageOrdering": 1,
+    "indexPageIcon": "wall.svg",
     "title": "Walls Refurbishment",
     "value": "Walls"
   },
@@ -28,6 +31,7 @@
     "indexPageDescription": "Tiling, Laminate, Hardwood, Vinyl etc...",
     "calculateButtonUrl": "calculate.html?type=floor-job",
     "indexPageOrdering": 2,
+    "indexPageIcon": "floor.svg",
     "title": "Floor Refurbishment",
     "value": "Floor"
   },
@@ -36,6 +40,7 @@
     "indexPageDescription": "Painting, Skimming, Suspended ceiling etc...",
     "calculateButtonUrl": "calculate.html?type=ceiling-job",
     "indexPageOrdering": 3,
+    "indexPageIcon": "ceiling.svg",
     "title": "Ceiling Refurbishment",
     "value": "Ceiling"
   },
@@ -44,6 +49,7 @@
     "indexPageDescription": "Walls, Foundation, Roof shell etc...",
     "calculateButtonUrl": "calculate.html?type=extension-job",
     "indexPageOrdering": 6,
+    "indexPageIcon": "extention.svg",
     "title": "Extensions",
     "value": "Extensions"
   },
@@ -52,6 +58,7 @@
     "indexPageDescription": "Loft Dormer etc...",
     "calculateButtonUrl": "calculate.html?type=loft-conver-job",
     "indexPageOrdering": 7,
+    "indexPageIcon": "loft.svg",
     "title": "Loft Conversion",
     "value": "Loft Conversion"
   },
@@ -60,6 +67,7 @@
     "indexPageDescription": "Walls, Floor, Ceiling etc...",
     "calculateButtonUrl": "calculate-all.html?type=full-house-job",
     "indexPageOrdering": 8,
+    "indexPageIcon": "full-house.svg",
     "title": "",
     "value": ""
   }

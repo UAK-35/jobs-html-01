@@ -726,6 +726,10 @@ body.calculate-all .outer-container {
   @extend .fw-medium;
   @extend .mb-0;
 }
+.job-icon {
+  width: 72px;
+  height: 72px;
+}
 a.calculate-btn {
   @extend .btn;
   @extend .btn-light-green-1;

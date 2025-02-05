@@ -51,7 +51,8 @@ if (clearIndexDb && process.env.NODE_ENV !== "development") {
     const spinnerElement = document.querySelector<HTMLDivElement>("#loadingSpinner");
     if (spinnerElement != null) spinnerElement.remove();
 
-    const currentPagePath = window.location.pathname.slice(1);
+    let currentPagePath = window.location.pathname.slice(1);
+    if (currentPagePath.length === 0) currentPagePath = "index.html";
     document.body.classList.add(currentPagePath.split(".")[0]);
 
     // calculate page hide-show logic

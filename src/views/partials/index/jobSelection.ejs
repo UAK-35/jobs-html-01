@@ -4,7 +4,7 @@
          id="jobGrid">
         <% for (var i1 = 0; i1 < jobTypes.length; i1++) { %>
         <div class="job-card ratio-90pct">
-            <img src="./assets/images/icons/Hammer.svg" alt="" class="job-icon">
+            <img src="./assets/images/icons/<%= jobTypes[i1].indexPageIcon %>" alt="" class="job-icon">
             <h4 class="job-title d-sm-none"><%= jobTypes[i1].indexPageTitle %></h4>
             <h6 class="job-description d-sm-none"><%= jobTypes[i1].indexPageDescription %></h6>
             <h4 class="job-title fnt-1 d-none d-sm-inline"><%= jobTypes[i1].indexPageTitle %></h4>

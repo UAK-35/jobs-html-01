@@ -120,8 +120,6 @@ const handleCheckboxCheckChange = (eventTarget: EventTarget | null, re: RegExp) 
     if (regExMatch != null) {
       const quantityElem = document.querySelector<HTMLInputElement>(`#${chkElem.id.replace(/\d+$/, "")}Q${regExMatch[0]}`);
       if (quantityElem != null) {
-        quantityElem.disabled = !chkElem.checked;
-
         // find/get unit from label on right side of quantity element
         let unitsStr: string | null = null;
         if (quantityElem.nextElementSibling != null) {
@@ -130,6 +128,10 @@ const handleCheckboxCheckChange = (eventTarget: EventTarget | null, re: RegExp) 
         const quantity = quantityElem.valueAsNumber;
         const quantityText = unitsStr === "sqm" ? `${quantity} ${unitsStr}` : String(quantity);
         updateTotalPriceOnCheckChange({ serviceGroup: serviceGroupName, service: titleSpan.innerText, quantity, quantityText, pricePerItem: itemPrice }, itemPrice * quantity, chkElem.checked);
+        if (!chkElem.checked) {
+          quantityElem.valueAsNumber = 0;
+        }
+        quantityElem.disabled = !chkElem.checked;
       }
     }
   }
@@ -182,7 +184,7 @@ export default async function manageQuotesCalculation(currentPagePath: string) {
                 const outerContainerElem = parentContainerElem.parentElement.parentElement;
                 if (outerContainerElem != null) {
                   // const headingElem = outerContainerElem.querySelector("h5:first-child");
-                  const headingElems = getElementsByText(chkElem.value, "h5", outerContainerElem);
+                  const headingElems = getElementsByText(chkElem.dataset.serviceGroupName as string, "h5", outerContainerElem);
                   if (headingElems.length === 1) {
                     const headingElem = headingElems[0] as HTMLHeadingElement;
                     const cardElem = headingElem.closest<HTMLDivElement>(".quote-page-card");
