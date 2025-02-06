@@ -1,0 +1,22 @@
+[
+  {
+    "icon": "KitchenRefurbishment.svg",
+    "title": "Kitchen Refurbishment",
+    "description": "Reimagine your kitchen with modern designs, quality materials, and functional layouts. From sleek cabinetry to energy-efficient appliances, we'll transform your kitchen into the heart of your home."
+  },
+  {
+    "icon": "BathroomRemodeling.svg",
+    "title": "Bathroom Remodeling",
+    "description": "Create a relaxing oasis with our bespoke bathroom remodeling services. Whether you desire a spa-like retreat or a contemporary look, we bring elegance and practicality to every detail."
+  },
+  {
+    "icon": "HouseRefurbishment.svg",
+    "title": "House Refurbishment",
+    "description": "Give your entire home a fresh, cohesive update with our comprehensive refurbishment services. From concept to completion, we enhance every corner of your living space to reflect your unique style."
+  },
+  {
+    "icon": "HomeExtensions.svg",
+    "title": "Home Extensions",
+    "description": "Expand your living space with expertly designed and beautifully crafted home extensions that blend seamlessly with your existing property, adding value, comfort, functionality, and style to your home."
+  }
+]

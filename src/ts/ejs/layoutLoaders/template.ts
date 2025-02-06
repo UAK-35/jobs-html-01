@@ -29,6 +29,8 @@ import workDurationTypes from "../../../assets/json/workDurationTypes.json5";
 import reviewStoriesList from "../../../assets/json/reviewStories.json5";
 // @ts-ignore
 import faqsList from "../../../assets/json/faqs.json5";
+// @ts-ignore
+import servicesList from "../../../assets/json/services.json5";
 
 export default async (data: any) => {
   const partialsFolder = data.partialsFolder.replaceAll("/", path.sep);
@@ -92,13 +94,16 @@ export default async (data: any) => {
   const ejsTemplateStr = fs.readFileSync(`${data.viewsFolder}/layouts/template.ejs`, "ascii");
   const ejsTemplate = ejs.compile(ejsTemplateStr, { beautify: true, strict: false, async: true, rmWhitespace: true, client: true, root: data.viewsFolder });
 
+  const iconSiz1 = 60;
+  const iconSize1 = `fix-size-${iconSiz1}px wpx-${iconSiz1}`;
+
   return ejsTemplate({
     ...data,
     ...webpackData,
 
     hdr: ejs.compile(headerStr, { beautify: false })({ ...webpackData }),
     hro: !(data.page === "calculate" || data.page === "calculate-all") ? ejs.compile(heroStr, { beautify: false })() : "",
-    cnt: ejs.compile(contentStr, { beautify: false })(data.page === "calculate" || data.page === "calculate-all" ? contentData : { partialsFolder, jobTypes: jobTypes.sort((a: { indexPageOrdering: number }, b: { indexPageOrdering: number }) => a.indexPageOrdering - b.indexPageOrdering), reviewStoriesList, faqsList }),
+    cnt: ejs.compile(contentStr, { beautify: false })(data.page === "calculate" || data.page === "calculate-all" ? contentData : { partialsFolder, jobTypes: jobTypes.sort((a: { indexPageOrdering: number }, b: { indexPageOrdering: number }) => a.indexPageOrdering - b.indexPageOrdering), reviewStoriesList, faqsList, iconSize1, servicesList }),
     ftr: ejs.compile(footerStr, { beautify: false })({ ...webpackData, year: new Date().getFullYear() }),
     hdn: data.page === "calculate" || data.page === "calculate-all" ? ejs.compile(hiddenElementsStr, { beautify: false })() : "",
   });

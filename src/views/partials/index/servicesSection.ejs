@@ -12,37 +12,14 @@
         </div>
     </div>
     <div class="service-grid d-flex flex-row justify-content-between align-items-start align-items-lg-stretch flex-wrap gap-2 gap-sm-3 gap-md-4 flex-lg-row">
+        <% for (var i1 = 0; i1 < servicesList.length; i1++) { %>
         <div class="service-card">
-            <div class="services-icon-wrapper fix-size-70px overflow-hidden d-flex flex-row justify-content-center align-items-center bg-light-green-1 is-circular">
-                <img class="service-icon object-fit-contain wpct-60 hpct-60" src="./assets/images/icons/KitchenRefurbishment.svg" alt="">
+            <div class="services-icon-wrapper <%= iconSize1 %> overflow-hidden d-flex flex-row justify-content-center align-items-center bg-light-green-1 is-circular">
+                <img class="service-icon object-fit-contain wpct-60 hpct-60" src="./assets/images/icons/services/<%= servicesList[i1].icon %>" alt="">
             </div>
-            <h5 class="service-card-title">Kitchen Refurbishment</h5>
-            <p class="fs-8 text-center">Reimagine your kitchen with modern designs, quality materials, and functional layouts. From sleek cabinetry to energy-efficient appliances,
-                we'll transform your kitchen into the heart of your home.</p>
+            <h5 class="service-card-title"><%= servicesList[i1].title %></h5>
+            <p class="fs-8 text-center"><%= servicesList[i1].description %></p>
         </div>
-        <div class="service-card">
-            <div class="services-icon-wrapper fix-size-70px overflow-hidden d-flex flex-row justify-content-center align-items-center bg-light-green-1 is-circular">
-                <img class="service-icon object-fit-contain wpct-60 hpct-60" src="./assets/images/icons/BathroomRemodeling.svg" alt="">
-            </div>
-            <h5 class="service-card-title">Bathroom Remodeling</h5>
-            <p class="fs-8 text-center">Create a relaxing oasis with our bespoke bathroom remodeling services. Whether you desire a spa-like retreat or a contemporary look, we
-                bring elegance and practicality to every detail.</p>
-        </div>
-        <div class="service-card">
-            <div class="services-icon-wrapper fix-size-70px overflow-hidden d-flex flex-row justify-content-center align-items-center bg-light-green-1 is-circular">
-                <img class="service-icon object-fit-contain wpct-60 hpct-60" src="./assets/images/icons/HouseRefurbishment.svg" alt="">
-            </div>
-            <h5 class="service-card-title">House Refurbishment</h5>
-            <p class="fs-8 text-center">Give your entire home a fresh, cohesive update with our comprehensive refurbishment services. From concept to completion, we enhance every
-                corner of your living space to reflect your unique style.</p>
-        </div>
-        <div class="service-card mx-auto">
-            <div class="services-icon-wrapper fix-size-70px overflow-hidden d-flex flex-row justify-content-center align-items-center bg-light-green-1 is-circular">
-                <img class="service-icon object-fit-contain wpct-60 hpct-60" src="./assets/images/icons/HomeExtensions.svg" alt="">
-            </div>
-            <h5 class="service-card-title">Home Extensions</h5>
-            <p class="fs-8 text-center">Expand your living space with expertly designed and beautifully crafted home extensions that blend seamlessly with your existing property,
-                adding value, comfort, functionality, and style to your home.</p>
-        </div>
+        <% } %>
     </div>
 </section>
