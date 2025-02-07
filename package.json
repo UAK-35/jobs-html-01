@@ -15,7 +15,8 @@
     "build": "cross-env TS_NODE_PROJECT=tsconfig.webpack.json NODE_ENV=production webpack --config webpack.config.prod.ts",
     "buildStaging": "cross-env TS_NODE_PROJECT=tsconfig.webpack.json NODE_ENV=staging webpack --config webpack.config.prod.ts",
     "format": "prettier --write ./src",
-    "lint": "eslint"
+    "lint": "eslint",
+    "versions": "node -p \"process.env.npm_package_version\" > ./src/version-npm.txt && node -p \"require('dayjs')().format('DD-MMM-YYYY, HH:mm:ss Z[Z], dddd')\" > ./src/version.txt"
   },
   "devDependencies": {
     "@eslint/compat": "^1.2.5",
@@ -33,6 +34,7 @@
     "copy-webpack-plugin": "^11.0.0",
     "css-loader": "^7.1.2",
     "css-minimizer-webpack-plugin": "^7.0.0",
+    "dayjs": "^1.11.13",
     "ejs-loader": "^0.5.0",
     "eslint": "^9.18.0",
     "eslint-config-prettier": "^9.1.0",

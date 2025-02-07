@@ -1,0 +1,44 @@
+<div id="formContainer" class="data-submit-container d-none-not-imp quote-page-card card w-100 wpct-sm-49 wpct-lg-56">
+    <div class="card-header bg-light-green-2">
+        <h5 class="fw-bold">Request your quote</h5>
+    </div>
+    <div class="card-body">
+        <form novalidate autocomplete="off" id="calculateForm" action="" class="w-100 d-flex flex-column justify-content-start align-items-center gap-3" onsubmit="return false" onkeydown="if(event.keyCode === 13) return false">
+            <div class="form-floating w-100">
+                <input type="text" id="name" name="name" class="form-control" placeholder="John Doe" tabindex="1" />
+                <label for="name">Name</label>
+                <div class="invalid-tooltip end-0">
+                    This field is required!
+                </div>
+            </div>
+            <div class="form-floating w-100">
+                <input type="email" id="email" name="email" class="form-control" placeholder="name@example.com" tabindex="2" />
+                <label for="email">Email address</label>
+                <div class="invalid-tooltip end-0">
+                    This field is required!
+                </div>
+            </div>
+            <div class="form-floating w-100">
+                <input type="tel" id="phone" name="phone" class="form-control" placeholder="1231231231" tabindex="3" />
+                <label for="phone">Phone</label>
+                <div class="invalid-tooltip end-0">
+                    This field is required!
+                </div>
+            </div>
+            <div class="form-floating w-100">
+                <!--<input type="text" id="address" name="address" class="form-control" />-->
+                <textarea name="address" id="address" cols="80" rows="3" class="form-control" placeholder="1231231231" tabindex="4"></textarea>
+                <label for="address">Full Address and PostCode</label>
+                <div class="invalid-tooltip end-0">
+                    This field is required!
+                </div>
+            </div>
+            <div class="form-1">
+                <button id="submitBtn" type="submit" class="request-quote-btn btn btn-light-green-1 btn-large">Submit</button>
+            </div>
+        </form>
+    </div>
+    <div class="card-footer">
+        <h5>We value your privacy and will not share your information.</h5>
+    </div>
+</div>

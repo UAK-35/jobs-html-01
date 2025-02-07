@@ -34,6 +34,7 @@ import servicesList from "../../../assets/json/services.json5";
 
 export default async (data: any) => {
   const partialsFolder = data.partialsFolder.replaceAll("/", path.sep);
+  const viewsFolder = data.viewsFolder.replaceAll("/", path.sep);
 
   const headerStr = fs.readFileSync(`${data.viewsFolder}/partials/header.ejs`, "ascii");
   const heroStr = fs.readFileSync(`${data.viewsFolder}/partials/index/hero.ejs`, "ascii");
@@ -69,6 +70,7 @@ export default async (data: any) => {
           ...webpackData,
           // ...webData,
           partialsFolder,
+          viewsFolder,
 
           jobTypes,
           bathroomRefurbTypes,
@@ -87,6 +89,7 @@ export default async (data: any) => {
           ...webpackData,
           // ...webData,
           partialsFolder,
+          viewsFolder,
 
           reviewStoriesList,
         };
@@ -108,6 +111,7 @@ export default async (data: any) => {
         ? contentData
         : {
             partialsFolder,
+            viewsFolder,
             jobTypes: jobTypes.sort((a: { indexPageOrdering: number }, b: { indexPageOrdering: number }) => a.indexPageOrdering - b.indexPageOrdering),
             reviewStoriesList,
             faqsList,

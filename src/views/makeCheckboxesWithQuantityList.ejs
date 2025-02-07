@@ -1,0 +1,12 @@
+<% for (var idx = 0; idx < listLength; idx++) { %>
+    <li class="list-group-item">
+        <div class="form-check form-check-inline">
+            <input class="form-check-input bathrm-type-ckbx ckbx-with-quantity" data-price-in-pounds="<%= list[idx].pricePounds %>" type="checkbox" id="<%= idPrefix %><%= idx %>" name="<%= idPrefix %><%= idx %>" value="<%= list[idx].title %>" data-units-string="<%= list[idx].units %>" />
+            <label class="form-check-label fw-medium ps-1" for="<%= idPrefix %><%= idx %>"><span><%= list[idx].title %></span></label>
+        </div>
+        <div class="d-inline-block text-start">
+            <input disabled class="wpx-50" data-last-value="<%= list[idx].defaultQuantity %>" type="number" min="1" id="<%= idPrefix %>Q<%= idx %>" name="<%= idPrefix %>Q<%= idx %>" value="<%= list[idx].defaultQuantity %>" data-related-quantity-ckbx-id="<%= idPrefix %><%= idx %>" />
+            <label class="" for="<%= idPrefix %>Q<%= idx %>"><%= list[idx].units %></label>
+        </div>
+    </li>
+<% } %>

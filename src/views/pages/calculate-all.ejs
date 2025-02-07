@@ -14,30 +14,7 @@
         </ul>
     </div>
 
-    <div class="container w-100 mw-sm-100 d-flex flex-column gap-1 mt-5">
-        <h5>Quantity units:</h5>
-        <!--<ul>
-            <li><span>*sqm - square meter</span></li>
-            <li><span>*p - pieces</span></li>
-            <li><span>*m - meter</span></li>
-        </ul>-->
-        <table class="table table-bordered fs-7" style="width: 300px;">
-            <tbody>
-            <tr>
-                <td>*sqm</td>
-                <td>square meter</td>
-            </tr>
-            <tr>
-                <td>*p</td>
-                <td>pieces</td>
-            </tr>
-            <tr>
-                <td>*m</td>
-                <td>meter</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+    <%- include(partialsFolder + "\\calculateLegend.ejs") %>
 
     <div class="container w-100 mw-sm-100 d-flex flex-column flex-wrap flex-sm-row justify-content-sm-between p-0 p-lg-3">
 
@@ -64,231 +41,71 @@
                 </div>
             </div>
 
-            <div class="walls-types-container d-none-not-imp quote-page-card card w-100">
-                <div class="card-header bg-light-green-2">
-                    <h5 class="fw-bold">Walls Refurbishment</h5>
-                </div>
-                <div class="card-body">
-                    <ul class="list-group list-group-vert has-sqm-units">
-                        <% for (var i2 = 0; i2 < wallRefurbTypes.length; i2++) { %>
-                            <li class="list-group-item">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input wall-type-ckbx ckbx-with-quantity" data-price-in-pounds="<%= wallRefurbTypes[i2].pricePounds %>" type="checkbox" id="wallsType<%= i2 %>" name="wallsType<%= i2 %>" value="<%= wallRefurbTypes[i2].title %>">
-                                    <label class="form-check-label fw-medium ps-1" for="wallsType<%= i2 %>"><span><%= wallRefurbTypes[i2].title %></span></label>
-                                </div>
-                                <div class="d-inline-block text-start">
-                                    <input disabled class="wpx-50" data-last-value="<%= wallRefurbTypes[i2].defaultQuantity %>" type="number" min="1" id="wallsTypeQ<%= i2 %>" name="wallsTypeQ<%= i2 %>" value="<%= wallRefurbTypes[i2].defaultQuantity %>">
-                                    <label class="" for="wallsTypeQ<%= i2 %>"><%= wallRefurbTypes[i2].units %></label>
-                                </div>
-                            </li>
-                        <% } %>
-                    </ul>
-                </div>
-            </div>
+            <%- include(viewsFolder + "\\makeServiceGroup.ejs", {
+                list: wallRefurbTypes, listLength: wallRefurbTypes.length, idPrefix: "wallsType",
+                groupTitle: "Walls Refurbishment", groupClasses: "walls-types-container",
+                widthPercent: 100, listGroupClasses: "list-group-vert has-sqm-units"
+            }) %>
 
-            <div class="floors-types-container d-none-not-imp quote-page-card card w-100">
-                <div class="card-header bg-light-green-2">
-                    <h5 class="fw-bold">Floor Refurbishment</h5>
-                </div>
-                <div class="card-body">
-                    <ul class="list-group list-group-vert has-sqm-units">
-                        <% for (var i3 = 0; i3 < floorRefurbTypes.length; i3++) { %>
-                            <li class="list-group-item">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input floor-type-ckbx ckbx-with-quantity" data-price-in-pounds="<%= floorRefurbTypes[i3].pricePounds %>" type="checkbox" id="floorType<%= i3 %>" name="floorType<%= i3 %>" value="<%= floorRefurbTypes[i3].title %>">
-                                    <label class="form-check-label fw-medium ps-1" for="floorType<%= i3 %>"><span><%= floorRefurbTypes[i3].title %></span></label>
-                                </div>
-                                <div class="d-inline-block text-start">
-                                    <input disabled class="wpx-50" data-last-value="<%= floorRefurbTypes[i3].defaultQuantity %>" type="number" min="1" id="floorTypeQ<%= i3 %>" name="floorTypeQ<%= i3 %>" value="<%= floorRefurbTypes[i3].defaultQuantity %>">
-                                    <label class="" for="floorTypeQ<%= i3 %>"><%= floorRefurbTypes[i3].units %></label>
-                                </div>
-                            </li>
-                        <% } %>
-                    </ul>
-                </div>
-            </div>
+            <%- include(viewsFolder + "\\makeServiceGroup.ejs", {
+                list: floorRefurbTypes, listLength: floorRefurbTypes.length, idPrefix: "floorType",
+                groupTitle: "Floor Refurbishment", groupClasses: "floors-types-container",
+                widthPercent: 100, listGroupClasses: "list-group-vert has-sqm-units"
+            }) %>
 
-            <div class="ceiling-types-container d-none-not-imp d-none d-sm-block d1-xl-none quote-page-card card w-100">
-                <div class="card-header bg-light-green-2">
-                    <h5 class="fw-bold">Ceiling Refurbishment</h5>
-                </div>
-                <div class="card-body">
-                    <ul class="list-group list-group-vert has-sqm-units">
-                        <% for (var i4 = 0; i4 < ceilingRefurbTypes.length; i4++) { %>
-                            <li class="list-group-item">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input ceiling-type-ckbx ckbx-with-quantity" data-price-in-pounds="<%= ceilingRefurbTypes[i4].pricePounds %>" type="checkbox" id="ceilingRefurbType<%= i4 %>" name="ceilingRefurbType<%= i4 %>" value="<%= ceilingRefurbTypes[i4].title %>">
-                                    <label class="form-check-label fw-medium ps-1" for="ceilingRefurbType<%= i4 %>"><span><%= ceilingRefurbTypes[i4].title %></span></label>
-                                </div>
-                                <div class="d-inline-block text-start">
-                                    <input disabled class="wpx-50" data-last-value="<%= ceilingRefurbTypes[i4].defaultQuantity %>" type="number" min="1" id="ceilingRefurbTypeQ<%= i4 %>" name="ceilingRefurbTypeQ<%= i4 %>" value="<%= ceilingRefurbTypes[i4].defaultQuantity %>">
-                                    <label class="" for="ceilingRefurbTypeQ<%= i4 %>"><%= ceilingRefurbTypes[i4].units %></label>
-                                </div>
-                            </li>
-                        <% } %>
-                    </ul>
-                </div>
-            </div>
+            <%- include(viewsFolder + "\\makeServiceGroup.ejs", {
+                list: ceilingRefurbTypes, listLength: ceilingRefurbTypes.length, idPrefix: "ceilingType",
+                groupTitle: "Ceiling Refurbishment", groupClasses: "ceiling-types-container d-none d-sm-block d1-xl-none",
+                widthPercent: 100, listGroupClasses: "list-group-vert has-sqm-units"
+            }) %>
 
-            <div class="loft-types-container d-none-not-imp d-none d-sm-block d1-xl-none quote-page-card card w-100">
-                <div class="card-header bg-light-green-2">
-                    <h5 class="fw-bold">Loft Conversion</h5>
-                </div>
-                <div class="card-body">
-                    <ul class="list-group list-group-vert has-sqm-units">
-                        <% for (var i5 = 0; i5 < loftConversionTypes.length; i5++) { %>
-                            <li class="list-group-item">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input left-conv-type-ckbx ckbx-with-quantity" data-price-in-pounds="<%= loftConversionTypes[i5].pricePounds %>" type="checkbox" id="loftConverType<%= i5 %>" name="loftConverType<%= i5 %>" value="<%= loftConversionTypes[i5].title %>">
-                                    <label class="form-check-label fw-medium ps-1" for="loftConverType<%= i5 %>"><span><%= loftConversionTypes[i5].title %></span></label>
-                                </div>
-                                <div class="d-inline-block text-start">
-                                    <input disabled class="wpx-50" data-last-value="<%= loftConversionTypes[i5].defaultQuantity %>" type="number" min="1" id="loftConverTypeQ<%= i5 %>" name="loftConverTypeQ<%= i5 %>" value="<%= loftConversionTypes[i5].defaultQuantity %>">
-                                    <label class="" for="loftConverTypeQ<%= i5 %>"><%= loftConversionTypes[i5].units %></label>
-                                </div>
-                            </li>
-                        <% } %>
-                    </ul>
-                </div>
-            </div>
+            <%- include(viewsFolder + "\\makeServiceGroup.ejs", {
+                list: loftConversionTypes, listLength: loftConversionTypes.length, idPrefix: "loftConverType",
+                groupTitle: "Loft Conversion", groupClasses: "loft-types-container d-none d-sm-block d1-xl-none",
+                widthPercent: 100, listGroupClasses: "list-group-vert has-sqm-units"
+            }) %>
 
-            <div class="extension-types-container d-none-not-imp d-none d-sm-block d-lg-none quote-page-card card w-100">
-                <div class="card-header bg-light-green-2">
-                    <h5 class="fw-bold">Extensions</h5>
-                </div>
-                <div class="card-body">
-                    <ul class="list-group list-group-vert has-sqm-units">
-                        <% for (var i9 = 0; i9 < extensionTypes.length; i9++) { %>
-                            <li class="list-group-item">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input extension-type-ckbx ckbx-with-quantity" data-price-in-pounds="<%= extensionTypes[i9].pricePounds %>" type="checkbox" id="extensionType<%= i9 %>" name="extensionType<%= i9 %>" value="<%= extensionTypes[i9].title %>">
-                                    <label class="form-check-label fw-medium ps-1" for="extensionType<%= i9 %>"><span><%= extensionTypes[i9].title %></span></label>
-                                </div>
-                                <div class="d-inline-block text-start">
-                                    <input disabled class="wpx-50" data-last-value="<%= extensionTypes[i9].defaultQuantity %>" type="number" min="1" id="extensionTypeQ<%= i9 %>" name="extensionTypeQ<%= i9 %>" value="<%= extensionTypes[i9].defaultQuantity %>">
-                                    <label class="" for="extensionTypeQ<%= i9 %>"><%= extensionTypes[i9].units %></label>
-                                </div>
-                            </li>
-                        <% } %>
-                    </ul>
-                </div>
-            </div>
+            <%- include(viewsFolder + "\\makeServiceGroup.ejs", {
+                list: extensionTypes, listLength: extensionTypes.length, idPrefix: "extensnType",
+                groupTitle: "Extensions", groupClasses: "extension-types-container d-none d-sm-block d-lg-none",
+                widthPercent: 100, listGroupClasses: "list-group-vert has-sqm-units"
+            }) %>
 
         </div>
 
         <div class="container w-100 wpct-sm-49 wpct-lg-56 m-0 m-lg-2 quantities-container d-flex flex-row justify-content-between align-content-start flex-wrap column-gap-3 row-gap-4 w-100 border-0 border-danger">
 
-            <div class="bathroom-types-container d-none-not-imp quote-page-card card w-100">
-                <div class="card-header bg-light-green-2">
-                    <h5 class="fw-bold">Bathroom Refurbishment</h5>
-                </div>
-                <div class="card-body">
-                    <ul class="list-group list-group-horiz has-sqm-units">
-                        <% for (var i6 = 0; i6 < bathroomRefurbTypes.length; i6++) { %>
-                            <li class="list-group-item">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input bathrm-type-ckbx ckbx-with-quantity" data-price-in-pounds="<%= bathroomRefurbTypes[i6].pricePounds %>" type="checkbox" id="bathrmType<%= i6 %>" name="bathrmType<%= i6 %>" value="<%= bathroomRefurbTypes[i6].title %>">
-                                    <label class="form-check-label fw-medium ps-1" for="bathrmType<%= i6 %>"><span><%= bathroomRefurbTypes[i6].title %></span></label>
-                                </div>
-                                <div class="d-inline-block text-start">
-                                    <input disabled class="wpx-50" data-last-value="<%= bathroomRefurbTypes[i6].defaultQuantity %>" type="number" min="1" id="bathrmTypeQ<%= i6 %>" name="bathrmTypeQ<%= i6 %>" value="<%= bathroomRefurbTypes[i6].defaultQuantity %>">
-                                    <label class="" for="bathrmTypeQ<%= i6 %>"><%= bathroomRefurbTypes[i6].units %></label>
-                                </div>
-                            </li>
-                        <% } %>
-                    </ul>
-                </div>
-            </div>
+            <%- include(viewsFolder + "\\makeServiceGroup.ejs", {
+                list: bathroomRefurbTypes, listLength: bathroomRefurbTypes.length, idPrefix: "bathrmType",
+                groupTitle: "Bathroom Refurbishment", groupClasses: "bathroom-types-container",
+                widthPercent: 100, listGroupClasses: "list-group-horiz has-sqm-units"
+            }) %>
 
-            <div class="kitchen-types-container d-none-not-imp quote-page-card card w-100">
-                <div class="card-header bg-light-green-2">
-                    <h5 class="fw-bold">Kitchen Refurbishment</h5>
-                </div>
-                <div class="card-body">
-                    <ul class="list-group list-group-horiz">
-                        <% for (var i7 = 0; i7 < kitchenRefurbTypes.length; i7++) { %>
-                            <li class="list-group-item">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input ktchn-type-ckbx ckbx-with-quantity" data-price-in-pounds="<%= kitchenRefurbTypes[i7].pricePounds %>" type="checkbox" id="ktchnType<%= i7 %>" name="ktchnType<%= i7 %>" value="<%= kitchenRefurbTypes[i7].title %>">
-                                    <label class="form-check-label fw-medium ps-1" for="ktchnType<%= i7 %>"><span><%= kitchenRefurbTypes[i7].title %></span></label>
-                                </div>
-                                <div class="d-inline-block text-start">
-                                    <input disabled class="wpx-50" data-last-value="<%= kitchenRefurbTypes[i7].defaultQuantity %>" type="number" min="1" id="ktchnTypeQ<%= i7 %>" name="ktchnTypeQ<%= i7 %>" value="<%= kitchenRefurbTypes[i7].defaultQuantity %>">
-                                    <label class="" for="ktchnTypeQ<%= i7 %>"><%= kitchenRefurbTypes[i7].units %></label>
-                                </div>
-                            </li>
-                        <% } %>
-                    </ul>
-                </div>
-            </div>
+            <%- include(viewsFolder + "\\makeServiceGroup.ejs", {
+                list: kitchenRefurbTypes, listLength: kitchenRefurbTypes.length, idPrefix: "ktchnType",
+                groupTitle: "Kitchen Refurbishment", groupClasses: "kitchen-types-container",
+                widthPercent: 100, listGroupClasses: "list-group-horiz has-sqm-units"
+            }) %>
 
-            <div class="ceiling-types-container d-none-not-imp d-block d-sm-none d1-xl-block quote-page-card card w-100 wpct-sm-48">
-                <div class="card-header bg-light-green-2">
-                    <h5 class="fw-bold">Ceiling Refurbishment</h5>
-                </div>
-                <div class="card-body">
-                    <ul class="list-group list-group-vert has-sqm-units">
-                        <% for (var i8 = 0; i8 < ceilingRefurbTypes.length; i8++) { %>
-                            <li class="list-group-item">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input ceiling-type-ckbx ckbx-with-quantity" data-price-in-pounds="<%= ceilingRefurbTypes[i8].pricePounds %>" type="checkbox" id="ceilingType<%= i8 %>" name="ceilingType<%= i8 %>" value="<%= ceilingRefurbTypes[i8].title %>">
-                                    <label class="form-check-label fw-medium ps-1" for="ceilingType<%= i8 %>"><span><%= ceilingRefurbTypes[i8].title %></span></label>
-                                </div>
-                                <div class="d-inline-block text-start">
-                                    <input disabled class="wpx-50" data-last-value="<%= ceilingRefurbTypes[i8].defaultQuantity %>" type="number" min="1" id="ceilingTypeQ<%= i8 %>" name="ceilingTypeQ<%= i8 %>" value="<%= ceilingRefurbTypes[i8].defaultQuantity %>">
-                                    <label class="" for="ceilingTypeQ<%= i8 %>"><%= ceilingRefurbTypes[i8].units %></label>
-                                </div>
-                            </li>
-                        <% } %>
-                    </ul>
-                </div>
-            </div>
+            <%- include(viewsFolder + "\\makeServiceGroup.ejs", {
+                list: ceilingRefurbTypes, listLength: ceilingRefurbTypes.length, idPrefix: "ceilingTyp",
+                groupTitle: "Ceiling Refurbishment", groupClasses: "ceiling-types-container d-block d-sm-none d1-xl-block wpct-sm-48",
+                widthPercent: 100, listGroupClasses: "list-group-vert has-sqm-units"
+            }) %>
 
             <div class="w-100 wpct1-xl-48 d-flex flex-column">
 
-                <div class="extension-types-container d-none-not-imp d-block d-sm-none d-lg-block quote-page-card card w-100">
-                    <div class="card-header bg-light-green-2">
-                        <h5 class="fw-bold">Extensions</h5>
-                    </div>
-                    <div class="card-body">
-                        <ul class="list-group list-group-vert has-sqm-units">
-                            <% for (var i9 = 0; i9 < extensionTypes.length; i9++) { %>
-                                <li class="list-group-item">
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input extension-type-ckbx ckbx-with-quantity" data-price-in-pounds="<%= extensionTypes[i9].pricePounds %>" type="checkbox" id="extensionType<%= i9 %>" name="extensionType<%= i9 %>" value="<%= extensionTypes[i9].title %>">
-                                        <label class="form-check-label fw-medium ps-1" for="extensionType<%= i9 %>"><span><%= extensionTypes[i9].title %></span></label>
-                                    </div>
-                                    <div class="d-inline-block text-start">
-                                        <input disabled class="wpx-50" data-last-value="<%= extensionTypes[i9].defaultQuantity %>" type="number" min="1" id="extensionTypeQ<%= i9 %>" name="extensionTypeQ<%= i9 %>" value="<%= extensionTypes[i9].defaultQuantity %>">
-                                        <label class="" for="extensionTypeQ<%= i9 %>"><%= extensionTypes[i9].units %></label>
-                                    </div>
-                                </li>
-                            <% } %>
-                        </ul>
-                    </div>
-                </div>
+                <%- include(viewsFolder + "\\makeServiceGroup.ejs", {
+                    list: extensionTypes, listLength: extensionTypes.length, idPrefix: "extensionType",
+                    groupTitle: "Extensions", groupClasses: "extension-types-container d-block d-sm-none d-lg-block",
+                    widthPercent: 100, listGroupClasses: "list-group-vert has-sqm-units"
+                }) %>
 
-                <div class="loft-types-container d-none-not-imp d-block d-sm-none d1-xl-block quote-page-card card w-100">
-                    <div class="card-header bg-light-green-2">
-                        <h5 class="fw-bold">Loft Conversion</h5>
-                    </div>
-                    <div class="card-body">
-                        <ul class="list-group list-group-vert has-sqm-units">
-                            <% for (var i10 = 0; i10 < loftConversionTypes.length; i10++) { %>
-                                <li class="list-group-item">
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input left-conv-type-ckbx ckbx-with-quantity" data-price-in-pounds="<%= loftConversionTypes[i10].pricePounds %>" type="checkbox" id="loftConvType<%= i10 %>" name="loftConvType<%= i10 %>" value="<%= loftConversionTypes[i10].title %>">
-                                        <label class="form-check-label fw-medium ps-1" for="loftConvType<%= i10 %>"><span><%= loftConversionTypes[i10].title %></span></label>
-                                    </div>
-                                    <div class="d-inline-block text-start">
-                                        <input disabled class="wpx-50" data-last-value="<%= loftConversionTypes[i10].defaultQuantity %>" type="number" min="1" id="loftConvTypeQ<%= i10 %>" name="loftConvTypeQ<%= i10 %>" value="<%= loftConversionTypes[i10].defaultQuantity %>">
-                                        <label class="" for="loftConvTypeQ<%= i10 %>"><%= loftConversionTypes[i10].units %></label>
-                                    </div>
-                                </li>
-                            <% } %>
-                        </ul>
-                    </div>
-                </div>
+                <%- include(viewsFolder + "\\makeServiceGroup.ejs", {
+                    list: loftConversionTypes, listLength: loftConversionTypes.length, idPrefix: "loftConvType",
+                    groupTitle: "Loft Conversion", groupClasses: "loft-types-container d-block d-sm-none d1-xl-block",
+                    widthPercent: 100, listGroupClasses: "list-group-vert has-sqm-units"
+                }) %>
 
             </div>
 
@@ -298,72 +115,9 @@
 
     <div class="container d-inline-flex flex-column justify-content-start align-items-center flex-lg-row justify-content-lg-between align-items-lg-stretch flex-wrap column-gap-3 row-gap-4 w-100 mw-sm-100 mb-10 border-0 border-danger">
 
-        <div id="timeDurationSelectionContainer" class="duration-selection-container d-none-not-imp quote-page-card card w-100 wpct-lg-32">
-            <div class="card-header bg-light-green-2">
-                <h5 class="fw-bold">Time on Starting the Job</h5>
-            </div>
-            <div class="card-body">
-                <ul class="list-group list-group-vert">
-                    <% for (var i11 = 0; i11 < workDurationTypes.length; i11++) { %>
-                        <li class="list-group-item has-no-quantity">
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input work-dur-type-ckbx" type="checkbox" id="workDurType<%= i11 %>" name="workDurType<%= i11 %>" value="<%= workDurationTypes[i11].code %>">
-                                <label class="form-check-label fw-medium ps-1" for="workDurType<%= i11 %>"><%= workDurationTypes[i11].title %></label>
-                            </div>
-                        </li>
-                    <% } %>
-                </ul>
-            </div>
-            <p class="card-text p-5 fw-medium">Calculated Price: <span class="display-5 fw-bolder">&pound; <b id="calc-price">0</b></span></p>
-            <div class="card-footer">
-                <h5>Minimum Order Price: &pound; 200</h5>
-            </div>
-        </div>
+        <%- include(partialsFolder + "\\workDurationSection.ejs") %>
 
-        <div id="formContainer" class="data-submit-container d-none-not-imp quote-page-card card w-100 wpct-lg-66">
-            <div class="card-header bg-light-green-2">
-                <h5 class="fw-bold">Request your quote</h5>
-            </div>
-            <div class="card-body">
-                <form novalidate autocomplete="off" id="calculateForm" action="" class="w-100 d-flex flex-column justify-content-start align-items-center gap-3" onsubmit="return false" onkeydown="if(event.keyCode === 13) return false">
-                    <div class="form-floating w-100">
-                        <input type="text" id="name" name="name" class="form-control" placeholder="John Doe" tabindex="1" />
-                        <label for="name">Name</label>
-                        <div class="invalid-tooltip end-0">
-                            This field is required!
-                        </div>
-                    </div>
-                    <div class="form-floating w-100">
-                        <input type="email" id="email" name="email" class="form-control" placeholder="name@example.com" tabindex="2" />
-                        <label for="email">Email address</label>
-                        <div class="invalid-tooltip end-0">
-                            This field is required!
-                        </div>
-                    </div>
-                    <div class="form-floating w-100">
-                        <input type="tel" id="phone" name="phone" class="form-control" placeholder="1231231231" tabindex="3" />
-                        <label for="phone">Phone</label>
-                        <div class="invalid-tooltip end-0">
-                            This field is required!
-                        </div>
-                    </div>
-                    <div class="form-floating w-100">
-                        <!--<input type="text" id="address" name="address" class="form-control" />-->
-                        <textarea name="address" id="address" cols="80" rows="3" class="form-control" placeholder="1231231231" tabindex="4"></textarea>
-                        <label for="address">Full Address and PostCode</label>
-                        <div class="invalid-tooltip end-0">
-                            This field is required!
-                        </div>
-                    </div>
-                    <div class="form-1">
-                        <button id="submitBtn" type="submit" class="request-quote-btn btn btn-light-green-1 btn-large">Submit</button>
-                    </div>
-                </form>
-            </div>
-            <div class="card-footer">
-                <h5>We value your privacy and will not share your information.</h5>
-            </div>
-        </div>
+        <%- include(partialsFolder + "\\formSection.ejs") %>
 
     </div>
 

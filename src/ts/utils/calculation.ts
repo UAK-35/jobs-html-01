@@ -14,9 +14,11 @@ const calcAllPageCheckedBoxesCountObservable: Observable<any> = calcAllPageCheck
 const classForHidingCalculationSections = "d-none-not-imp";
 const classForDisablingCalculationSections = "disabled-div";
 
+const maxNumberVal = 9999;
+const re = /(\d+)$/; // regex to get/extract number from checkbox id attribute value
+
 let indexedDb: IndexDbManager | null = null;
 let currentNumberInputVal = "";
-const maxNumberVal = 9999;
 
 function getElementsByText(str: string, tag = "a", parentElement?: HTMLElement) {
   if (parentElement == null) parentElement = document.body;
@@ -91,7 +93,7 @@ const handleQuantityChanged = (eventTarget: EventTarget, unitsStr: string | null
   }
 };
 
-const handleCheckboxCheckChange = (eventTarget: EventTarget | null, re: RegExp) => {
+const manageCheckboxCheckChange = (eventTarget: EventTarget | null) => {
   const chkElem = eventTarget as HTMLInputElement;
   const itemPrice = Number(chkElem.dataset["priceInPounds"]);
 
@@ -140,6 +142,134 @@ const handleCheckboxCheckChange = (eventTarget: EventTarget | null, re: RegExp) 
   calcAllPageCheckedBoxesCountSubject.next(chkElem.checked ? oldCount + 1 : oldCount - 1);
 };
 
+const handleCheckboxCheckChange = (evt: Event) => {
+  manageCheckboxCheckChange(evt.target);
+};
+
+const checkIfValidNumberInput = (evt: KeyboardEvent) => {
+  // courtesy: https://github.com/SUI-Components/sui-components/pull/2354/commits/e6c2d57378dbf287874f48574a1dc288645ce779
+  const allowedCharactersRegEx = /(^\d*$)|(Backspace|Tab|Delete|ArrowLeft|ArrowRight)/; // tab allowed for navigation
+  return !evt.key.match(allowedCharactersRegEx) && evt.preventDefault();
+};
+
+const handleDurationCheckboxChange = (evt: Event) => {
+  const chkElem = evt.target as HTMLInputElement;
+  const chkElemIsChecked = chkElem.checked;
+  const parentContainerElem = chkElem.closest<HTMLDivElement>(".list-group");
+
+  // uncheck all checkboxes - part of logic to create radio button like functionality - mutually exclusive checkboxes
+  const allCheckboxes = parentContainerElem!.querySelectorAll<HTMLInputElement>("input.form-check-input.work-dur-type-ckbx");
+  allCheckboxes.forEach((chk) => {
+    chk.checked = false;
+  });
+
+  // check event's checkbox again
+  chkElem.checked = chkElemIsChecked;
+  if (chkElemIsChecked) {
+    localStorage.setItem("durationCode", chkElem.value); // save selected duration code
+
+    // remove error indication
+    const timeDurationContainer = document.querySelector<HTMLDivElement>("#timeDurationSelectionContainer");
+    if (timeDurationContainer!.classList.contains("blinking-div")) timeDurationContainer!.classList.remove("blinking-div");
+
+    // remove error toast
+    hideToast();
+  }
+};
+
+const handleJobTypeCheckboxChange = (evt: Event) => {
+  const chkElem = evt.target as HTMLInputElement;
+  if (chkElem.id.startsWith("jobType")) {
+    // additional may be unnecessary check
+    const parentContainerElem = chkElem.closest<HTMLDivElement>(".job-types-container");
+    if (parentContainerElem != null) {
+      if (parentContainerElem.parentElement != null) {
+        const outerContainerElem = parentContainerElem.parentElement.parentElement;
+        if (outerContainerElem != null) {
+          // const headingElem = outerContainerElem.querySelector("h5:first-child");
+          const headingElems = getElementsByText(chkElem.dataset.serviceGroupName as string, "h5", outerContainerElem);
+          if (headingElems.length === 1) {
+            const headingElem = headingElems[0] as HTMLHeadingElement;
+            const cardElem = headingElem.closest<HTMLDivElement>(".quote-page-card");
+            if (cardElem != null) {
+              if (chkElem.checked && cardElem.classList.contains(classForHidingCalculationSections)) cardElem.classList.remove(classForHidingCalculationSections, classForDisablingCalculationSections);
+              if (!chkElem.checked && !cardElem.classList.contains(classForHidingCalculationSections)) cardElem.classList.add(classForHidingCalculationSections, classForDisablingCalculationSections);
+            }
+          }
+          if (headingElems.length === 2) {
+            // solution to problem of bootstrap responsive hide/show elements - dual elements inside different parents to be visible on different screen resolutions
+            headingElems.forEach((hElem) => {
+              const headingElem = hElem as HTMLHeadingElement;
+              const cardElem = headingElem.closest<HTMLDivElement>(".quote-page-card");
+              if (cardElem != null) {
+                if (chkElem.checked && cardElem.classList.contains(classForHidingCalculationSections)) cardElem.classList.remove(classForHidingCalculationSections, classForDisablingCalculationSections);
+                if (!chkElem.checked && !cardElem.classList.contains(classForHidingCalculationSections)) cardElem.classList.add(classForHidingCalculationSections, classForDisablingCalculationSections);
+              }
+            });
+          }
+        }
+      }
+    }
+  }
+};
+
+const handleQuantityElementBlur = (evt: Event) => {
+  const eventTarget = evt.target! as HTMLInputElement;
+  // const relatedQuantityCheckboxElemId = quantityCheckboxElem.id;
+  const relatedQuantityCheckboxElemId = eventTarget.dataset.relatedQuantityCkbxId;
+  const parentDivElem = eventTarget.closest<HTMLLIElement>("li.list-group-item");
+  if (parentDivElem != null) {
+    const quantityCheckboxElem = parentDivElem.querySelector<HTMLInputElement>(`#${relatedQuantityCheckboxElemId}`);
+    if (quantityCheckboxElem != null) {
+      const unitsStr = quantityCheckboxElem.dataset.unitsString || "p";
+      if (isNaN(eventTarget.valueAsNumber) || eventTarget.valueAsNumber === 0 || eventTarget.valueAsNumber > maxNumberVal || eventTarget.value == currentNumberInputVal + " ") {
+        eventTarget.value = "0";
+        currentNumberInputVal = "0";
+        handleQuantityChanged(eventTarget, unitsStr);
+        eventTarget.disabled = true;
+        quantityCheckboxElem.checked = false;
+        manageCheckboxCheckChange(quantityCheckboxElem);
+      }
+    }
+  }
+};
+
+const handleQuantityElementInput = (evt: Event) => {
+  const eventTarget = evt.target! as HTMLInputElement;
+  let unitsStr: string | null = null;
+  if (eventTarget.nextElementSibling != null) {
+    unitsStr = (eventTarget.nextElementSibling as HTMLLabelElement).textContent;
+  }
+  if (eventTarget.value.length > 0) {
+    if (isNaN(eventTarget.valueAsNumber) || eventTarget.valueAsNumber > maxNumberVal || eventTarget.value == currentNumberInputVal + " ") {
+      eventTarget.value = currentNumberInputVal;
+    } else {
+      if (eventTarget.valueAsNumber <= 0) {
+        if (eventTarget.valueAsNumber < 0) {
+          eventTarget.value = "1";
+          currentNumberInputVal = "1";
+        }
+        handleQuantityChanged(eventTarget, unitsStr);
+      } else {
+        currentNumberInputVal = eventTarget.value;
+        handleQuantityChanged(eventTarget, unitsStr);
+      }
+    }
+  } else {
+    // eventTarget.value = "1";
+    // currentNumberInputVal = "1";
+    // handleQuantityChanged(eventTarget, unitsStr);
+    // eventTarget.disabled = true;
+    // quantityCheckboxElem.checked = false;
+    // manageCheckboxCheckChange(quantityCheckboxElem);
+    if (eventTarget.value.length === 0) {
+      // eventTarget.value = "1";
+      currentNumberInputVal = "0";
+      handleQuantityChanged(eventTarget, unitsStr);
+    }
+  }
+};
+
 export default async function manageQuotesCalculation(currentPagePath: string) {
   indexedDb = new IndexDbManager("quotation_selections", 1);
   await indexedDb.createObjectStore(["selections"]);
@@ -174,46 +304,10 @@ export default async function manageQuotesCalculation(currentPagePath: string) {
     const jobTypeChkboxElems = document.querySelectorAll<HTMLInputElement>("input.form-check-input.job-type-ckbx");
     if (jobTypeChkboxElems.length > 0) {
       jobTypeChkboxElems.forEach((jobTypeChkboxElem) => {
-        jobTypeChkboxElem.addEventListener("change", (evt: Event) => {
-          const chkElem = evt.target as HTMLInputElement;
-          if (chkElem.id.startsWith("jobType")) {
-            // additional may be unnecessary check
-            const parentContainerElem = chkElem.closest<HTMLDivElement>(".job-types-container");
-            if (parentContainerElem != null) {
-              if (parentContainerElem.parentElement != null) {
-                const outerContainerElem = parentContainerElem.parentElement.parentElement;
-                if (outerContainerElem != null) {
-                  // const headingElem = outerContainerElem.querySelector("h5:first-child");
-                  const headingElems = getElementsByText(chkElem.dataset.serviceGroupName as string, "h5", outerContainerElem);
-                  if (headingElems.length === 1) {
-                    const headingElem = headingElems[0] as HTMLHeadingElement;
-                    const cardElem = headingElem.closest<HTMLDivElement>(".quote-page-card");
-                    if (cardElem != null) {
-                      if (chkElem.checked && cardElem.classList.contains(classForHidingCalculationSections)) cardElem.classList.remove(classForHidingCalculationSections, classForDisablingCalculationSections);
-                      if (!chkElem.checked && !cardElem.classList.contains(classForHidingCalculationSections)) cardElem.classList.add(classForHidingCalculationSections, classForDisablingCalculationSections);
-                    }
-                  }
-                  if (headingElems.length === 2) {
-                    // solution to problem of bootstrap responsive hide/show elements - dual elements inside different parents to be visible on different screen resolutions
-                    headingElems.forEach((hElem) => {
-                      const headingElem = hElem as HTMLHeadingElement;
-                      const cardElem = headingElem.closest<HTMLDivElement>(".quote-page-card");
-                      if (cardElem != null) {
-                        if (chkElem.checked && cardElem.classList.contains(classForHidingCalculationSections)) cardElem.classList.remove(classForHidingCalculationSections, classForDisablingCalculationSections);
-                        if (!chkElem.checked && !cardElem.classList.contains(classForHidingCalculationSections)) cardElem.classList.add(classForHidingCalculationSections, classForDisablingCalculationSections);
-                      }
-                    });
-                  }
-                }
-              }
-            }
-          }
-        });
+        jobTypeChkboxElem.addEventListener("change", handleJobTypeCheckboxChange);
       });
     }
   }
-
-  const re = /(\d+)$/; // regex to get/extract number from checkbox id attribute value
 
   // get all number inputs
   const numberInputElems = document.querySelectorAll<HTMLInputElement>("input[type=number]");
@@ -222,38 +316,7 @@ export default async function manageQuotesCalculation(currentPagePath: string) {
       numberInputElement.valueAsNumber = 0;
       numberInputElement.dataset.lastValue = "0";
       numberInputElement.setAttribute("max", String(maxNumberVal));
-      numberInputElement.addEventListener(
-        "keydown",
-        (evt: KeyboardEvent) => {
-          // alert(evt.code + " --- " + evt.key);
-          // console.log("keydown", evt.code, evt.key, evt.shiftKey);
-          if (
-            evt.code === "-" ||
-            evt.code === "ArrowUp" ||
-            evt.code === "ArrowDown" ||
-            evt.code === "Period" ||
-            evt.code === "Minus" ||
-            evt.code === "KeyE" ||
-            evt.code === "NumpadAdd" ||
-            evt.code === "NumpadSubtract" ||
-            evt.code === "NumpadDivide" ||
-            evt.code === "NumpadMultiply" ||
-            evt.code === "NumpadDecimal" ||
-            evt.code === "ShiftRight" ||
-            evt.code === "ShiftLeft" ||
-            evt.code === "Tab" ||
-            evt.code === "Space" ||
-            evt.shiftKey ||
-            evt.altKey ||
-            evt.ctrlKey ||
-            (evt.code === "Equal" && evt.key === "+" && evt.shiftKey)
-          ) {
-            // do not allow negative values
-            evt.preventDefault();
-          }
-        },
-        { passive: false, capture: true }
-      );
+      numberInputElement.addEventListener("keydown", checkIfValidNumberInput, { capture: true, once: false, passive: false });
     });
   }
 
@@ -261,11 +324,9 @@ export default async function manageQuotesCalculation(currentPagePath: string) {
   const quantityRelatedCheckboxElems = document.querySelectorAll<HTMLInputElement>("input.form-check-input.ckbx-with-quantity");
   if (quantityRelatedCheckboxElems.length > 0) {
     quantityRelatedCheckboxElems.forEach((quantityCheckboxElem) => {
-      quantityCheckboxElem.addEventListener("change", (evt: Event) => {
-        handleCheckboxCheckChange(evt.target, re);
-      }); // END OF -> quantityCheckboxElem.addEventListener("change",
+      quantityCheckboxElem.addEventListener("change", handleCheckboxCheckChange);
 
-      // finding/getting related quantity element - getting 2nd time - 1st time inside handleCheckboxCheckChange
+      // finding/getting related quantity element - getting 2nd time - 1st time inside manageCheckboxCheckChange
       const regExMatch = re.exec(quantityCheckboxElem.id);
       if (regExMatch != null) {
         const quantityElemId = `${quantityCheckboxElem.id.replace(/\d+$/, "")}Q${regExMatch[0]}`;
@@ -276,56 +337,12 @@ export default async function manageQuotesCalculation(currentPagePath: string) {
           if (quantityElement.nextElementSibling != null) {
             unitsStr = (quantityElement.nextElementSibling as HTMLLabelElement).textContent;
           }
-          quantityElement.addEventListener(
-            "input",
-            (evt: Event) => {
-              const eventTarget = evt.target! as HTMLInputElement;
-              if (eventTarget.value.length > 0) {
-                if (isNaN(eventTarget.valueAsNumber) || eventTarget.valueAsNumber > maxNumberVal || eventTarget.value == currentNumberInputVal + " ") {
-                  eventTarget.value = currentNumberInputVal;
-                } else {
-                  if (eventTarget.valueAsNumber <= 0) {
-                    if (eventTarget.valueAsNumber < 0) {
-                      eventTarget.value = "1";
-                      currentNumberInputVal = "1";
-                    }
-                    handleQuantityChanged(eventTarget, unitsStr);
-                  } else {
-                    currentNumberInputVal = eventTarget.value;
-                    handleQuantityChanged(eventTarget, unitsStr);
-                  }
-                }
-              } else {
-                // eventTarget.value = "1";
-                // currentNumberInputVal = "1";
-                // handleQuantityChanged(eventTarget, unitsStr);
-                // eventTarget.disabled = true;
-                // quantityCheckboxElem.checked = false;
-                // handleCheckboxCheckChange(quantityCheckboxElem, re);
-                if (eventTarget.value.length === 0) {
-                  // eventTarget.value = "1";
-                  currentNumberInputVal = "0";
-                  handleQuantityChanged(eventTarget, unitsStr);
-                }
-              }
-            },
-            { passive: false, capture: true }
-          );
+          quantityElement.addEventListener("input", handleQuantityElementInput, { capture: true, once: false, passive: false });
           // quantityElement.addEventListener("change", (evt: Event) => {
           //   const eventTarget = evt.target! as HTMLInputElement;
           //   handleQuantityChanged(eventTarget, unitsStr);
           // });
-          quantityElement.addEventListener("blur", (evt: Event) => {
-            const eventTarget = evt.target! as HTMLInputElement;
-            if (isNaN(eventTarget.valueAsNumber) || eventTarget.valueAsNumber === 0 || eventTarget.valueAsNumber > maxNumberVal || eventTarget.value == currentNumberInputVal + " ") {
-              eventTarget.value = "0";
-              currentNumberInputVal = "0";
-              handleQuantityChanged(eventTarget, unitsStr);
-              eventTarget.disabled = true;
-              quantityCheckboxElem.checked = false;
-              handleCheckboxCheckChange(quantityCheckboxElem, re);
-            }
-          });
+          quantityElement.addEventListener("blur", handleQuantityElementBlur);
         }
       }
     });
@@ -335,31 +352,7 @@ export default async function manageQuotesCalculation(currentPagePath: string) {
   const durationCheckboxElems = document.querySelectorAll<HTMLInputElement>("input.form-check-input.work-dur-type-ckbx");
   if (durationCheckboxElems.length > 0) {
     durationCheckboxElems.forEach((durationCheckboxElem) => {
-      durationCheckboxElem.addEventListener("change", (evt: Event) => {
-        const chkElem = evt.target as HTMLInputElement;
-        const chkElemIsChecked = chkElem.checked;
-        const parentContainerElem = chkElem.closest<HTMLDivElement>(".list-group");
-
-        // uncheck all checkboxes - part of logic to create radio button like functionality - mutually exclusive checkboxes
-        const allCheckboxes = parentContainerElem!.querySelectorAll<HTMLInputElement>("input.form-check-input.work-dur-type-ckbx");
-        allCheckboxes.forEach((chk) => {
-          chk.checked = false;
-        });
-
-        // check event's checkbox again
-        chkElem.checked = chkElemIsChecked;
-        if (chkElemIsChecked) {
-          localStorage.setItem("durationCode", chkElem.value); // save selected duration code
-
-          // remove error indication
-          const timeDurationContainer = document.querySelector<HTMLDivElement>("#timeDurationSelectionContainer");
-          if (timeDurationContainer!.classList.contains("blinking-div")) timeDurationContainer!.classList.remove("blinking-div");
-
-          // remove error toast
-          hideToast();
-        }
-      });
+      durationCheckboxElem.addEventListener("change", handleDurationCheckboxChange);
     });
   }
-  // duration-selection-container
 }

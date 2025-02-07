@@ -1,0 +1,21 @@
+<div id="timeDurationSelectionContainer" class="duration-selection-container d-none-not-imp quote-page-card card w-100 wpct-sm-49 wpct-lg-40">
+    <div class="card-header bg-light-green-2">
+        <h5 class="fw-bold">Time on Starting the Job</h5>
+    </div>
+    <div class="card-body">
+        <ul class="list-group list-group-vert">
+            <% for (var i11 = 0; i11 < workDurationTypes.length; i11++) { %>
+                <li class="list-group-item has-no-quantity">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input work-dur-type-ckbx" type="checkbox" id="workDurType<%= i11 %>" name="workDurType<%= i11 %>" value="<%= workDurationTypes[i11].code %>">
+                        <label class="form-check-label fw-medium ps-1" for="workDurType<%= i11 %>"><%= workDurationTypes[i11].title %></label>
+                    </div>
+                </li>
+            <% } %>
+        </ul>
+    </div>
+    <p class="card-text p-5 fw-medium">Calculated Price: <span class="display-5 fw-bolder">&pound; <b id="calc-price">0</b></span></p>
+    <div class="card-footer">
+        <h5>Minimum Order Price: &pound; 200</h5>
+    </div>
+</div>
