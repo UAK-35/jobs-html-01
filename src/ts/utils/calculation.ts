@@ -225,6 +225,7 @@ export default async function manageQuotesCalculation(currentPagePath: string) {
       numberInputElement.addEventListener(
         "keydown",
         (evt: KeyboardEvent) => {
+          // alert(evt.code + " --- " + evt.key);
           // console.log("keydown", evt.code, evt.key, evt.shiftKey);
           if (
             evt.code === "-" ||
@@ -241,6 +242,7 @@ export default async function manageQuotesCalculation(currentPagePath: string) {
             evt.code === "ShiftRight" ||
             evt.code === "ShiftLeft" ||
             evt.code === "Tab" ||
+            evt.code === "Space" ||
             evt.shiftKey ||
             evt.altKey ||
             evt.ctrlKey ||

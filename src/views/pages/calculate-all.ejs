@@ -8,9 +8,9 @@
     <div class="container w-100 mw-sm-100 d-flex flex-column gap-1 mt-5">
         <h1>Calculate your quote</h1>
         <ul class="list-group list-group-dashed">
-            <li class="list-group-item border-0 p-0"><span class="fs-7">Tick any job in <strong>'My Job'</strong> box below to highlight the breakdown of the work.</span></li>
-            <li class="list-group-item border-0 p-0"><span class="fs-7">Input your quantities into the cell and get the price at the bottom.</span></li>
-            <li class="list-group-item border-0 p-0"><span class="fs-7">Once happy with the price input your details and <strong>'Submit'</strong> the quote.</span></li>
+            <li class="list-group-item border-0 p-0"><span class="fs-6">Tick any job in <strong>'My Job'</strong> box below to highlight the breakdown of the work.</span></li>
+            <li class="list-group-item border-0 p-0"><span class="fs-6">Input your quantities into the cell and get the price at the bottom.</span></li>
+            <li class="list-group-item border-0 p-0"><span class="fs-6">Once happy with the price input your details and <strong>'Submit'</strong> the quote.</span></li>
         </ul>
     </div>
 
@@ -39,9 +39,9 @@
         </table>
     </div>
 
-    <div class="container w-100 mw-sm-100 d-flex flex-column flex-sm-row flex-wrap p-0 p-lg-3">
+    <div class="container w-100 mw-sm-100 d-flex flex-column flex-wrap flex-sm-row justify-content-sm-between p-0 p-lg-3">
 
-        <div class="container w-100 wpct-sm-48 wpct-lg-31 m-0 m-lg-2 quantities-container d-flex flex-column justify-content-start align-content-between flex-wrap column-gap-3 row-gap-4 w-100 border-0 border-danger">
+        <div class="container w-100 wpct-sm-49 wpct-lg-40 m-0 m-lg-2 quantities-container d-flex flex-column justify-content-start align-content-between flex-wrap column-gap-3 row-gap-4 w-100 border-0 border-danger">
 
             <div class="job-types-container quote-page-card card w-100">
                 <div class="card-header bg-light-green-2">
@@ -76,7 +76,7 @@
                                     <input class="form-check-input wall-type-ckbx ckbx-with-quantity" data-price-in-pounds="<%= wallRefurbTypes[i2].pricePounds %>" type="checkbox" id="wallsType<%= i2 %>" name="wallsType<%= i2 %>" value="<%= wallRefurbTypes[i2].title %>">
                                     <label class="form-check-label fw-medium ps-1" for="wallsType<%= i2 %>"><span><%= wallRefurbTypes[i2].title %></span></label>
                                 </div>
-                                <div class="d-inline-block text-end">
+                                <div class="d-inline-block text-start">
                                     <input disabled class="wpx-50" data-last-value="<%= wallRefurbTypes[i2].defaultQuantity %>" type="number" min="1" id="wallsTypeQ<%= i2 %>" name="wallsTypeQ<%= i2 %>" value="<%= wallRefurbTypes[i2].defaultQuantity %>">
                                     <label class="" for="wallsTypeQ<%= i2 %>"><%= wallRefurbTypes[i2].units %></label>
                                 </div>
@@ -98,7 +98,7 @@
                                     <input class="form-check-input floor-type-ckbx ckbx-with-quantity" data-price-in-pounds="<%= floorRefurbTypes[i3].pricePounds %>" type="checkbox" id="floorType<%= i3 %>" name="floorType<%= i3 %>" value="<%= floorRefurbTypes[i3].title %>">
                                     <label class="form-check-label fw-medium ps-1" for="floorType<%= i3 %>"><span><%= floorRefurbTypes[i3].title %></span></label>
                                 </div>
-                                <div class="d-inline-block text-end">
+                                <div class="d-inline-block text-start">
                                     <input disabled class="wpx-50" data-last-value="<%= floorRefurbTypes[i3].defaultQuantity %>" type="number" min="1" id="floorTypeQ<%= i3 %>" name="floorTypeQ<%= i3 %>" value="<%= floorRefurbTypes[i3].defaultQuantity %>">
                                     <label class="" for="floorTypeQ<%= i3 %>"><%= floorRefurbTypes[i3].units %></label>
                                 </div>
@@ -108,7 +108,7 @@
                 </div>
             </div>
 
-            <div class="ceiling-types-container d-none-not-imp d-block d-lg-none quote-page-card card w-100">
+            <div class="ceiling-types-container d-none-not-imp d-none d-sm-block d1-xl-none quote-page-card card w-100">
                 <div class="card-header bg-light-green-2">
                     <h5 class="fw-bold">Ceiling Refurbishment</h5>
                 </div>
@@ -120,7 +120,7 @@
                                     <input class="form-check-input ceiling-type-ckbx ckbx-with-quantity" data-price-in-pounds="<%= ceilingRefurbTypes[i4].pricePounds %>" type="checkbox" id="ceilingRefurbType<%= i4 %>" name="ceilingRefurbType<%= i4 %>" value="<%= ceilingRefurbTypes[i4].title %>">
                                     <label class="form-check-label fw-medium ps-1" for="ceilingRefurbType<%= i4 %>"><span><%= ceilingRefurbTypes[i4].title %></span></label>
                                 </div>
-                                <div class="d-inline-block text-end">
+                                <div class="d-inline-block text-start">
                                     <input disabled class="wpx-50" data-last-value="<%= ceilingRefurbTypes[i4].defaultQuantity %>" type="number" min="1" id="ceilingRefurbTypeQ<%= i4 %>" name="ceilingRefurbTypeQ<%= i4 %>" value="<%= ceilingRefurbTypes[i4].defaultQuantity %>">
                                     <label class="" for="ceilingRefurbTypeQ<%= i4 %>"><%= ceilingRefurbTypes[i4].units %></label>
                                 </div>
@@ -130,19 +130,19 @@
                 </div>
             </div>
 
-            <div class="loft-types-container d-none-not-imp d-block d-lg-none quote-page-card card w-100">
+            <div class="loft-types-container d-none-not-imp d-none d-sm-block d1-xl-none quote-page-card card w-100">
                 <div class="card-header bg-light-green-2">
                     <h5 class="fw-bold">Loft Conversion</h5>
                 </div>
                 <div class="card-body">
-                    <ul class="list-group list-group-vert">
+                    <ul class="list-group list-group-vert has-sqm-units">
                         <% for (var i5 = 0; i5 < loftConversionTypes.length; i5++) { %>
                             <li class="list-group-item">
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input left-conv-type-ckbx ckbx-with-quantity" data-price-in-pounds="<%= loftConversionTypes[i5].pricePounds %>" type="checkbox" id="loftConverType<%= i5 %>" name="loftConverType<%= i5 %>" value="<%= loftConversionTypes[i5].title %>">
                                     <label class="form-check-label fw-medium ps-1" for="loftConverType<%= i5 %>"><span><%= loftConversionTypes[i5].title %></span></label>
                                 </div>
-                                <div class="d-inline-block text-end">
+                                <div class="d-inline-block text-start">
                                     <input disabled class="wpx-50" data-last-value="<%= loftConversionTypes[i5].defaultQuantity %>" type="number" min="1" id="loftConverTypeQ<%= i5 %>" name="loftConverTypeQ<%= i5 %>" value="<%= loftConversionTypes[i5].defaultQuantity %>">
                                     <label class="" for="loftConverTypeQ<%= i5 %>"><%= loftConversionTypes[i5].units %></label>
                                 </div>
@@ -152,9 +152,31 @@
                 </div>
             </div>
 
+            <div class="extension-types-container d-none-not-imp d-none d-sm-block d-lg-none quote-page-card card w-100">
+                <div class="card-header bg-light-green-2">
+                    <h5 class="fw-bold">Extensions</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-vert has-sqm-units">
+                        <% for (var i9 = 0; i9 < extensionTypes.length; i9++) { %>
+                            <li class="list-group-item">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input extension-type-ckbx ckbx-with-quantity" data-price-in-pounds="<%= extensionTypes[i9].pricePounds %>" type="checkbox" id="extensionType<%= i9 %>" name="extensionType<%= i9 %>" value="<%= extensionTypes[i9].title %>">
+                                    <label class="form-check-label fw-medium ps-1" for="extensionType<%= i9 %>"><span><%= extensionTypes[i9].title %></span></label>
+                                </div>
+                                <div class="d-inline-block text-start">
+                                    <input disabled class="wpx-50" data-last-value="<%= extensionTypes[i9].defaultQuantity %>" type="number" min="1" id="extensionTypeQ<%= i9 %>" name="extensionTypeQ<%= i9 %>" value="<%= extensionTypes[i9].defaultQuantity %>">
+                                    <label class="" for="extensionTypeQ<%= i9 %>"><%= extensionTypes[i9].units %></label>
+                                </div>
+                            </li>
+                        <% } %>
+                    </ul>
+                </div>
+            </div>
+
         </div>
 
-        <div class="container w-100 wpct-sm-48 wpct-lg-65 m-0 m-lg-2 quantities-container d-flex flex-row justify-content-between align-content-start flex-wrap column-gap-3 row-gap-4 w-100 border-0 border-danger">
+        <div class="container w-100 wpct-sm-49 wpct-lg-56 m-0 m-lg-2 quantities-container d-flex flex-row justify-content-between align-content-start flex-wrap column-gap-3 row-gap-4 w-100 border-0 border-danger">
 
             <div class="bathroom-types-container d-none-not-imp quote-page-card card w-100">
                 <div class="card-header bg-light-green-2">
@@ -168,7 +190,7 @@
                                     <input class="form-check-input bathrm-type-ckbx ckbx-with-quantity" data-price-in-pounds="<%= bathroomRefurbTypes[i6].pricePounds %>" type="checkbox" id="bathrmType<%= i6 %>" name="bathrmType<%= i6 %>" value="<%= bathroomRefurbTypes[i6].title %>">
                                     <label class="form-check-label fw-medium ps-1" for="bathrmType<%= i6 %>"><span><%= bathroomRefurbTypes[i6].title %></span></label>
                                 </div>
-                                <div class="d-inline-block text-end">
+                                <div class="d-inline-block text-start">
                                     <input disabled class="wpx-50" data-last-value="<%= bathroomRefurbTypes[i6].defaultQuantity %>" type="number" min="1" id="bathrmTypeQ<%= i6 %>" name="bathrmTypeQ<%= i6 %>" value="<%= bathroomRefurbTypes[i6].defaultQuantity %>">
                                     <label class="" for="bathrmTypeQ<%= i6 %>"><%= bathroomRefurbTypes[i6].units %></label>
                                 </div>
@@ -190,7 +212,7 @@
                                     <input class="form-check-input ktchn-type-ckbx ckbx-with-quantity" data-price-in-pounds="<%= kitchenRefurbTypes[i7].pricePounds %>" type="checkbox" id="ktchnType<%= i7 %>" name="ktchnType<%= i7 %>" value="<%= kitchenRefurbTypes[i7].title %>">
                                     <label class="form-check-label fw-medium ps-1" for="ktchnType<%= i7 %>"><span><%= kitchenRefurbTypes[i7].title %></span></label>
                                 </div>
-                                <div class="d-inline-block text-end">
+                                <div class="d-inline-block text-start">
                                     <input disabled class="wpx-50" data-last-value="<%= kitchenRefurbTypes[i7].defaultQuantity %>" type="number" min="1" id="ktchnTypeQ<%= i7 %>" name="ktchnTypeQ<%= i7 %>" value="<%= kitchenRefurbTypes[i7].defaultQuantity %>">
                                     <label class="" for="ktchnTypeQ<%= i7 %>"><%= kitchenRefurbTypes[i7].units %></label>
                                 </div>
@@ -200,7 +222,7 @@
                 </div>
             </div>
 
-            <div class="ceiling-types-container d-none-not-imp d-none d-lg-block quote-page-card card w-100 wpct-sm-48">
+            <div class="ceiling-types-container d-none-not-imp d-block d-sm-none d1-xl-block quote-page-card card w-100 wpct-sm-48">
                 <div class="card-header bg-light-green-2">
                     <h5 class="fw-bold">Ceiling Refurbishment</h5>
                 </div>
@@ -212,7 +234,7 @@
                                     <input class="form-check-input ceiling-type-ckbx ckbx-with-quantity" data-price-in-pounds="<%= ceilingRefurbTypes[i8].pricePounds %>" type="checkbox" id="ceilingType<%= i8 %>" name="ceilingType<%= i8 %>" value="<%= ceilingRefurbTypes[i8].title %>">
                                     <label class="form-check-label fw-medium ps-1" for="ceilingType<%= i8 %>"><span><%= ceilingRefurbTypes[i8].title %></span></label>
                                 </div>
-                                <div class="d-inline-block text-end">
+                                <div class="d-inline-block text-start">
                                     <input disabled class="wpx-50" data-last-value="<%= ceilingRefurbTypes[i8].defaultQuantity %>" type="number" min="1" id="ceilingTypeQ<%= i8 %>" name="ceilingTypeQ<%= i8 %>" value="<%= ceilingRefurbTypes[i8].defaultQuantity %>">
                                     <label class="" for="ceilingTypeQ<%= i8 %>"><%= ceilingRefurbTypes[i8].units %></label>
                                 </div>
@@ -222,9 +244,9 @@
                 </div>
             </div>
 
-            <div class="w-100 wpct-lg-48 d-flex flex-column">
+            <div class="w-100 wpct1-xl-48 d-flex flex-column">
 
-                <div class="extension-types-container d-none-not-imp quote-page-card card w-100">
+                <div class="extension-types-container d-none-not-imp d-block d-sm-none d-lg-block quote-page-card card w-100">
                     <div class="card-header bg-light-green-2">
                         <h5 class="fw-bold">Extensions</h5>
                     </div>
@@ -236,7 +258,7 @@
                                         <input class="form-check-input extension-type-ckbx ckbx-with-quantity" data-price-in-pounds="<%= extensionTypes[i9].pricePounds %>" type="checkbox" id="extensionType<%= i9 %>" name="extensionType<%= i9 %>" value="<%= extensionTypes[i9].title %>">
                                         <label class="form-check-label fw-medium ps-1" for="extensionType<%= i9 %>"><span><%= extensionTypes[i9].title %></span></label>
                                     </div>
-                                    <div class="d-inline-block text-end">
+                                    <div class="d-inline-block text-start">
                                         <input disabled class="wpx-50" data-last-value="<%= extensionTypes[i9].defaultQuantity %>" type="number" min="1" id="extensionTypeQ<%= i9 %>" name="extensionTypeQ<%= i9 %>" value="<%= extensionTypes[i9].defaultQuantity %>">
                                         <label class="" for="extensionTypeQ<%= i9 %>"><%= extensionTypes[i9].units %></label>
                                     </div>
@@ -246,7 +268,7 @@
                     </div>
                 </div>
 
-                <div class="loft-types-container d-none-not-imp d-none d-lg-block quote-page-card card w-100">
+                <div class="loft-types-container d-none-not-imp d-block d-sm-none d1-xl-block quote-page-card card w-100">
                     <div class="card-header bg-light-green-2">
                         <h5 class="fw-bold">Loft Conversion</h5>
                     </div>
@@ -258,7 +280,7 @@
                                         <input class="form-check-input left-conv-type-ckbx ckbx-with-quantity" data-price-in-pounds="<%= loftConversionTypes[i10].pricePounds %>" type="checkbox" id="loftConvType<%= i10 %>" name="loftConvType<%= i10 %>" value="<%= loftConversionTypes[i10].title %>">
                                         <label class="form-check-label fw-medium ps-1" for="loftConvType<%= i10 %>"><span><%= loftConversionTypes[i10].title %></span></label>
                                     </div>
-                                    <div class="d-inline-block text-end">
+                                    <div class="d-inline-block text-start">
                                         <input disabled class="wpx-50" data-last-value="<%= loftConversionTypes[i10].defaultQuantity %>" type="number" min="1" id="loftConvTypeQ<%= i10 %>" name="loftConvTypeQ<%= i10 %>" value="<%= loftConversionTypes[i10].defaultQuantity %>">
                                         <label class="" for="loftConvTypeQ<%= i10 %>"><%= loftConversionTypes[i10].units %></label>
                                     </div>
@@ -328,7 +350,7 @@
                     <div class="form-floating w-100">
                         <!--<input type="text" id="address" name="address" class="form-control" />-->
                         <textarea name="address" id="address" cols="80" rows="3" class="form-control" placeholder="1231231231" tabindex="4"></textarea>
-                        <label for="address">Address</label>
+                        <label for="address">Full Address and PostCode</label>
                         <div class="invalid-tooltip end-0">
                             This field is required!
                         </div>

@@ -77,6 +77,8 @@ $display-font-sizes: (
   4: 2.25rem,
   5: 1.5rem,
   6: 1.25rem,
+  7: 1rem,
+  8: 0.75rem,
 );
 $aspect-ratios: (
   "1x1": 100%,
@@ -114,6 +116,9 @@ $custom-font-sizes-one: (
   3: 1.25rem,
   4: 1.125rem,
   5: 1rem,
+  6: 0.875rem,
+  7: 0.75rem,
+  8: 0.625rem,
 );
 
 //$startPctSiz: 1;
@@ -359,6 +364,19 @@ $theme-colors: map.merge($theme-colors, $custom-colors);
     font-style: $display-font-style;
     font-weight: $display-font-weight;
     line-height: $display-line-height;
+  }
+}
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @each $display, $font-size in $custom-font-sizes-one {
+    @include media-breakpoint-up($breakpoint) {
+      .fnt-#{$breakpoint}-#{$display} {
+        @include font-size($font-size);
+        font-family: $display-font-family;
+        font-style: $display-font-style;
+        font-weight: $display-font-weight;
+        line-height: $display-line-height;
+      }
+    }
   }
 }
 
@@ -909,49 +927,61 @@ input[type=number]:disabled {
   opacity: 0.5;
 }
 
-.list-group.list-group-horiz {
-  @extend .list-group-horizontal;
-  //@extend .list-group-flush;
-  @extend .flex-column;
-  @extend .flex-lg-row;
-  @extend .justify-content-lg-between;
-  @extend .align-items-lg-center;
-  @extend .flex-wrap;
-  @extend .gap-1;
+.list-group .list-group-item {
+  @extend .fnt-6;
+  @extend .fnt-md-5;
+}
+.list-group .list-group-item .form-check.form-check-inline {
+  @extend .pad-x-1\.5rem;
+  @extend .pad-x-sm-0\.5rem;
+  @extend .pad-x-md-1rem;
+  @extend .pad-x-lg-1\.5rem;
 }
 
-.list-group.list-group-horiz .list-group-item {
-  @extend .w-100;
-  @extend .wpct-lg-48;
-  @extend .px-1;
-}
-.list-group.list-group-horiz .list-group-item:not(.has-no-quantity) .form-check.form-check-inline {
-  @extend .wpct-64;
-  @extend .wpct-sm-52;
-  @extend .wpct-lg-56;
-  @extend .wpct-xl-64;
-  @extend .wpct-xxl-71;
-}
-.list-group.list-group-horiz .list-group-item .d-inline-block {
-  //@extend .wpx-67;
-  @extend .wpx-72;
-}
+//.list-group.list-group-horiz {
+//  //@extend .list-group-horizontal;
+//  //@extend .list-group-flush;
+//  @extend .flex-column;
+//  @extend .flex-lg-row;
+//  @extend .justify-content-lg-between;
+//  @extend .align-items-lg-center;
+//  @extend .flex-wrap;
+//  @extend .gap-1;
+//}
 
+//.list-group.list-group-horiz .list-group-item {
+//  @extend .w-100;
+//  @extend .wpct-lg-48;
+//  @extend .px-1;
+//}
+//.list-group.list-group-horiz .list-group-item:not(.has-no-quantity) .form-check.form-check-inline {
+//  @extend .wpct-64;
+//  @extend .wpct-sm-50;
+//  @extend .wpct-lg-55;
+//  @extend .wpct-xl-64;
+//  @extend .wpct-xxl-71;
+//}
+//.list-group.list-group-horiz .list-group-item .d-inline-block {
+//  //@extend .wpx-67;
+//  @extend .min-wpx-72;
+//}
 
+.list-group.list-group-horizont,
+.list-group.list-group-horiz,
 .list-group.list-group-vert {
   @extend .list-group-flush;
   @extend .gap-1;
 }
 
-.list-group.list-group-horizont {
-  @extend .list-group-horizontal;
-  //@extend .list-group-flush;
-  //@extend .flex-row;
-  //@extend .justify-content-between;
-  //@extend .align-items-center;
-  //@extend .flex-wrap;
-  //@extend .gap-1;
-}
+//.list-group.list-group-horizont {
+//  @extend .list-group-horizontal;
+//  //@extend .list-group-flush;
+//  //@extend .flex-row;
+//  //@extend .justify-content-between;
+//  //@extend .align-items-center;
+//  //@extend .flex-wrap;
+//  //@extend .gap-1;
+//}
 
 .list-group.list-group-horizont .list-group-item,
 .list-group.list-group-horiz .list-group-item,
@@ -989,6 +1019,8 @@ input[type=number]:disabled {
 
 .list-group.list-group-horizont .list-group-item .form-check.form-check-inline,
 .list-group.list-group-horizont .list-group-item .d-inline-block,
+.list-group.list-group-horiz .list-group-item .form-check.form-check-inline,
+.list-group.list-group-horiz .list-group-item .d-inline-block,
 .list-group.list-group-vert .list-group-item .form-check.form-check-inline,
 .list-group.list-group-vert .list-group-item .d-inline-block {
   @extend .h-max;
@@ -996,34 +1028,37 @@ input[type=number]:disabled {
 }
 
 .list-group.list-group-horizont .list-group-item:not(.has-no-quantity) .form-check.form-check-inline,
+.list-group.list-group-horiz .list-group-item:not(.has-no-quantity) .form-check.form-check-inline,
 .list-group.list-group-vert .list-group-item:not(.has-no-quantity) .form-check.form-check-inline {
   //@extend .wpct-67;
   @extend .wpct-64;
 }
 
 .list-group.list-group-horizont .list-group-item .d-inline-block,
+.list-group.list-group-horiz .list-group-item .d-inline-block,
 .list-group.list-group-vert .list-group-item .d-inline-block {
   //@extend .wpct-30;
-  @extend .wpx-67;
+  @extend .min-wpx-72;
 }
 
-.list-group.list-group-horiz.has-sqm-units .list-group-item:not(.has-no-quantity) .form-check.form-check-inline,
 .list-group.list-group-horizont.has-sqm-units .list-group-item:not(.has-no-quantity) .form-check.form-check-inline,
+.list-group.list-group-horiz.has-sqm-units .list-group-item:not(.has-no-quantity) .form-check.form-check-inline,
 .list-group.list-group-vert.has-sqm-units .list-group-item:not(.has-no-quantity) .form-check.form-check-inline {
   @extend .wpct-64;
-  @extend .wpct-sm-52;
-  @extend .wpct-lg-56;
+  @extend .wpct-sm-50;
+  @extend .wpct-lg-55;
   @extend .wpct-xl-64;
   @extend .wpct-xxl-71;
 }
 
-.list-group.list-group-horiz.has-sqm-units .list-group-item .d-inline-block,
 .list-group.list-group-horizont.has-sqm-units .list-group-item .d-inline-block,
+.list-group.list-group-horiz.has-sqm-units .list-group-item .d-inline-block,
 .list-group.list-group-vert.has-sqm-units .list-group-item .d-inline-block {
   //@extend .wpct-37;
   //@extend .wpx-90;
-  //@extend .wpx-92;
-  @extend .wpx-104;
+  @extend .wpx-92;
+  @extend .min-wpx-92;
+  //@extend .wpx-104;
 }
 
 ul.list-group-dashed {

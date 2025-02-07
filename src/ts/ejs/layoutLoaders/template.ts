@@ -103,7 +103,19 @@ export default async (data: any) => {
 
     hdr: ejs.compile(headerStr, { beautify: false })({ ...webpackData }),
     hro: !(data.page === "calculate" || data.page === "calculate-all") ? ejs.compile(heroStr, { beautify: false })() : "",
-    cnt: ejs.compile(contentStr, { beautify: false })(data.page === "calculate" || data.page === "calculate-all" ? contentData : { partialsFolder, jobTypes: jobTypes.sort((a: { indexPageOrdering: number }, b: { indexPageOrdering: number }) => a.indexPageOrdering - b.indexPageOrdering), reviewStoriesList, faqsList, iconSize1, servicesList }),
+    cnt: ejs.compile(contentStr, { beautify: false })(
+      data.page === "calculate" || data.page === "calculate-all"
+        ? contentData
+        : {
+            partialsFolder,
+            jobTypes: jobTypes.sort((a: { indexPageOrdering: number }, b: { indexPageOrdering: number }) => a.indexPageOrdering - b.indexPageOrdering),
+            reviewStoriesList,
+            faqsList,
+            iconSize1,
+            servicesList,
+            siteTelephoneNumber: webpackData.siteTelephoneNumber,
+          }
+    ),
     ftr: ejs.compile(footerStr, { beautify: false })({ ...webpackData, year: new Date().getFullYear() }),
     hdn: data.page === "calculate" || data.page === "calculate-all" ? ejs.compile(hiddenElementsStr, { beautify: false })() : "",
   });

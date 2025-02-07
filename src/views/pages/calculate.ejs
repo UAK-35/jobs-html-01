@@ -8,9 +8,9 @@
     <div class="container w-100 mw-sm-100 d-flex flex-column gap-1 mt-5">
         <h1>Calculate your quote</h1>
         <ul class="list-group list-group-dashed">
-            <li class="list-group-item border-0 p-0"><span class="fs-7">Tick any service in <strong id="titleDyn">'###'</strong> box below to input quantity.</span></li>
-            <li class="list-group-item border-0 p-0"><span class="fs-7">Input your quantities into the cells and get the price at the bottom.</span></li>
-            <li class="list-group-item border-0 p-0"><span class="fs-7">Once happy with the price input your details and <strong>'Submit'</strong> the quote.</span></li>
+            <li class="list-group-item border-0 p-0"><span class="fs-6">Tick any service in <strong id="titleDyn">'###'</strong> box below to input quantity.</span></li>
+            <li class="list-group-item border-0 p-0"><span class="fs-6">Input your quantities into the cells and get the price at the bottom.</span></li>
+            <li class="list-group-item border-0 p-0"><span class="fs-6">Once happy with the price input your details and <strong>'Submit'</strong> the quote.</span></li>
         </ul>
     </div>
 
@@ -53,7 +53,7 @@
                                 <input class="form-check-input bathrm-type-ckbx ckbx-with-quantity" data-price-in-pounds="<%= bathroomRefurbTypes[i2].pricePounds %>" type="checkbox" id="bathrmType<%= i2 %>" name="bathrmType<%= i2 %>" value="<%= bathroomRefurbTypes[i2].title %>">
                                 <label class="form-check-label fw-medium ps-1" for="bathrmType<%= i2 %>"><span><%= bathroomRefurbTypes[i2].title %></span></label>
                             </div>
-                            <div class="d-inline-block text-end">
+                            <div class="d-inline-block text-start">
                                 <input disabled class="wpx-50" data-last-value="<%= bathroomRefurbTypes[i2].defaultQuantity %>" type="number" min="1" id="bathrmTypeQ<%= i2 %>" name="bathrmTypeQ<%= i2 %>" value="<%= bathroomRefurbTypes[i2].defaultQuantity %>">
                                 <label class="" for="bathrmTypeQ<%= i2 %>"><%= bathroomRefurbTypes[i2].units %></label>
                             </div>
@@ -75,7 +75,7 @@
                                 <input class="form-check-input wall-type-ckbx ckbx-with-quantity" data-price-in-pounds="<%= wallRefurbTypes[i3].pricePounds %>" type="checkbox" id="wallsType<%= i3 %>" name="wallsType<%= i3 %>" value="<%= wallRefurbTypes[i3].title %>">
                                 <label class="form-check-label fw-medium ps-1" for="wallsType<%= i3 %>"><span><%= wallRefurbTypes[i3].title %></span></label>
                             </div>
-                            <div class="d-inline-block text-end">
+                            <div class="d-inline-block text-start">
                                 <input disabled class="wpx-50" data-last-value="<%= wallRefurbTypes[i3].defaultQuantity %>" type="number" min="1" id="wallsTypeQ<%= i3 %>" name="wallsTypeQ<%= i3 %>" value="<%= wallRefurbTypes[i3].defaultQuantity %>">
                                 <label class="" for="wallsTypeQ<%= i3 %>"><%= wallRefurbTypes[i3].units %></label>
                             </div>
@@ -97,7 +97,7 @@
                                 <input class="form-check-input ktchn-type-ckbx ckbx-with-quantity" data-price-in-pounds="<%= kitchenRefurbTypes[i4].pricePounds %>" type="checkbox" id="ktchnType<%= i4 %>" name="ktchnType<%= i4 %>" value="<%= kitchenRefurbTypes[i4].title %>">
                                 <label class="form-check-label fw-medium ps-1" for="ktchnType<%= i4 %>"><span><%= kitchenRefurbTypes[i4].title %></span></label>
                             </div>
-                            <div class="d-inline-block text-end">
+                            <div class="d-inline-block text-start">
                                 <input disabled class="wpx-50" data-last-value="<%= kitchenRefurbTypes[i4].defaultQuantity %>" type="number" min="1" id="ktchnTypeQ<%= i4 %>" name="ktchnTypeQ<%= i4 %>" value="<%= kitchenRefurbTypes[i4].defaultQuantity %>">
                                 <label class="" for="ktchnTypeQ<%= i4 %>"><%= kitchenRefurbTypes[i4].units %></label>
                             </div>
@@ -119,7 +119,7 @@
                                 <input class="form-check-input floor-type-ckbx ckbx-with-quantity" data-price-in-pounds="<%= floorRefurbTypes[i5].pricePounds %>" type="checkbox" id="floorType<%= i5 %>" name="floorType<%= i5 %>" value="<%= floorRefurbTypes[i5].title %>">
                                 <label class="form-check-label fw-medium ps-1" for="floorType<%= i5 %>"><span><%= floorRefurbTypes[i5].title %></span></label>
                             </div>
-                            <div class="d-inline-block text-end">
+                            <div class="d-inline-block text-start">
                                 <input disabled class="wpx-50" data-last-value="<%= floorRefurbTypes[i5].defaultQuantity %>" type="number" min="1" id="floorTypeQ<%= i5 %>" name="floorTypeQ<%= i5 %>" value="<%= floorRefurbTypes[i5].defaultQuantity %>">
                                 <label class="" for="floorTypeQ<%= i5 %>"><%= floorRefurbTypes[i5].units %></label>
                             </div>
@@ -141,7 +141,7 @@
                                 <input class="form-check-input ceiling-type-ckbx ckbx-with-quantity" data-price-in-pounds="<%= ceilingRefurbTypes[i6].pricePounds %>" type="checkbox" id="ceilingType<%= i6 %>" name="ceilingType<%= i6 %>" value="<%= ceilingRefurbTypes[i6].title %>">
                                 <label class="form-check-label fw-medium ps-1" for="ceilingType<%= i6 %>"><span><%= ceilingRefurbTypes[i6].title %></span></label>
                             </div>
-                            <div class="d-inline-block text-end">
+                            <div class="d-inline-block text-start">
                                 <input disabled class="wpx-50" data-last-value="<%= ceilingRefurbTypes[i6].defaultQuantity %>" type="number" min="1" id="ceilingTypeQ<%= i6 %>" name="ceilingTypeQ<%= i6 %>" value="<%= ceilingRefurbTypes[i6].defaultQuantity %>">
                                 <label class="" for="ceilingTypeQ<%= i6 %>"><%= ceilingRefurbTypes[i6].units %></label>
                             </div>
@@ -163,7 +163,7 @@
                                 <input class="form-check-input left-conv-type-ckbx ckbx-with-quantity" data-price-in-pounds="<%= loftConversionTypes[i7].pricePounds %>" type="checkbox" id="loftConvType<%= i7 %>" name="loftConvType<%= i7 %>" value="<%= loftConversionTypes[i7].title %>">
                                 <label class="form-check-label fw-medium ps-1" for="loftConvType<%= i7 %>"><span><%= loftConversionTypes[i7].title %></span></label>
                             </div>
-                            <div class="d-inline-block text-end">
+                            <div class="d-inline-block text-start">
                                 <input disabled class="wpx-50" data-last-value="<%= loftConversionTypes[i7].defaultQuantity %>" type="number" min="1" id="loftConvTypeQ<%= i7 %>" name="loftConvTypeQ<%= i7 %>" value="<%= loftConversionTypes[i7].defaultQuantity %>">
                                 <label class="" for="loftConvTypeQ<%= i7 %>"><%= loftConversionTypes[i7].units %></label>
                             </div>
@@ -185,7 +185,7 @@
                                 <input class="form-check-input extension-type-ckbx ckbx-with-quantity" data-price-in-pounds="<%= extensionTypes[i8].pricePounds %>" type="checkbox" id="extensionType<%= i8 %>" name="extensionType<%= i8 %>" value="<%= extensionTypes[i8].title %>">
                                 <label class="form-check-label fw-medium ps-1" for="extensionType<%= i8 %>"><span><%= extensionTypes[i8].title %></span></label>
                             </div>
-                            <div class="d-inline-block text-end">
+                            <div class="d-inline-block text-start">
                                 <input disabled class="wpx-50" data-last-value="<%= extensionTypes[i8].defaultQuantity %>" type="number" min="1" id="extensionTypeQ<%= i8 %>" name="extensionTypeQ<%= i8 %>" value="<%= extensionTypes[i8].defaultQuantity %>">
                                 <label class="" for="extensionTypeQ<%= i8 %>"><%= extensionTypes[i8].units %></label>
                             </div>
@@ -251,7 +251,7 @@
                     <div class="form-floating w-100">
                         <!--<input type="text" id="address" name="address" class="form-control" />-->
                         <textarea name="address" id="address" cols="80" rows="3" class="form-control" placeholder="1231231231" tabindex="4"></textarea>
-                        <label for="address">Address</label>
+                        <label for="address">Full Address and PostCode</label>
                         <div class="invalid-tooltip end-0">
                             This field is required!
                         </div>
