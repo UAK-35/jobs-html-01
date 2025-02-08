@@ -3,36 +3,13 @@
         <h2 class="quote-title display-2 fw-bold">Calculate your Quote</h2>
         <h4 class="quote-subtitle fw-normal">Easily understand the labor costs for your project with our straightforward calculation process.</h4>
         <div class="steps">
-            <div class="step d-flex flex-row justify-content-start align-items-start gap-4">
-                <div class="step-number ring1 is-circular fix-size-30px fix-size-sm-36px text-light d-flex justify-content-center align-items-center">
-                    <h6 class="my-auto d-sm-none">01</h6>
-                    <h5 class="my-auto d-none d-sm-inline">01</h5>
-                </div>
-                <div class="step-content d-flex flex-column">
-                    <h3 class="fw-bold">Select Your Service</h3>
-                    <p>Choose the refurbishment service you need, from kitchen upgrades to full house extensions.</p>
-                </div>
-            </div>
-            <div class="step d-flex flex-row justify-content-start align-items-start gap-4">
-                <div class="step-number ring1 is-circular fix-size-30px fix-size-sm-36px text-light d-flex justify-content-center align-items-center">
-                    <h6 class="my-auto d-sm-none">02</h6>
-                    <h5 class="my-auto d-none d-sm-inline">02</h5>
-                </div>
-                <div class="step-content d-flex flex-column">
-                    <h3 class="fw-bold">Enter Project Details</h3>
-                    <p>Provide essential information like dimensions, materials, and specific requirements.</p>
-                </div>
-            </div>
-            <div class="step d-flex flex-row justify-content-start align-items-start gap-4">
-                <div class="step-number ring1 is-circular fix-size-30px fix-size-sm-36px text-light d-flex justify-content-center align-items-center">
-                    <h6 class="my-auto d-sm-none">03</h6>
-                    <h5 class="my-auto d-none d-sm-inline">03</h5>
-                </div>
-                <div class="step-content d-flex flex-column">
-                    <h3 class="fw-bold">Get Your Estimate</h3>
-                    <p>Instantly receive a transparent quote and connect with our experts to finalize your project.</p>
-                </div>
-            </div>
+
+            <%- include(viewsFolder + "\\makeCalculateInstructionsListItem.ejs", { index: "01", heading: "Select Your Service", description: "Choose the refurbishment service you need, from kitchen upgrades to full house extensions." }) %>
+
+            <%- include(viewsFolder + "\\makeCalculateInstructionsListItem.ejs", { index: "02", heading: "Enter Project Details", description: "Provide essential information like dimensions, materials, and specific requirements." }) %>
+
+            <%- include(viewsFolder + "\\makeCalculateInstructionsListItem.ejs", { index: "03", heading: "Get Your Estimate", description: "Instantly receive a transparent quote and connect with our experts to finalize your project." }) %>
+
         </div>
         <!--<button class="cta-button btn btn-light-green-1 btn-large" data-bs-toggle="modal" data-bs-target="#calculateJobModalDialog">Calculate My Job</button>-->
         <a href="calculate-all.html" class="cta-button btn btn-light-green-1 btn-large">Calculate My Job</a>

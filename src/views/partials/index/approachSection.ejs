@@ -17,58 +17,15 @@
             <h5 class="fw-normal fs-6 lh-lg">Our comprehensive approach ensures that every aspect of your renovation project is meticulously planned and executed</h5>
         </div>
         <div class="approach-grid w-100 d-flex flex-column flex-xl-row justify-content-between align-items-start flex-wrap gap-4 gap-sm-3">
-            <div class="approach-card w-100 wpct-xl-47 d-flex flex-row justify-content-start align-items-start gap-3">
-                <div class="approach-icon-wrapper d-sm-none fix-size-48px overflow-hidden d-flex flex-row justify-content-center align-items-center bg-light-green-1 is-circular">
-                    <img class="approach-icon object-fit-contain wpct-50 hpct-50" src="./assets/images/icons/ApproachArrow.svg" alt="">
-                </div>
-                <div class="approach-icon-wrapper d-none d-sm-flex fix-size-50px overflow-hidden flex-row justify-content-center align-items-center bg-light-green-1 is-circular">
-                    <img class="approach-icon object-fit-contain wpct-50 hpct-50" src="./assets/images/icons/ApproachArrow.svg" alt="">
-                </div>
-                <div class="step-content d-flex flex-column gap-2">
-                    <span class="spacer-1 w-100 fix-hpx-4">&nbsp;</span>
-                    <h4 class="approach-step-title">Initial Consultation</h4>
-                    <p class="fs-8 text-secondary fw-semibold">Our experts listen to your vision and provide professional advice to help shape your project</p>
-                </div>
-            </div>
-            <div class="approach-card w-100 wpct-xl-47 d-flex flex-row justify-content-start align-items-start gap-3">
-                <div class="approach-icon-wrapper d-sm-none fix-size-48px overflow-hidden d-flex flex-row justify-content-center align-items-center bg-light-green-1 is-circular">
-                    <img class="approach-icon object-fit-contain wpct-50 hpct-50" src="./assets/images/icons/ApproachArrow.svg" alt="">
-                </div>
-                <div class="approach-icon-wrapper d-none d-sm-flex fix-size-50px overflow-hidden flex-row justify-content-center align-items-center bg-light-green-1 is-circular">
-                    <img class="approach-icon object-fit-contain wpct-50 hpct-50" src="./assets/images/icons/ApproachArrow.svg" alt="">
-                </div>
-                <div class="step-content d-flex flex-column gap-2">
-                    <span class="spacer-1 w-100 fix-hpx-4">&nbsp;</span>
-                    <h4 class="approach-step-title">Detailed Planning</h4>
-                    <p class="fs-8 text-secondary fw-semibold">We create a comprehensive project plan that includes timelines, budgets, and milestones</p>
-                </div>
-            </div>
-            <div class="approach-card w-100 wpct-xl-47 d-flex flex-row justify-content-start align-items-start gap-3">
-                <div class="approach-icon-wrapper d-sm-none fix-size-48px overflow-hidden d-flex flex-row justify-content-center align-items-center bg-light-green-1 is-circular">
-                    <img class="approach-icon object-fit-contain wpct-50 hpct-50" src="./assets/images/icons/ApproachArrow.svg" alt="">
-                </div>
-                <div class="approach-icon-wrapper d-none d-sm-flex fix-size-50px overflow-hidden flex-row justify-content-center align-items-center bg-light-green-1 is-circular">
-                    <img class="approach-icon object-fit-contain wpct-50 hpct-50" src="./assets/images/icons/ApproachArrow.svg" alt="">
-                </div>
-                <div class="step-content d-flex flex-column gap-2">
-                    <span class="spacer-1 w-100 fix-hpx-4">&nbsp;</span>
-                    <h4 class="approach-step-title">Custom Design</h4>
-                    <p class="fs-8 text-secondary fw-semibold">Our design team develops detailed plans and 3D renderings to visualize your renovation</p>
-                </div>
-            </div>
-            <div class="approach-card w-100 wpct-xl-47 d-flex flex-row justify-content-start align-items-start gap-3">
-                <div class="approach-icon-wrapper d-sm-none fix-size-48px overflow-hidden d-flex flex-row justify-content-center align-items-center bg-light-green-1 is-circular">
-                    <img class="approach-icon object-fit-contain wpct-50 hpct-50" src="./assets/images/icons/ApproachArrow.svg" alt="">
-                </div>
-                <div class="approach-icon-wrapper d-none d-sm-flex fix-size-50px overflow-hidden flex-row justify-content-center align-items-center bg-light-green-1 is-circular">
-                    <img class="approach-icon object-fit-contain wpct-50 hpct-50" src="./assets/images/icons/ApproachArrow.svg" alt="">
-                </div>
-                <div class="step-content d-flex flex-column gap-2">
-                    <span class="spacer-1 w-100 fix-hpx-4">&nbsp;</span>
-                    <h4 class="approach-step-title">Quality Assurance</h4>
-                    <p class="fs-8 text-secondary fw-semibold">We conduct thorough inspections at each stage of construction to maintain quality</p>
-                </div>
-            </div>
+
+            <%- include(viewsFolder + "\\makeApproachInfoSection.ejs", { heading: "Initial Consultation", description: "Our experts listen to your vision and provide professional advice to help shape your project" }) %>
+
+            <%- include(viewsFolder + "\\makeApproachInfoSection.ejs", { heading: "Detailed Planning", description: "We create a comprehensive project plan that includes timelines, budgets, and milestones" }) %>
+
+            <%- include(viewsFolder + "\\makeApproachInfoSection.ejs", { heading: "Custom Design", description: "Our design team develops detailed plans and 3D renderings to visualize your renovation" }) %>
+
+            <%- include(viewsFolder + "\\makeApproachInfoSection.ejs", { heading: "Quality Assurance", description: "We conduct thorough inspections at each stage of construction to maintain quality" }) %>
+
         </div>
     </div>
 </section>
