@@ -5,7 +5,6 @@ import { Modal, Toast } from "bootstrap";
 
 import IndexDbManager from "../lib/indexDbManager";
 import { ISelectionRecord } from "../lib/types";
-// @ts-ignore
 import workDurationTypes from "../../assets/json/workDurationTypes.json5";
 
 const errorFieldParentClassName = "has-input-error";
@@ -32,7 +31,6 @@ function validateEmail(emailValue: string) {
 function validateUkPhone(phoneValue: string) {
   // help link: https://medium.com/@davidlindercodes/the-ultimate-regex-for-verifying-uk-phone-numbers-fd99db881753
   const validRegex =
-    // @ts-ignore
     /^((((\+44\s?([0–6]|[8–9])\d{3}|\(?0([0–6]|[8–9])\d{3}\)?)\s?\d{3}\s?(\d{2}|\d{3}))|((\+44\s?([0–6]|[8–9])\d{3}|\(?0([0–6]|[8–9])\d{3}\)?)\s?\d{3}\s?(\d{4}|\d{3}))|((\+44\s?([0–6]|[8–9])\d{1}|\(?0([0–6]|[8–9])\d{1}\)?)\s?\d{4}\s?(\d{4}|\d{3}))|((\+44\s?\d{4}|\(?0\d{4}\)?)\s?\d{3}\s?\d{3})|((\+44\s?\d{3}|\(?0\d{3}\)?)\s?\d{3}\s?\d{4})|((\+44\s?\d{2}|\(?0\d{2}\)?)\s?\d{4}\s?\d{4})))(?:[\s-]?(?:x|ext\.?|\#)\d{3,4})?$/;
   return !!phoneValue.match(validRegex);
 }
@@ -163,7 +161,7 @@ const addServicesTableRow = (tbody: HTMLTableSectionElement, serviceVal: string,
 };
 
 function getDurationText(durationCode: string): string {
-  const dataList = workDurationTypes as Array<any>;
+  const dataList = workDurationTypes;
   for (const dataItem of dataList) {
     if (dataItem.code === durationCode) {
       return dataItem.descriptiveText;
@@ -227,7 +225,7 @@ export default async function manageFormSubmission() {
     const submitButton = calculateForm.querySelector<HTMLButtonElement>("button[type=submit]");
     const sendEmailButton = document.querySelector<HTMLButtonElement>("#sendEmailBtn");
     if (sendEmailButton != null) {
-      sendEmailButton.addEventListener("click", async (e: any) => {
+      sendEmailButton.addEventListener("click", async (e: Event) => {
         e.preventDefault();
 
         const calculateForm = document.querySelector<HTMLFormElement>("#calculateForm");
@@ -264,7 +262,7 @@ export default async function manageFormSubmission() {
 
     if (calculateForm.dataset["hasSubmitHandler"] == null) {
       calculateForm.dataset["hasSubmitHandler"] = "true";
-      calculateForm.addEventListener("submit", async (e: any) => {
+      calculateForm.addEventListener("submit", async (e: Event) => {
         e.preventDefault();
         e.stopPropagation();
         e.stopImmediatePropagation();

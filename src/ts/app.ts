@@ -11,7 +11,6 @@ import manageFormSubmission from "./utils/forms";
 import manageReviewPopovers from "./utils/reviews";
 import manageQuotesCalculation from "./utils/calculation";
 import IndexDbManager from "./lib/indexDbManager";
-// @ts-ignore
 import jobTypes from "../assets/json/jobTypes.json5";
 
 // alert(process.env.NODE_ENV);
@@ -80,8 +79,8 @@ if (clearIndexDb && process.env.NODE_ENV !== "development") {
         if (currentPagePath === "calculate.html") {
           const spanInsideUlElem = document.querySelector<HTMLElement>("#titleDyn");
           if (spanInsideUlElem != null) {
-            const jobTypeItem = (jobTypes as Array<any>).find((j) => j.calculateButtonUrl.indexOf(quoteType) > -1);
-            spanInsideUlElem.innerText = spanInsideUlElem.innerText.replace("###", jobTypeItem.title);
+            const jobTypeItem = jobTypes.find((j) => j.calculateButtonUrl.indexOf(quoteType) > -1);
+            if (jobTypeItem != null) spanInsideUlElem.innerText = spanInsideUlElem.innerText.replace("###", jobTypeItem.title);
           }
 
           const quotesCalcContainer = quotesCalcContainers[0];

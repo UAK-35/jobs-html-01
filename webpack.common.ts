@@ -28,6 +28,7 @@ import JSON5 from "json5";
 
 import { getEjsViewConfigs, getPublicUrlOrPath } from "./src/ts/utils/helpers";
 import Constants from "./src/ts/lib/constants";
+import { IEjTemplateInputParameters } from "./src/ts/lib/types";
 
 // console.log('NODE_ENV', Constants.envValues.envMode);
 
@@ -389,7 +390,7 @@ const config = (webpackEnv: any, _argv: any): webpack.Configuration => {
             viewsFolder: PATH.views.replace(/\\/g, '/'),
             partialsFolder: PATH.ejsPartials.replace(/\\/g, '/'),
           },
-        }));
+        } as IEjTemplateInputParameters));
       }).filter(Boolean),
 
       // Copies the public directory into the root of build directory

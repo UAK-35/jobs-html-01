@@ -7,32 +7,21 @@ import path from "path";
 
 import ejs from "ejs";
 
-// @ts-ignore
 import jobTypes from "../../../assets/json/jobTypes.json5";
-// @ts-ignore
 import bathroomRefurbTypes from "../../../assets/json/bathroomRefurbishmentTypes.json5";
-// @ts-ignore
 import kitchenRefurbTypes from "../../../assets/json/kitchenRefurbishmentTypes.json5";
-// @ts-ignore
 import wallRefurbTypes from "../../../assets/json/wallRefurbishmentTypes.json5";
-// @ts-ignore
 import floorRefurbTypes from "../../../assets/json/floorRefurbishmentTypes.json5";
-// @ts-ignore
 import ceilingRefurbTypes from "../../../assets/json/ceilingRefurbishmentTypes.json5";
-// @ts-ignore
 import extensionTypes from "../../../assets/json/extensionTypes.json5";
-// @ts-ignore
 import loftConversionTypes from "../../../assets/json/loftConversionTypes.json5";
-// @ts-ignore
 import workDurationTypes from "../../../assets/json/workDurationTypes.json5";
-// @ts-ignore
 import reviewStoriesList from "../../../assets/json/reviewStories.json5";
-// @ts-ignore
 import faqsList from "../../../assets/json/faqs.json5";
-// @ts-ignore
 import servicesList from "../../../assets/json/services.json5";
+import { IEjTemplateInputParameters } from "../../lib/types";
 
-export default async (data: any) => {
+export default async (data: IEjTemplateInputParameters["templateParameters"]) => {
   const partialsFolder = data.partialsFolder.replaceAll("/", path.sep);
   const viewsFolder = data.viewsFolder.replaceAll("/", path.sep);
 

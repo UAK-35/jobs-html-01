@@ -1,10 +1,10 @@
 /** @format */
 
-import { deleteDB, IDBPDatabase, openDB } from "idb";
+import { deleteDB, IDBPDatabase, IDBPTransaction, openDB } from "idb";
+import { ISelectionRecord } from "./types";
 
 export default class IndexDbManager {
-  private db: any;
-  // private db: IDBPDatabase<unknown>;
+  private db: IDBPDatabase<unknown> | undefined;
   private primaryKeyName = "id";
 
   /**
@@ -22,11 +22,11 @@ export default class IndexDbManager {
       if (this.dbVersion === 0) {
         await deleteDB(this.dbName);
       } else {
-        const that = this;
+        const pkName = this.primaryKeyName;
         this.db = await openDB(this.dbName, this.dbVersion, {
-          upgrade(db: IDBPDatabase, oldVersion: number, newVersion: number | null, _transaction: any, _event: IDBVersionChangeEvent) {
+          upgrade(db: IDBPDatabase, oldVersion: number, newVersion: number | null, _transaction: IDBPTransaction<unknown, string[], "versionchange">, _event: IDBVersionChangeEvent) {
             if (oldVersion < 1) {
-              tableNames.forEach((tableName) => db.createObjectStore(tableName, { autoIncrement: true, keyPath: that.primaryKeyName }));
+              tableNames.forEach((tableName) => db.createObjectStore(tableName, { autoIncrement: true, keyPath: pkName }));
             }
             if (newVersion != null) {
               if (newVersion == 0 || oldVersion > newVersion) {
@@ -36,7 +36,7 @@ export default class IndexDbManager {
                   if (db.objectStoreNames.contains(tableName)) {
                     continue;
                   }
-                  db.createObjectStore(tableName, { autoIncrement: true, keyPath: that.primaryKeyName });
+                  db.createObjectStore(tableName, { autoIncrement: true, keyPath: pkName });
                 }
               }
             }
@@ -45,24 +45,28 @@ export default class IndexDbManager {
       }
       return true;
     } catch (error) {
+      console.error("store creation error", error);
       return false;
     }
   }
 
   public async getValue(tableName: string, id: number) {
+    if (this.db == null) throw new Error("create object-store/database first...");
     const tx = this.db.transaction(tableName, "readonly");
     const store = tx.objectStore(tableName);
     return await store.get(id);
   }
 
   public async getAllValues(tableName: string) {
+    if (this.db == null) throw new Error("create object-store/database first...");
     const tx = this.db.transaction(tableName, "readonly");
     const store = tx.objectStore(tableName);
-    return await store.getAll();
+    return (await store.getAll()) as ISelectionRecord[];
   }
 
   // TODO: use generics here for value argument
   public async insertValue(tableName: string, value: object) {
+    if (this.db == null) throw new Error("create object-store/database first...");
     const tx = this.db.transaction(tableName, "readwrite");
     const store = tx.objectStore(tableName);
     return await store.add(value);
@@ -70,6 +74,7 @@ export default class IndexDbManager {
 
   // TODO: use generics here for value argument
   public async patchValue(tableName: string, value: object) {
+    if (this.db == null) throw new Error("create object-store/database first...");
     if (!(this.primaryKeyName in value)) throw new Error("primary key must be part of value argument object");
     const tx = this.db.transaction(tableName, "readwrite", { durability: "strict" });
     const store = tx.objectStore(tableName);
@@ -78,14 +83,15 @@ export default class IndexDbManager {
 
   // TODO: use generics here for value argument
   public async patchValueForPk(tableName: string, value: object, pkValue: string | number) {
+    if (this.db == null) throw new Error("create object-store/database first...");
     const tx = this.db.transaction(tableName, "readwrite", { durability: "strict" });
     const store = tx.objectStore(tableName);
     return await store.put(value, pkValue);
   }
 
   // TODO: use generics here for value argument
-  public async searchAndPatch(tableName: string, value: any, searchKey: string) {
-    const allValues: any[] = await this.getAllValues(tableName);
+  public async searchAndPatch(tableName: string, value: ISelectionRecord, searchKey: string) {
+    const allValues = await this.getAllValues(tableName);
     for (let i = 0; i < allValues.length; i++) {
       const record = allValues[i];
       if (record[searchKey] === value[searchKey]) {
@@ -97,7 +103,7 @@ export default class IndexDbManager {
   }
 
   public async searchAndDelete(tableName: string, searchKey: string, searchValue: string | number) {
-    const allValues: any[] = await this.getAllValues(tableName);
+    const allValues = await this.getAllValues(tableName);
     for (let i = 0; i < allValues.length; i++) {
       const record = allValues[i];
       if (record[searchKey] === searchValue) {
@@ -109,6 +115,7 @@ export default class IndexDbManager {
   }
 
   public async putBulkValue(tableName: string, values: object[]) {
+    if (this.db == null) throw new Error("create object-store/database first...");
     const tx = this.db.transaction(tableName, "readwrite");
     const store = tx.objectStore(tableName);
     for (const value of values) {
@@ -118,6 +125,7 @@ export default class IndexDbManager {
   }
 
   public async deleteValue(tableName: string, id: number) {
+    if (this.db == null) throw new Error("create object-store/database first...");
     const tx = this.db.transaction(tableName, "readwrite");
     const store = tx.objectStore(tableName);
     const result = await store.get(id);
@@ -130,6 +138,7 @@ export default class IndexDbManager {
   }
 
   async clearObjectStore(tableName: string) {
+    if (this.db == null) throw new Error("create object-store/database first...");
     const tx = this.db.transaction(tableName, "readwrite");
     const store = tx.objectStore(tableName);
     await store.clear();

@@ -82,13 +82,6 @@ export default tseslint.config(
     rules: {
       "no-control-regex": "off",
       "no-useless-escape": "off",
-      '@typescript-eslint/no-console': "off",
-      '@typescript-eslint/no-debugger': "off",
-      '@typescript-eslint/no-this-alias': "off",
-      '@typescript-eslint/no-explicit-any': "off",
-      '@typescript-eslint/member-delimiter-style': "off",
-      '@typescript-eslint/interface-name-prefix': "off",
-      '@typescript-eslint/no-use-before-define': "off",
       '@typescript-eslint/no-unused-vars': "off",
       '@typescript-eslint/ban-ts-comment': "off"
     },

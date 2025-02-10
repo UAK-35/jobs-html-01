@@ -2,14 +2,14 @@
 
 import { BehaviorSubject, Observable } from "rxjs";
 import IndexDbManager from "../lib/indexDbManager";
-import { SelectionInfo } from "../lib/types";
+import { ISelectionInfo, ISelectionRecord } from "../lib/types";
 import { Toast } from "bootstrap";
 
 const runningTotalSubject: BehaviorSubject<number> = new BehaviorSubject<number>(0);
-const runningTotalObservable: Observable<any> = runningTotalSubject.asObservable();
+const runningTotalObservable: Observable<number> = runningTotalSubject.asObservable();
 
 const calcAllPageCheckedBoxesCountSubject: BehaviorSubject<number> = new BehaviorSubject<number>(0);
-const calcAllPageCheckedBoxesCountObservable: Observable<any> = calcAllPageCheckedBoxesCountSubject.asObservable();
+const calcAllPageCheckedBoxesCountObservable: Observable<number> = calcAllPageCheckedBoxesCountSubject.asObservable();
 
 const classForHidingCalculationSections = "d-none-not-imp";
 const classForDisablingCalculationSections = "disabled-div";
@@ -25,14 +25,14 @@ function getElementsByText(str: string, tag = "a", parentElement?: HTMLElement) 
   return Array.prototype.slice.call(parentElement.getElementsByTagName(tag)).filter((el) => el.textContent.trim() === str.trim());
 }
 
-function updateTotalPriceOnCheckChange(itemInfo: SelectionInfo, priceToAdd: number, addPrice = false) {
+function updateTotalPriceOnCheckChange(itemInfo: ISelectionInfo, priceToAdd: number, addPrice = false) {
   const totalPrice = runningTotalSubject.getValue();
   runningTotalSubject.next(addPrice ? totalPrice + priceToAdd : totalPrice - priceToAdd);
   if (addPrice) indexedDb!.insertValue("selections", { ...itemInfo, price: priceToAdd });
   else indexedDb!.searchAndDelete("selections", "service", itemInfo.service);
 }
 
-function updateTotalPriceOnQuantityChange(itemInfo: SelectionInfo, lastQuantity: number) {
+function updateTotalPriceOnQuantityChange(itemInfo: ISelectionInfo, lastQuantity: number) {
   const totalPrice = runningTotalSubject.getValue();
   const quantity = itemInfo.quantity;
   const itemPrice = itemInfo.pricePerItem;
@@ -50,7 +50,7 @@ function updateTotalPriceOnQuantityChange(itemInfo: SelectionInfo, lastQuantity:
     }
   }
   runningTotalSubject.next(price);
-  const updatedData = { ...itemInfo, price: quantity * itemPrice };
+  const updatedData: ISelectionRecord = { ...itemInfo, price: quantity * itemPrice, id: 0 };
   indexedDb!.searchAndPatch("selections", updatedData, "service");
 }
 
@@ -333,10 +333,10 @@ export default async function manageQuotesCalculation(currentPagePath: string) {
         const quantityElement = document.querySelector<HTMLInputElement>(`#${quantityElemId}`);
         if (quantityElement != null) {
           // find/get unit from label on right side of quantity element
-          let unitsStr: string | null = null;
-          if (quantityElement.nextElementSibling != null) {
-            unitsStr = (quantityElement.nextElementSibling as HTMLLabelElement).textContent;
-          }
+          // let unitsStr: string | null = null;
+          // if (quantityElement.nextElementSibling != null) {
+          //   unitsStr = (quantityElement.nextElementSibling as HTMLLabelElement).textContent;
+          // }
           quantityElement.addEventListener("input", handleQuantityElementInput, { capture: true, once: false, passive: false });
           // quantityElement.addEventListener("change", (evt: Event) => {
           //   const eventTarget = evt.target! as HTMLInputElement;

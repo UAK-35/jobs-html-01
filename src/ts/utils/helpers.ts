@@ -3,6 +3,7 @@
 import path from "path";
 import fs from "fs";
 import { URL } from "url";
+import { IEjsWebpackParameters } from "../lib/types";
 
 export function onPageReady(callback: () => void) {
   if (document.readyState === "loading") {
@@ -102,7 +103,7 @@ export function getEjsViewConfigs(folder: string, { templatePath }: { templatePa
             title: title,
             page: relativeFilePath,
           },
-        };
+        } as IEjsWebpackParameters;
       }
       return null;
     });

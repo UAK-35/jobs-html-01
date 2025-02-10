@@ -1,6 +1,6 @@
 /** @format */
 
-import { Popover } from "bootstrap";
+import { Popover, Tooltip } from "bootstrap";
 
 export default function manageReviewPopovers() {
   const popoverTriggerList = document.querySelectorAll<HTMLButtonElement>('[data-bs-toggle="popover"]');
@@ -18,7 +18,7 @@ export default function manageReviewPopovers() {
           // offset: "10,30",
           content: temp,
           // @ts-ignore
-          placement: (_context: any, dynamicPopoverElement: HTMLDivElement, triggeringElement: HTMLButtonElement) => {
+          placement: (_context: Popover, dynamicPopoverElement: HTMLDivElement, triggeringElement: HTMLButtonElement): Tooltip.PopoverPlacement => {
             if (triggeringElement.id.startsWith("stories-icon-btn-wrapper-")) {
               const popoutElemId = dynamicPopoverElement.id;
               const rect = dynamicPopoverElement.getBoundingClientRect();
