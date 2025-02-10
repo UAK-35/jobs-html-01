@@ -148,7 +148,7 @@ const handleCheckboxCheckChange = (evt: Event) => {
 
 const checkIfValidNumberInput = (evt: KeyboardEvent) => {
   // courtesy: https://github.com/SUI-Components/sui-components/pull/2354/commits/e6c2d57378dbf287874f48574a1dc288645ce779
-  const allowedCharactersRegEx = /(^\d*$)|(Backspace|Tab|Delete|ArrowLeft|ArrowRight)/; // tab allowed for navigation
+  const allowedCharactersRegEx = /(^\d*$)|(Backspace|Tab|Delete|ArrowLeft|ArrowRight|Home|End)/; // Tab allowed for navigation out, Home and End for inside navigation like Left/Right arrows
   return !evt.key.match(allowedCharactersRegEx) && evt.preventDefault();
 };
 
@@ -245,12 +245,16 @@ const handleQuantityElementInput = (evt: Event) => {
       eventTarget.value = currentNumberInputVal;
     } else {
       if (eventTarget.valueAsNumber <= 0) {
+        eventTarget.value = eventTarget.value.replace(/^0+/, ""); // remove leading zeros
+        // eventTarget.setSelectionRange(1, 1, "forward");
         if (eventTarget.valueAsNumber < 0) {
           eventTarget.value = "1";
           currentNumberInputVal = "1";
         }
         handleQuantityChanged(eventTarget, unitsStr);
       } else {
+        eventTarget.value = eventTarget.value.replace(/^0+/, ""); // remove leading zeros
+        // if (eventTarget === document.activeElement) eventTarget.setSelectionRange(1, 1, "forward");
         currentNumberInputVal = eventTarget.value;
         handleQuantityChanged(eventTarget, unitsStr);
       }

@@ -258,6 +258,12 @@ $utilities: (
     responsive: true,
     values: $pxSiz-map,
   ),
+  "min-hpx": (
+    property: min-height,
+    class: min-hpx,
+    //responsive: false,
+    values: $pxSiz-map,
+  ),
 );
 
 
@@ -875,9 +881,15 @@ a.calculate-btn:hover, a.cta-button:hover {
   cursor: pointer;
 }
 .form-check.form-check-inline .form-check-label {
-  margin-top: 0.18rem;
+  margin-top: 0.13rem;
   //margin-left: 0.5rem;
 }
+@media screen and (min-width: 768px) {
+  .form-check.form-check-inline .form-check-label {
+    margin-top: 0.18rem;
+  }
+}
+
 //.form-check.form-check-inline input.form-check-input {
 //  margin-left: 0;
 //}
@@ -908,7 +920,7 @@ a.calculate-btn:hover, a.cta-button:hover {
   border-color: $light-green-1;
 }
 
-input[type=checkbox]{
+input[type=checkbox] {
   accent-color: green;
 }
 
@@ -982,6 +994,12 @@ input[type=checkbox]{
 
 input[type=number] {
   border-radius: 4px;
+  box-shadow: none !important;
+}
+input[type=number]:focus-visible {
+  //outline: $light-green-1 solid 1px;
+  outline: none !important;
+  box-shadow: none !important;
 }
 
 input[type=number]:disabled {
@@ -1079,9 +1097,9 @@ input[type=number]:disabled {
   }
 }
 
-.list-group.list-group-horizont .list-group-item input[type=number] {
-  padding-left: 0.25rem;
-}
+//.list-group.list-group-horizont .list-group-item input[type=number] {
+//  padding-left: 0.25rem;
+//}
 
 .list-group.list-group-horizont .list-group-item .form-check.form-check-inline,
 .list-group.list-group-horizont .list-group-item .d-inline-block,

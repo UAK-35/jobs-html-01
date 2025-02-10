@@ -402,7 +402,8 @@ const config = (webpackEnv: any, _argv: any): webpack.Configuration => {
             to: './assets/images'
           },
           {
-            from: `${PATH.assets}/json`,
+            context: `${PATH.assets}/json`,
+            from: '*.json5',
             to: './assets/json'
           }
         ]
