@@ -996,6 +996,15 @@ input[type=number] {
   border-radius: 4px;
   box-shadow: none !important;
 
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  line-height: normal !important;
+}
+input[type=number]:focus {
+  //outline: $light-green-1 solid 1px;
+  outline: none !important;
+  box-shadow: none !important;
+
   -webkit-appearance: none;
   appearance: none;
   line-height: normal;

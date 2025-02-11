@@ -399,12 +399,18 @@ const config = (webpackEnv: any, _argv: any): webpack.Configuration => {
         patterns: [
           {
             from: `${PATH.assets}/images`,
-            to: './assets/images'
+            to: './assets/images',
+            globOptions: {
+              expandDirectories: true,
+              ignore: ['**/*.webmanifest'], // Ignore specific files
+            },
+            toType: 'dir'
           },
           {
             context: `${PATH.assets}/json`,
             from: '*.json5',
-            to: './assets/json'
+            to: './assets/json',
+            toType: 'dir'
           }
         ]
       }),

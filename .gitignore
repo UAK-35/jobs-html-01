@@ -26,7 +26,7 @@ dist
 *.pdf
 *.txt
 !/src/robots.txt
-test.*
+test*.*
 *.zip
 /src/assets/fonts/**/*.html
 /src/assets/fonts/**/*.css
@@ -40,3 +40,4 @@ test.*
 /emailTempl/images
 /emailTempl/new-email*
 /emailTempl/emailjs-default-templ.html
+/src/assets/images/favicon/site.webmanifest
