@@ -995,11 +995,19 @@ input[type=checkbox] {
 input[type=number] {
   border-radius: 4px;
   box-shadow: none !important;
+
+  -webkit-appearance: none;
+  appearance: none;
+  line-height: normal;
 }
 input[type=number]:focus-visible {
   //outline: $light-green-1 solid 1px;
   outline: none !important;
   box-shadow: none !important;
+
+  -webkit-appearance: none;
+  appearance: none;
+  line-height: normal;
 }
 
 input[type=number]:disabled {
