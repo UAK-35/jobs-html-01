@@ -1,18 +1,23 @@
 <% for (var idx = 0; idx < listLength; idx++) { %>
-    <li class="list-group-item">
-        <div class="form-check form-check-inline">
-            <input class="form-check-input bathrm-type-ckbx ckbx-with-quantity" data-price-in-pounds="<%= list[idx].pricePounds %>" type="checkbox" id="<%= idPrefix %><%= idx %>" name="<%= idPrefix %><%= idx %>" value="<%= list[idx].title %>" data-units-string="<%= list[idx].units %>" />
-            <label class="form-check-label fw-medium ps-1" for="<%= idPrefix %><%= idx %>"><span><%= list[idx].title %></span></label>
-        </div>
-        <div  style="width: 90px">
-            <div class="d-flex align-items-center gap-1 text-start">
-                <div>
-                    <input disabled class="wpx-50 p-1" data-last-value="<%= list[idx].defaultQuantity %>" type="number" min="1" id="<%= idPrefix %>Q<%= idx %>" name="<%= idPrefix %>Q<%= idx %>" value="<%= list[idx].defaultQuantity %>" data-related-quantity-ckbx-id="<%= idPrefix %><%= idx %>" />
+    <div class="list-item-container w-100">
+        <div class="d-flex min-hpx-47">
+            <div class="w-100 d-flex flex-row justify-content-between align-items-center gap-1">
+                <div style="margin: 0 !important;" class="form-check form-check-inline">
+                    <input class="form-check-input <%= checkboxClassPrefix %>-ckbx ckbx-with-quantity"
+                           data-price-in-pounds="<%= list[idx].pricePounds %>" type="checkbox" id="<%= idPrefix %><%= idx %>" name="<%= idPrefix %><%= idx %>"
+                           value="<%= list[idx].title %>" data-units-string="<%= list[idx].units %>"/>
+                    <label style="margin-top: 0!important;" class="form-check-label fw-medium ps-1"
+                           for="<%= idPrefix %><%= idx %>"><span><%= list[idx].title %></span></label>
                 </div>
-                <div class="d-flex flex-column justify-content-center">
-                    <label class="min-hpx-25 lh-base" for="<%= idPrefix %>Q<%= idx %>"><%= list[idx].units %></label>
+                <div class="min-wpx-91 quantities-box">
+                    <div class="d-flex flex-row align-items-center gap-1">
+                        <input disabled class="wpx-51 min-hpx-27px p-1" data-last-value="<%= list[idx].defaultQuantity %>" type="number" min="1"
+                               id="<%= idPrefix %>Q<%= idx %>" name="<%= idPrefix %>Q<%= idx %>" value="<%= list[idx].defaultQuantity %>"
+                               data-related-quantity-ckbx-id="<%= idPrefix %><%= idx %>"/>
+                        <div class="min-hpx-25 lh-base" for="<%= idPrefix %>Q<%= idx %>"><%= list[idx].units %></div>
+                    </div>
                 </div>
             </div>
         </div>
-    </li>
+    </div>
 <% } %>

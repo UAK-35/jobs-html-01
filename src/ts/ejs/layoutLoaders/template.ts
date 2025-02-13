@@ -109,7 +109,7 @@ export default async (data: IEjTemplateInputParameters["templateParameters"]) =>
             siteTelephoneNumber: webpackData.siteTelephoneNumber,
           }
     ),
-    ftr: ejs.compile(footerStr, { beautify: false })({ ...webpackData, year: new Date().getFullYear() }),
+    ftr: ejs.compile(footerStr, { beautify: false })({ ...webpackData, year: new Date().getFullYear(), partialsFolder }),
     hdn: data.page === "calculate" || data.page === "calculate-all" ? ejs.compile(hiddenElementsStr, { beautify: false })() : "",
   });
 };

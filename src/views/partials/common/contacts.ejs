@@ -1,0 +1,29 @@
+<div class="footer-col border-0 border-warning <%= outerContaninerClasses %>">
+    <div class="footer-col-header hpx-50 <%= headingDivClasses %>"><h2 class="<%= headingClasses %>">Contact Details</h2></div>
+    <ul class="list-group <%= listClasses %>">
+        <li class="list-group-item bg-transparent <%= listItemClasses %>">
+            <div class="d-flex flex-row justify-content-start align-items-start column-gap-3 row-gap-2">
+                <div class="contact-icon-wrapper fix-size-24px overflow-hidden d-flex flex-row justify-content-center align-items-center">
+                    <img class="contact-icon object-fit-contain w-100 h-100" src="./assets/images/icons/PhoneCall.svg" alt="">
+                </div>
+                <span class="contact-text"><a href="tel:<%= siteTelephoneNumber.replaceAll(' ', '') %>" class="footer-contact-links"><%= siteTelephoneNumber %></a></span>
+            </div>
+        </li>
+        <li class="list-group-item bg-transparent <%= listItemClasses %>">
+            <div class="d-flex flex-row justify-content-start align-items-start column-gap-3 row-gap-2">
+                <div class="contact-icon-wrapper fix-size-24px overflow-hidden d-flex flex-row justify-content-center align-items-center">
+                    <img class="contact-icon object-fit-contain w-100 h-100" src="./assets/images/icons/Email.svg" alt="">
+                </div>
+                <span class="contact-text"><a href="mailto:<%= siteEmail %>" class="footer-contact-links"><%= siteEmail %></a></span>
+            </div>
+        </li>
+        <li class="list-group-item bg-transparent <%= listItemClasses %>">
+            <div class="d-flex flex-row justify-content-start align-items-start column-gap-3 row-gap-2">
+                <div class="contact-icon-wrapper fix-size-24px overflow-hidden d-flex flex-row justify-content-center align-items-center">
+                    <img class="contact-icon object-fit-contain w-100 h-100" src="./assets/images/icons/Location.svg" alt="">
+                </div>
+                <span class="contact-text"><%= siteAddress %></span>
+            </div>
+        </li>
+    </ul>
+</div>

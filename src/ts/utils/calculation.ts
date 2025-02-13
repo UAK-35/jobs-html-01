@@ -8,14 +8,15 @@ import { Toast } from "bootstrap";
 const runningTotalSubject: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 const runningTotalObservable: Observable<number> = runningTotalSubject.asObservable();
 
-const calcAllPageCheckedBoxesCountSubject: BehaviorSubject<number> = new BehaviorSubject<number>(0);
-const calcAllPageCheckedBoxesCountObservable: Observable<number> = calcAllPageCheckedBoxesCountSubject.asObservable();
+// const calcAllPageCheckedBoxesCountSubject: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+// const calcAllPageCheckedBoxesCountObservable: Observable<number> = calcAllPageCheckedBoxesCountSubject.asObservable();
 
 const classForHidingCalculationSections = "d-none-not-imp";
 const classForDisablingCalculationSections = "disabled-div";
 
 const maxNumberVal = 9999;
 const re = /(\d+)$/; // regex to get/extract number from checkbox id attribute value
+const minimumOrderPrice = 200;
 
 let indexedDb: IndexDbManager | null = null;
 let currentNumberInputVal = "";
@@ -67,7 +68,8 @@ const handleQuantityChanged = (eventTarget: EventTarget, unitsStr: string | null
   let itemPrice: number | null = null;
   let titleText: string | null | undefined = null;
   let lastQuantity: number | null = null;
-  const parentDivElem = quantityElem.closest<HTMLLIElement>("li.list-group-item");
+  // const parentDivElem = quantityElem.closest<HTMLLIElement>("li.list-group-item");
+  const parentDivElem = quantityElem.closest<HTMLDivElement>("div.list-item-container");
   if (parentDivElem != null) {
     const chkElem = parentDivElem.querySelector<HTMLInputElement>("input.form-check-input.ckbx-with-quantity");
     if (chkElem != null) {
@@ -87,6 +89,7 @@ const handleQuantityChanged = (eventTarget: EventTarget, unitsStr: string | null
   quantityElem.dataset.lastValue = String(quantity);
 
   if (serviceGroupName != null && titleText != null && itemPrice != null) {
+    // alert("serviceGroupName: " + serviceGroupName + ", titleText: " + titleText + ", itemPrice: " + itemPrice + ", quantity: " + quantity + ", quantityText: " + quantityText);
     if (lastQuantity != null) {
       updateTotalPriceOnQuantityChange({ serviceGroup: serviceGroupName, service: titleText, quantity, quantityText, pricePerItem: itemPrice }, lastQuantity);
     }
@@ -138,8 +141,9 @@ const manageCheckboxCheckChange = (eventTarget: EventTarget | null) => {
     }
   }
 
-  const oldCount = calcAllPageCheckedBoxesCountSubject.getValue();
-  calcAllPageCheckedBoxesCountSubject.next(chkElem.checked ? oldCount + 1 : oldCount - 1);
+  // const oldCount = calcAllPageCheckedBoxesCountSubject.getValue();
+  // // alert(chkElem.checked ? oldCount + 1 : oldCount - 1);
+  // calcAllPageCheckedBoxesCountSubject.next(chkElem.checked ? oldCount + 1 : oldCount - 1);
 };
 
 const handleCheckboxCheckChange = (evt: Event) => {
@@ -217,7 +221,8 @@ const handleQuantityElementBlur = (evt: Event) => {
   const eventTarget = evt.target! as HTMLInputElement;
   // const relatedQuantityCheckboxElemId = quantityCheckboxElem.id;
   const relatedQuantityCheckboxElemId = eventTarget.dataset.relatedQuantityCkbxId;
-  const parentDivElem = eventTarget.closest<HTMLLIElement>("li.list-group-item");
+  // const parentDivElem = eventTarget.closest<HTMLLIElement>("li.list-group-item");
+  const parentDivElem = eventTarget.closest<HTMLDivElement>("div.list-item-container");
   if (parentDivElem != null) {
     const quantityCheckboxElem = parentDivElem.querySelector<HTMLInputElement>(`#${relatedQuantityCheckboxElemId}`);
     if (quantityCheckboxElem != null) {
@@ -274,7 +279,39 @@ const handleQuantityElementInput = (evt: Event) => {
   }
 };
 
-export default async function manageQuotesCalculation(currentPagePath: string) {
+const enableDisableFormAndDurationSelectionBasedOnCheckCount = (value: number) => {
+  const timeDurationContainer = document.querySelector<HTMLDivElement>("#timeDurationSelectionContainer");
+  if (timeDurationContainer != null) {
+    if (value === 1 && timeDurationContainer.classList.contains(classForHidingCalculationSections))
+      timeDurationContainer.classList.remove(classForHidingCalculationSections, classForDisablingCalculationSections);
+    if (value === 0 && !timeDurationContainer.classList.contains(classForHidingCalculationSections)) timeDurationContainer.classList.add(classForHidingCalculationSections, classForDisablingCalculationSections);
+  }
+
+  const formContainer = document.querySelector<HTMLDivElement>("#formContainer");
+  if (formContainer != null) {
+    if (value === 1 && formContainer.classList.contains(classForHidingCalculationSections)) formContainer.classList.remove(classForHidingCalculationSections, classForDisablingCalculationSections);
+    if (value === 0 && !formContainer.classList.contains(classForHidingCalculationSections)) formContainer.classList.add(classForHidingCalculationSections, classForDisablingCalculationSections);
+  }
+};
+
+const enableDisableFormAndDurationSelectionBasedOnMinAmount = (value: number) => {
+  const timeDurationContainer = document.querySelector<HTMLDivElement>("#timeDurationSelectionContainer");
+  if (timeDurationContainer != null) {
+    if (value >= minimumOrderPrice && timeDurationContainer.classList.contains(classForHidingCalculationSections))
+      timeDurationContainer.classList.remove(classForHidingCalculationSections, classForDisablingCalculationSections);
+    if (value < minimumOrderPrice && !timeDurationContainer.classList.contains(classForHidingCalculationSections))
+      timeDurationContainer.classList.add(classForHidingCalculationSections, classForDisablingCalculationSections);
+  }
+
+  const formContainer = document.querySelector<HTMLDivElement>("#formContainer");
+  if (formContainer != null) {
+    if (value >= minimumOrderPrice && formContainer.classList.contains(classForHidingCalculationSections))
+      formContainer.classList.remove(classForHidingCalculationSections, classForDisablingCalculationSections);
+    if (value < minimumOrderPrice && !formContainer.classList.contains(classForHidingCalculationSections)) formContainer.classList.add(classForHidingCalculationSections, classForDisablingCalculationSections);
+  }
+};
+
+export default async function manageQuotesCalculation(currentPagePath: string, quoteType: string) {
   indexedDb = new IndexDbManager("quotation_selections", 1);
   await indexedDb.createObjectStore(["selections"]);
   await indexedDb.clearObjectStore("selections"); // clear all previous selections on page refresh/reload
@@ -286,28 +323,18 @@ export default async function manageQuotesCalculation(currentPagePath: string) {
       totalElem.innerText = valueString;
       localStorage.setItem("totalAmount", valueString);
     }
+    enableDisableFormAndDurationSelectionBasedOnMinAmount(value);
   });
 
-  calcAllPageCheckedBoxesCountObservable.subscribe((value: number) => {
-    const timeDurationContainer = document.querySelector<HTMLDivElement>("#timeDurationSelectionContainer");
-    if (timeDurationContainer != null) {
-      if (value === 1 && timeDurationContainer.classList.contains(classForHidingCalculationSections))
-        timeDurationContainer.classList.remove(classForHidingCalculationSections, classForDisablingCalculationSections);
-      if (value === 0 && !timeDurationContainer.classList.contains(classForHidingCalculationSections))
-        timeDurationContainer.classList.add(classForHidingCalculationSections, classForDisablingCalculationSections);
-    }
-
-    const formContainer = document.querySelector<HTMLDivElement>("#formContainer");
-    if (formContainer != null) {
-      if (value === 1 && formContainer.classList.contains(classForHidingCalculationSections)) formContainer.classList.remove(classForHidingCalculationSections, classForDisablingCalculationSections);
-      if (value === 0 && !formContainer.classList.contains(classForHidingCalculationSections)) formContainer.classList.add(classForHidingCalculationSections, classForDisablingCalculationSections);
-    }
-  });
+  // calcAllPageCheckedBoxesCountObservable.subscribe((value: number) => {
+  //   enableDisableFormAndDurationSelectionBasedOnCheckCount(value);
+  // });
 
   if (currentPagePath === "calculate-all.html") {
     const jobTypeChkboxElems = document.querySelectorAll<HTMLInputElement>("input.form-check-input.job-type-ckbx");
     if (jobTypeChkboxElems.length > 0) {
       jobTypeChkboxElems.forEach((jobTypeChkboxElem) => {
+        jobTypeChkboxElem.checked = false;
         jobTypeChkboxElem.addEventListener("change", handleJobTypeCheckboxChange);
       });
     }
@@ -320,14 +347,27 @@ export default async function manageQuotesCalculation(currentPagePath: string) {
       numberInputElement.valueAsNumber = 0;
       numberInputElement.dataset.lastValue = "0";
       numberInputElement.setAttribute("max", String(maxNumberVal));
+      numberInputElement.disabled = true;
       numberInputElement.addEventListener("keydown", checkIfValidNumberInput, { capture: true, once: false, passive: false });
     });
   }
 
   // get all checkboxes which have related quantity input
-  const quantityRelatedCheckboxElems = document.querySelectorAll<HTMLInputElement>("input.form-check-input.ckbx-with-quantity");
+  let checkboxClassSelector = "input.form-check-input.ckbx-with-quantity";
+  if (currentPagePath === "calculate.html") {
+    if (quoteType === "wall-job") checkboxClassSelector += ".wall-type";
+    if (quoteType === "floor-job") checkboxClassSelector += ".floor-type";
+    if (quoteType === "ceiling-job") checkboxClassSelector += ".ceiling-type";
+    if (quoteType === "bathroom-job") checkboxClassSelector += ".bathrm-type";
+    if (quoteType === "kitchen-job") checkboxClassSelector += ".kitchn-type";
+    if (quoteType === "extension-job") checkboxClassSelector += ".extension-type";
+    if (quoteType === "loft-conver-job") checkboxClassSelector += ".loft-conv-type";
+    checkboxClassSelector += "-ckbx";
+  }
+  const quantityRelatedCheckboxElems = document.querySelectorAll<HTMLInputElement>(checkboxClassSelector);
   if (quantityRelatedCheckboxElems.length > 0) {
     quantityRelatedCheckboxElems.forEach((quantityCheckboxElem) => {
+      quantityCheckboxElem.checked = false;
       quantityCheckboxElem.addEventListener("change", handleCheckboxCheckChange);
 
       // finding/getting related quantity element - getting 2nd time - 1st time inside manageCheckboxCheckChange
@@ -356,6 +396,7 @@ export default async function manageQuotesCalculation(currentPagePath: string) {
   const durationCheckboxElems = document.querySelectorAll<HTMLInputElement>("input.form-check-input.work-dur-type-ckbx");
   if (durationCheckboxElems.length > 0) {
     durationCheckboxElems.forEach((durationCheckboxElem) => {
+      durationCheckboxElem.checked = false;
       durationCheckboxElem.addEventListener("change", handleDurationCheckboxChange);
     });
   }

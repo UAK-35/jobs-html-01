@@ -14,7 +14,7 @@ import HtmlWebpackPlugin from "html-webpack-plugin";
 // @ts-ignore
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 // import { InjectManifest } from 'workbox-webpack-plugin';
-// import { WebpackManifestPlugin } from 'webpack-manifest-plugin';
+import { WebpackManifestPlugin } from 'webpack-manifest-plugin';
 // @ts-ignore
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 // @ts-ignore
@@ -202,8 +202,8 @@ const config = (webpackEnv: any, _argv: any): webpack.Configuration => {
       // },
       // writeToDisk: false,
       devMiddleware: {
-        // writeToDisk: true, // massively speeds up loading of dev server
-        writeToDisk: false,
+        writeToDisk: true, // massively speeds up loading of dev server
+        // writeToDisk: false,
       },
       // watchFiles: {
       //   paths: [
@@ -215,8 +215,8 @@ const config = (webpackEnv: any, _argv: any): webpack.Configuration => {
       //     usePolling: true
       //   }
       // },
-      watchFiles: ["./src/**/*.{ejs,js,ts}"],
-      // content: ["./src/**/*.{ejs,js,ts}"],
+      watchFiles: ["./src/**/*.{ejs,ts}"],
+      // content: ["./src/**/*.{ejs,ts}"],
     }, // devServer
     watchOptions: {
       ignored: /node_modules/,
@@ -354,7 +354,7 @@ const config = (webpackEnv: any, _argv: any): webpack.Configuration => {
           type: 'asset/resource',
         },
 
-        // {
+        // isDevelopmentEnv && {
         //   enforce: 'pre',
         //   test: /\.ts$/,
         //   loader: require.resolve('tslint-loader'),
@@ -394,7 +394,6 @@ const config = (webpackEnv: any, _argv: any): webpack.Configuration => {
       }).filter(Boolean),
 
       // Copies the public directory into the root of build directory
-      // new CopyWebpackPlugin({ patterns: [{ from: 'public' }] }),
       new CopyWebpackPlugin({
         patterns: [
           {
@@ -406,12 +405,20 @@ const config = (webpackEnv: any, _argv: any): webpack.Configuration => {
             },
             toType: 'dir'
           },
-          {
-            context: `${PATH.assets}/json`,
-            from: '*.json5',
-            to: './assets/json',
-            toType: 'dir'
-          }
+          // {
+          //   context: `${PATH.assets}/json`,
+          //   from: '*.json5',
+          //   to: './assets/json',
+          //   toType: 'dir'
+          // },
+          // ...["jobTypes.json5", "workDurationTypes.json5"].map((filename) => {
+          //   return {
+          //     context: `${PATH.assets}/json`,
+          //     from: filename,
+          //     to: './assets/json',
+          //     // toType: 'dir'
+          //   };
+          // }),
         ]
       }),
 
@@ -431,24 +438,39 @@ const config = (webpackEnv: any, _argv: any): webpack.Configuration => {
           //   maximumFileSizeToCacheInBytes: 5 * 1024 * 1024 // 5MB currently to cache large builds, but should split and lazy-load
           // }),
 
-          // // Generate an asset manifest file
-          // new WebpackManifestPlugin({
-          //   fileName: 'asset-manifest.json',
-          //   publicPath: publicUrlOrPath,
-          //   generate: (seed, files, entries) => {
-          //     const manifestFiles = files.reduce((manifest, file) => {
-          //       manifest[file.name] = file.path
-          //       return manifest
-          //     }, seed)
-          //
-          //     const entrypointFiles = entries.main.filter(fileName => !fileName.endsWith('.map'))
-          //
-          //     return {
-          //       files: manifestFiles,
-          //       entrypoints: entrypointFiles
-          //     }
-          //   }
-          // }),
+          // Generate an asset manifest file
+          new WebpackManifestPlugin({
+            fileName: 'asset-manifest.json',
+            publicPath: publicUrlOrPath,
+            generate: (seed, files, entries) => {
+              // console.log('files', files.map(f => ({ name: f.name, path: f.path, isAsset: f.isAsset, isChunk: f.isChunk })));
+              // console.log('files', files.filter(f => !(f.isAsset || f.isChunk || f.name.endsWith(".svg"))).map(f => ({ name: f.name, path: f.path, isAsset: f.isAsset, isChunk: f.isChunk })));
+              // console.log('files', files.filter(f => f.name.startsWith("bs-icons/")));
+              // console.log('entries', entries);
+              // console.log('seed', seed);
+              const basePath = PATH.dist + path.sep + Constants.envValues.envMode;
+              let index = 0;
+              const manifestFiles = files.reduce((manifest, file) => {
+                // // Use regex.exec to capture the different parts of filename
+                // const regex = /^(?[^-]+(?:-[^-]+)*)-(?\w+)\.(?\w+)$/;
+                // const filenameParts = regex.exec(file).groups;
+
+                const filename = file.name.startsWith("bs-icons/") ? file.path.replace(publicUrlOrPath, '') : file.name;
+                const filenameParts = filename.split(".");
+                // const regex = /(.-)([^\\]-([^\\%.]+))$/;
+                // const regex = /(.-)([^/]-([^/%.]+))$/;
+                // const filenameParts = regex.exec(file.path).groups;
+                manifest[filename] = { fullPath: [basePath, filename].join("/"), path: file.path, ...filenameParts};
+                return manifest;
+              }, seed);
+              // console.log('manifestFiles', manifestFiles);
+              const entrypointFiles = Array.isArray(entries) ? entries.filter(fileName => !fileName.endsWith('.map')) : entries.app.filter(fileName => !fileName.endsWith('.map'));
+              return {
+                files: manifestFiles,
+                entrypoints: entrypointFiles
+              }
+            },
+          }),
         ]
         : [
           // Checks code for issues with eslint
@@ -507,5 +529,3 @@ const config = (webpackEnv: any, _argv: any): webpack.Configuration => {
 };
 
 export default config;
-
-// npm i -D @types/node @types/webpack @types/webpack-dev-server ts-node tsconfig-paths

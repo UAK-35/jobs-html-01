@@ -53,15 +53,15 @@ if (clearIndexDb && process.env.NODE_ENV !== "development") {
     let currentPagePath = window.location.pathname.slice(1);
     if (currentPagePath.length === 0) currentPagePath = "index.html";
     document.body.classList.add(currentPagePath.split(".")[0]);
+    const urlParams = new URLSearchParams(window.location.search);
+
+    let quoteType = urlParams.get("type");
+    if (quoteType == null || quoteType === "full-house-job") {
+      quoteType = "all";
+    }
 
     // calculate page hide-show logic
     if (currentPagePath === "calculate.html" || currentPagePath === "calculate-all.html") {
-      const urlParams = new URLSearchParams(window.location.search);
-      let quoteType = urlParams.get("type");
-      if (quoteType == null || quoteType === "full-house-job") {
-        quoteType = "all";
-      }
-
       const quotesCalcContainers = document.querySelectorAll<HTMLDivElement>(".quantities-container");
       if (quotesCalcContainers.length > 0) {
         quotesCalcContainers.forEach((quotesCalcContainer) => {
@@ -105,7 +105,7 @@ if (clearIndexDb && process.env.NODE_ENV !== "development") {
     }
 
     if (currentPagePath === "calculate.html" || currentPagePath === "calculate-all.html") {
-      if (!clearIndexDb) manageQuotesCalculation(currentPagePath);
+      if (!clearIndexDb) manageQuotesCalculation(currentPagePath, quoteType);
       manageFormSubmission();
     } else {
       manageReviewPopovers(); // index page

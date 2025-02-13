@@ -3,9 +3,9 @@
         <h5 class="fw-bold"><%= groupTitle %></h5>
     </div>
     <div class="card-body">
-        <ul class="list-group <%= listGroupClasses %>">
+        <div class="list-group <%= listGroupClasses %>">
             <!-- help link: https://github.com/mde/ejs/blob/main/docs/syntax.md#mainejs-1 -->
-            <%- include(viewsFolder + "\\makeCheckboxesWithQuantityList.ejs", { list, listLength, idPrefix }) %>
-        </ul>
+            <%- include(viewsFolder + "\\makeCheckboxesWithQuantityList.ejs", { list, listLength, idPrefix, checkboxClassPrefix }) %>
+        </div>
     </div>
 </div>

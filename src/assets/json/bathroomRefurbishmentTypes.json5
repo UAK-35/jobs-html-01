@@ -80,7 +80,7 @@
   {
     "title": "Wall Rendering",
     "defaultQuantity": 1,
-    "units": "p",
+    "units": "sqm",
     "pricePounds": 15
   },
   {

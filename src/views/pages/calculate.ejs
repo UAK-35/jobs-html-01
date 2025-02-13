@@ -21,43 +21,43 @@
         <%- include(viewsFolder + "\\makeServiceGroup.ejs", {
             list: bathroomRefurbTypes, listLength: bathroomRefurbTypes.length, idPrefix: "bathrmType",
             groupTitle: "Bathroom Refurbishment", groupClasses: "bathroom-types-container float-end clear-end",
-            widthPercent: 66, listGroupClasses: "list-group-horizont has-sqm-units"
+            widthPercent: 66, listGroupClasses: "list-group-horizont has-sqm-units", checkboxClassPrefix: "bathrm-type"
         }) %>
 
         <%- include(viewsFolder + "\\makeServiceGroup.ejs", {
             list: wallRefurbTypes, listLength: wallRefurbTypes.length, idPrefix: "wallsType",
             groupTitle: "Walls Refurbishment", groupClasses: "walls-types-container float-start clear-start",
-            widthPercent: 32, listGroupClasses: "list-group-horizont has-sqm-units"
+            widthPercent: 32, listGroupClasses: "list-group-horizont has-sqm-units", checkboxClassPrefix: "wall-type"
         }) %>
 
         <%- include(viewsFolder + "\\makeServiceGroup.ejs", {
             list: kitchenRefurbTypes, listLength: kitchenRefurbTypes.length, idPrefix: "ktchnType",
             groupTitle: "Kitchen Refurbishment", groupClasses: "kitchen-types-container float-end clear-end",
-            widthPercent: 66, listGroupClasses: "list-group-horizont"
+            widthPercent: 66, listGroupClasses: "list-group-horizont", checkboxClassPrefix: "kitchn-type"
         }) %>
 
         <%- include(viewsFolder + "\\makeServiceGroup.ejs", {
             list: floorRefurbTypes, listLength: floorRefurbTypes.length, idPrefix: "floorType",
             groupTitle: "Floor Refurbishment", groupClasses: "floors-types-container float-start clear-start",
-            widthPercent: 32, listGroupClasses: "list-group-horizont has-sqm-units"
+            widthPercent: 32, listGroupClasses: "list-group-horizont has-sqm-units", checkboxClassPrefix: "floor-type"
         }) %>
 
         <%- include(viewsFolder + "\\makeServiceGroup.ejs", {
             list: ceilingRefurbTypes, listLength: ceilingRefurbTypes.length, idPrefix: "ceilingType",
             groupTitle: "Ceiling Refurbishment", groupClasses: "ceiling-types-container float-end clear-end",
-            widthPercent: 32, listGroupClasses: "list-group-horizont has-sqm-units"
+            widthPercent: 32, listGroupClasses: "list-group-horizont has-sqm-units", checkboxClassPrefix: "ceiling-type"
         }) %>
 
         <%- include(viewsFolder + "\\makeServiceGroup.ejs", {
             list: loftConversionTypes, listLength: loftConversionTypes.length, idPrefix: "loftConvType",
             groupTitle: "Loft Conversion", groupClasses: "loft-types-container float-end clear-none",
-            widthPercent: 32, listGroupClasses: "list-group-horizont has-sqm-units"
+            widthPercent: 32, listGroupClasses: "list-group-horizont has-sqm-units", checkboxClassPrefix: "loft-conv-type"
         }) %>
 
         <%- include(viewsFolder + "\\makeServiceGroup.ejs", {
             list: extensionTypes, listLength: extensionTypes.length, idPrefix: "extensnType",
             groupTitle: "Extensions", groupClasses: "extension-types-container float-end clear-none",
-            widthPercent: 32, listGroupClasses: "list-group-horizont has-sqm-units"
+            widthPercent: 32, listGroupClasses: "list-group-horizont has-sqm-units", checkboxClassPrefix: "extension-type"
         }) %>
 
     </div>

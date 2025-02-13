@@ -1,5 +1,3 @@
-import reviewStoriesType from "../../assets/json/reviewStories.json5";
-
 export interface ISelectionInfo extends Record<string, any> {
   serviceGroup: string; service: string; quantity: number; quantityText: string; pricePerItem: number
 };

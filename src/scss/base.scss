@@ -1,0 +1,528 @@
+@charset "UTF-8";
+@use "sass:math";
+@use "sass:map";
+@use "sass:string";
+
+// 1. Include functions first (so you can manipulate colors, SVGs, calc, etc)
+@import "bootstrap/scss/functions";
+//@use "bootstrap/scss/functions" as *;
+
+
+@function str-replace($string, $search, $replace: '') {
+  $index: string.index($string, $search);
+  @if $index {
+    @return string.slice($string, 1, $index - 1) + $replace + str-replace(string.slice($string, $index + string.length($search)), $search, $replace);
+  }
+  @return $string;
+}
+
+@function reverse-list($list, $separator:comma) {
+  $reversedList: null;
+  @for $i from length($list) to 0 {
+    $reversedList: append($reversedList, nth($list, $i), $separator);
+  }
+  @return $reversedList;
+}
+
+@function map-reverse ($map) {
+  $result: null;
+  @if type-of($map) == "map" {
+    $keys: map-keys($map);
+    $map-reversed: ();
+
+    @for $i from length($keys) through 1 {
+      $map-reversed: map.merge(
+                      $map-reversed,
+                      (nth($keys, $i): map-get($map, nth($keys, $i)))
+      );
+    }
+
+    @if type-of($map-reversed) == "map" {
+      $result: $map-reversed;
+    } @else {
+      @warn 'There was an error reversing the order of "#{$map}"';
+    }
+  } @else {
+    @warn '"#{$map}" is not a valid map';
+  }
+
+  @return $result;
+}
+
+
+// 2. Include any default variable overrides here
+$enable-important-utilities: true;
+$display-font-sizes: (
+  //1: 5rem,
+  //2: 4.5rem,
+  //3: 4rem,
+  //4: 3.5rem,
+  //5: 3rem,
+  //6: 2.5rem
+
+  //1: 4rem,
+  //2: 3.375rem,
+  //3: 2.5rem,
+  //4: 2.25rem,
+  //5: 1.5rem,
+  //6: 1.25rem,
+
+        1: 3.75rem,
+        2: 3rem,
+        3: 2.5rem,
+        4: 2.25rem,
+        5: 1.5rem,
+        6: 1.25rem,
+        7: 1rem,
+        8: 0.75rem,
+);
+$aspect-ratios: (
+        "1x1": 100%,
+        "4x3": calc(3 / 4 * 100%),
+        "16x9": calc(9 / 16 * 100%),
+        "21x9": calc(9 / 21 * 100%),
+        "90pct": calc(9 / 10 * 100%),
+);
+
+
+// 3. Include remainder of required Bootstrap stylesheets (including any separate color mode stylesheets)
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/variables-dark";
+//@use "bootstrap/scss/variables" as *;
+//@use "bootstrap/scss/variables-dark" as *;
+
+// 4. Include any default map overrides here
+
+//@function create_kv_map($key, $val) {
+//  $map: (
+//    $key: $val,
+//  );
+//  @return $map;
+//}
+
+$custom-font-sizes-one: (
+  //1: 2rem,
+  //2: 1.75rem,
+  //3: 1.5rem,
+  //4: 1.25rem,
+  //5: 1rem,
+
+        1: 1.5rem,
+        2: 1.325rem,
+        3: 1.25rem,
+        4: 1.125rem,
+        5: 1rem,
+        6: 0.875rem,
+        7: 0.75rem,
+        8: 0.625rem,
+);
+
+//$startPctSiz: 1;
+//$endPctSiz: 100;
+////$percentSiz-map: (auto: auto, min: min-content, max: max-content, 0: 0);
+//$percentSiz-map: ();
+//@for $i from $startPctSiz through $endPctSiz {
+//  $percentVal: percentage(math.div($i, 100));
+//  $percentSiz-map: map.merge($percentSiz-map, ($i: $percentVal));
+//}
+
+$startPctSiz: 0;
+$endPctSiz: 100;
+$pctParts: 8;
+$last-j: 0;
+$percentSiz-map: ();
+@for $i from $startPctSiz through $endPctSiz {
+  @for $j from 1 through $pctParts {
+    @if ($i < $endPctSiz or $i == $endPctSiz and $j == $pctParts - ($pctParts - 1)) {
+      $val: math.div($last-j, $pctParts);
+      $pctVal: math.percentage(math.div($val, 100));
+      $key: str-replace(#{$val}, '.', '\\.');
+      $percentSiz-map: map.merge($percentSiz-map, ($key: $pctVal));
+    }
+    $last-j: $last-j + 1;
+  }
+}
+
+
+$startPxSiz: 1;
+$endPxSiz: 1500;
+//$pxSiz-map: (auto: auto, min: min-content, max: max-content, 0: 0);
+$pxSiz-map: ();
+@for $i from $startPxSiz through $endPxSiz {
+  $pxVal: $i + px;
+  $pxSiz-map: map.merge($pxSiz-map, ($i: $pxVal));
+}
+
+$startRem: 0;
+$endRem: 10;
+$remParts: 8;
+$last-j: 0;
+$remSiz-map: ();
+@for $i from $startRem through $endRem {
+  @for $j from 1 through $remParts {
+    @if ($i < $endRem or $i == $endRem and $j == $remParts - ($remParts - 1)) {
+      $val: math.div($last-j, $remParts);
+      $remVal: $val + rem;
+      // @debug $i, $j, $val, $last-j, $remVal;
+      $key: str-replace(#{$val}, '.', '\\.');
+      // @debug $key, $remVal;
+      $remSiz-map: map.merge($remSiz-map, ($key: $remVal));
+    }
+    $last-j: $last-j + 1;
+  }
+}
+
+
+$utilities: (
+        "width": (
+                property: width,
+                class: w,
+                responsive: true,
+                values: (
+                        0: 0,
+                        25: 25%,
+                        50: 50%,
+                        75: 75%,
+                        100: 100%,
+                        auto: auto,
+                        min: min-content,
+                        max: max-content,
+                        fit: fit-content,
+                )
+        ),
+        "max-width": (
+                property: max-width,
+                class: mw,
+                responsive: true,
+                values: $percentSiz-map,
+        ),
+        "min-width": (
+                property: min-width,
+                class: nw,
+                responsive: true,
+                values: $percentSiz-map,
+        ),
+        "height": (
+                property: height,
+                class: h,
+                responsive: true,
+                values: (
+                        0: 0,
+                        25: 25%,
+                        50: 50%,
+                        75: 75%,
+                        100: 100%,
+                        auto: auto,
+                        min: min-content,
+                        max: max-content,
+                        fit: fit-content,
+                )
+        ),
+        "wpct": (
+                property: width,
+                class: wpct,
+                responsive: true,
+                values: $percentSiz-map,
+        ),
+        "wpx": (
+                property: width,
+                class: wpx,
+                responsive: true,
+                values: $pxSiz-map,
+        ),
+        "min-wpx": (
+                property: min-width,
+                class: min-wpx,
+                responsive: true,
+                values: $pxSiz-map,
+        ),
+        "max-wpx": (
+                property: max-width,
+                class: max-wpx,
+                responsive: true,
+                values: $pxSiz-map,
+        ),
+        "hpct": (
+                property: height,
+                class: hpct,
+                responsive: true,
+                values: $percentSiz-map,
+        ),
+        "hpx": (
+                property: height,
+                class: hpx,
+                responsive: true,
+                values: $pxSiz-map,
+        ),
+        "min-hpx": (
+                property: min-height,
+                class: min-hpx,
+          //responsive: false,
+                values: $pxSiz-map,
+        ),
+);
+
+
+$light-green-1: #5BC43A;
+$light-green-2: #E7F6E2;
+$custom-black-1: #101722;
+$font-size-low-base-1: 0.85rem !default;
+$font-size-low-base-2: 0.75rem !default;
+
+//$spacers: (
+//  0: 0,
+//  1: $spacer * .25,
+//  2: $spacer * .5,
+//  3: $spacer,
+//  4: $spacer * 1.5,
+//  5: $spacer * 3,
+//  6: $spacer * 4,
+//  7: $spacer * 5,
+//  8: $spacer * 6,
+//  9: $spacer * 7,
+//  10: $spacer * 8,
+//);
+$startSpacer: 1;
+$endSpacer: 40;
+$spacer-map: (0: 0);
+@for $i from $startSpacer through $endSpacer {
+  $val: math.div($i, 4);
+  $spacer-map: map.merge($spacer-map, ($i: $spacer * $val));
+}
+$spacers: $spacer-map;
+
+$font-sizes: (
+        1: $h1-font-size,
+        2: $h2-font-size,
+        3: $h3-font-size,
+        4: $h4-font-size,
+        5: $h5-font-size,
+        6: $h6-font-size,
+        7: $font-size-low-base-1,
+        8: $font-size-low-base-2,
+);
+
+
+$custom-colors: (
+        "light-green-1": $light-green-1,
+        "light-green-2": $light-green-2,
+        "custom-black-1": $custom-black-1,
+);
+$theme-colors: map.merge($theme-colors, $custom-colors);
+
+// 5. Include remainder of required parts
+@import "bootstrap/scss/maps";
+@import "bootstrap/scss/mixins";
+@import "bootstrap/scss/root";
+//@use "bootstrap/scss/maps" as *;
+//@use "bootstrap/scss/mixins" as *;
+//@use "bootstrap/scss/root" as *;
+
+// 6. Optionally include any other parts as needed
+@import "bootstrap/scss/utilities";
+@import "bootstrap/scss/reboot";
+@import "bootstrap/scss/type";
+@import "bootstrap/scss/images";
+//@import "bootstrap/scss/grid";
+@import "bootstrap/scss/tables";
+@import "bootstrap/scss/forms";
+@import "bootstrap/scss/buttons";
+@import "bootstrap/scss/transitions";
+//@import "bootstrap/scss/dropdown";
+//@import "bootstrap/scss/button-group";
+//@import "bootstrap/scss/nav";
+//@import "bootstrap/scss/navbar";
+@import "bootstrap/scss/card";
+//@import "bootstrap/scss/breadcrumb";
+//@import "bootstrap/scss/pagination";
+//@import "bootstrap/scss/badge";
+//@import "bootstrap/scss/alert";
+//@import "bootstrap/scss/progress";
+@import "bootstrap/scss/list-group";
+@import "bootstrap/scss/close";
+@import "bootstrap/scss/modal";
+//@import "bootstrap/scss/tooltip";
+//@import "bootstrap/scss/popover";
+//@import "bootstrap/scss/carousel";
+@import "bootstrap/scss/containers";
+@import "bootstrap/scss/helpers";
+@import "bootstrap/scss/spinners";
+@import "bootstrap/scss/toasts";
+
+@import "bootstrap/scss/accordion";
+//@use "bootstrap/scss/utilities" as *;
+
+// 7. Optionally include utilities API last to generate classes based on the Sass map in `_utilities.scss`
+@import "bootstrap/scss/utilities/api";
+//@use "bootstrap/scss/utilities/api" as *;
+
+
+
+// Add additional custom code here
+b,
+strong {
+  font-weight: $font-weight-semibold;
+}
+
+// Typography - display-n classes
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @each $size, $length in $display-font-sizes {
+    @include media-breakpoint-up($breakpoint) {
+      .display-#{$breakpoint}-#{$size} {font-size: $length !important;}
+    }
+  }
+}
+
+// Typography - custom font classes
+@each $display, $font-size in $custom-font-sizes-one {
+  .fnt-#{$display} {
+    @include font-size($font-size);
+    font-family: $display-font-family;
+    font-style: $display-font-style;
+    font-weight: $display-font-weight;
+    line-height: $display-line-height;
+  }
+}
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @each $display, $font-size in $custom-font-sizes-one {
+    @include media-breakpoint-up($breakpoint) {
+      .fnt-#{$breakpoint}-#{$display} {
+        @include font-size($font-size);
+        font-family: $display-font-family;
+        font-style: $display-font-style;
+        font-weight: $display-font-weight;
+        line-height: $display-line-height;
+      }
+    }
+  }
+}
+
+
+//$j-text-colors: map-merge-multiple($blues, $indigos, $purples, $pinks, $reds, $oranges, $yellows, $greens, $teals, $cyans);
+//$utilities: map.merge(
+//    $utilities,
+//    (
+//      "color": map.merge(
+//          map-get($utilities, "color"),
+//          (
+//            values: map.merge(
+//                map-get(map-get($utilities, "color"), "values"),
+//                  (
+//                    $j-text-colors
+//                  ),
+//            ),
+//          ),
+//      ),
+//    )
+//);
+
+@each $i, $width in $percentSiz-map {
+  .start-#{$i}pct {
+    left: $width;
+  }
+  .end-#{$i}pct {
+    right: $width;
+  }
+  .top-#{$i}pct {
+    top: $width;
+  }
+  .bottom-#{$i}pct {
+    bottom: $width;
+  }
+};
+
+@each $i, $sizVal in $pxSiz-map {
+  .fix-wpx-#{$i} {
+    min-width: $sizVal;
+    max-width: $sizVal;
+  }
+
+  .fix-hpx-#{$i} {
+    min-height: $sizVal;
+    max-height: $sizVal;
+  }
+
+  .fix-size-#{$i}px {
+    min-height: $sizVal;
+    max-height: $sizVal;
+    min-width: $sizVal;
+    max-width: $sizVal;
+  }
+
+  @each $breakpoint in map-keys($grid-breakpoints) {
+    @include media-breakpoint-up($breakpoint) {
+      .fix-wpx-#{$breakpoint}-#{$i} {
+        min-width: $sizVal !important;
+        max-width: $sizVal !important;
+      }
+
+      .fix-hpx-#{$breakpoint}-#{$i} {
+        min-height: $sizVal !important;
+        max-height: $sizVal !important;
+      }
+
+      .fix-size-#{$breakpoint}-#{$i}px {
+        min-height: $sizVal !important;
+        max-height: $sizVal !important;
+        min-width: $sizVal !important;
+        max-width: $sizVal !important;
+      }
+    }
+  }
+};
+
+@each $val, $remVal in $remSiz-map {
+  @if $val == '0' {
+    $remVal: 0;
+  }
+
+  .pad-#{$val}rem {
+    padding: $remVal;
+  }
+  .pad-y-#{$val}rem {
+    //padding-block: $remVal;
+    padding-top: $remVal;
+    padding-bottom: $remVal;
+  }
+  .pad-x-#{$val}rem {
+    //padding-inline: $remVal;
+    padding-left: $remVal;
+    padding-right: $remVal;
+  }
+  .pad-b-#{$val}rem {
+    padding-bottom: $remVal;
+  }
+
+  @each $breakpoint in map-keys($grid-breakpoints) {
+    @include media-breakpoint-up($breakpoint) {
+      .pad-#{$breakpoint}-#{$val}rem {
+        padding: $remVal !important;
+      }
+      .pad-y-#{$breakpoint}-#{$val}rem {
+        //padding-block: $remVal !important;
+        padding-top: $remVal !important;
+        padding-bottom: $remVal !important;
+      }
+      .pad-x-#{$breakpoint}-#{$val}rem {
+        //padding-inline: $remVal !important;
+        padding-left: $remVal !important;
+        padding-right: $remVal !important;
+      }
+      .pad-b-#{$breakpoint}-#{$val}rem {
+        padding-bottom: $remVal !important;
+      }
+
+    }
+  }
+}
+
+//@each $breakpoint in map-keys($grid-breakpoints) {
+//  @include media-breakpoint-up($breakpoint) {
+//    .py-#{$breakpoint}-auto {
+//      padding-inline: 'auto' !important;
+//    }
+//  }
+//}
+
+@import "./font1";
+@import "./font2";
